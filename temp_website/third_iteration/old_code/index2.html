@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<title>Homework 2 Graph</title>
+<style>
+  .link {
+    stroke: gray;
+    stroke-width: .8px;
+  }
+
+  .node {
+    fill: white;
+    stroke: #000;
+    stroke-width: .9px;
+  }
+
+  .node:hover {
+    fill: black;
+  }
+
+</style>
+<body>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+<script src="http://d3js.org/d3.v3.min.js"></script>
+  <form>
+  Layout:
+    <label><input type="radio" name="layout" value="force" checked> Force</label>
+    <label><input type="radio" name="layout" value="random" > Random</label>
+    <label><input type="radio" name="layout" value="circular"> Circular</label>
+    <label><input type="radio" name="layout" value="line"> Line</label>
+    <label><input type="radio" name="layout" value="line_cat"> Line by Category</label>
+  </form>
+  <form>
+  Color:
+    <label><input type="radio" name="color" value="nocolor" checked> None</label>
+    <label><input type="radio" name="color" value="color_cat" > Category</label>
+  </form>
+  <form>
+  Size:
+    <label><input type="radio" name="size" value="nosize" checked> None</label>
+    <label><input type="radio" name="size" value="size_cat" > Category</label>
+  </form>
+<script>
+
+var shell = "M157.899,317.812C72.488,317.812,3,247.202,3,160.411C3,73.615,72.489,3,157.899,3 c85.404,0,154.89,70.614,154.89,157.411C312.791,247.202,243.304,317.812,157.899,317.812"
+
+var shell ="M103.286,209.917C46.334,209.917,0,162.833,0,104.961C0,47.086,46.335,0,103.286,0 c56.947,0,103.28,47.085,103.28,104.961C206.568,162.833,160.234,209.917,103.286,209.917"
+var firstopen = "M177.312,57.854c-0.905,0-1.8-0.444-2.335-1.259c-15.686-23.91-41.769-38.44-69.78-38.87 c-1.536-0.027-2.768-1.292-2.745-2.835c0.029-1.539,1.091-2.899,2.836-2.749c29.862,0.463,57.656,15.936,74.357,41.391 c0.842,1.288,0.486,3.021-0.804,3.864C178.371,57.708,177.842,57.854,177.312,57.854"
+
+var secondopen = "M191.907,99.393c-1.424,0-2.639-1.087-2.777-2.533c-0.962-10.346-3.748-20.397-8.253-29.876 c-0.665-1.39-0.069-3.054,1.32-3.721c1.381-0.66,3.056-0.073,3.716,1.322c4.799,10.069,7.75,20.758,8.774,31.762 c0.143,1.533-0.982,2.893-2.514,3.038C192.082,99.39,191.995,99.393,191.907,99.393"
+colors= ["#50C4D5", "#24AB9D","#F05D58","#F9A339"]
+
+var margin = {top: 50, bottom: 10, left: 300, right: 40};
+var width = $(document).width() - margin.left - margin.right;
+var height =  $(window).height()  - margin.top - margin.bottom;
+
+var svg = d3.select("body").append("svg")
+            .attr("width", width)
+            .attr("height", height);
+
+var fill = d3.scale.category10();
+
+var graph = {nodes: [], links: []};
+
+var nb_nodes = 20, nb_cat = 10;
+
+var node_scale = d3.scale.linear().domain([0, nb_cat]).range([5, 50])
+
+graph.nodes = d3.range(nb_nodes).map(function() {
+  return {
+    cat: Math.floor(nb_cat*Math.random())
+  };
+})
+
+graph.nodes.forEach(function(d, i) {
+  graph.nodes.forEach(function(e, j) {
+    if(Math.random()>.99 && i!=j)
+      graph.links.push({"source": i, "target": j})
+
+  })
+})
+
+// Generate the force layout
+var force = d3.layout.force()
+    .size([width, height])
+    .charge(-900)
+    //.gravity(0.08)
+    .linkDistance(10)
+    .on("tick", tick)
+    .on("start", function(d) {})
+    .on("end", function(d) {})
+
+function tick(d) {
+  graph_update(0);
+}
+
+function random_layout() {
+
+  force.stop();
+
+  graph.nodes.forEach(function(d, i) {
+    d.x = width/4 + 2*width*Math.random()/4;
+    d.y = height/4 + 2*height*Math.random()/4;
+  })
+
+  graph_update(500);
+}
+
+function force_layout() {
+
+ force.nodes(graph.nodes)
+      .links(graph.links)
+      .start();
+}
+
+function line_layout() {
+
+  force.stop();
+
+  graph.nodes.forEach(function(d, i) {
+    d.y = height/2;
+  })
+
+  graph_update(500);
+}
+
+function line_cat_layout() {
+
+  force.stop();
+
+  graph.nodes.forEach(function(d, i) {
+    d.y = height/2 + d.cat*20;
+  })
+
+  graph_update(500);
+}
+
+function circular_layout() {
+
+  force.stop();
+
+  var r = Math.min(height, width)/2;
+
+  var arc = d3.svg.arc()
+          .outerRadius(r);
+
+  var pie = d3.layout.pie()
+          .sort(function(a, b) { return a.cat - b.cat;}) // Sorting by categories
+          .value(function(d, i) {
+            return 1;  // We want an equal pie share/slice for each point
+          });
+
+  graph.nodes = pie(graph.nodes).map(function(d, i) {
+    // Needed to caclulate the centroid
+    d.innerRadius = 0;
+    d.outerRadius = r;
+
+    // Building the data object we are going to return
+    d.data.x = arc.centroid(d)[0]+width/2;
+    d.data.y = arc.centroid(d)[1]+height/2;
+
+    return d.data;
+  })
+
+  graph_update(500);
+}
+
+function category_color() {
+
+  d3.selectAll("circle").transition().duration(500)
+                        .style("fill", function(d) {
+                          return fill(d.cat);
+                        });
+}
+
+function category_size() {
+
+  d3.selectAll("circle").transition().duration(500)
+                        .attr("r", function(d) {
+                          return Math.sqrt(node_scale(d.cat));
+                        });
+}
+
+function graph_update(duration) {
+
+  link.transition().duration(duration)
+      .attr("x1", function(d) { return d.target.x; })
+      .attr("y1", function(d) { return d.target.y; })
+      .attr("x2", function(d) { return d.source.x; })
+      .attr("y2", function(d) { return d.source.y; });
+
+  node.transition().duration(duration)
+      .attr("transform", function(d) {
+        return "translate("+d.x+","+d.y+")";
+      });
+}
+
+d3.select("input[value=\"force\"]").on("click", force_layout);
+d3.select("input[value=\"random\"]").on("click", random_layout);
+d3.select("input[value=\"line\"]").on("click", line_layout);
+d3.select("input[value=\"line_cat\"]").on("click", line_cat_layout);
+d3.select("input[value=\"circular\"]").on("click", circular_layout);
+
+d3.select("input[value=\"nocolor\"]").on("click", function() {
+  d3.selectAll("circle").transition().duration(500).style("fill", "#66CC66");
+})
+
+d3.select("input[value=\"color_cat\"]").on("click", category_color);
+
+d3.select("input[value=\"nosize\"]").on("click", function() {
+  d3.selectAll("circle").transition().duration(500).attr("r", 5);
+})
+
+d3.select("input[value=\"size_cat\"]").on("click", category_size);
+
+var link = svg.selectAll(".link")
+              .data(graph.links);
+
+link.enter().append("line")
+    .attr("class", "link")
+
+var node = svg.selectAll(".node")
+              .data(graph.nodes)
+            .enter()
+              .append("g").attr("class", "node");
+
+node.append("path" )
+    .attr("d", shell)
+    .attr("fill",  function(){return colors[Math.floor(Math.random() * colors.length)] })
+    //.attr("transform", "scale(0.5,0.5)")
+
+node.append("path" )
+    .attr("d", firstopen)
+    //.attr("transform", "scale(0.5,0.5)")
+
+node.append("path" )
+    .attr("d", secondopen)
+    //.attr("transform", "scale(0.5,0.5)")
+node.on("click", function(d){
+  console.log(d)
+  console.log(this.transform)
+})
+node.call(force.drag);
+force_layout();
+
+</script>
+</body>
+</html>

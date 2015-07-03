@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <!-- Meta, title, CSS, favicons, etc. -->
+    <meta charset="utf-8">
+<meta name="description" content="">
+<meta name="author" content="">
+
+
+<title>
+
+    365
+
+</title>
+<style>
+IMG.displayed {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width:30%; /* you can use % */
+    height: auto;
+     }
+.text {
+  display: block;
+  position: fixed;
+  top: 40%;
+  float: right;
+  font-size: 5vw;
+  text-align: center;
+  font-family: Helvetica;
+     }
+.signup{
+  font-size: 3vw;
+}
+.right{
+  right: 0px;
+  width: 40%;
+}
+/*.email-input{
+  border: 1px solid #fff;
+   width: 120px;
+  background: transparent;
+  float: right;
+}*/
+.email-input{
+  height: 25px;
+  width: 275px;
+  background-color: transparent;
+  border-style: solid;
+  border-width: 0px 0px 2px 0px;
+  border-color: #1abc9c;
+  outline:0;
+  font-size: 20px;
+}
+
+.email-form{
+  margin: 0 auto;
+  margin-bottom: 20px;
+}
+.btn {
+
+  -webkit-border-radius: 0;
+  -moz-border-radius: 0;
+  border-radius: 0px;
+  font-family: Arial;
+  color: #ffffff;
+  font-size: 20px;
+  background: #1abc9c;
+  padding: 10px 20px 10px 20px;
+  text-decoration: none;
+}
+
+.btn:hover {
+  background: #16a085;
+  text-decoration: none;
+}
+html {
+  background: -webkit-linear-gradient(rgba(255,255,255,0.8),rgba(255,255,255,0.8)), url(beach.jpg) no-repeat center center fixed;
+  background: -moz-linear-gradient(rgba(255,255,255,0.8),rgba(255,255,255,0.8)), url(beach.jpg) no-repeat center center fixed;
+  background: linear-gradient(rgba(255,255,255,0.8),rgba(255,255,255,0.8)), url(beach.jpg) no-repeat center center fixed;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+}
+
+</style>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+
+</head>
+
+<body>
+  <div class="text">
+    Don't let today<br>disappear.
+  </div>
+
+  <IMG class="displayed" src="first_look.png" alt="Image of the App">
+
+  <div class="text right signup">
+    <div id="changing-text"> Want updates? </div>
+      <form class="email-form">
+        <input id="email-tosubmit"type="text" class="email-input" placeholder="Email Address">
+
+      </form>
+      <a  id="submit-link"class="btn"> Join Us</a>
+  </div>
+</body>
+
+<script>
+
+$("#submit-link").on("click", function(){
+
+  $("#email-tosubmit").val("");
+  $("#changing-text").text("Thank You")
+
+})
+</script>

@@ -1,0 +1,137 @@
+<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+   width="1024px" height="768px" viewBox="0 0 1024 768" enable-background="new 0 0 1024 768" xml:space="preserve">
+<path fill="#F9A339" d="M157.899,317.812C72.488,317.812,3,247.202,3,160.411C3,73.615,72.489,3,157.899,3
+  c85.404,0,154.89,70.614,154.89,157.411C312.791,247.202,243.304,317.812,157.899,317.812"/>
+
+<path fill="#FFFFFF" d="M267.981,89.243c-1.357,0-2.7-0.665-3.502-1.888c-23.525-35.858-62.641-57.649-104.65-58.293
+  c-2.304-0.041-4.151-1.938-4.117-4.252c0.043-2.309,1.636-4.349,4.253-4.122c44.784,0.693,86.468,23.899,111.514,62.074
+  c1.264,1.932,0.729,4.531-1.206,5.795C269.569,89.024,268.777,89.243,267.981,89.243"/>
+<path fill="#FFFFFF" d="M289.871,151.539c-2.137,0-3.958-1.63-4.166-3.799c-1.443-15.516-5.62-30.59-12.377-44.805
+  c-0.996-2.085-0.104-4.58,1.98-5.581c2.071-0.99,4.583-0.109,5.573,1.983c7.198,15.101,11.623,31.131,13.159,47.634
+  c0.214,2.299-1.474,4.338-3.771,4.555C290.132,151.534,290.001,151.539,289.871,151.539"/>
+
+
+</svg>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+
+<script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
+<body>
+  <p class="mainlinfe">
+Join us in not letting another day disappear. </p>
+</body>
+
+<script>
+
+
+
+
+
+var margin = {top: 50, bottom: 20, left: 20, right: 100};
+var width = $(window).width() - margin.left - margin.right;
+var height = $(window).height()  - margin.top - margin.bottom;
+
+var svg = d3.select("body").append("svg")
+            .attr("width", width)
+            .attr("height", height);
+
+
+colors= ["#50C4D5", "#24AB9D","#F05D58","#F9A339"]
+
+// Generate the force layout
+var force = d3.layout.force()
+    .size([width, height])
+    .charge(-50)
+    .linkDistance(10)
+    .on("tick", tick)
+    .on("start", function(d) {})
+    .on("end", function(d) {})
+
+
+for(var i =1 ; i< 20; i++){
+
+  bubble = svg.append("g").datum([(i%5 * 250), (Math.ceil(i/10) * 175)]).attr("transform", function(d) {
+        return "scale(0.5,0.5), translate("+ d[0] +", " + d[1] +")";
+      }).attr("class" ,"bubble").attr("id", function(){return "f"+i})
+    bubble.append('path').attr("fill", function(){return colors[Math.floor(Math.random() * colors.length)] }).attr("d", "M157.899,317.812C72.488,317.812,3,247.202,3,160.411C3,73.615,72.489,3,157.899,3 c85.404,0,154.89,70.614,154.89,157.411C312.791,247.202,243.304,317.812,157.899,317.812").attr("class" ,"shell")
+  bubble.append("path").attr("fill", "#FFFFFF").attr("d","M267.981,89.243c-1.357,0-2.7-0.665-3.502-1.888c-23.525-35.858-62.641-57.649-104.65-58.293 c-2.304-0.041-4.151-1.938-4.117-4.252c0.043-2.309,1.636-4.349,4.253-4.122c44.784,0.693,86.468,23.899,111.514,62.074 c1.264,1.932,0.729,4.531-1.206,5.795C269.569,89.024,268.777,89.243,267.981,89.243")
+  bubble.append("path").attr("fill", "#FFFFFF").attr("d","M289.871,151.539c-2.137,0-3.958-1.63-4.166-3.799c-1.443-15.516-5.62-30.59-12.377-44.805 c-0.996-2.085-0.104-4.58,1.98-5.581c2.071-0.99,4.583-0.109,5.573,1.983c7.198,15.101,11.623,31.131,13.159,47.634 c0.214,2.299-1.474,4.338-3.771,4.555C290.132,151.534,290.001,151.539,289.871,151.539")
+
+//#d3.selectAll(".bubble").attr("transform","scale(0.8,0.8)")
+}
+
+function force_layout() {
+
+ force.nodes(graph.nodes)
+      .links(graph.links)
+      .start();
+}
+
+
+
+    // setInterval(function() {
+
+    //      d3.selectAll(".bubble").datum(function(d){return [d[0] + Math.random()*2, d[1]+ Math.random()*2]}).attr("transform", function(d) {
+    //     return "translate("+ d[0] +", " + d[1] +")";
+    //   })
+    //      //.attr("transform", function() {
+
+    //   //   return "translate("+ Math.random()*250+", " + Math.random()*250 +")";
+    //   // })
+    // }, 100);
+    setInterval(function() {
+
+         d3.selectAll(".shell").attr("fill", function(){return colors[Math.floor(Math.random() * colors.length)] })
+         //.attr("transform", function() {
+
+      //   return "translate("+ Math.random()*250+", " + Math.random()*250 +")";
+      // })
+    }, 150);
+
+
+jQuery.fn.verticalMarquee = function(vertSpeed, horiSpeed, index) {
+
+    this.css('float', 'left');
+
+    vertSpeed = vertSpeed || 1;
+    horiSpeed = 1/horiSpeed || 1;
+
+    var windowH = this.parent().height(),
+        thisH = this.height(),
+        parentW = (this.parent().width() - this.width()) / 2,
+        rand = Math.random() * (index * 1000),
+
+        current = d3.select("#"+this[0].id)
+        current = this
+    this.css('margin-top', windowH + thisH);
+    this.parent().css('overflow', 'hidden');
+
+    setInterval(function() {
+      // console.log(current)
+
+      current.attr("transform", function(d) {
+
+        return "translate("+ ((Math.sin(new Date().getTime() / (horiSpeed * 1000) + rand) + 1) * parentW) +", " + 5 +")";
+      })
+        // current.css({
+        //     marginTop: function(n, v) {
+        //         return parseFloat(v) - vertSpeed;
+        //     },
+        //     marginLeft: function(n, v) {
+        //         return (Math.sin(new Date().getTime() / (horiSpeed * 1000) + rand) + 1) * parentW;
+        //     }
+        // });
+    }, 15);
+
+    // setInterval(function() {
+    //     if (parseFloat(current.css('margin-top')) < -thisH) {
+    //         current.css('margin-top', windowH + thisH);
+    //     }
+    // }, 250);
+};
+var message = 1;
+
+// $('.bubble').each(function(message) {
+//     $(this).verticalMarquee(2, 0.1, message);
+//     message++
+// });
+</script>

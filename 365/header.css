@@ -1,0 +1,19 @@
+#settingDropDown{
+	display:none;
+	top: 30%;
+	left: auto;
+	right: 0% !important;
+	width:20%;
+	text-align:center;
+}
+
+#settingDropDown input[type="submit"]{
+	width:90%;
+	margin-left:5%;
+	margin-right:5%;
+	margin-top:5%;
+}
+
+#changePasswordForm{
+	display:none;
+}
