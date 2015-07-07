@@ -10,3 +10,4 @@ accounts-password
 accounts-ui
 bootstrap
 npm
+iron:router
