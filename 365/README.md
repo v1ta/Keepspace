@@ -21,4 +21,3 @@ Configuring facebook for localhost:
  run meteor deploy 365.meteor.com to push it up online
 
  all images go in public/images
- 
