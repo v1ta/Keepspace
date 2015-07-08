@@ -116,15 +116,20 @@ if (Meteor.isClient) {
     },
     //login with facebook
     'click #login-buttons-facebook': function(){
+      console.log("click");
       Meteor.loginWithFacebook(
       {
          requestPermissions: ['email', 'user_friends', 'user_location', 'user_status',
         'user_posts']
         
       }, function(err){
-             if (!err)
+            if (!err){
               Session.set("isFB", true);
               // $("#changePassword").hide();
+            }
+            else{
+              console.log(err);
+            }
           }
       )},
       //  if you hit create account button

@@ -1,3 +1,43 @@
+
+<head>
+    <title>365</title>
+    <link rel="stylesheet" type="text/css" href="365.css">
+    <link rel="stylesheet" type="text/css" href="calendar.css">
+</head>
+
+<body>
+  {{> header}}
+  <!-- {{> main}} -->
+</body>
+
+<template name="main">
+
+  <div id="feed">
+	<!-- <button class="btn" id="btn-user-data">Get User Data</button> -->
+    {{> feed}}
+    <div id="whiteSpace"></div>
+    <div id="myFeed" class="feedDiv">
+    	{{username}}
+      <ul>
+      {{#each posts}}
+        {{> post}}
+      {{/each}}
+    </ul>
+    </div>
+    <div id="friendFeed" class="feedDiv">
+      <p>Friends</p>
+
+    </div>
+    <div id="world" class="feedDiv">
+      	<p id="worldHeader">World</P>
+		<div id="worldButtons">
+			<input id="popular" type="image" src="images/popularButton.png" name="calendar" width="90" height="35">
+			<input id="random" type="image" src="images/randomButton.png" name="calendar" width="90" height="35">
+        </div>
+    </div>
+  </div>
+</template>
+
 <template name="header">
   <header>
      <!-- {{> loginButtons}} -->
@@ -31,38 +71,3 @@
 
   {{/if}}
 </template>
-
-
-<template name="register">
-    <form>
-        <input type="email" name="registerEmail">
-        <input type="password" name="registerPassword">
-        <input type="submit" value="Register">
-    </form>
-</template>
-
-<template name="login">
-	<div id="loginButtons">
-	    <form>
-	        <input class="loginForm" id="username" type="username" name="loginEmail"
-	        placeholder="Username">
-	        <br>
-	        <input class="loginForm" id="password" type="password" name="loginPassword"
-	        placeholder="Password">
-	        <br>
-	        <input class="loginForm" id="passwordAgain" type="password" name="loginPasswordAgain" placeholder="Password (again)" style="display:none">
-	        <br>
-	        <input type="submit" id="signIn" value="Sign In">
-	    </form>
-	    <button id="createAccount">Create Account</button>
-	    <br>
-	    <div class="accounts-dialog">
-
-
-		    <div class="login-button single-login-button" id="login-buttons-facebook">
-		        <span class="text-besides-image sign-in-text-facebook">Sign in with Facebook</span>
-		  	</div>
-		</div>
-
-	</div>
- </template>

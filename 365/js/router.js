@@ -43,3 +43,4 @@ Router.route('/user/:_id', function () {
 
     this.render('user', {data: this.params._id});
 });
+

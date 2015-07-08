@@ -9,23 +9,21 @@ if (Meteor.isServer) {
     });
   });
 
-  Meteor.publish("userdata", function() {
+Meteor.publish("userdata", function() {
     if (this.userId){
-      return Meteor.users.find({_id: this.userId},{fields: {'services': 1}});
+        return Meteor.users.find({_id: this.userId},{fields: {'services': 1}});
     } else {
-      this.ready();
+        this.ready();
     }
-  });
+ });
 
   Accounts.onCreateUser(function(options, user){
+    if (options.profile)
+      user.profile = options.profile;
+    // To give FB-created accounts a username
+    user.username = ( user.username || options.profile.name)
 
-
-  if (options.profile)
-    user.profile = options.profile;
-  // To give FB-created accounts a username
-  user.username = ( user.username || options.profile.name)
-
-  return user;
+    return user;
   })
 
     //facebook type
