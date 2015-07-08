@@ -68,6 +68,15 @@ function Facebook(accessToken) {
       var fb = new Facebook(Meteor.user().services.facebook.accessToken);
       var data = fb.getPostData();
       return data;
+  },
+  isFBSession: function(){
+    var fb = new Facebook(Meteor.user().services.facebook.accessToken);
+    if (fb){
+      return true;
+    }
+    else{
+      return false;
+    }
   }
   });
 
