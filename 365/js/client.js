@@ -47,13 +47,13 @@ if (Meteor.isClient) {
       // This function is called when the new thought form is submitted
       var text = event.target.text.value;
 
-      var thoughtId = Meteor.call("addThought", text, configuration.location,
-                            function(err, data) {
-                                  if (err)
-                                    console.log(err);
-                                  console.log(data)
-
-                                });
+      var thoughtId = Meteor.call("addThought", text, null,
+        function(err, data) {
+            if (err){
+                console.log(err);
+            } 
+            console.log(data)
+        });
 
       // Clear form
       event.target.text.value = "";
@@ -116,7 +116,6 @@ if (Meteor.isClient) {
     },
     //login with facebook
     'click #login-buttons-facebook': function(){
-      console.log("click");
       Meteor.loginWithFacebook(
       {
          requestPermissions: ['email', 'user_friends', 'user_location', 'user_status',
@@ -244,7 +243,7 @@ if (Meteor.isClient) {
                                     console.log(err);
                                   console.log(data)
                                 });
-              getLocationThought(thoughtId)
+              // getLocationThought(thoughtId)
               return false;
             });
         }

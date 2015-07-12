@@ -1,0 +1,18 @@
+Users:
+	id: unique meteor-generated user id
+	createdAt: time created in ISO format
+	services: Linked services (incl. password + resume login tokens)
+	Service details: ex: facebook - all facebook information including access token, 		name, profile, location, etc.
+	username: username
+
+Posts (aka Thoughts):
+	id: unique id
+	text: post text
+	createdAt - ISO date
+	username: creator
+	rank: popularity rank, default 0
+	owner: owner id
+	position: physical location of user (default null)
+
+	For Facebook posts:
+		Also add facebook url, image/video url (if applicable), likes, type (status, wall post, etc.)
