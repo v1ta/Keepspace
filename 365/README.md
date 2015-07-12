@@ -39,3 +39,27 @@ Configuring facebook for localhost:
  run meteor
  run meteor deploy 365.meteor.com to push it up online
 
+ Quick Schedule:
+ UI:
+	Details: Bring everything up to date with Rashad’s pics. Pretty straight forward.
+	Profile Page
+	Splash Screen
+	Calendar
+	Bubbles
+	Headers
+
+
+Functionality:
+	Redo mongodb stuff for posts
+	Profile Page + settings
+	redo the feed
+	Working collection
+	Facebook post usage
+	location + ranking for posts
+	Search feature
+	Friend/follower system
+
+Others:
+	AWS
+
+
