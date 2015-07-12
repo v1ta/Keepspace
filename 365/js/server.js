@@ -1,13 +1,13 @@
 if (Meteor.isServer) {
-  // Only publish thoughts that are public or belong to the current user
-  Meteor.publish("thoughts", function () {
-    return Thoughts.find({
-      $or: [
-        { private: {$ne: true} },
-        { owner: this.userId }
-      ]
+    // Only publish thoughts that are public or belong to the current user
+    Meteor.publish("thoughts", function () {
+        return Thoughts.find({
+            $or: [
+                { private: {$ne: true} },
+                { owner: this.userId }
+            ]
+        });
     });
-  });
 
     Meteor.publish("userdata", function() {
         if (this.userId){
@@ -18,12 +18,12 @@ if (Meteor.isServer) {
     });
 
     Accounts.onCreateUser(function(options, user){
-    if (options.profile)
-      user.profile = options.profile;
-    // To give FB-created accounts a username
-    user.username = ( user.username || options.profile.name)
-
-    return user;
+        if (options.profile){
+            user.profile = options.profile; 
+        }
+        // To give FB-created accounts a username
+        user.username = ( user.username || options.profile.name)
+        return user;
     })
 
     //facebook type
@@ -32,9 +32,9 @@ if (Meteor.isServer) {
         this.accessToken = accessToken;
         this.fb.setAccessToken(this.accessToken);
         this.options = {
-          timeout: 3000,
-          pool: {maxSockets: Infinity},
-          headers: {connection: "keep-alive"}
+            timeout: 3000,
+            pool: {maxSockets: Infinity},
+            headers: {connection: "keep-alive"}
         }
         this.fb.setOptions(this.options);
     }
@@ -56,26 +56,25 @@ if (Meteor.isServer) {
     }
   
     Meteor.methods({
-      //Facebook request
-      getFBUserData: function() {
-          var fb = new Facebook(Meteor.user().services.facebook.accessToken);
-          var data = fb.getUserData();
-          return data;
-      },
-      getFBPostData: function() {
-          var fb = new Facebook(Meteor.user().services.facebook.accessToken);
-          var data = fb.getPostData();
-          return data;
-      },
-      isFBSession: function(){
-        var fb = new Facebook(Meteor.user().services.facebook.accessToken);
-        if (fb){
-          return true;
+        //Facebook request
+        getFBUserData: function() {
+             var fb = new Facebook(Meteor.user().services.facebook.accessToken);
+            var data = fb.getUserData();
+            return data;
+        },
+        getFBPostData: function() {
+            var fb = new Facebook(Meteor.user().services.facebook.accessToken);
+            var data = fb.getPostData();
+            return data;
+        },
+        isFBSession: function(){
+            var fb = new Facebook(Meteor.user().services.facebook.accessToken);
+            if (fb){
+                return true;
+            }
+            else{
+                return false;
+            }
         }
-        else{
-          return false;
-        }
-      }
     });
-
 }

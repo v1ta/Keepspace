@@ -5,14 +5,25 @@ Users:
 	Service details: ex: facebook - all facebook information including access token, 		name, profile, location, etc.
 	username: username
 
+	Stuff to add for later:
+		friends: (default null)
+		following: (default null)
+		followers: (default null)
+		collection aka saved posts: (default null)
+
 Posts (aka Thoughts):
 	id: unique id
 	text: post text
 	createdAt - ISO date
 	username: creator
-	rank: popularity rank, default 0
+	
 	owner: owner id
 	position: physical location of user (default null)
 
 	For Facebook posts:
 		Also add facebook url, image/video url (if applicable), likes, type (status, wall post, etc.)
+
+	Stuff to add:
+		likes: (default null)
+		rank: popularity rank, default 0
+		
