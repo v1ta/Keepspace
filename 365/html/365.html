@@ -1,47 +1,40 @@
 
 <head>
     <title>365</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="365.css">
     <link rel="stylesheet" type="text/css" href="calendar.css">
 </head>
 
 <body>
   {{> header}}
-  <!-- {{> main}} -->
 </body>
 
 <template name="main">
 
-  <div id="feed">
-	<!-- <button class="btn" id="btn-user-data">Get User Data</button> -->
-    {{> feed}}
-    <div id="whiteSpace"></div>
-    <div id="myFeed" class="feedDiv">
-    	{{username}}
-      <!-- <ul>
-      {{#each posts}}
-        {{> post}}
-      {{/each}}
-    </ul> -->
-    </div>
-    <div id="friendFeed" class="feedDiv">
-      <p>Friends</p>
+  <div id="main-feed" class="container-fluid">
+    <div class="row feed-wrapper">
+      <div id="friendFeed" class="feed col-xs-4">
+        <div class="feed-name">Friends</div>
+      </div>
 
-    </div>
-    <div id="world" class="feedDiv">
-      	<p id="worldHeader">World</P>
-		<div id="worldButtons">
-			<input id="popular" type="image" src="images/popularButton.png" name="calendar" width="90" height="35">
-			<input id="random" type="image" src="images/randomButton.png" name="calendar" width="90" height="35">
-        </div>
+      <div id="myFeed" class="feed col-xs-4">
+        <div class="feed-name">{{username}}</div>
+        {{> feed}}
+      </div>
+
+      <div id="world" class="feed col-xs-4">
+        <div class="feed-name">World</div>
+      <div id="worldButtons">
+        <input id="popular" type="image" src="images/popularButton.png" name="calendar" width="90" height="35">
+        <input id="random" type="image" src="images/randomButton.png" name="calendar" width="90" height="35">
+          </div>
+      </div>
     </div>
   </div>
 </template>
 
 <template name="header">
-  <header>
-     <!-- {{> loginButtons}} -->
-  </header>
   {{#if currentUser}}
   <div id="header">
 

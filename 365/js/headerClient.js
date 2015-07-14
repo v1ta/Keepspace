@@ -4,7 +4,11 @@ if (Meteor.isClient) {
     //header functions
     Template.header.events({
         'click #postButton': function(e) {
-            $("#tempForm").show();
+            if ($("#tempForm").css("display") === "none") {
+                $("#tempForm").show();
+            } else {
+                $("#tempForm").hide();
+            }
         },
         'click #calendarButton': function(e) {
             Router.go("calendar");

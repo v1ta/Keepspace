@@ -48,6 +48,7 @@ if (Meteor.isClient) {
 
             // Clear form
             event.target.text.value = "";
+            $("#tempForm").hide();
 
             // Prevent default form submit
 
