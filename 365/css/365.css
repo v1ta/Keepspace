@@ -84,11 +84,17 @@ body{
 	margin-top:32px;
 	padding-top:25px;
 }
-#friendFeed{
+#myFeed{
 	left:33%;
 	width:33.5%;
 	border-left: 3px solid #F38286;
 	border-right: 3px solid #F38286;
+}
+.feedDiv li{
+	font-size:20px;
+	width:33%;
+	text-align:left;
+	margin:0px;
 }
 #world{
 	right:0%;

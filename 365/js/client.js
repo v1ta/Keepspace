@@ -25,14 +25,24 @@ if (Meteor.isClient) {
     Template.feed.helpers({
         thoughts: function () {
             // Show all thoughts
-            var thoughts = Thoughts.find({}, {sort: {createdAt: -1}});
+            var thoughts = Thoughts.find({owner:Meteor.userId()}, {sort: {createdAt: -1}});
             // console.log(thoughts.fetch());
             // console.log(Meteor.user().username);
             return thoughts
         }
     });
+    Template.worldFeed.helpers({
+        worldPosts: function () {
+            // Show all thoughts
+            var thoughts = Thoughts.find({owner:{$ne: Meteor.userId()}}, {sort: {createdAt: -1}});
+            // var thoughts = Thoughts.find({owner:Meteor.userId()}, {sort: {createdAt: -1}});
+            console.log(thoughts.fetch());
+            // console.log(Meteor.user().username);
+            return thoughts
+        }
+    });
 
-    Template.feed.events({
+    Template.post.events({
         "submit .new-thought": function (event) {
             event.preventDefault();
             // This function is called when the new thought form is submitted
@@ -45,12 +55,9 @@ if (Meteor.isClient) {
                 } 
                 console.log(data)
             });
-
             // Clear form
             event.target.text.value = "";
-
             // Prevent default form submit
-
             return false;
         },
         "click #btn-cancel-post": function(e){

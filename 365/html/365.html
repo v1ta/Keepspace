@@ -12,21 +12,23 @@
 
 <template name="main">
 
-  <div id="feed">
+  <div id="feeds">
 	<!-- <button class="btn" id="btn-user-data">Get User Data</button> -->
-    {{> feed}}
+    
     <div id="whiteSpace"></div>
+    {{> post}}
+    <div id="friendFeed" class="feedDiv">
+      <p>Friends</p>
+    </div>
     <div id="myFeed" class="feedDiv">
-    	{{username}}
+      {{username}}
+      <br>
+      {{> feed}}
       <!-- <ul>
       {{#each posts}}
         {{> post}}
       {{/each}}
     </ul> -->
-    </div>
-    <div id="friendFeed" class="feedDiv">
-      <p>Friends</p>
-
     </div>
     <div id="world" class="feedDiv">
       	<p id="worldHeader">World</P>
@@ -34,6 +36,7 @@
 			<input id="popular" type="image" src="images/popularButton.png" name="calendar" width="90" height="35">
 			<input id="random" type="image" src="images/randomButton.png" name="calendar" width="90" height="35">
         </div>
+        {{> worldFeed}}
     </div>
   </div>
 </template>
