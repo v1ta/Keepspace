@@ -2,6 +2,7 @@
 <head>
     <title>365</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
     <link rel="stylesheet" type="text/css" href="365.css">
     <link rel="stylesheet" type="text/css" href="calendar.css">
 </head>
@@ -36,18 +37,26 @@
 
 <template name="header">
   {{#if currentUser}}
-  <div id="header">
+  <div id="header" class="container-fluid">
+    <div class="row">
+      <div class="left col-xs-4">
+        <input id="homeButton" type="image" src="images/365Icon.png" name="365" />
+        <form id="search" class="new-task vertical-center">
+          <input type="text" name="search" placeholder="find a thought" />
+        </form>
+      </div>
 
-    <input id = "homeButton" type="image" src="images/365Icon.png" name="365" width="100" height="100">
-    <form id="search" class="new-task">
-        <input type="text" name="search" placeholder="find a thought" />
-      </form>
+      <div class="mid col-xs-4">
+        <p id="time" class="vertical-center"></p>
+        <input id="postButton" class="vertical-center" type="image" src="images/pencilButton.png" name="post" />
+      </div>
 
-      <p id="time"></p>
-      <input id="postButton" type="image" src="images/pencilButton.png" name="post" width="60" height="60">
-      <input id="settingsButton" type="image" src="images/settingButton.png" name="settings" width="60" height="60">
-      <button id="profileButton">profile</button>
-      <input id="calendarButton" type="image" src="images/calendarIcon.png" name="calendar" width="100" height="100">
+      <div class="right col-xs-4">
+        <button id="profileButton" class="vertical-center">profile</button>
+        <input id="settingsButton" type="image" src="images/settingButton.png" name="settings" />
+        <input id="calendarButton" type="image" src="images/calendarIcon.png" name="calendar" />
+      </div>
+    </div>
   </div>
 
   <div id="settingDropDown" class="dropdown-menu">

@@ -1,23 +1,21 @@
 <template name="feed">
-  <div class="foo">
-    {{#if currentUser}}
-    <div id="tempForm">
-      <form class="new-thought">
-        <textarea type="text" name="text" rows="3" placeholder="Type to add new thought"></textarea>
-        <button class="btn" id="btn-import-facebook">Use Facebook Post</button>
-        <button class="btn" id="btn-cancel-post">Cancel</button>
-        <input class="btn" type="submit" value="Post" />
-      </form>
-    </div>
-    {{/if}}
+  {{#if currentUser}}
+  <div id="tempForm">
+    <form class="new-thought">
+      <textarea type="text" name="text" rows="3" placeholder="Type to add new thought" autofocus="true"></textarea>
+      <button id="btn-import-facebook" class="btn btn-primary"><i class="fa fa-facebook fa-fw"></i></button>
+      <button id="btn-cancel-post" class="btn btn-danger"><i class="fa fa-times fa-fw"></i></button>
+      <button id="submit-new-thought" class="btn btn-success"><i class="fa fa-check fa-fw"></i></button>
+    </form>
+  </div>
+  {{/if}}
 
-    <div class="bar">
-      <ul>
-        {{#each thoughts}}
-          {{> thought}}
-        {{/each}}
-      </ul>
-    </div>
+  <div class="myThoughts">
+    <ul>
+      {{#each thoughts}}
+        {{> thought}}
+      {{/each}}
+    </ul>
   </div>
 </template>
 

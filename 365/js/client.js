@@ -55,6 +55,7 @@ if (Meteor.isClient) {
             return false;
         },
         "click #btn-cancel-post": function(e){
+            e.preventDefault();
             $("#tempForm").hide();
         }
     });

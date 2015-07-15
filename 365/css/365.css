@@ -13,55 +13,56 @@ body, html {
 }
 #header{
   font-family: GeosansLight;
-  padding: 40px 0;
-  /*border-top:30px solid #7FFFD4;*/
-  /*border-bottom:30px solid #7FFFD4;*/
-  /*border-bottom:3px solid #1CAFEC;*/
+  padding-top: 20px;
+  padding-bottom: 20px;
   overflow:hidden;
   background-color:#E8F4FD;
 }
-#headerBottom{
-  border: 5px solid #1CAFEC;
+#header .row > * {
+  height: 100px;
 }
-
+#header .left > * {
+  float: left;
+}
+#header .right > * {
+  float: right;
+}
 #homeButton{
-  float:left;
-  margin-right:5%;
-  top:20px;
-  position:absolute;
-}
-#search{
-  float:left;
-  margin-left:10%;
-  margin-top:15px;
+  height: 100px;
+  width: 100px;
 }
 #time{
-  margin-top:20px;
-  position:absolute;
-  margin-left:45%;
-  float:left;
-  text-align:center;
   color:#ED1C24;
   font-size:31px;
+  text-align: center;
 }
 #postButton{
-  position:absolute;
-  margin-left:28%;
+  position: relative;
+  left: 69%;
+  height: 60px;
+  width: 60px;
 }
 #calendarButton{
-  float:right;
-  position:absolute;
-  top:20px;
-  right:20%;
+  height: 100px;
+  width: 100px;
 }
 #profileButton{
-  float:right;
 }
 #settingsButton{
-  float:right;
+  position: relative;
+  top: 65px;
+  height: 45px;
+  width: 45px;
 }
 #worldHeader{
   margin-bottom:0px;
+}
+.vertical-center {
+  position: relative;
+  top: 50%;
+  -webkit-transform: translateY(-50%);
+  -ms-transform: translateY(-50%);
+  transform: translateY(-50%);
 }
 
 /* Main Feed */
@@ -82,6 +83,8 @@ body, html {
   height: -moz-calc(100% - 20px);
   height: calc(100% - 20px);
   margin: 10px 0;
+  overflow-y: auto;
+  overflow-x: hidden;
 }
 .feed-name {
   position: absolute;
@@ -122,9 +125,29 @@ body, html {
 /* New post */
 #tempForm {
   display: none;
+  width: 100%;
+  position: absolute;
+  z-index: 1;
+  padding-right: 30px;
 }
 .new-thought textarea {
   width: 100%;
+  padding-bottom: 30px;
+}
+#submit-new-thought {
+  position: absolute;
+  right: 31px;
+  bottom: 1px;
+}
+#btn-cancel-post {
+  position: absolute;
+  right: 75px; /* submit-new-thought offset + btn size */
+  bottom: 1px;
+}
+#btn-import-facebook {
+  position: absolute;
+  left: 1px;
+  bottom: 1px;
 }
 
 /* Bubbles */
