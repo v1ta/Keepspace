@@ -2,6 +2,7 @@
 Thoughts = new Mongo.Collection("Thoughts");
 Friends = new Mongo.Collection("Friends");
 RankRecord = new Mongo.Collection("RankRecord");
+SavedPosts = new Mongo.Collection("SavedPosts");
 
 Meteor.methods({
 
@@ -48,6 +49,9 @@ Meteor.methods({
             throw new Meteor.Error("not-authorized");
         }
         Thoughts.remove(thoughtId);
+    },
+    addToMyCollection: function(thoughtId){
+        console.log(thoughtId);
     },
     changePrivacy: function (thoughtId, setChecked) {
         if(!UserLoggedIn) return false

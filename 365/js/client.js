@@ -41,7 +41,11 @@ if (Meteor.isClient) {
             return thoughts
         }
     });
-
+    Template.worldFeed.events({
+        "click .addToCollection": function(){
+            Meteor.call("addToMyCollection", this._id);
+        }
+    });
     Template.post.events({
         "submit .new-thought": function (event) {
             event.preventDefault();
@@ -66,13 +70,12 @@ if (Meteor.isClient) {
     });
 
     Template.thought.events({
-
         "click .delete": function () {
             Meteor.call("deleteThought", this._id);
         },
         "click .toggle-private": function () {
             Meteor.call("setPrivate", this._id, ! this.private);
-        }
+        },
     });
 
     Template.thought.helpers({
