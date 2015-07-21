@@ -19,7 +19,10 @@ if (Meteor.isClient) {
         if (!configuration){
             getLocation()
         }
-        setInterval(setTime, 1000);
+        
+        // Set date & countdown timer
+        Meteor.setTimeout(setDate, 100);
+        Meteor.setInterval(setTime, 1000);
     }
 
     Template.feed.helpers({
@@ -29,34 +32,6 @@ if (Meteor.isClient) {
             // console.log(thoughts.fetch());
             // console.log(Meteor.user().username);
             return thoughts
-        }
-    });
-
-    Template.feed.events({
-        "submit .new-thought": function (event) {
-            event.preventDefault();
-            // This function is called when the new thought form is submitted
-            var text = event.target.text.value;
-
-            var thoughtId = Meteor.call("addThought", text, null,
-            function(err, data) {
-                if (err){
-                    console.log(err);
-                } 
-                console.log(data)
-            });
-
-            // Clear form
-            event.target.text.value = "";
-            $("#tempForm").hide();
-
-            // Prevent default form submit
-
-            return false;
-        },
-        "click #btn-cancel-post": function(e){
-            e.preventDefault();
-            $("#tempForm").hide();
         }
     });
 
@@ -179,4 +154,14 @@ function setTime(){
 
     var result = (hours < 10 ? "0" + hours : hours) + ":" + (minutes < 10 ? "0" + minutes : minutes) + ":" + (seconds  < 10 ? "0" + seconds : seconds);
     $("#time").text(result);
+}
+
+Date.prototype.getDOY = function() {
+    var onejan = new Date(this.getFullYear(),0,1);
+    return Math.ceil((this - onejan) / 86400000);
+}
+function setDate() {
+    var today = new Date();
+    $("#dayNum").text(today.getDOY());
+    $("#date").text($.format.date(today, "MMMM D, yyyy"));
 }

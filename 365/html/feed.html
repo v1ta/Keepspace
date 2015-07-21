@@ -1,15 +1,4 @@
 <template name="feed">
-  {{#if currentUser}}
-  <div id="tempForm">
-    <form class="new-thought">
-      <textarea type="text" name="text" rows="3" placeholder="Type to add new thought" autofocus="true"></textarea>
-      <button id="btn-import-facebook" class="btn btn-primary"><i class="fa fa-facebook fa-fw"></i></button>
-      <button id="btn-cancel-post" class="btn btn-danger"><i class="fa fa-times fa-fw"></i></button>
-      <button id="submit-new-thought" class="btn btn-success"><i class="fa fa-check fa-fw"></i></button>
-    </form>
-  </div>
-  {{/if}}
-
   <div class="myThoughts">
     <ul>
       {{#each thoughts}}

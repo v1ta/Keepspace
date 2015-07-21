@@ -3,13 +3,33 @@ if (Meteor.isClient) {
 
     //header functions
     Template.header.events({
-        'click #postButton': function(e) {
+        "submit .new-thought": function (event) {
+            event.preventDefault();
+            // This function is called when the new thought form is submitted
+            var text = event.target.text.value;
+
+            var thoughtId = Meteor.call("addThought", text, null,
+            function(err, data) {
+                if (err){
+                    console.log(err);
+                } 
+                console.log(data)
+            });
+
+            // Clear form
+            event.target.text.value = "";
+
+            // Prevent default form submit
+
+            return false;
+        },
+        /*'click #postButton': function(e) {
             if ($("#tempForm").css("display") === "none") {
                 $("#tempForm").show();
             } else {
                 $("#tempForm").hide();
             }
-        },
+        },*/
         'click #calendarButton': function(e) {
             Router.go("calendar");
         },

@@ -5,6 +5,8 @@
 
 body, html {
   height: 100%;
+  /* TODO: band-aid for header */
+  min-width: 1000px;
 }
 
 /* Header */
@@ -27,32 +29,47 @@ body, html {
 #header .right > * {
   float: right;
 }
-#homeButton{
-  height: 100px;
-  width: 100px;
+#header .right span {
+  margin: 0 10px;
+}
+#header .right i {
+  margin: 5px;
+}
+#homeButton {
+  background-color: #AF3B12;
+  color: #ffffff;
+  text-align: center;
+  padding-top: 10px;
+  position: relative;
+  z-index: 2;
+}
+#dayNum {
+  font-size: 40px;
+}
+#date {
+  background-color: #ffffff;
+  color: #000000;
+  font-size: 30px;
+  border-radius: 5px;
+  padding: 5px 10px 5px 25px;
+  margin-left: -15px;
+  position: relative;
+  z-index: 1;
 }
 #time{
   color:#ED1C24;
   font-size:31px;
   text-align: center;
-}
-#postButton{
-  position: relative;
-  left: 69%;
-  height: 60px;
-  width: 60px;
+  height: 44px;
 }
 #calendarButton{
   height: 100px;
   width: 100px;
 }
 #profileButton{
+  height: 100px;
 }
 #settingsButton{
-  position: relative;
-  top: 65px;
-  height: 45px;
-  width: 45px;
 }
 #worldHeader{
   margin-bottom:0px;
@@ -63,6 +80,11 @@ body, html {
   -webkit-transform: translateY(-50%);
   -ms-transform: translateY(-50%);
   transform: translateY(-50%);
+}
+.header-circle {
+  height: 100px;
+  width: 100px;
+  border-radius: 50px;
 }
 
 /* Main Feed */
@@ -124,30 +146,22 @@ body, html {
 
 /* New post */
 #tempForm {
-  display: none;
   width: 100%;
-  position: absolute;
-  z-index: 1;
-  padding-right: 30px;
+  position: relative;
 }
-.new-thought textarea {
+.new-thought input {
   width: 100%;
-  padding-bottom: 30px;
+  padding: 15px;
 }
 #submit-new-thought {
   position: absolute;
-  right: 31px;
-  bottom: 1px;
-}
-#btn-cancel-post {
-  position: absolute;
-  right: 75px; /* submit-new-thought offset + btn size */
-  bottom: 1px;
+  right: 1px;
+  bottom: -12px;
 }
 #btn-import-facebook {
   position: absolute;
   left: 1px;
-  bottom: 1px;
+  bottom: -12px;
 }
 
 /* Bubbles */

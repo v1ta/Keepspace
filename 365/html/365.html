@@ -1,10 +1,8 @@
 
 <head>
     <title>365</title>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
     <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
-    <link rel="stylesheet" type="text/css" href="365.css">
-    <link rel="stylesheet" type="text/css" href="calendar.css">
 </head>
 
 <body>
@@ -40,21 +38,33 @@
   <div id="header" class="container-fluid">
     <div class="row">
       <div class="left col-xs-4">
-        <input id="homeButton" type="image" src="images/365Icon.png" name="365" />
-        <form id="search" class="new-task vertical-center">
+        <div id="homeButton" class="header-circle">
+          DAY <p id="dayNum">0</p>
+        </div>
+        <p id="date" class="vertical-center">00/00/00</p>
+        <!-- <form id="search" class="new-task vertical-center">
           <input type="text" name="search" placeholder="find a thought" />
-        </form>
+        </form> -->
       </div>
 
       <div class="mid col-xs-4">
-        <p id="time" class="vertical-center"></p>
-        <input id="postButton" class="vertical-center" type="image" src="images/pencilButton.png" name="post" />
+        <p id="time">...</p>
+        {{#if currentUser}}
+        <div id="tempForm">
+          <form class="new-thought" autocomplete="off">
+            <input type="text" name="text" placeholder="How will you remember today?" />
+          </form>
+            <button id="btn-import-facebook" class="btn btn-primary"><i class="fa fa-facebook fa-fw"></i></button>
+            <button id="submit-new-thought" class="btn">Keep</button>
+        </div>
+        {{/if}}
       </div>
 
       <div class="right col-xs-4">
-        <button id="profileButton" class="vertical-center">profile</button>
-        <input id="settingsButton" type="image" src="images/settingButton.png" name="settings" />
-        <input id="calendarButton" type="image" src="images/calendarIcon.png" name="calendar" />
+        <span class="vertical-center">Invite<i class="fa fa-plus-circle"></i></span>
+        <span id="settingsButton" class="vertical-center">More<i class="fa fa-cog"></i></span>
+        <button id="profileButton" class="header-circle vertical-center">profile</button>
+        <!-- <input id="calendarButton" type="image" src="images/calendarIcon.png" name="calendar" /> -->
       </div>
     </div>
   </div>
