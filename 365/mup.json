@@ -3,34 +3,35 @@
   "servers": [
     {
       "host": "52.2.141.218",
-      "username": "root",
-      "password": "NOPASSWD"
+      "username": "veet",
+       "pem": "/home/veet/.ssh/veet.pem"
+     // "password": "NOPASSWD"
       // or pem file (ssh based authentication)
       //"pem": "~/.ssh/id_rsa"
     }
   ],
 
   // Install MongoDB in the server, does not destroy local MongoDB on future setup
-  "setupMongo": true,
+  "setupMongo": false,
 
   // WARNING: Node.js is required! Only skip if you already have Node.js installed on server.
   "setupNode": true,
 
   // WARNING: If nodeVersion omitted will setup 0.10.36 by default. Do not use v, only version number.
-  "nodeVersion": "0.10.36",
+  "nodeVersion": "0.12.7",
 
   // Install PhantomJS in the server
-  "setupPhantom": true,
+  "setupPhantom": false,
 
   // Show a progress bar during the upload of the bundle to the server. 
   // Might cause an error in some rare cases if set to true, for instance in Shippable CI
   "enableUploadProgressBar": true,
 
   // Application name (No spaces)
-  "appName": "meteor",
+  "appName": "365",
 
   // Location of app (local directory)
-  "app": "/path/to/the/app",
+  "app": "/home/shared/365/365",
 
   // Configure environment
   "env": {
