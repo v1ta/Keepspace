@@ -173,13 +173,3 @@ function setTime(){
     var result = (hours < 10 ? "0" + hours : hours) + ":" + (minutes < 10 ? "0" + minutes : minutes) + ":" + (seconds  < 10 ? "0" + seconds : seconds);
     $("#time").text(result);
 }
-
-Date.prototype.getDOY = function() {
-    var onejan = new Date(this.getFullYear(),0,1);
-    return Math.ceil((this - onejan) / 86400000);
-}
-function setDate() {
-    var today = new Date();
-    $("#dayNum").text(today.getDOY());
-    $("#date").text($.format.date(today, "MMMM D, yyyy"));
-}

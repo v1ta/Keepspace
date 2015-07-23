@@ -91,3 +91,14 @@ Template.header.events({
         });
     }
 });
+
+Template.header.rendered = function() {
+    var today = new Date();
+    $("#dayNum").text(today.getDOY());
+    $("#date").text($.format.date(today, "MMMM D, yyyy"));
+}
+
+Date.prototype.getDOY = function() {
+    var onejan = new Date(this.getFullYear(),0,1);
+    return Math.ceil((this - onejan) / 86400000);
+}
