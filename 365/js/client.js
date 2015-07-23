@@ -116,20 +116,6 @@ if (Meteor.isClient) {
                 //data[(post number)][from][name]
                 //only want the one's from the user
             });
-        },
-        'click #btn-import-facebook': function(e){
-            Meteor.call('getFBPostData', function(err, data) {
-                var posts = data["data"];
-                console.log(posts[0]);
-                var thoughtId = Meteor.call("addPost", posts[0],function(err, data) {
-                    if (err){
-                        console.log(err);
-                    }
-                    console.log(data)
-                });
-                // getLocationThought(thoughtId)
-                return false;
-            });
         }
     });
 

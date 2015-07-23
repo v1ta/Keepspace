@@ -78,6 +78,20 @@ if (Meteor.isClient) {
                 //TODO Send error to user
                 alert("Passwords no not match");
             }
+        },
+        'click #btn-import-facebook': function(e){
+            Meteor.call('getFBPostData', function(err, data) {
+                var posts = data["data"];
+                console.log(posts[0]);
+                var thoughtId = Meteor.call("addPost", posts[0],function(err, data) {
+                    if (err){
+                        console.log(err);
+                    }
+                    console.log(data)
+                });
+                // getLocationThought(thoughtId)
+                return false;
+            });
         }
     });
 }
