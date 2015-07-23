@@ -27,7 +27,7 @@ Template.header.events({
             $("#tempForm").hide();
         }
     },*/
-    'click #calendarButton': function(e) {
+    'click #date': function(e) {
         Router.go("calendar");
     },
     'click #homeButton': function(e) {
@@ -110,11 +110,11 @@ Template.header.events({
     }
 });
 
-Template.header.rendered = function() {
+Template.header.onRendered(function() {
     var today = new Date();
     $("#dayNum").text(today.getDOY());
     $("#date").text($.format.date(today, "MMMM D, yyyy"));
-}
+});
 
 Date.prototype.getDOY = function() {
     var onejan = new Date(this.getFullYear(),0,1);
