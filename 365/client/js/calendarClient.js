@@ -1,38 +1,34 @@
-// This code only runs on the client
-if (Meteor.isClient) {
-    //calendar loading
-    Template.calendar.rendered = function() {
-    	if(!this._rendered) {
-		    this._rendered = true;
-		    var date = new Date();
-		    loadCalendar(date, true);
-		    var otherDate = getDate(date.getDate() - 1, " 1, ");
-		    getCalFeed(otherDate);
-    	}
-    }
-    Template.calendar.helpers({
-
-    });
-    Template.calendar.events({
-    	'click .datepicker-td': function(e){
-	      	//console.log(e.currentTarget.innerHTML);
-			var element = e.currentTarget.childNodes[0];
-			var day = element.innerHTML;
-			var date = getDate(day - 1, " 1, ");
-			setCalText(date, false, true);
-			getCalFeed(date);
-     	 },
-    	'click .datepicker-prev': function(e){
-	        var date = getDate(-7, " 1, ");
-	        loadCalendar(date, false);
-      	},
-  		'click .datepicker-next': function(e){
-	        var date = getDate(7, " 28, ");
-	        loadCalendar(date, false);
-      	}
-    });
-
+//calendar loading
+Template.calendar.rendered = function() {
+	if(!this._rendered) {
+    this._rendered = true;
+    var date = new Date();
+    loadCalendar(date, true);
+    var otherDate = getDate(date.getDate() - 1, " 1, ");
+    getCalFeed(otherDate);
+	}
 }
+Template.calendar.helpers({
+
+});
+Template.calendar.events({
+	'click .datepicker-td': function(e){
+    	//console.log(e.currentTarget.innerHTML);
+	var element = e.currentTarget.childNodes[0];
+	var day = element.innerHTML;
+	var date = getDate(day - 1, " 1, ");
+	setCalText(date, false, true);
+	getCalFeed(date);
+ 	 },
+	'click .datepicker-prev': function(e){
+      var date = getDate(-7, " 1, ");
+      loadCalendar(date, false);
+  	},
+	'click .datepicker-next': function(e){
+      var date = getDate(7, " 28, ");
+      loadCalendar(date, false);
+  	}
+});
 
 //load the calendar
 function loadCalendar(date, shouldSelect){
