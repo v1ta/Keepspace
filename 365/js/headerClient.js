@@ -79,37 +79,37 @@ if (Meteor.isClient) {
                 alert("Passwords no not match");
             }
         },
-        'click #btn-import-facebook': function(e) {
-            Meteor.call('getFBUserData', function(err, data) {
-                console.log(JSON.stringify(data, undefined, 4));
-             });
-            Meteor.call('getFBPostData', function(err, data) {
-                console.log(data);
-                console.log(JSON.stringify(data, undefined, 4));
-                // console.log(data["data"]);
-                //check whose post it is using
-                //data[(post number)][from][name]
-                //only want the one's from the user
-            });
-        },
-        // 'click #btn-import-facebook': function(e){
+        // 'click #btn-import-facebook': function(e) {
+        //     Meteor.call('getFBUserData', function(err, data) {
+        //         console.log(JSON.stringify(data, undefined, 4));
+        //      });
         //     Meteor.call('getFBPostData', function(err, data) {
-        //         if (err){
-        //             console.log(err);
-        //         }
-        //         else{
-        //             var posts = data["data"];
-        //             console.log(posts[0]);
-        //             var thoughtId = Meteor.call("addPost", posts[0],function(err, data) {
-        //                 if (err){
-        //                     console.log(err);
-        //                 }
-        //                 console.log(data)
-        //             });
-        //             // getLocationThought(thoughtId)
-        //             return false;
-        //         }
+        //         console.log(data);
+        //         console.log(JSON.stringify(data, undefined, 4));
+        //         // console.log(data["data"]);
+        //         //check whose post it is using
+        //         //data[(post number)][from][name]
+        //         //only want the one's from the user
         //     });
-        // }
+        // },
+        'click #btn-import-facebook': function(e){
+            Meteor.call('getFBPostData', function(err, data) {
+                if (err){
+                    console.log(err);
+                }
+                else{
+                    var posts = data["data"];
+                    console.log(posts[0]);
+                    var thoughtId = Meteor.call("addPost", posts[0],function(err, data) {
+                        if (err){
+                            console.log(err);
+                        }
+                        console.log(data)
+                    });
+                    // getLocationThought(thoughtId)
+                    return false;
+                }
+            });
+        }
     });
 }

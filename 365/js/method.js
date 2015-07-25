@@ -125,7 +125,7 @@ Meteor.methods({
         return this.query('me');
     }
     Facebook.prototype.getPostData = function() {
-        return this.query('/me/feed');
+        return this.query('/me/feed?limit=5');
     }
 
 function UserLoggedIn() {
