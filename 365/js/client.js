@@ -105,7 +105,7 @@ if (Meteor.isClient) {
 
         //request facebook data
     Template.main.events({
-        'click #btn-user-data': function(e) {
+        'click #btn-import-facebook': function(e) {
             Meteor.call('getFBUserData', function(err, data) {
                 console.log(JSON.stringify(data, undefined, 4));
              });
