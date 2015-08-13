@@ -114,6 +114,13 @@ Template.main.events({
             //data[(post number)][from][name]
             //only want the one's from the user
         });
+    },
+    'click .feed-search-icon': function(e) {
+        $(e.target.nextElementSibling).animate({width: "toggle"}, 'fast');
+    },
+    'click .fa-caret-down, click .fa-caret-up': function(e) {
+        $("#worldButtons").slideToggle('fast');
+        $(e.target).toggleClass("fa-caret-down fa-caret-up");
     }
 });
 

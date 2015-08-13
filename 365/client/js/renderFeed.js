@@ -1,14 +1,22 @@
 Template.main.onRendered(function() {
-  var container = $("#myFeed");
-  var cwidth = parseInt(container.css("width")) - parseInt(container.css("padding-left")) - parseInt(container.css("padding-right"));
-  var cheight = parseInt(container.css("height")) - parseInt(container.css("padding-top")) - parseInt(container.css("padding-bottom"));
+  // Only find posts made after 00:00 of today
+  var start = new Date();
+  start.setHours(0,0,0,0);
+  renderFeed('#myFeed', 'myFeed-container', {owner:Meteor.userId(), createdAt: {$gte:start}});
+  renderFeed('#worldFeed', 'worldFeed-container', {owner:{$ne: Meteor.userId()}, createdAt: {$gte:start}});
+});
+
+function renderFeed(container, canvas, findHash) {
+  var container = $(container);
+  var cwidth = parseInt(container.css('width')) - parseInt(container.css('padding-left')) - parseInt(container.css('padding-right'));
+  var cheight = parseInt(container.css('height')) - parseInt(container.css('padding-top')) - parseInt(container.css('padding-bottom'));
 
   // Get thoughts
-  var thoughts = Thoughts.find({owner:Meteor.userId()}, {sort: {createdAt: -1}}).fetch();
+  var thoughts = Thoughts.find(findHash, {sort: {createdAt: -1}}).fetch();
   console.log(thoughts);
 
   var stage = new Kinetic.Stage({
-    container: "myFeed-container",
+    container: canvas,
     width: cwidth,
     height: cheight
   });
@@ -30,19 +38,31 @@ Template.main.onRendered(function() {
       console.log('collision');
       i--; continue;
     }
-    layer = createBubble(thoughts[i].text, x, y, radius, padding, "#F38286");
-    addClickHandler(layer, cwidth, thoughts[i], 0.4);
+    layer = createBubble(thoughts[i].text, x, y, radius, padding, '#EA4949');
+    addClickHandler(layer, cwidth, thoughts[i], 0.25);
+    addPopHandler(layer, stage);
     stage.add(layer);
   }
   console.log(stage.getChildren());
-});
 
+  // Add the blur background
+  layer = new Kinetic.Layer();
+  layer.add(new Kinetic.Rect({
+    name: 'blurBG',
+    width: cwidth,
+    height: cheight,
+    fill: '#bbbbbb',
+    opacity: 0.5,
+    visible: false
+  }));
+  stage.add(layer);
+}
 
 // Returns a new layer with bubble and text members
 function createBubble(thought, x, y, radius, padding, fill) {
   var layer = new Kinetic.Layer({
-    name: 'condensed',
-    draggable: true
+    draggable: true,
+    dragDistance: 5
   });
 
   var bubble = new Kinetic.Circle({
@@ -56,7 +76,7 @@ function createBubble(thought, x, y, radius, padding, fill) {
     y: y,
     width: bubble.getWidth(),
     padding: padding,
-    fill: "#ffffff"
+    fill: '#ffffff'
   });
   // Center text in bubble
   text.offsetX(text.getWidth()/2);
@@ -69,7 +89,12 @@ function createBubble(thought, x, y, radius, padding, fill) {
 
   layer.add(bubble);
   layer.add(text);
+  animateBubble(layer);
 
+  return layer;
+}
+
+function animateBubble(layer) {
   // Floating animation
   var amplitude = 3,
       periodX = getRandomInt(5000,10000),
@@ -87,63 +112,119 @@ function createBubble(thought, x, y, radius, padding, fill) {
     baseY = layer.y();
     anim.start();
   });
-  return layer;
 }
 
-// Click bubble handler
+function addPopHandler(layer, stage) {
+  // Pop bubble if mouse is held down for 2 seconds
+  var pop;
+  layer.on('mousedown', function() {
+    pop = window.setTimeout(function() {
+      layer.destroyChildren();
+      layer.destroy();
+      stage.find('.blurBG').hide();
+      stage.draw();
+    }, 2000);
+  });
+  layer.on('mouseup', function() {
+    window.clearTimeout(pop);
+  })
+}
+
 function addClickHandler(layer, cwidth, thought, duration) {
+  layer.on('click.expand', function(e) {
+    expandBubble(e, layer, cwidth, thought, duration);
+  });
+}
+
+function expandBubble(e, layer, cwidth, thought, duration) {
   var layerTween, bubbleTween, textTween, nodes, bubble, text;
-  layer.on('click.condensed', function(e) {
-    layerTween = new Kinetic.Tween({
-      node: layer,
-      duration: duration,
-      x: 0,
-      y: 0
-    });
-
-    nodes = e.target.parent.getChildren();
-    bubble = nodes[0];
-    text = nodes[1];
-    // Animate to fill the container
-    var expandedRadius = cwidth/2;
-    bubbleTween = new Kinetic.Tween({
-      node: bubble,
-      duration: duration,
-      x: expandedRadius,
-      y: expandedRadius,
-      radius: expandedRadius,
-      opacity: 1
-    });
-    text.width(expandedRadius*2);
-    text.height(expandedRadius*2);
-    text.offsetX(expandedRadius);
-    textTween = new Kinetic.Tween({
-      node: text,
-      duration: duration,
-      x: expandedRadius,
-      y: expandedRadius,
-      fontSize: 18,
-      padding: 20
-    })
-    layer.moveToTop();
-    layerTween.play();
-    bubbleTween.play();
-    textTween.play();
-
-    layer.draggable(false);
-    layer.name('expanded');
-
-    // Add elements to expanded bubble
-
+  layer.draggable(false);
+  layerTween = new Kinetic.Tween({
+    node: layer,
+    duration: duration,
+    x: 0,
+    y: 0
   });
 
-  layer.on('click.expanded', function(e) {
-    /* Have to redefine the tweens!
-    layerTween.reverse();
-    bubbleTween.reverse();
-    textTween.reverse();*/
-    console.log('this node is expanded.');
+  nodes = e.target.parent.getChildren();
+  bubble = nodes[0];
+  text = nodes[1];
+  // Animate to fill the container
+  var expandedRadius = cwidth/2;
+  bubbleTween = new Kinetic.Tween({
+    node: bubble,
+    duration: duration,
+    x: expandedRadius,
+    y: expandedRadius,
+    radius: expandedRadius,
+    opacity: 1
   });
+
+  // Add username & date
+  var username = new Kinetic.Text({
+    fontFamily: 'GeosansLight',
+    text: Meteor.user().username == thought.username ? 'You:' : thought.username + ':',
+    fill: '#ffffff',
+    fontSize: 16
+  });
+  var date = new Kinetic.Text({
+    fontFamily: 'GeosansLight',
+    text: $.format.date(thought.createdAt, 'h:mmp'),
+    fill: '#ffffff',
+    fontSize: 16
+  })
+
+  textTween = new Kinetic.Tween({
+    node: text,
+    duration: duration,
+    width: expandedRadius*2,
+    offsetX: expandedRadius,
+    x: expandedRadius,
+    y: expandedRadius,
+    fontSize: 18,
+    padding: 20,
+    onFinish: function () {
+      username.x(expandedRadius - text.getTextWidth()/2);
+      username.y(expandedRadius - text.getHeight()/2);
+      layer.add(username);
+      date.x(expandedRadius - text.getTextWidth()/2);
+      date.y(expandedRadius + text.getHeight()/2);
+      layer.add(date);
+    }
+  });
+  // Show the blur background
+  var background = layer.parent.find('.blurBG')[0];
+  background.visible(true);
+  background.draw();
+  // Play tweens
+  layer.moveToTop();
+  layerTween.play();
+  bubbleTween.play();
+  textTween.play();
+  // Set up condense animation
+  layer.off('click.expand');
+  background.on('click.condense', function(e) {
+    condenseBubble(e, layer, cwidth, thought, duration, [username, date], [textTween, bubbleTween, layerTween]);
+  });
+}
+
+function condenseBubble(e, layer, cwidth, thought, duration, toRemove, tweens) {
+  // Hide background
+  e.target.visible(false);
+  e.target.parent.draw();
+  // Remove username/date and reverse tweens
+  var i;
+  for (i = 0; i < toRemove.length; i++) {
+    toRemove[i].remove();
+  }
+  for (i = 0; i < tweens.length; i++) {
+    tweens[i].reverse();
+  }
+  // Set up expand animation
+  e.target.off('click.condense');
+  layer.draggable(true);
+  animateBubble(layer);
+  addClickHandler(layer, cwidth, thought, duration);
 }
 
 // Get random int in range (inclusive)
