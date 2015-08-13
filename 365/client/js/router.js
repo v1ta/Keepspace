@@ -25,6 +25,7 @@
 
 
 // Always route to splash page if not logged in
+/*
 Router.onBeforeAction(function() {
 	if (! Meteor.userId()) {
 		this.render('splash');
@@ -36,10 +37,18 @@ Router.onBeforeAction(function() {
     }
 	}
 });
-
+*/
 
 Router.route("main",{
-    path:"/"
+  path:"/",
+  onBeforeAction: function() {
+    if (! Meteor.userId() ) {
+      Session.set('c_login', false);
+      this.redirect('login');
+    } else {
+      this.next();
+    }
+  }
 })
 Router.route("calendar")
 
@@ -48,3 +57,15 @@ Router.route('/user/:_id', function () {
     this.render('user', {data: this.params._id});
 });
 
+Router.route('login', function() { 
+  this.layout('loginPage');
+  this.render('carousel');
+});
+Router.route('whatwedo', function() {
+  this.layout('loginPage');
+  this.render('whatwedo');
+});
+Router.route('blog', function() {
+  this.layout('loginPage');
+  this.render('blog');
+});
