@@ -8,7 +8,6 @@ meteor-platform
 accounts-facebook
 accounts-password
 accounts-ui
-bootstrap
 iron:router
 meteorhacks:npm
 npm
