@@ -1,5 +1,5 @@
 <template name="calendar">
-    <table class="datepicker">
+    <!-- <table class="datepicker">
     <caption class="datepicker-caption">
       <a class="datepicker-prev" href="">Previous</a>
       <span class="datepicker-title"></span>
@@ -19,10 +19,116 @@
     <tbody class="datepicker-body">
 
     </tbody>
-  </table>
+  </table> -->
   <div id="calendarFeed">
-    <p id="calFeedHead">Feed</p>
+    <p id="calFeedHead" class="feed-name">Feed</p>
     <div id="calFeed">
     </div>
   </div>
+
+  <div class="container" id="calendarContainer">
+
+    <div class="calendar">
+
+      <div id="calendarHeader">     
+
+        <div id="monthDetails" class="calendarHeaderSelectors">
+          <a class="btn-prev fontawesome-angle-left " id="monthPrev" href="#"></a>
+          <div class="calendarTitle" id="monthTitle">September</div>
+          <a class="btn-next fontawesome-angle-right" id="monthNext" href="#"></a> 
+        </div>
+        <br>
+        <div id="yearDetails" class="calendarHeaderSelectors">
+          <a class="btn-prev fontawesome-angle-left yearChanger" id="yearPrev" href="#"></a>
+          <div class="calendarTitle" id="yearTitle">2015</div>
+          <a class="btn-next fontawesome-angle-right yearChanger" id="yearNext" href="#"></a>  
+        </div>
+        
+
+      </div>
+      
+      <table>
+      
+        <thead>
+          
+          <tr>
+            
+            <td class="dayTitle">S</td>
+            <td class="dayTitle">M</td>
+            <td class="dayTitle">T</td>
+            <td class="dayTitle">W</td>
+            <td class="dayTitle">T</td>
+            <td class="dayTitle">F</td>
+            <td class="dayTitle">S</td>
+
+          </tr>
+
+        </thead>
+
+        <tbody class="datepicker-body">
+          
+          <tr>
+            <td class="prev-month">26</td>
+            <td class="prev-month">27</td>
+            <td class="prev-month">28</td>
+            <td class="prev-month">29</td>
+            <td class="prev-month">30</td>
+            <td class="prev-month">31</td>
+            <td>1</td>
+          </tr>
+          <tr>
+            <td>2</td>
+            <td>3</td>
+            <td>4</td>
+            <td>5</td>
+            <td>6</td>
+            <td>7</td>
+            <td>8</td>
+          </tr>
+          <tr>
+            <td>9</td>
+            <td>10</td>
+            <td>11</td>
+            <td>12</td>
+            <td>13</td>
+            <td>14</td>
+            <td>15</td>
+          </tr>
+          <tr>
+            <td>16</td>
+            <td>17</td>
+            <td>18</td>
+            <td>19</td>
+            <td>20</td>
+            <td>21</td>
+            <td>22</td>
+          </tr>
+
+          <tr>
+            <td class="current-day">23</td>
+            <td>24</td>
+            <td>25</td>
+            <td>26</td>
+            <td>27</td>
+            <td>28</td>
+            <td>29</td>
+          </tr>
+          <tr>
+            <td>30</td>
+            <td class="next-month">1</td>
+            <td class="next-month">2</td>
+            <td class="next-month">3</td>
+            <td class="next-month">4</td>
+            <td class="next-month">5</td>
+            <td class="next-month">6</td>
+          </tr>
+
+        </tbody>
+
+      </table>
+
+    </div> <!-- end calendar -->
+
+  </div> <!-- end container -->
+
 </template>
