@@ -6,7 +6,7 @@ Template.main.onRendered(function() {
   renderFeed('#worldFeed', 'worldFeed-container', {owner:{$ne: Meteor.userId()}, createdAt: {$gte:start}});
 });
 
-function renderFeed(container, canvas, findHash) {
+renderFeed = function(container, canvas, findHash) {
   var container = $(container);
   var cwidth = parseInt(container.css('width')) - parseInt(container.css('padding-left')) - parseInt(container.css('padding-right'));
   var cheight = parseInt(container.css('height')) - parseInt(container.css('padding-top')) - parseInt(container.css('padding-bottom'));
@@ -14,6 +14,16 @@ function renderFeed(container, canvas, findHash) {
   // Get thoughts
   var thoughts = Thoughts.find(findHash, {sort: {createdAt: -1}}).fetch();
   console.log(thoughts);
+  console.log(thoughts.length);
+  console.log(container);
+  if (container.attr("id") == "calFeed"){
+    if (thoughts.length == 0 ){
+      $("#noPostText").show();
+    }
+    else{
+      $("#noPostText").hide();
+    }
+  }
 
   var stage = new Kinetic.Stage({
     container: canvas,

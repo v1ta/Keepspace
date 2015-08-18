@@ -113,7 +113,9 @@ Template.header.events({
 Template.header.onRendered(function() {
     var today = new Date();
     $("#dayNum").text(today.getDOY());
-    $("#date").text($.format.date(today, "MMMM D, yyyy"));
+    var currentDate = $.format.date(today, "MMMM D, yyyy");
+    $("#date").text(currentDate);
+    localStorage.setItem("selectedDate", $.format.date(today, "M d yyyy"));
 });
 
 Date.prototype.getDOY = function() {
