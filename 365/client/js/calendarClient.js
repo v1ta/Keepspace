@@ -9,7 +9,10 @@ Template.calendar.rendered = function() {
 	    var today = new Date();
 	    $("#calFeedHead").text("Day " + today.getDOY());
 	}
-}
+};
+// Template.calendar.onRendered(function(){
+// 	renderFeed('#calFeed', 'calFeed-container', {owner:Meteor.userId()});
+// });
 Template.calendar.helpers({
 
 });
@@ -97,24 +100,11 @@ function getCalFeed(date){
 	dateMidnight.setMinutes(59);
 	dateMidnight.setSeconds(59);
 
-	var thoughts = Thoughts.find({"createdAt": {
+	renderFeed('#calFeed', 'calFeed-container', {"createdAt": {
 		$gt:startDate,
 		$lt:dateMidnight
-	}}).fetch();
-	$("#calFeed").empty();
-	if (thoughts.length > 0){
-		var string = "<ul></ul>"
-		for (var i = 0; i < thoughts.length; i++){
-			var thought = thoughts[i];
-			console.log(thought);
-			var string = "<li>" + thought.text + "</li>";
-			$("#calFeed").append(string);
-		}
-	}
-	else{
-		var string = "<p>Looks like you don't have any posts in your collection on this day!</p>";
-		$("#calFeed").append(string);
-	}
+	}});
+
 }
 //set calendar feed header + calendar month/year
 function setCalText(date, setCal, setHead){
@@ -128,7 +118,7 @@ function setCalText(date, setCal, setHead){
     	$("#yearTitle").text(year);
   	}
     if (setHead)
-    	$("#calFeedHead").text("Day " + date.getDOY());
+    	$("#calFeedHead").text("Day " + (date.getDOY() - 1));
 }
 //get date for previous or next month
 //val is number of days to change by
