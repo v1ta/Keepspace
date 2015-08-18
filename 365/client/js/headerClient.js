@@ -11,6 +11,8 @@ Template.header.events({
                 console.log(err);
             } 
             console.log(data)
+            // Add a new bubble
+            addThoughtsToStage([data], myStage); 
         });
 
         // Clear form

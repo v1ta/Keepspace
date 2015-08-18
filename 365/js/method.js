@@ -8,16 +8,17 @@ Meteor.methods({
 
     addThought: function (text, location) {
         // Make sure the user is logged in before inserting a thought
-        if(!UserLoggedIn) return false
-        Thoughts.insert({
+        if(!UserLoggedIn) return false;
+        var newThought = {
             text: text,
             createdAt: new Date(),
             owner: Meteor.userId(),
             rank: 0,
             username: Meteor.user().username,
             position: location
-        });
-        return
+        };
+        Thoughts.insert(newThought);
+        return newThought;
     },
     //specifically for adding facebook posts
     addPost: function(post){
