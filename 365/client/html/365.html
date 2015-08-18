@@ -5,34 +5,50 @@
     <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
 </head>
 
-<template name="main">
-  {{> header}}
+<body>
+  {{#if currentUser}}
+    {{> header}}
+  {{/if}}
+</body>
 
+<template name="main">
   <div id="main-feed" class="container-fluid">
     <div class="row feed-wrapper">
       <div id="friendFeed" class="feed col-xs-4">
-        <div class="feed-name">Friends</div>
+        <i class="fa fa-search feed-search-icon"></i>
+        <form class="search">
+          <input type="text" name="search" placeholder="find a thought" />
+        </form>
+        <div class="feed-name">FRIENDS</div>
       </div>
 
       <div id="myFeed" class="feed col-xs-4">
+        <i class="fa fa-search feed-search-icon"></i>
+        <form class="search">
+          <input type="text" name="search" placeholder="find a thought" />
+        </form>
         <div class="feed-name">{{username}}</div>
-        {{> feed}}
+        <div id="myFeed-container"></div>
       </div>
 
-      <div id="world" class="feed col-xs-4">
-        <div class="feed-name">World</div>
-      <div id="worldButtons">
-        <input id="popular" type="image" src="images/popularButton.png" name="calendar" width="90" height="35">
-        <input id="random" type="image" src="images/randomButton.png" name="calendar" width="90" height="35">
-          </div>
+      <div id="worldFeed" class="feed col-xs-4">
+        <i class="fa fa-search feed-search-icon"></i>
+        <form class="search">
+          <input type="text" name="search" placeholder="find a thought" />
+        </form>
+        <i class="fa fa-caret-down fa-lg world-dropdown"></i>
+        <ul id="worldButtons">
+          <li>Popular</li>
+          <li>Random</li>
+        </ul>
+        <div class="feed-name">WORLD</div>
+        <div id="worldFeed-container"></div>
       </div>
-        {{> worldFeed}}
     </div>
   </div>
 </template>
 
 <template name="header">
-  {{#if currentUser}}
   <div id="header" class="container-fluid">
     <div class="row">
       <div class="left col-xs-4">
@@ -40,14 +56,10 @@
           DAY <p id="dayNum">0</p>
         </div>
         <p id="date" class="vertical-center">00/00/00</p>
-        <!-- <form id="search" class="new-task vertical-center">
-          <input type="text" name="search" placeholder="find a thought" />
-        </form> -->
       </div>
 
       <div class="mid col-xs-4">
         <p id="time">...</p>
-        {{#if currentUser}}
         <div id="tempForm">
           <form class="new-thought" autocomplete="off">
             <input type="text" name="text" placeholder="How will you remember today?" />
@@ -55,7 +67,6 @@
           </form>
             <button id="btn-import-facebook" class="btn btn-primary"><i class="fa fa-facebook fa-fw"></i></button>
         </div>
-        {{/if}}
       </div>
 
       <div class="right col-xs-4">
@@ -78,6 +89,4 @@
     <br>
     <input type="submit" id="signOut" class="logout dropButton" value="Sign Out">
   </div>
-
-  {{/if}}
 </template>

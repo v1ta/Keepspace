@@ -1,10 +1,7 @@
-<template name="feed">
-  <div class="myThoughts">
-    <ul>
-      {{#each thoughts}}
-        {{> thought}}
-      {{/each}}
-    </ul>
+<template name="myFeed">
+  <div id="myFeed" class="feed col-xs-4">
+    <div class="feed-name">{{username}}</div>
+    <div id="myFeed-container"></div>
   </div>
 </template>
 

@@ -26,10 +26,14 @@
 
 // Always route to splash page if not logged in
 Router.onBeforeAction(function() {
-	if (! Meteor.userId() ) {
+	if (! Meteor.userId()) {
 		this.render('splash');
 	} else {
-		this.next();
+    if (Meteor.loggingIn()) {
+      this.render('loggingIn');
+    } else {
+  		this.next();
+    }
 	}
 });
 

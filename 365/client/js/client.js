@@ -21,7 +21,7 @@ window.onload = function(){
     Meteor.setInterval(setTime, 1000);
 }
 
-Template.feed.helpers({
+Template.myFeed.helpers({
     thoughts: function () {
         // Show all thoughts
         var thoughts = Thoughts.find({owner:Meteor.userId()}, {sort: {createdAt: -1}});
@@ -87,8 +87,10 @@ Template.thought.helpers({
 //put in username
 Template.main.helpers({
     username: function(){
-        var username = Meteor.user().username;
-        return username.split(" ")[0];
+        if (Meteor.user()) {
+            var username = Meteor.user().username.toUpperCase();
+            return username.split(" ")[0];
+        }
     },
     posts: function(){
         var thoughts = Thoughts.find({}, {sort: {createdAt: -1}});
@@ -112,6 +114,13 @@ Template.main.events({
             //data[(post number)][from][name]
             //only want the one's from the user
         });
+    },
+    'click .feed-search-icon': function(e) {
+        $(e.target.nextElementSibling).animate({width: "toggle"}, 'fast');
+    },
+    'click .fa-caret-down, click .fa-caret-up': function(e) {
+        $("#worldButtons").slideToggle('fast');
+        $(e.target).toggleClass("fa-caret-down fa-caret-up");
     }
 });
 
