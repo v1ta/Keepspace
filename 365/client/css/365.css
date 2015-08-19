@@ -6,24 +6,20 @@
 body, html {
   height: 100%;
   /* TODO: band-aid for header */
-  min-width: 1000px;
+  min-width: 1200px;
 }
 
 /* Header */
-#header button{
-  padding:0px;
-}
 #header{
   font-family: GeosansLight;
-  padding-top: 20px;
-  padding-bottom: 20px;
-  overflow:hidden;
+  padding: 10px;
+  /*overflow:hidden;*/
   background-color:#E8F4FD;
 }
 #header .row > * {
-  height: 100px;
+  height: 75px;
 }
-#header .left > * {
+#header .mid > * {
   float: left;
 }
 #header .right > * {
@@ -35,6 +31,17 @@ body, html {
 #header .right i {
   margin: 5px;
 }
+#logo {
+  width: 245px;
+  border-radius: 5px;
+}
+#logo img {
+  height: 75px;
+  padding: 10px;
+}
+#header .username {
+  font-size: 30px;
+}
 #homeButton {
   background-color: #01C2CF;
   color: #ffffff;
@@ -44,7 +51,7 @@ body, html {
   z-index: 2;
 }
 #dayNum {
-  font-size: 40px;
+  font-size: 30px;
 }
 #date {
   background-color: #ffffff;
@@ -58,18 +65,32 @@ body, html {
 }
 #time{
   color:#ED1C24;
-  font-size:31px;
+  font-size: 18px;
   text-align: center;
-  height: 44px;
+  position: absolute;
+  top: 33px;
+  left: 50%; /* fallback */
+  left: -webkit-calc(50% - 25px);
+  left: -moz-calc(50% - 25px);
+  left: calc(50% - 25px);
 }
-#calendarButton{
-  height: 100px;
-  width: 100px;
+#main-menu {
+  display: none;
+  position: absolute;
+  z-index: 2;
 }
-#profileButton{
-  height: 100px;
+#main-menu ul {
+  list-style: none;
+  background: #bbbbbb;
+  margin-left: 0;
+  border-radius: 0 0 5px 5px;
+  width: 245px;
 }
-#settingsButton{
+#main-menu li {
+  padding: 3px 5px;
+}
+#main-menu li:last-child {
+  border-radius: 0 0 5px 5px;
 }
 #worldHeader{
   margin-bottom:0px;
@@ -82,9 +103,9 @@ body, html {
   transform: translateY(-50%);
 }
 .header-circle {
-  height: 100px;
-  width: 100px;
-  border-radius: 50px;
+  height: 75px;
+  width: 75px;
+  border-radius: 37.5px;
 }
 
 /* Main Feed */
@@ -160,6 +181,9 @@ body, html {
 #tempForm {
   width: 100%;
   position: relative;
+}
+#tempForm button {
+  padding: 0;
 }
 .new-thought input {
   width: 100%;
