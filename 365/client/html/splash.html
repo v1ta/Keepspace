@@ -1,8 +1,11 @@
 <template name="splash">
 	<div id="splashContent">
   		<img id="splashLogo" src="images/signup_bubble.png">
-     	<p id="splashTitle">Welcome to Keepspace</p>
-      	{{> login}}
+  		<div class="singleLine">
+	  		<img id="backButton" src="images/backButton.png" style="display:none">
+	     	<p id="splashTitle">Welcome to Keepspace</p>
+     	</div>
+      	{{> signup}}
 	</div>
 </template>
 
@@ -14,9 +17,9 @@
     </form>
 </template>
 
-<template name="login">
-	<div id="loginButtons">
-	    <form>
+<template name="signup">
+	<div id="splashButtons">
+	    <form id="signupForm">
 	    	<div id="firstSignPage">
 		        <input class="loginForm" id="username" type="username" name="userName"
 		        placeholder="name">
@@ -38,17 +41,15 @@
 		        <input class="blueLoginButton" type="submit" id="createButton" value="Create">
 		        <!-- <button class="blueLoginButton" id="createButton">create</button>  -->
 	    	</div>
-	        
-	        
 	    </form>
 	    <button class="blueLoginButton" id="nextLoginButton">next</button> 
 	    <!-- <button id="createAccount">Create Account</button> -->
 	    <br>
-	    <!-- <div class="accounts-dialog">
-		    <div class="login-button single-login-button" id="login-buttons-facebook">
-		        <span class="text-besides-image sign-in-text-facebook">Sign in with Facebook</span>
+	    <div>
+		    <div id="login-buttons-facebook">
+		        <input type="image" id="facebookButton" src="images/facebookSignIn.png">
 		  	</div>
-		</div> -->
+		</div>
 
 	</div>
 </template>
