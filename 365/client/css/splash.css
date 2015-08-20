@@ -1,7 +1,12 @@
 /* Splash Page */
 #splashContent {
 	text-align: center;
-	margin-top: 7%;
+	background:white;
+	padding-top:4%;
+}
+
+#splashLogo{
+
 }
 
 #splashHead {
@@ -14,6 +19,7 @@
 #splashTitle {
 	text-align: center;
 	font-size: 44px;
+	margin-top:2%;
 }
 
 #login-buttons{
@@ -34,16 +40,80 @@
 	text-align:center;
 }
 .loginForm{
-	border: 4px solid #F99321 !important;
-	border-radius: 10px !important;
-	height: 30px !important;
-	padding: 1px !important;
-}
-#password{
-	margin-top:
-	20px;
+	border: 2px solid #AEAEAE !important;
+    border-radius: 15px !important;
+    height: 30px !important;
+    padding-left: 10px;
+    background: #EAE8E8 !important;
+    margin-bottom:15px;
 }
 #login-buttons-facebook{
 	text-align:center;
 	display: inline !important;
+}
+
+.blueLoginButton{
+	border-radius: 10px;
+    padding-left: 15px;
+    padding-right: 15px;
+    font-size: 18px;
+    background: #A7E6EC;
+    border: 2px solid #A0E4EA;
+}
+
+#createButton{
+	margin-top:15px;
+}
+
+#splashBannerHeader{
+	padding-top:30px;
+	text-align:center;
+	padding-bottom:30px;
+	background:#E6F3FA;
+	color:#7B7978;
+}
+#splashBannerLogo{
+	display:inline-block;
+	height:50px;
+	position:absolute;
+	left:40px;
+	top:22px;
+}
+#betaEmail{
+	display:inline-block;
+	margin:0px;
+	background:transparent;
+    border: 1px solid #A7ABAE;
+	border-radius:5px;
+	width:110px;
+	height:25px;
+}
+#checkButton{
+	display:inline-block;
+	text-align:center;
+}
+#betaLink{
+	display:inline-block;
+}
+#aboutLink{
+	display:inline-block;
+	padding-right:20px;
+}
+#teamLink{
+	display:inline-block;
+	padding-right:20px;
+}
+#loginLink{
+	display:inline-block;
+}
+#centerDiv{
+	display:inline-block;
+}
+#linkDiv{
+	display:inline-block;
+	position:absolute;
+	right:0px;
+}
+#linkDiv p{
+	margin-right:30px;
 }

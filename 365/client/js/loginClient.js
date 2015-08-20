@@ -3,31 +3,58 @@ Template.login.events({
 	//login function
 	'submit form': function(event) {
 		event.preventDefault();
-		if ($("#passwordAgain").is(":visible"))
-		{
-			var emailVar = event.target.loginEmail.value;
-			var passwordVar = event.target.loginPassword.value;
-			var repeat = event.target.loginPasswordAgain.value;
-			if (passwordVar == repeat){
-				Accounts.createUser({
-				    username: emailVar,
-				    password: passwordVar
-				});
-			}
-			else{
-			//passwords do not match 
-			}
+		console.log("submit");
+		var userName = event.target.userName.value;
+		var userEmail = event.target.userEmail.value;
+		var DateOfBirth = event.target.dateOfBirth.value;
+		var passwordVar = event.target.userPassword.value;
+		var repeat = event.target.userPasswordAgain.value;
+
+		var emailValidate = validateEmail(userEmail);
+		var validate = true;
+		if (passwordVar != repeat){
+			//passwords don't match
+			alert("Passwords don't match!");
+			validate = false;
+		}
+		else if (!emailValidate){
+			alert("Please enter a valid email.");
+			validate = false;
 		}
 		else{
-			var emailVar = event.target.loginEmail.value;
-			var passwordVar = event.target.loginPassword.value;
-			Meteor.loginWithPassword(emailVar, passwordVar, function(err){
-				if (!err){
-					Session.set("isFB", false);
-				  // $("#changePassword").show();
-				}
+			Accounts.createUser({
+				username: userName,
+				email: userEmail,
+				password: passwordVar,
+				DOB: DateOfBirth
 			});
-		}        
+		}
+
+		// if ($("#passwordAgain").is(":visible"))
+		// {
+		// 	var emailVar = event.target.loginEmail.value;
+		// 	var passwordVar = event.target.loginPassword.value;
+		// 	var repeat = event.target.loginPasswordAgain.value;
+		// 	if (passwordVar == repeat){
+		// 		Accounts.createUser({
+		// 		    username: emailVar,
+		// 		    password: passwordVar
+		// 		});
+		// 	}
+		// 	else{
+		// 	//passwords do not match 
+		// 	}
+		// }
+		// else{
+		// 	var emailVar = event.target.loginEmail.value;
+		// 	var passwordVar = event.target.loginPassword.value;
+		// 	Meteor.loginWithPassword(emailVar, passwordVar, function(err){
+		// 		if (!err){
+		// 			Session.set("isFB", false);
+		// 		  // $("#changePassword").show();
+		// 		}
+		// 	});
+		// }        
 	},
 	//login with facebook
 	'click #login-buttons-facebook': function(){
@@ -57,5 +84,71 @@ Template.login.events({
 			$("#createAccount").text("Cancel");
 			$("#signIn").val("Create");
 		}
-	}
+	},
+	'click #nextLoginButton': function(){
+		var checkDate = isValidDate($("#dateOfBirth").val());
+		var name = $("#username").val();
+		if (!name && checkDate){
+			alert("Please enter your name!");
+		}
+		else if (checkDate && name){
+			$("#firstSignPage").hide();
+			$("#nextLoginButton").hide();
+			$("#secondSignPage").show();
+		}
+	},
+	// 'click #createButton': function(){
+	// 	$("#firstSignPage").show();
+	// 	$("#nextLoginButton").show();
+	// 	$("#secondSignPage").hide();
+	// }
 });
+
+// Validates that the input string is a valid date formatted as "mm/dd/yyyy"
+function isValidDate(dateString)
+{
+    // First check for the pattern
+    if(!/^\d{1,2}\/\d{1,2}\/\d{4}$/.test(dateString)){
+    	alert("Please enter a valid date of birth");
+        return false;
+    }
+
+    // Parse the date parts to integers
+    var parts = dateString.split("/");
+    var day = parseInt(parts[1], 10);
+    var month = parseInt(parts[0], 10);
+    var year = parseInt(parts[2], 10);
+
+    var monthLength = [ 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 ];
+
+    // Adjust for leap years
+    if(year % 400 == 0 || (year % 100 != 0 && year % 4 == 0))
+        monthLength[1] = 29;
+
+    var now = new Date();
+    var entered = new Date(year, month - 1, day);
+
+    // Check the ranges of month and year
+    if(year < 1000 || year > 3000 || month == 0 || month > 12){
+    	alert("Please enter a valid date of birth");
+        return false;
+    }
+    // Check the range of the day
+    else if(!(day > 0 && day <= monthLength[month - 1])) {
+    	alert("Please enter a valid date of birth");
+        return false;
+    }
+    //check if the day has already happened
+    else if (entered > now){
+    	alert("Please enter a valid date of birth");
+    	return false;
+    }
+    else{
+    	return true;
+    }
+};
+//check if an email seems legit
+function validateEmail(email) {
+    var re = /^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/i;
+    return re.test(email);
+}

@@ -1,9 +1,9 @@
 <template name="splash">
-  <div id="splashContent">
-      <h1 id="splashHead">365</h1>
-      <p id="splashTitle"> Don't Let Today Disappear</p>
-      {{> login}}
-    </div>
+	<div id="splashContent">
+  		<img id="splashLogo" src="images/signup_bubble.png">
+     	<p id="splashTitle">Welcome to Keepspace</p>
+      	{{> login}}
+	</div>
 </template>
 
 <template name="register">
@@ -17,29 +17,59 @@
 <template name="login">
 	<div id="loginButtons">
 	    <form>
-	        <input class="loginForm" id="username" type="username" name="loginEmail"
-	        placeholder="Username">
-	        <br>
-	        <input class="loginForm" id="password" type="password" name="loginPassword"
-	        placeholder="Password">
-	        <br>
-	        <input class="loginForm" id="passwordAgain" type="password" name="loginPasswordAgain" placeholder="Password (again)" style="display:none">
-	        <br>
-	        <input type="submit" id="signIn" value="Sign In">
+	    	<div id="firstSignPage">
+		        <input class="loginForm" id="username" type="username" name="userName"
+		        placeholder="name">
+		        <br>
+		        <input class="loginForm" id="dateOfBirth" type="username" name="dateOfBirth"
+		        placeholder="date of birth (mm/dd/yyyy)">
+		        <br>
+		        
+	        </div>
+	        <div id="secondSignPage" style="display:none">
+		        <input class="loginForm" id="email" type="email" name="userEmail"
+		        placeholder="e-mail">
+		        <br>
+		        <input class="loginForm" id="password" type="password" name="userPassword"
+		        placeholder="password">
+		        <br>
+		        <input class="loginForm" id="passwordAgain" type="password" name="userPasswordAgain" placeholder="password (again please!)">
+		        <br>
+		        <input class="blueLoginButton" type="submit" id="createButton" value="Create">
+		        <!-- <button class="blueLoginButton" id="createButton">create</button>  -->
+	    	</div>
+	        
+	        
 	    </form>
-	    <button id="createAccount">Create Account</button>
+	    <button class="blueLoginButton" id="nextLoginButton">next</button> 
+	    <!-- <button id="createAccount">Create Account</button> -->
 	    <br>
-	    <div class="accounts-dialog">
-
-
+	    <!-- <div class="accounts-dialog">
 		    <div class="login-button single-login-button" id="login-buttons-facebook">
 		        <span class="text-besides-image sign-in-text-facebook">Sign in with Facebook</span>
 		  	</div>
-		</div>
+		</div> -->
 
 	</div>
 </template>
 
 <template name="loggingIn">
   Logging in...
+</template>
+
+<template name="splashBanner">
+	<div id="splashBannerHeader">
+		<img id="splashBannerLogo" src="images/keepspace-logo-blue.png">
+		<div id="centerDiv">
+			<input class="headerEmail" id="betaEmail" type="email" name="betaEmail"
+	        placeholder="ENTER E-MAIL">
+	        <input type="button" id="checkButton" value="✓" />
+	        <p id="betaLink" class="splashBannerP">SIGN UP FOR BETA</p>
+    	</div>
+    	<div id="linkDiv">
+	        <p id="aboutLink" class="splashBannerP">ABOUT</p>
+	        <p id="teamLink" class="splashBannerP">TEAM</p>
+	        <p id="loginLink" class="splashBannerP">LOG IN</p>
+    	</div>
+	</div>
 </template>
