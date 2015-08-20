@@ -17,7 +17,7 @@
 }
 #calFeed{
   width:100%;
-  height:2000px;
+  height:100vh;
   background:white;
 }
 
@@ -35,8 +35,6 @@
 #calendarContainer{
   position:absolute;
   width:35%;
-  /*left:0%;*/
-  /*top:140px;*/
 }
 
 html, body {
@@ -71,7 +69,6 @@ table {
 }
 
 .container {
-  height: 800px;
   left: 0%;
   position: absolute;
   width: 510px;
