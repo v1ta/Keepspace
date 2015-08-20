@@ -100,7 +100,7 @@ function getCalFeed(date){
 	dateMidnight.setMinutes(59);
 	dateMidnight.setSeconds(59);
 
-	renderFeed('#calFeed', 'calFeed-container', {"createdAt": {
+	renderFeed('#calFeed', 'calFeed-container', {owner:Meteor.userId(), "createdAt": {
 		$gt:startDate,
 		$lt:dateMidnight
 	}});
@@ -118,7 +118,7 @@ function setCalText(date, setCal, setHead){
     	$("#yearTitle").text(year);
   	}
     if (setHead)
-    	$("#calFeedHead").text("Day " + (date.getDOY() - 1));
+    	$("#calFeedHead").text("Day " + (date.getDOY()));
 }
 //get date for previous or next month
 //val is number of days to change by
