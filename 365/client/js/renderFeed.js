@@ -1,3 +1,6 @@
+/* Global vars for the feeds */
+myStage = {}, friendStage = {}, worldStage = {};
+
 Template.main.onRendered(function() {
   // Only find posts made after 00:00 of today
   var start = new Date();
@@ -6,18 +9,33 @@ Template.main.onRendered(function() {
   renderFeed('#worldFeed', 'worldFeed-container', {owner:{$ne: Meteor.userId()}, createdAt: {$gte:start}});
 });
 
-renderFeed = function(container, canvas, findHash) {
-  var container = $(container);
+function setupStage(containerDiv, canvas) {
+  var container = $(containerDiv);
   var cwidth = parseInt(container.css('width')) - parseInt(container.css('padding-left')) - parseInt(container.css('padding-right'));
   var cheight = parseInt(container.css('height')) - parseInt(container.css('padding-top')) - parseInt(container.css('padding-bottom'));
 
+  var stage = new Kinetic.Stage({
+    container: canvas,
+    width: cwidth,
+    height: cheight
+  });
+  if (containerDiv === '#myFeed') {
+    myStage = stage;
+    return myStage;
+  } else if (containerDiv === '#worldFeed') {
+    worldStage = stage;
+    return worldStage;
+  } else {
+    return stage;
+  }
+}
+
+renderFeed = function(containerDiv, canvas, findHash) {
   // Get thoughts
   var thoughts = Thoughts.find(findHash, {sort: {createdAt: -1}}).fetch();
   console.log(thoughts);
-  console.log(thoughts.length);
-  console.log(container);
-  if (container.attr("id") == "calFeed"){
-    if (thoughts.length == 0 ){
+  if (containerDiv === "#calFeed"){
+    if (thoughts.length === 0 ){
       $("#noPostText").show();
     }
     else{
@@ -25,20 +43,33 @@ renderFeed = function(container, canvas, findHash) {
     }
   }
 
-  var stage = new Kinetic.Stage({
-    container: canvas,
-    width: cwidth,
-    height: cheight
-  });
+  var stage = setupStage(containerDiv, canvas);
+  addThoughtsToStage(thoughts, stage);
+  console.log(stage.getChildren());
 
+  // Add the blur background
+  layer = new Kinetic.Layer();
+  layer.add(new Kinetic.Rect({
+    name: 'blurBG',
+    width: stage.width(),
+    height: stage.height(),
+    fill: '#bbbbbb',
+    opacity: 0.5,
+    visible: false
+  }));
+  stage.add(layer);
+    console.log(myStage);
+}
+
+addThoughtsToStage = function(thoughts, stage) {
   var x = 0, y = 0, radius = 0, sSize = 0, sIndex = 0, padding = 5, layer;
   for (var i = 0; i < thoughts.length; i++) {
     radius = 40*(thoughts[i].rank+1);
     // x position - random
-    x = getRandomInt(radius+padding, cwidth-radius-padding);
+    x = getRandomInt(radius+padding, stage.width()-radius-padding);
 
     // y position - most recent posts towards the top, canvas divided into four sections
-    sSize = Math.floor(cheight / 4);
+    sSize = Math.floor(stage.height() / 4);
     sIndex = Math.floor(i / (thoughts.length/4));
     y = getRandomInt(radius+padding + sSize*sIndex, sSize*(sIndex+1) - radius-padding);
 
@@ -49,23 +80,10 @@ renderFeed = function(container, canvas, findHash) {
       i--; continue;
     }
     layer = createBubble(thoughts[i].text, x, y, radius, padding, '#EA4949');
-    addClickHandler(layer, cwidth, thoughts[i], 0.25);
+    addClickHandler(layer, stage.width(), thoughts[i], 0.25, x, y, radius);
     addPopHandler(layer, stage);
     stage.add(layer);
   }
-  console.log(stage.getChildren());
-
-  // Add the blur background
-  layer = new Kinetic.Layer();
-  layer.add(new Kinetic.Rect({
-    name: 'blurBG',
-    width: cwidth,
-    height: cheight,
-    fill: '#bbbbbb',
-    opacity: 0.5,
-    visible: false
-  }));
-  stage.add(layer);
 }
 
 // Returns a new layer with bubble and text members
@@ -99,6 +117,20 @@ function createBubble(thought, x, y, radius, padding, fill) {
 
   layer.add(bubble);
   layer.add(text);
+
+  // Add pop indicators
+  for (var ii = 0; ii < 8; ii++) {
+    layer.add(new Kinetic.Path({
+      name: 'popIndicator',
+      x: 0,
+      y: 0,
+      data: describeArc(x, y, radius, 45*ii, 45*(ii+1)),
+      stroke: '#0099FF',
+      strokeWidth: 4,
+      opacity: 0
+    }));
+  }
+  
   animateBubble(layer);
 
   return layer;
@@ -125,9 +157,20 @@ function animateBubble(layer) {
 }
 
 function addPopHandler(layer, stage) {
+  var indicators = layer.find('.popIndicator');
+  var index = 0;
+  var step = 2000/8;
+  var anim = new Kinetic.Animation(function (frame) {
+    index = Math.floor(frame.time / step) % 8;
+    if (indicators[index]) {
+      if (indicators[index].opacity() < 1.0)
+        indicators[index].opacity(indicators[index].opacity() + 0.045);
+    }
+  }, layer);
   // Pop bubble if mouse is held down for 2 seconds
   var pop;
   layer.on('mousedown', function() {
+    anim.start();
     pop = window.setTimeout(function() {
       layer.destroyChildren();
       layer.destroy();
@@ -135,18 +178,24 @@ function addPopHandler(layer, stage) {
       stage.draw();
     }, 2000);
   });
-  layer.on('mouseup', function() {
+  layer.on('mouseup dragstart', function() {
+    anim.stop();
+    anim.frame.time = 0;
+    for (var ii = 0; ii < 8; ii++) {
+      indicators[ii].opacity(0);
+    }
+    layer.draw();
     window.clearTimeout(pop);
   })
 }
 
-function addClickHandler(layer, cwidth, thought, duration) {
+function addClickHandler(layer, cwidth, thought, duration, x, y, radius) {
   layer.on('click.expand', function(e) {
-    expandBubble(e, layer, cwidth, thought, duration);
+    expandBubble(e, layer, cwidth, thought, duration, x, y, radius);
   });
 }
 
-function expandBubble(e, layer, cwidth, thought, duration) {
+function expandBubble(e, layer, cwidth, thought, duration, x, y, radius) {
   var layerTween, bubbleTween, textTween, nodes, bubble, text;
   layer.draggable(false);
   layerTween = new Kinetic.Tween({
@@ -202,6 +251,11 @@ function expandBubble(e, layer, cwidth, thought, duration) {
       layer.add(date);
     }
   });
+  // Adjust the pop indicators
+  var indicators = layer.find('.popIndicator');
+  for (var i = 0; i < 8; i++) {
+    indicators[i].data(describeArc(expandedRadius, expandedRadius, expandedRadius, 45*i, 45*(i+1)));
+  }
   // Show the blur background
   var background = layer.parent.find('.blurBG')[0];
   background.visible(true);
@@ -214,30 +268,57 @@ function expandBubble(e, layer, cwidth, thought, duration) {
   // Set up condense animation
   layer.off('click.expand');
   background.on('click.condense', function(e) {
-    condenseBubble(e, layer, cwidth, thought, duration, [username, date], [textTween, bubbleTween, layerTween]);
+    condenseBubble(e, layer, cwidth, thought, duration, x, y, radius, [username, date], [textTween, bubbleTween, layerTween]);
   });
 }
 
-function condenseBubble(e, layer, cwidth, thought, duration, toRemove, tweens) {
+function condenseBubble(e, layer, cwidth, thought, duration, x, y, radius, toRemove, tweens) {
   // Hide background
   e.target.visible(false);
   e.target.parent.draw();
   // Remove username/date and reverse tweens
-  var i;
-  for (i = 0; i < toRemove.length; i++) {
+  for (var i = 0; i < toRemove.length; i++) {
     toRemove[i].remove();
   }
-  for (i = 0; i < tweens.length; i++) {
+  for (var i = 0; i < tweens.length; i++) {
     tweens[i].reverse();
+  }
+  // Adjust the pop indicators
+  var indicators = layer.find('.popIndicator');
+  for (var i = 0; i < 8; i++) {
+    indicators[i].data(describeArc(x, y, radius, 45*i, 45*(i+1)));
   }
   // Set up expand animation
   e.target.off('click.condense');
   layer.draggable(true);
   animateBubble(layer);
-  addClickHandler(layer, cwidth, thought, duration);
+  addClickHandler(layer, cwidth, thought, duration, x, y, radius);
 }
 
 // Get random int in range (inclusive)
 function getRandomInt(min, max) {
   return Math.floor(Math.random() * (max - min + 1)) + min;
+}
+
+function polarToCartesian(centerX, centerY, radius, angleInDegrees) {
+  var angleInRadians = (angleInDegrees-90) * Math.PI / 180.0;
+
+  return {
+    x: centerX + (radius * Math.cos(angleInRadians)),
+    y: centerY + (radius * Math.sin(angleInRadians))
+  };
+}
+
+function describeArc(x, y, radius, startAngle, endAngle){
+  var start = polarToCartesian(x, y, radius, endAngle);
+  var end = polarToCartesian(x, y, radius, startAngle);
+
+  var arcSweep = endAngle - startAngle <= 180 ? "0" : "1";
+
+  var d = [
+      "M", start.x, start.y, 
+      "A", radius, radius, 0, arcSweep, 0, end.x, end.y
+  ].join(" ");
+
+  return d;
 }

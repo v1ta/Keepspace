@@ -1,25 +1,5 @@
 //header functions
 Template.header.events({
-    "submit .new-thought": function (event) {
-        event.preventDefault();
-        // This function is called when the new thought form is submitted
-        var text = event.target.text.value;
-
-        var thoughtId = Meteor.call("addThought", text, null,
-        function(err, data) {
-            if (err){
-                console.log(err);
-            } 
-            console.log(data)
-        });
-
-        // Clear form
-        event.target.text.value = "";
-
-        // Prevent default form submit
-
-        return false;
-    },
     /*'click #postButton': function(e) {
         if ($("#tempForm").css("display") === "none") {
             $("#tempForm").show();
@@ -34,6 +14,7 @@ Template.header.events({
         Router.go("main");;
     },
     'click #settingsButton': function(event){
+        console.log(Meteor.user());
         event.preventDefault();
         // console.log($("#settingDropDown").css("display"));
         // $("#settingDropDown").toggle();
@@ -76,6 +57,30 @@ Template.header.events({
             alert("Passwords no not match");
         }
     },
+    'click #logo': function(e) {
+        $("#main-menu").toggle();
+        $(e.currentTarget).children('i').toggleClass("fa-caret-down fa-caret-up");
+        if ($("#main-menu").css("display") === "block") {
+            $("#logo").css({"border-bottom-right-radius": "0",
+                            "border-bottom-left-radius" : "0"});
+        } else {
+            $("#logo").css("border-radius", "5px");
+        }
+    },
+    'mouseenter #logo': function(e) {
+        $("#logo").css("background-color", "#bbbbbb");
+    },
+    'mouseleave #logo': function(e) {
+        if ($("#main-menu").css("display") !== "block") {
+            $("#logo").css("background-color", "");
+        }
+    },
+    'mouseenter .menu-item': function(e) {
+        $(e.target).css("background-color", "#01C2CF");
+    },
+    'mouseleave .menu-item': function(e) {
+        $(e.target).css("background-color", "");
+    }
     // 'click #btn-import-facebook': function(e) {
     //     Meteor.call('getFBUserData', function(err, data) {
     //         console.log(JSON.stringify(data, undefined, 4));
@@ -89,33 +94,33 @@ Template.header.events({
     //         //only want the one's from the user
     //     });
     // },
-    'click #btn-import-facebook': function(e){
-        Meteor.call('getFBPostData', function(err, data) {
-            if (err){
-                console.log(err);
-            }
-            else{
-                var posts = data["data"];
-                console.log(posts[0]);
-                var thoughtId = Meteor.call("addPost", posts[0],function(err, data) {
-                    if (err){
-                        console.log(err);
-                    }
-                    console.log(data)
-                });
-                // getLocationThought(thoughtId)
-                return false;
-            }
-        });
+});
+
+Template.header.helpers({
+    username: function(){
+        if (Meteor.user()) {
+            return Meteor.user().username;
+        }
+    },
+    avatar: function() {
+        var user = Meteor.user();
+        if (user.services)
+            if (user.services.facebook) {
+                return "http://graph.facebook.com/" + user.services.facebook.id + "/picture/?type=large";
+            } else return "/avatars/default.png";
     }
 });
 
 Template.header.onRendered(function() {
     var today = new Date();
     $("#dayNum").text(today.getDOY());
-    var currentDate = $.format.date(today, "MMMM D, yyyy");
+    var currentDate = $.format.date(today, "MMMM D");
     $("#date").text(currentDate);
     localStorage.setItem("selectedDate", $.format.date(today, "M d yyyy"));
+
+    var padding = parseInt($(".mid").css("width")) - ( parseInt($("#homeButton").css("width"))+parseInt($("#date").css("width"))-parseInt($("#date").css("padding-left")) );
+    $(".mid").css("padding-left", padding/2);
+    $(".mid").css("padding-right", padding/2);
 });
 
 Date.prototype.getDOY = function() {
