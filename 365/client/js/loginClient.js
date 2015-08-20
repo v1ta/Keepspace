@@ -9,6 +9,12 @@ Template.splash.events({
 	}
 });
 
+Template.splashBanner.events({
+	'click #loginLink': function(){
+		Router.go("loginPage");
+	}
+});
+
 Template.signup.events({
 	'click #facebookButton': function(){
 	  	Meteor.loginWithFacebook(

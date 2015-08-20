@@ -9,6 +9,17 @@
 	</div>
 </template>
 
+<template name="loginPage">
+	<div id="splashContent">
+  		<img id="splashLogo" src="images/signup_bubble.png">
+  		<div class="singleLine">
+	  		<img id="backButton" src="images/backButton.png" style="display:none">
+	     	<p id="splashTitle">Welcome to Keepspace</p>
+     	</div>
+      	{{> loggingIn}}
+	</div>
+</template>
+
 <template name="register">
     <form>
         <input type="email" name="registerEmail">

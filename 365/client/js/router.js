@@ -41,7 +41,8 @@ Router.onBeforeAction(function() {
 Router.route("main",{
     path:"/"
 })
-Router.route("calendar")
+Router.route("calendar");
+Router.route("loginPage");
 
 Router.route('/user/:_id', function () {
 
