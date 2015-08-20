@@ -12,8 +12,7 @@ body, html {
 /* Header */
 #header{
   font-family: GeosansLight;
-  padding-top: 20px;
-  padding-bottom: 20px;
+  padding: 10px;
   /*overflow:hidden;*/
   background-color:#E8F4FD;
 }
