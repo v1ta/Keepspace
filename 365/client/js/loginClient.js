@@ -1,3 +1,6 @@
+Accounts.onLogin(function(){
+	Router.go("mainPage");
+});
 
 Template.splash.events({
 	'click .backButton': function(){

@@ -50,7 +50,14 @@ Router.route("main",{
     }
   }
 })
-Router.route("calendar");
+Router.route("mainPage", function(){
+  this.layout("header");
+  this.render("main");
+});
+Router.route("calendar", function(){
+  this.layout("header");
+  this.render("calendar");
+});
 
 Router.route('/user/:_id', function () {
 

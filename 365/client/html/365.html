@@ -4,11 +4,11 @@
 </head>
 
 <body>
-  {{#if currentUser}}
+  <!-- {{#if currentUser}}
     {{> header}}
-  <!--   {{else}}
-      {{>splashBanner}} -->
-  {{/if}}
+    {{else}}
+      {{>splashBanner}}
+  {{/if}} -->
 </body>
 
 <template name="main">
@@ -89,4 +89,5 @@
     <br>
     <input type="submit" id="signOut" class="logout dropButton" value="Sign Out">
   </div>
+  {{> yield}}
 </template>
