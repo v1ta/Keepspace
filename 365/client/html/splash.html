@@ -1,24 +1,39 @@
 <template name="splash">
-	<div id="splashContent">
-  		<img id="splashLogo" src="images/signup_bubble.png">
+	<div class="splashContent">
+  		<img class="splashLogo" src="images/signup_bubble.png">
   		<div class="singleLine">
-	  		<img id="backButton" src="images/backButton.png" style="display:none">
-	     	<p id="splashTitle">Welcome to Keepspace</p>
+	  		<img class="backButton" src="images/backButton.png" style="display:none">
+	     	<p class="splashTitle">Welcome to Keepspace</p>
      	</div>
       	{{> signup}}
 	</div>
 </template>
 
-<!-- <template name="loginPage">
-	<div id="splashContent">
-  		<img id="splashLogo" src="images/signup_bubble.png">
+<template name="loginPage">
+	<div class="splashContent">
+  		<img class="splashLogo" src="images/signup_bubble.png">
   		<div class="singleLine">
-	  		<img id="backButton" src="images/backButton.png" style="display:none">
-	     	<p id="splashTitle">Welcome to Keepspace</p>
+	     	<p class="splashTitle">Welcome to Keepspace</p>
      	</div>
-      	{{> loggingIn}}
+     	<div class="splashButtons">
+	     	<form id="signupForm">
+		    	<div id="firstSignPage">
+			        <input class="loginForm" id="email" type="email" name="email"
+			        placeholder="e-mail">
+			        <br>
+			        <input class="loginForm" id="password" type="password" name="password"
+			        placeholder="password">
+			        <br>
+			        <input class="blueLoginButton" type="submit" id="createButton" value="Go">
+		        </div>
+		    </form>
+		    <div id="login-buttons-facebook">
+		        <input type="image" id="facebookButton" src="images/facebookLogin.png">
+		  	</div>
+	  	</div>
 	</div>
-</template> -->
+
+</template>
 
 <template name="register">
     <form>
@@ -30,7 +45,7 @@
 
 
 <template name="signup">
-	<div id="splashButtons">
+	<div class="splashButtons">
 	    <form id="signupForm">
 	    	<div id="firstSignPage">
 		        <input class="loginForm" id="username" type="username" name="userName"
@@ -57,11 +72,9 @@
 	    <button class="blueLoginButton" id="nextLoginButton">next</button> 
 	    <!-- <button id="createAccount">Create Account</button> -->
 	    <br>
-	    <div>
-		    <div id="login-buttons-facebook">
-		        <input type="image" id="facebookButton" src="images/facebookSignIn.png">
-		  	</div>
-		</div>
+	    <div id="login-buttons-facebook">
+	        <input type="image" id="facebookButton" src="images/facebookSignIn.png">
+	  	</div>
 
 	</div>
 </template>
@@ -110,4 +123,5 @@
 	        <p id="loginLink" class="splashBannerP">LOG IN</p>
     	</div>
 	</div>
+	{{> yield}}
 </template>

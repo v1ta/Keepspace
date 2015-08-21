@@ -44,14 +44,13 @@ Router.route("main",{
   onBeforeAction: function() {
     if (! Meteor.userId() ) {
       Session.set('c_login', false);
-      this.redirect('login');
+      this.redirect('splash');
     } else {
       this.next();
     }
   }
 })
 Router.route("calendar");
-Router.route("loginPage");
 
 Router.route('/user/:_id', function () {
 
@@ -59,14 +58,24 @@ Router.route('/user/:_id', function () {
 });
 
 Router.route('login', function() { 
-  this.layout('loginPage');
+  // this.layout('loginPage');
+  this.layout("splashBanner");
   this.render('carousel');
 });
-Router.route('whatwedo', function() {
-  this.layout('loginPage');
-  this.render('whatwedo');
+Router.route('splash', function() { 
+  this.layout("splashBanner");
+  this.render('carousel');
 });
-Router.route('blog', function() {
-  this.layout('loginPage');
-  this.render('blog');
+Router.route('about', function() {
+  this.layout("splashBanner");
+  this.render('aboutPage');
+});
+Router.route('team', function() {
+  this.layout("splashBanner");
+  this.render('teamPage');
+});
+Router.route('loginPage', function() {
+  this.layout("splashBanner");
+  // this.render('splash');
+  this.render("loginPage");
 });

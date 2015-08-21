@@ -1,11 +1,11 @@
 
 Template.splash.events({
-	'click #backButton': function(){
+	'click .backButton': function(){
 		console.log("clicked");
 		$("#firstSignPage").show();
 		$("#nextLoginButton").show();
 		$("#secondSignPage").hide();
-		$("#backButton").hide();
+		$(".backButton").hide();
 		$("#splashTitle").css("margin-right", "0px");
 	}
 });
@@ -13,7 +13,10 @@ Template.splash.events({
 Template.splashBanner.events({
 	'click #loginLink': function(){
 		Router.go("loginPage");
-	}
+	},
+	'click #aboutLink': function() { Router.go('about'); },
+  	'click #teamLink': function() { Router.go('team'); },
+  	'click #splashBannerLogo': function(){ Router.go('splash');},
 });
 
 show_signup_fields = function() {
@@ -30,7 +33,7 @@ show_signup_fields = function() {
   }
 }
 
-Template.signup.events({
+Template.loginPage.events({
 	'click #facebookButton': function(){
 	  	Meteor.loginWithFacebook(
 	  		{requestPermissions: ['email', 'user_friends', 'user_location', 'user_status',
@@ -44,40 +47,54 @@ Template.signup.events({
 			      console.log(err);
 			    }
 			}
-		)},
-	  });
-
-//custom login/register functionas
-Template.login.events({
-	//login function
-	'submit form': function(event) {
+		)
+	},
+	'submit form': function(){
 		event.preventDefault();
-		if ($("#passwordAgain").is(":visible"))
-		{
-			var emailVar = event.target.loginEmail.value;
-			var passwordVar = event.target.loginPassword.value;
-			var repeat = event.target.loginPasswordAgain.value;
-			if (passwordVar == repeat){
-				Accounts.createUser({
-				    username: emailVar,
-				    password: passwordVar
-				});
+		var emailVar = event.target.email.value;
+		var passwordVar = event.target.password.value;
+		Meteor.loginWithPassword(emailVar, passwordVar, function(err){
+			if (!err){
+				Session.set("isFB", false);
 			}
 			else{
-			//passwords do not match 
+				alert(err);
 			}
-		}
-		else{
-			var emailVar = event.target.loginEmail.value;
-			var passwordVar = event.target.loginPassword.value;
-			Meteor.loginWithPassword(emailVar, passwordVar, function(err){
-				if (!err){
-					Session.set("isFB", false);
-				  // $("#changePassword").show();
-				}
-			});
-		}        
-	},
+		});
+	}
+});
+
+//custom login/register functionas
+Template.signup.events({
+	// //login function
+	// 'submit form': function(event) {
+	// 	event.preventDefault();
+	// 	if ($("#passwordAgain").is(":visible"))
+	// 	{
+	// 		var emailVar = event.target.loginEmail.value;
+	// 		var passwordVar = event.target.loginPassword.value;
+	// 		var repeat = event.target.loginPasswordAgain.value;
+	// 		if (passwordVar == repeat){
+	// 			Accounts.createUser({
+	// 			    username: emailVar,
+	// 			    password: passwordVar
+	// 			});
+	// 		}
+	// 		else{
+	// 		//passwords do not match 
+	// 		}
+	// 	}
+	// 	else{
+	// 		var emailVar = event.target.loginEmail.value;
+	// 		var passwordVar = event.target.loginPassword.value;
+	// 		Meteor.loginWithPassword(emailVar, passwordVar, function(err){
+	// 			if (!err){
+	// 				Session.set("isFB", false);
+	// 			  // $("#changePassword").show();
+	// 			}
+	// 		});
+	// 	}        
+	// },
 	//login with facebook
 	'click #login-buttons-facebook': function(){
 	  	Meteor.loginWithFacebook(
@@ -98,7 +115,7 @@ Template.login.events({
 		console.log("submit");
 		var userName = event.target.userName.value;
 		var userEmail = event.target.userEmail.value;
-		var DateOfBirth = event.target.dateOfBirth.value;
+		var DOB = event.target.dateOfBirth.value;
 		var passwordVar = event.target.userPassword.value;
 		var repeat = event.target.userPasswordAgain.value;
 
@@ -118,7 +135,9 @@ Template.login.events({
 				username: userName,
 				email: userEmail,
 				password: passwordVar,
-				DOB: DateOfBirth
+				profile: {
+					dateOfBirth: DOB
+				}
 			});
 		}   
 	},
@@ -134,7 +153,7 @@ Template.login.events({
 			$("#firstSignPage").hide();
 			$("#nextLoginButton").hide();
 			$("#secondSignPage").show();
-			$("#backButton").show();
+			$(".backButton").show();
 			$("#splashTitle").css("margin-right", "76px");
 		}
 	},
@@ -152,7 +171,7 @@ Template.login.events({
 // 			var passwordVar = event.target.loginPassword.value;
 // 			var repeat = event.target.loginPasswordAgain.value;
 // 			if (passwordVar == repeat){
-// 				Accounts.createUser({
+				// Accounts.createUser({
 // 				    username: emailVar,
 // 				    password: passwordVar
 // 				});
@@ -253,19 +272,19 @@ function validateEmail(email) {
 }
 	 
 
-Template.loginPage.events({
-  'click #signupButton': show_signup_fields,
-  'click .link-carousel': function() {
-    Session.set('c_login', false);
-    Router.go('login');
-  },
-  'click .link-wwd': function() { Router.go('whatwedo'); },
-  'click .link-blog': function() { Router.go('blog'); },
-  'click .link-login': function() {
-    Session.set('c_login', true);
-    Router.go('login');
-  }
-});
+// Template.loginPage.events({
+//   'click #signupButton': show_signup_fields,
+//   'click .link-carousel': function() {
+//     Session.set('c_login', false);
+//     Router.go('login');
+//   },
+//   'click .link-wwd': function() { Router.go('whatwedo'); },
+//   'click .link-blog': function() { Router.go('blog'); },
+//   'click .link-login': function() {
+//     Session.set('c_login', true);
+//     Router.go('login');
+//   }
+// });
 
 Template.carousel.onRendered(function() {
   if (Session.get('c_login')) {

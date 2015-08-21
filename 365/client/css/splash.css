@@ -1,5 +1,5 @@
 /* Splash Page */
-#splashContent {
+.splashContent {
 	text-align: center;
 	background:white;
 	padding-top:4%;
@@ -12,7 +12,7 @@
 	margin-bottom: 5%;
 }
 
-#splashTitle {
+.splashTitle {
 	text-align: center;
 	font-size: 44px;
 	margin-top:3%;
@@ -27,7 +27,7 @@
 	margin:0px;
 }
 
-#backButton{
+.backButton{
 	display:inline-block;
 	position:relative;
 	right:50px;
@@ -48,7 +48,7 @@
   text-align:center !important;
   display: inline !important;
 }
-#splashButtons{
+.splashButtons{
 	margin-top:5%;
 	text-align:center;
 }
