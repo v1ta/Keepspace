@@ -9,7 +9,7 @@
 	</div>
 </template>
 
-<template name="loginPage">
+<!-- <template name="loginPage">
 	<div id="splashContent">
   		<img id="splashLogo" src="images/signup_bubble.png">
   		<div class="singleLine">
@@ -18,7 +18,7 @@
      	</div>
       	{{> loggingIn}}
 	</div>
-</template>
+</template> -->
 
 <template name="register">
     <form>
@@ -27,6 +27,7 @@
         <input type="submit" value="Register">
     </form>
 </template>
+
 
 <template name="signup">
 	<div id="splashButtons">
@@ -52,6 +53,31 @@
 		        <input class="blueLoginButton" type="submit" id="createButton" value="Create">
 		        <!-- <button class="blueLoginButton" id="createButton">create</button>  -->
 	    	</div>
+	    	</form>
+	    <button class="blueLoginButton" id="nextLoginButton">next</button> 
+	    <!-- <button id="createAccount">Create Account</button> -->
+	    <br>
+	    <div>
+		    <div id="login-buttons-facebook">
+		        <input type="image" id="facebookButton" src="images/facebookSignIn.png">
+		  	</div>
+		</div>
+
+	</div>
+</template>
+
+<template name="login_old">
+	<div id="loginButtons">
+	    <form>
+	        <input class="loginForm" id="username" type="username" name="loginEmail"
+	        placeholder="Username">
+	        <br>
+	        <input class="loginForm" id="password" type="password" name="loginPassword"
+	        placeholder="Password">
+	        <br>
+	        <input class="loginForm" id="passwordAgain" type="password" name="loginPasswordAgain" placeholder="Password (again)" style="display:none">
+	        <br>
+	        <input type="submit" id="signIn" value="Sign In">
 	    </form>
 	    <button class="blueLoginButton" id="nextLoginButton">next</button> 
 	    <!-- <button id="createAccount">Create Account</button> -->
