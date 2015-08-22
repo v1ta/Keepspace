@@ -1,12 +1,105 @@
-<template name="splash">
+<template name="signupPage">
 	<div class="splashContent">
   		<img class="splashLogo" src="images/signup_bubble.png">
   		<div class="singleLine">
 	  		<img class="backButton" src="images/backButton.png" style="display:none">
 	     	<p class="splashTitle">Welcome to Keepspace</p>
      	</div>
-      	{{> signup}}
+      	<div class="splashButtons">
+		    <form id="signupForm">
+		    	<div id="firstSignPage">
+			        <input class="loginForm" id="username" type="username" name="userName"
+			        placeholder="name">
+			        <br>
+			        <input class="loginForm" id="dateOfBirth" type="username" name="dateOfBirth"
+			        placeholder="date of birth (mm/dd/yyyy)">
+			        <br>
+			        
+		        </div>
+		        <div id="secondSignPage" style="display:none">
+			        <input class="loginForm" id="email" type="email" name="userEmail"
+			        placeholder="e-mail">
+			        <br>
+			        <input class="loginForm" id="password" type="password" name="userPassword"
+			        placeholder="password">
+			        <br>
+			        <input class="loginForm" id="passwordAgain" type="password" name="userPasswordAgain" placeholder="password (again please!)">
+			        <br>
+			        <input class="blueLoginButton" type="submit" id="createButton" value="Create">
+		    	</div>
+	    	</form>
+		    <button class="blueLoginButton" id="nextLoginButton">next</button> 
+		    <br>
+		    <div id="login-buttons-facebook">
+		        <input type="image" id="facebookButton" src="images/facebookSignIn.png">
+		  	</div>
+		</div>
 	</div>
+</template>
+
+<template name="loggingIn">
+  Logging in...
+</template>
+
+<template name="splashBanner">
+	<div id="splashBannerHeader">
+		<img id="splashBannerLogo" src="images/keepspace-logo-blue.png">
+		<div id="centerDiv">
+			<form class="splashForm">
+				<input class="headerEmail" id="betaEmail" type="email" name="betaEmail"
+		        placeholder="ENTER E-MAIL">
+		        <input type="submit" id="checkButton" value="✓" />
+	    	</form>
+	        <p id="betaLink" class="splashBannerP">SIGN UP FOR BETA</p>
+    	</div>
+    	<div id="linkDiv">
+	        <p id="aboutLink" class="splashBannerP">ABOUT</p>
+	        <p id="teamLink" class="splashBannerP">TEAM</p>
+	        <p id="loginLink" class="splashBannerP">LOG IN</p>
+    	</div>
+	</div>
+	{{> yield}}
+</template>
+
+<template name="carousel">
+  <div id="carousel" class="carousel slide" data-ride="carousel" data-wrap="false">
+    <!-- Indicators -->
+    <ol class="carousel-indicators">
+      <li data-target="#carousel" data-slide-to="0" class="active"></li>
+      <li data-target="#carousel" data-slide-to="1"></li>
+      <li data-target="#carousel" data-slide-to="2"></li>
+      <li data-target="#carousel" data-slide-to="3"></li>
+    </ol>
+    <!-- Slides -->
+    <div class="carousel-inner" role="listbox">
+      <div class="item active">
+        <img src="/images/homepage/remember.svg" alt="Remember today."/>
+      </div>
+      <div class="item">
+        <img src="/images/homepage/liveInTheMoment.svg" alt="Live in the moment."/>
+      </div>
+      <div class="item">
+        <img src="/images/homepage/breakOut.svg" alt="Break out of your daily grind."/>
+      </div>
+      <!-- Log in form -->
+      <div id="loginSlide" class="item">
+        <div class="row">
+          <!-- <div class="col-xs-9"> -->
+            {{> loginPage}}
+          <!-- </div> -->
+        </div>
+      </div>
+    </div>
+
+    <a class="left carousel-control" href="#carousel" role="button" data-slide="prev">
+      <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+      <span class="sr-only">Previous</span>
+    </a>
+    <a class="right carousel-control" href="#carousel" role="button" data-slide="next">
+      <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+      <span class="sr-only">Next</span>
+    </a>
+  </div>
 </template>
 
 <template name="loginPage">
@@ -32,96 +125,12 @@
 		  	</div>
 	  	</div>
 	</div>
-
 </template>
 
-<template name="register">
-    <form>
-        <input type="email" name="registerEmail">
-        <input type="password" name="registerPassword">
-        <input type="submit" value="Register">
-    </form>
+<template name="aboutPage">
+  <p>About Page</p>
 </template>
 
-
-<template name="signup">
-	<div class="splashButtons">
-	    <form id="signupForm">
-	    	<div id="firstSignPage">
-		        <input class="loginForm" id="username" type="username" name="userName"
-		        placeholder="name">
-		        <br>
-		        <input class="loginForm" id="dateOfBirth" type="username" name="dateOfBirth"
-		        placeholder="date of birth (mm/dd/yyyy)">
-		        <br>
-		        
-	        </div>
-	        <div id="secondSignPage" style="display:none">
-		        <input class="loginForm" id="email" type="email" name="userEmail"
-		        placeholder="e-mail">
-		        <br>
-		        <input class="loginForm" id="password" type="password" name="userPassword"
-		        placeholder="password">
-		        <br>
-		        <input class="loginForm" id="passwordAgain" type="password" name="userPasswordAgain" placeholder="password (again please!)">
-		        <br>
-		        <input class="blueLoginButton" type="submit" id="createButton" value="Create">
-		        <!-- <button class="blueLoginButton" id="createButton">create</button>  -->
-	    	</div>
-	    	</form>
-	    <button class="blueLoginButton" id="nextLoginButton">next</button> 
-	    <!-- <button id="createAccount">Create Account</button> -->
-	    <br>
-	    <div id="login-buttons-facebook">
-	        <input type="image" id="facebookButton" src="images/facebookSignIn.png">
-	  	</div>
-
-	</div>
-</template>
-
-<template name="login_old">
-	<div id="loginButtons">
-	    <form>
-	        <input class="loginForm" id="username" type="username" name="loginEmail"
-	        placeholder="Username">
-	        <br>
-	        <input class="loginForm" id="password" type="password" name="loginPassword"
-	        placeholder="Password">
-	        <br>
-	        <input class="loginForm" id="passwordAgain" type="password" name="loginPasswordAgain" placeholder="Password (again)" style="display:none">
-	        <br>
-	        <input type="submit" id="signIn" value="Sign In">
-	    </form>
-	    <button class="blueLoginButton" id="nextLoginButton">next</button> 
-	    <!-- <button id="createAccount">Create Account</button> -->
-	    <br>
-	    <div>
-		    <div id="login-buttons-facebook">
-		        <input type="image" id="facebookButton" src="images/facebookSignIn.png">
-		  	</div>
-		</div>
-
-	</div>
-</template>
-
-<template name="loggingIn">
-  Logging in...
-</template>
-
-<template name="splashBanner">
-	<div id="splashBannerHeader">
-		<img id="splashBannerLogo" src="images/keepspace-logo-blue.png">
-		<div id="centerDiv">
-			<input class="headerEmail" id="betaEmail" type="email" name="betaEmail"
-	        placeholder="ENTER E-MAIL">
-	        <input type="button" id="checkButton" value="✓" />
-	        <p id="betaLink" class="splashBannerP">SIGN UP FOR BETA</p>
-    	</div>
-    	<div id="linkDiv">
-	        <p id="aboutLink" class="splashBannerP">ABOUT</p>
-	        <p id="teamLink" class="splashBannerP">TEAM</p>
-	        <p id="loginLink" class="splashBannerP">LOG IN</p>
-    	</div>
-	</div>
-	{{> yield}}
+<template name="teamPage">
+  <p>Team Page</p>
 </template>

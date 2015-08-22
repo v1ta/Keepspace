@@ -60,15 +60,10 @@ Router.route("calendar", function(){
 });
 
 Router.route('/user/:_id', function () {
-
     this.render('user', {data: this.params._id});
 });
 
-Router.route('login', function() { 
-  // this.layout('loginPage');
-  this.layout("splashBanner");
-  this.render('carousel');
-});
+//splash page and accoiated routing
 Router.route('splash', function() { 
   this.layout("splashBanner");
   this.render('carousel');
@@ -83,6 +78,6 @@ Router.route('team', function() {
 });
 Router.route('loginPage', function() {
   this.layout("splashBanner");
-  // this.render('splash');
+  // this.render('signupPage');
   this.render("loginPage");
 });

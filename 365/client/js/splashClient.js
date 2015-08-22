@@ -2,9 +2,8 @@ Accounts.onLogin(function(){
 	Router.go("mainPage");
 });
 
-Template.splash.events({
+Template.signupPage.events({
 	'click .backButton': function(){
-		console.log("clicked");
 		$("#firstSignPage").show();
 		$("#nextLoginButton").show();
 		$("#secondSignPage").hide();
@@ -20,21 +19,14 @@ Template.splashBanner.events({
 	'click #aboutLink': function() { Router.go('about'); },
   	'click #teamLink': function() { Router.go('team'); },
   	'click #splashBannerLogo': function(){ Router.go('splash');},
+  	'click #betaLink': function(){
+  		betaSignup();
+  	},
+  	"submit form": function(){
+  		event.preventDefault();
+  		betaSignup();
+  	}
 });
-
-show_signup_fields = function() {
-  if ($("#passwordAgain").is(":visible"))
-  {
-    $("#passwordAgain").hide();
-    $("#createAccount").text("Create Account");
-    $("#signIn").val("Sign In");
-  }
-  else{
-    $("#passwordAgain").show();
-    $("#createAccount").text("Cancel");
-    $("#signIn").val("Create");
-  }
-}
 
 Template.loginPage.events({
 	'click #facebookButton': function(){
@@ -68,36 +60,7 @@ Template.loginPage.events({
 });
 
 //custom login/register functionas
-Template.signup.events({
-	// //login function
-	// 'submit form': function(event) {
-	// 	event.preventDefault();
-	// 	if ($("#passwordAgain").is(":visible"))
-	// 	{
-	// 		var emailVar = event.target.loginEmail.value;
-	// 		var passwordVar = event.target.loginPassword.value;
-	// 		var repeat = event.target.loginPasswordAgain.value;
-	// 		if (passwordVar == repeat){
-	// 			Accounts.createUser({
-	// 			    username: emailVar,
-	// 			    password: passwordVar
-	// 			});
-	// 		}
-	// 		else{
-	// 		//passwords do not match 
-	// 		}
-	// 	}
-	// 	else{
-	// 		var emailVar = event.target.loginEmail.value;
-	// 		var passwordVar = event.target.loginPassword.value;
-	// 		Meteor.loginWithPassword(emailVar, passwordVar, function(err){
-	// 			if (!err){
-	// 				Session.set("isFB", false);
-	// 			  // $("#changePassword").show();
-	// 			}
-	// 		});
-	// 	}        
-	// },
+Template.signupPage.events({
 	//login with facebook
 	'click #login-buttons-facebook': function(){
 	  	Meteor.loginWithFacebook(
@@ -134,21 +97,28 @@ Template.signup.events({
 			validate = false;
 		}
 		else{
-			Accounts.createUser({
-				username: userName,
-				email: userEmail,
-				password: passwordVar,
-				profile: {
-					dateOfBirth: DOB
+			Accounts.createUser(
+				{
+					username: userName,
+					email: userEmail,
+					password: passwordVar,
+					profile: {
+						dateOfBirth: DOB
+					}
+				}, 
+				function(err){
+					if (err){
+						alert(err);
+					}
+					else{
+					}
 				}
-			});
+			);
 		}   
 	},
 	'click #nextLoginButton': function(){
-		// var checkDate = isValidDate($("#dateOfBirth").val());
-		// var name = $("#username").val();
-		var checkDate = true;
-		var name = true;
+		var checkDate = isValidDate($("#dateOfBirth").val());
+		var name = $("#username").val();
 		if (!name && checkDate){
 			alert("Please enter your name!");
 		}
@@ -163,67 +133,22 @@ Template.signup.events({
 	
 });
 
-// //custom login/register functionas
-// Template.login.events({
-// 	//login function
-// 	'submit form': function(event) {
-// 		event.preventDefault();
-// 		if ($("#passwordAgain").is(":visible"))
-// 		{
-// 			var emailVar = event.target.loginEmail.value;
-// 			var passwordVar = event.target.loginPassword.value;
-// 			var repeat = event.target.loginPasswordAgain.value;
-// 			if (passwordVar == repeat){
-				// Accounts.createUser({
-// 				    username: emailVar,
-// 				    password: passwordVar
-// 				});
-// 			}
-// 			else{
-// 			//passwords do not match 
-// 			}
-// 		}
-// 		else{
-// 			var emailVar = event.target.loginEmail.value;
-// 			var passwordVar = event.target.loginPassword.value;
-// 			Meteor.loginWithPassword(emailVar, passwordVar, function(err){
-// 				if (!err){
-// 					Session.set("isFB", false);
-// 				  // $("#changePassword").show();
-// 				}
-// 			});
-// 		}        
-// 	},
-// 	//login with facebook
-// 	'click #login-buttons-facebook': function(){
-// 	  	Meteor.loginWithFacebook(
-// 	  		{requestPermissions: ['email', 'user_friends', 'user_location', 'user_status',
-// 				'user_posts']}, 
-// 			function(err){
-// 			    if (!err){
-// 			      Session.set("isFB", true);
-// 			      // $("#changePassword").hide();
-// 			    }
-// 			    else{
-// 			      console.log(err);
-// 			    }
-// 			}
-// 		)},
-// 	  //  if you hit create account button
-// 	'click #createAccount': function(){
-// 		if ($("#passwordAgain").is(":visible"))
-// 		{
-// 			$("#passwordAgain").hide();
-// 			$("#createAccount").text("Create Account");
-// 			$("#signIn").val("Sign In");
-// 		}
-// 		else{
-// 			$("#passwordAgain").show();
-// 			$("#createAccount").text("Cancel");
-// 			$("#signIn").val("Create");
-// 		}
-// 	}
-// });
+Template.carousel.onRendered(function() {
+	$('#carousel').on('slide.bs.carousel', function (event) {
+  		if (event.relatedTarget.id == "loginSlide"){
+  			$(".right.carousel-control").hide();
+  		}
+  		else{
+  			$(".right.carousel-control").show();
+  		}
+	})
+  	if (Session.get('c_login')) {
+    	$('#carousel').carousel(3);
+    	$('#carousel').carousel('pause');
+  	}
+	else
+    	$('#carousel').carousel(0);
+});
 
 // Validates that the input string is a valid date formatted as "mm/dd/yyyy"
 function isValidDate(dateString)
@@ -268,32 +193,35 @@ function isValidDate(dateString)
     	return true;
     }
 };
+
+show_signup_fields = function() {
+  if ($("#passwordAgain").is(":visible"))
+  {
+    $("#passwordAgain").hide();
+    $("#createAccount").text("Create Account");
+    $("#signIn").val("Sign In");
+  }
+  else{
+    $("#passwordAgain").show();
+    $("#createAccount").text("Cancel");
+    $("#signIn").val("Create");
+  }
+}
+
 //check if an email seems legit
 function validateEmail(email) {
     var re = /^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/i;
     return re.test(email);
 }
-	 
 
-// Template.loginPage.events({
-//   'click #signupButton': show_signup_fields,
-//   'click .link-carousel': function() {
-//     Session.set('c_login', false);
-//     Router.go('login');
-//   },
-//   'click .link-wwd': function() { Router.go('whatwedo'); },
-//   'click .link-blog': function() { Router.go('blog'); },
-//   'click .link-login': function() {
-//     Session.set('c_login', true);
-//     Router.go('login');
-//   }
-// });
+function betaSignup(){
+	var email = $("#betaEmail").val();
+	var valid = validateEmail(email);
+	if (!valid){
+		alert("Please enter a valid email address");
+	}
+	else{
 
-Template.carousel.onRendered(function() {
-  if (Session.get('c_login')) {
-    $('#carousel').carousel(3);
-    $('#carousel').carousel('pause');
-  }
-  else
-    $('#carousel').carousel(0);
-})
+	}
+}
+

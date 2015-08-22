@@ -11,7 +11,7 @@ Template.header.events({
         Router.go("calendar");
     },
     'click #homeButton': function(e) {
-        Router.go("mainPage");;
+        Router.go("mainPage");
     },
     'click #settingsButton': function(event){
         console.log(Meteor.user());
