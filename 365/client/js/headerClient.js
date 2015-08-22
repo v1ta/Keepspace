@@ -11,7 +11,7 @@ Template.header.events({
         Router.go("calendar");
     },
     'click #homeButton': function(e) {
-        Router.go("main");;
+        Router.go("mainPage");;
     },
     'click #settingsButton': function(event){
         console.log(Meteor.user());
@@ -27,7 +27,7 @@ Template.header.events({
     },
     'click .logout': function(event){
         event.preventDefault();
-        Meteor.logout();
+        Meteor.logout(logoutFunction);
     },
     'click #changePassword': function(event){
         event.preventDefault();
@@ -126,4 +126,8 @@ Template.header.onRendered(function() {
 Date.prototype.getDOY = function() {
     var onejan = new Date(this.getFullYear(),0,1);
     return Math.ceil((this - onejan) / 86400000);
+}
+
+logoutFunction = function(){
+    Router.go("main");
 }

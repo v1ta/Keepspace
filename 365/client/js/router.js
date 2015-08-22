@@ -25,6 +25,7 @@
 
 
 // Always route to splash page if not logged in
+/*
 Router.onBeforeAction(function() {
 	if (! Meteor.userId()) {
 		this.render('splash');
@@ -36,15 +37,52 @@ Router.onBeforeAction(function() {
     }
 	}
 });
-
+*/
 
 Router.route("main",{
-    path:"/"
+  path:"/",
+  onBeforeAction: function() {
+    if (! Meteor.userId() ) {
+      Session.set('c_login', false);
+      this.redirect('splash');
+    } else {
+      this.next();
+    }
+  }
 })
-Router.route("calendar")
+Router.route("mainPage", function(){
+  this.layout("header");
+  this.render("main");
+});
+Router.route("calendar", function(){
+  this.layout("header");
+  this.render("calendar");
+});
 
 Router.route('/user/:_id', function () {
 
     this.render('user', {data: this.params._id});
 });
 
+Router.route('login', function() { 
+  // this.layout('loginPage');
+  this.layout("splashBanner");
+  this.render('carousel');
+});
+Router.route('splash', function() { 
+  this.layout("splashBanner");
+  this.render('carousel');
+});
+Router.route('about', function() {
+  this.layout("splashBanner");
+  this.render('aboutPage');
+});
+Router.route('team', function() {
+  this.layout("splashBanner");
+  this.render('teamPage');
+});
+Router.route('loginPage', function() {
+  this.layout("splashBanner");
+  // this.render('splash');
+  this.render("loginPage");
+});
