@@ -57,14 +57,11 @@ Template.header.events({
             alert("Passwords no not match");
         }
     },
-    'click #logo': function(e) {
-        $("#main-menu").toggle();
-        $(e.currentTarget).children('i').toggleClass("fa-caret-down fa-caret-up");
+    'click #logo, click #main-menu': function(e) {
         if ($("#main-menu").css("display") === "block") {
-            $("#logo").css({"border-bottom-right-radius": "0",
-                            "border-bottom-left-radius" : "0"});
+            hideMainMenu();
         } else {
-            $("#logo").css("border-radius", "5px");
+            showMainMenu();
         }
     },
     'mouseenter #logo': function(e) {
@@ -111,19 +108,42 @@ Template.header.helpers({
     }
 });
 
+Template.header.onCreated(function() {
+    $(window).resize(function() { setMidPadding(); });
+});
+Template.header.onDestroyed(function() {
+    $(window).off('resize');
+});
+
 Template.header.onRendered(function() {
     var today = new Date();
     $("#dayNum").text(today.getDOY());
     var currentDate = $.format.date(today, "MMMM D");
     $("#date").text(currentDate);
     localStorage.setItem("selectedDate", $.format.date(today, "M d yyyy"));
-
-    var padding = parseInt($(".mid").css("width")) - ( parseInt($("#homeButton").css("width"))+parseInt($("#date").css("width"))-parseInt($("#date").css("padding-left")) );
-    $(".mid").css("padding-left", padding/2);
-    $(".mid").css("padding-right", padding/2);
+    setMidPadding();
 });
+
 
 Date.prototype.getDOY = function() {
     var onejan = new Date(this.getFullYear(),0,1);
     return Math.ceil((this - onejan) / 86400000);
+}
+
+function setMidPadding() {
+    var padding = parseInt($(".mid").css("width")) - ( parseInt($("#homeButton").css("width"))+parseInt($("#date").css("width"))-parseInt($("#date").css("padding-left")) );
+    $(".mid").css("padding-left", padding/2);
+}
+
+// Handlers for showing and hiding main menu
+showMainMenu = function() {
+    $("#logo").css({"border-bottom-right-radius": "0",
+                    "border-bottom-left-radius" : "0",
+                    "background-color": "#bbbbbb"});
+    $("#main-menu").slideDown('fast');
+}
+hideMainMenu = function() {
+    $("#main-menu").slideUp('fast', function() {
+        $("#logo").css({"border-radius": "5px", "background-color": ""});    
+    });
 }

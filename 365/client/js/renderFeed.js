@@ -5,8 +5,8 @@ Template.main.onRendered(function() {
   // Only find posts made after 00:00 of today
   var start = new Date();
   start.setHours(0,0,0,0);
-  renderFeed('#myFeed', 'myFeed-container', {owner:Meteor.userId(), createdAt: {$gte:start}});
-  renderFeed('#worldFeed', 'worldFeed-container', {owner:{$ne: Meteor.userId()}, createdAt: {$gte:start}});
+  renderFeed('#myFeed', 'myFeed-canvas', {owner:Meteor.userId(), createdAt: {$gte:start}});
+  renderFeed('#worldFeed', 'worldFeed-canvas', {owner:{$ne: Meteor.userId()}, createdAt: {$gte:start}});
 });
 
 function setupStage(containerDiv, canvas) {
@@ -45,7 +45,6 @@ renderFeed = function(containerDiv, canvas, findHash) {
 
   var stage = setupStage(containerDiv, canvas);
   addThoughtsToStage(thoughts, stage);
-  console.log(stage.getChildren());
 
   // Add the blur background
   layer = new Kinetic.Layer();
@@ -58,13 +57,12 @@ renderFeed = function(containerDiv, canvas, findHash) {
     visible: false
   }));
   stage.add(layer);
-    console.log(myStage);
 }
 
 addThoughtsToStage = function(thoughts, stage) {
   var x = 0, y = 0, radius = 0, sSize = 0, sIndex = 0, padding = 5, layer;
   for (var i = 0; i < thoughts.length; i++) {
-    radius = 40*(thoughts[i].rank+1);
+    radius = 70*(thoughts[i].rank+1);
     // x position - random
     x = getRandomInt(radius+padding, stage.width()-radius-padding);
 
@@ -124,7 +122,7 @@ function createBubble(thought, x, y, radius, padding, fill) {
       name: 'popIndicator',
       x: 0,
       y: 0,
-      data: describeArc(x, y, radius, 45*ii, 45*(ii+1)),
+      data: describeArc(x, y, radius-2, 45*ii, 45*(ii+1)),
       stroke: '#0099FF',
       strokeWidth: 4,
       opacity: 0
@@ -139,8 +137,8 @@ function createBubble(thought, x, y, radius, padding, fill) {
 function animateBubble(layer) {
   // Floating animation
   var amplitude = 3,
-      periodX = getRandomInt(5000,10000),
-      periodY = getRandomInt(5000,10000),
+      periodX = getRandomInt(3000,8000),
+      periodY = getRandomInt(3000,8000),
       baseX = layer.x(),
       baseY = layer.y();
   var anim = new Kinetic.Animation(function(frame) {
@@ -171,12 +169,7 @@ function addPopHandler(layer, stage) {
   var pop;
   layer.on('mousedown', function() {
     anim.start();
-    pop = window.setTimeout(function() {
-      layer.destroyChildren();
-      layer.destroy();
-      stage.find('.blurBG').hide();
-      stage.draw();
-    }, 2000);
+    pop = window.setTimeout(function() { popBubble(layer, stage); }, 2000);
   });
   layer.on('mouseup dragstart', function() {
     anim.stop();
@@ -187,6 +180,15 @@ function addPopHandler(layer, stage) {
     layer.draw();
     window.clearTimeout(pop);
   })
+}
+
+function popBubble(layer, stage) {
+  var background = stage.find('.blurBG');
+  layer.destroyChildren();
+  layer.destroy();
+  background.off('click.condense');
+  background.hide();
+  stage.draw();
 }
 
 function addClickHandler(layer, cwidth, thought, duration, x, y, radius) {
@@ -224,13 +226,27 @@ function expandBubble(e, layer, cwidth, thought, duration, x, y, radius) {
     fontFamily: 'GeosansLight',
     text: Meteor.user().username == thought.username ? 'You:' : thought.username + ':',
     fill: '#ffffff',
-    fontSize: 16
+    fontSize: 16,
+    padding: 5
   });
   var date = new Kinetic.Text({
     fontFamily: 'GeosansLight',
     text: $.format.date(thought.createdAt, 'h:mmp'),
     fill: '#ffffff',
-    fontSize: 16
+    fontSize: 16,
+    padding: 5
+  });
+  var del = new Kinetic.Text({
+    fontFamily: 'GeosansLight',
+    text: 'Delete',
+    fill: '#ffffff',
+    fontSize: 16,
+    padding: 5
+  });
+  del.offsetX(del.getWidth());
+  del.on('click', function () {
+    popBubble(layer, layer.parent);
+    Meteor.call("deleteThought", thought._id);
   })
 
   textTween = new Kinetic.Tween({
@@ -241,12 +257,21 @@ function expandBubble(e, layer, cwidth, thought, duration, x, y, radius) {
     x: expandedRadius,
     y: expandedRadius,
     fontSize: 18,
-    padding: 20,
+    padding: 10,
     onFinish: function () {
-      username.x(expandedRadius - text.getTextWidth()/2);
-      username.y(expandedRadius - text.getHeight()/2);
+      var width = text.getTextWidth(), minWidth = 125, maxWidth = bubble.getWidth();
+      if (width < minWidth) {
+        width = minWidth;
+      } else if (width >= maxWidth) {
+        width = maxWidth;
+      }
+      username.x(expandedRadius - width/2);
+      username.y(expandedRadius - text.getHeight()/2 - 10);
       layer.add(username);
-      date.x(expandedRadius - text.getTextWidth()/2);
+      del.x(expandedRadius + width/2);
+      del.y(expandedRadius - text.getHeight()/2 - 10);
+      layer.add(del);
+      date.x(expandedRadius - width/2);
       date.y(expandedRadius + text.getHeight()/2);
       layer.add(date);
     }
@@ -254,7 +279,8 @@ function expandBubble(e, layer, cwidth, thought, duration, x, y, radius) {
   // Adjust the pop indicators
   var indicators = layer.find('.popIndicator');
   for (var i = 0; i < 8; i++) {
-    indicators[i].data(describeArc(expandedRadius, expandedRadius, expandedRadius, 45*i, 45*(i+1)));
+    indicators[i].data(describeArc(expandedRadius, expandedRadius, expandedRadius-5, 45*i, 45*(i+1)));
+    indicators[i].strokeWidth(10);
   }
   // Show the blur background
   var background = layer.parent.find('.blurBG')[0];
@@ -268,13 +294,14 @@ function expandBubble(e, layer, cwidth, thought, duration, x, y, radius) {
   // Set up condense animation
   layer.off('click.expand');
   background.on('click.condense', function(e) {
-    condenseBubble(e, layer, cwidth, thought, duration, x, y, radius, [username, date], [textTween, bubbleTween, layerTween]);
+    condenseBubble(e, layer, cwidth, thought, duration, x, y, radius, [username, date, del], [textTween, bubbleTween, layerTween]);
   });
 }
 
 function condenseBubble(e, layer, cwidth, thought, duration, x, y, radius, toRemove, tweens) {
   // Hide background
   e.target.visible(false);
+  e.target.parent.moveToTop();
   e.target.parent.draw();
   // Remove username/date and reverse tweens
   for (var i = 0; i < toRemove.length; i++) {
@@ -286,7 +313,8 @@ function condenseBubble(e, layer, cwidth, thought, duration, x, y, radius, toRem
   // Adjust the pop indicators
   var indicators = layer.find('.popIndicator');
   for (var i = 0; i < 8; i++) {
-    indicators[i].data(describeArc(x, y, radius, 45*i, 45*(i+1)));
+    indicators[i].data(describeArc(x, y, radius-2, 45*i, 45*(i+1)));
+    indicators[i].strokeWidth(4);
   }
   // Set up expand animation
   e.target.off('click.condense');

@@ -11,6 +11,10 @@ window.onload = function(){
             $("#changePasswordForm").hide();
             $(".dropButton").show();
         }
+        container = $("#main-menu");
+        if (!container.is(e.target) && container.has(e.target).length === 0){
+            hideMainMenu();
+        }
     });
     var configuration = {"location": null};
     if (!configuration){
