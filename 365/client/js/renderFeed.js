@@ -226,22 +226,19 @@ function expandBubble(e, layer, cwidth, thought, duration, x, y, radius) {
     fontFamily: 'GeosansLight',
     text: Meteor.user().username == thought.username ? 'You:' : thought.username + ':',
     fill: '#ffffff',
-    fontSize: 16,
-    padding: 5
+    fontSize: 16
   });
   var date = new Kinetic.Text({
     fontFamily: 'GeosansLight',
     text: $.format.date(thought.createdAt, 'h:mmp'),
     fill: '#ffffff',
-    fontSize: 16,
-    padding: 5
+    fontSize: 16
   });
   var del = new Kinetic.Text({
     fontFamily: 'GeosansLight',
     text: 'Delete',
     fill: '#ffffff',
-    fontSize: 16,
-    padding: 5
+    fontSize: 16
   });
   del.offsetX(del.getWidth());
   del.on('click', function () {
@@ -249,6 +246,7 @@ function expandBubble(e, layer, cwidth, thought, duration, x, y, radius) {
     Meteor.call("deleteThought", thought._id);
   })
 
+  var oldHeight = text.getHeight();
   textTween = new Kinetic.Tween({
     node: text,
     duration: duration,
@@ -259,11 +257,10 @@ function expandBubble(e, layer, cwidth, thought, duration, x, y, radius) {
     fontSize: 18,
     padding: 10,
     onFinish: function () {
-      var width = text.getTextWidth(), minWidth = 125, maxWidth = bubble.getWidth();
+      text.offsetY(text.getHeight()/2);
+      var width = text.getTextWidth(), minWidth = 125;
       if (width < minWidth) {
         width = minWidth;
-      } else if (width >= maxWidth) {
-        width = maxWidth;
       }
       username.x(expandedRadius - width/2);
       username.y(expandedRadius - text.getHeight()/2 - 10);
@@ -294,11 +291,11 @@ function expandBubble(e, layer, cwidth, thought, duration, x, y, radius) {
   // Set up condense animation
   layer.off('click.expand');
   background.on('click.condense', function(e) {
-    condenseBubble(e, layer, cwidth, thought, duration, x, y, radius, [username, date, del], [textTween, bubbleTween, layerTween]);
+    condenseBubble(e, layer, cwidth, thought, duration, x, y, radius, oldHeight, [username, date, del], [textTween, bubbleTween, layerTween]);
   });
 }
 
-function condenseBubble(e, layer, cwidth, thought, duration, x, y, radius, toRemove, tweens) {
+function condenseBubble(e, layer, cwidth, thought, duration, x, y, radius, oldHeight, toRemove, tweens) {
   // Hide background
   e.target.visible(false);
   e.target.parent.moveToTop();
@@ -308,7 +305,12 @@ function condenseBubble(e, layer, cwidth, thought, duration, x, y, radius, toRem
     toRemove[i].remove();
   }
   for (var i = 0; i < tweens.length; i++) {
-    tweens[i].reverse();
+    var t = tweens[i].reverse();
+    // Resetting text offsetY
+    if (i === 0) {
+      t = t.node;
+      t.offsetY(oldHeight/2);
+    }
   }
   // Adjust the pop indicators
   var indicators = layer.find('.popIndicator');
