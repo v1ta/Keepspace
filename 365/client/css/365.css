@@ -10,29 +10,29 @@ body, html {
 }
 
 /* Header */
-.header button{
+#header button{
   padding:0px;
 }
-.header{
+#header{
   font-family: GeosansLight;
   padding-top: 20px;
   padding-bottom: 20px;
   overflow:hidden;
   background-color:#E8F4FD;
 }
-.header .row > * {
+#header .row > * {
   height: 100px;
 }
-.header .left > * {
+#header .left > * {
   float: left;
 }
-.header .right > * {
+#header .right > * {
   float: right;
 }
-.header .right span {
+#header .right span {
   margin: 0 10px;
 }
-.header .right i {
+#header .right i {
   margin: 5px;
 }
 #homeButton {
@@ -88,15 +88,15 @@ body, html {
 }
 
 /* Login Page */
-.login.header {
+.login#header {
   height: 100px;
   font-size: 24px;
   font-variant: small-caps;
 }
-.login.header .row {
+.login#header .row {
   padding-top: 10px;
 }
-.login.header button {
+.login#header button {
   background-color: transparent;
   border: solid 2px #00007A;
   border-radius: 8px;
