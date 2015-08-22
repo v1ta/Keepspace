@@ -221,7 +221,8 @@ function betaSignup(){
 		alert("Please enter a valid email address");
 	}
 	else{
-
+		Meteor.call("addBetaEmail", email);
+		
 	}
 }
 

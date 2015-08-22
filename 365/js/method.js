@@ -3,6 +3,7 @@ Thoughts = new Mongo.Collection("Thoughts");
 Friends = new Mongo.Collection("Friends");
 RankRecord = new Mongo.Collection("RankRecord");
 SavedPosts = new Mongo.Collection("SavedPosts");
+betaEmailCollection = new Mongo.Collection("betaSignup");
 
 Meteor.methods({
 
@@ -78,25 +79,33 @@ Meteor.methods({
         return Meteor.user().username;
     },
     getFBUserData: function() {
-            console.log("here");
-            var fb = new Facebook(Meteor.user().services.facebook.accessToken);
-            var data = fb.getUserData();
-            return data;
-        },
-        getFBPostData: function() {
-            var fb = new Facebook(Meteor.user().services.facebook.accessToken);
-            var data = fb.getPostData();
-            return data;
-        },
-        isFBSession: function(){
-            var fb = new Facebook(Meteor.user().services.facebook.accessToken);
-            if (fb){
-                return true;
-            }
-            else{
-                return false;
-            }
+        var fb = new Facebook(Meteor.user().services.facebook.accessToken);
+        var data = fb.getUserData();
+        return data;
+    },
+    getFBPostData: function() {
+        var fb = new Facebook(Meteor.user().services.facebook.accessToken);
+        var data = fb.getPostData();
+        return data;
+    },
+    isFBSession: function(){
+        var fb = new Facebook(Meteor.user().services.facebook.accessToken);
+        if (fb){
+            return true;
         }
+        else{
+            return false;
+        }
+    },
+    addBetaEmail: function(email){
+        
+        var createdAt = new Date();
+        var time = createdAt.toISOString();
+        betaEmailCollection.insert({
+            email: email,
+            createdAt: time
+        });
+    }
 });
 
 //facebook type
