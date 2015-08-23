@@ -1,13 +1,18 @@
 //calendar loading
 Template.calendar.rendered = function() {
 	if(!this._rendered) {
-    this._rendered = true;
-    var date = new Date();
-    loadCalendar(date, true);
-    var otherDate = getDate(date.getDate() - 1, " 1, ");
-    getCalFeed(otherDate);
+	    this._rendered = true;
+	    var date = new Date();
+	    loadCalendar(date, true);
+	    var otherDate = getDate(date.getDate() - 1, 1);
+	    getCalFeed(otherDate);
+	    var today = new Date();
+	    $("#calFeedHead").text("Day " + today.getDOY());
 	}
-}
+};
+// Template.calendar.onRendered(function(){
+// 	renderFeed('#calFeed', 'calFeed-container', {owner:Meteor.userId()});
+// });
 Template.calendar.helpers({
 
 });
@@ -16,16 +21,24 @@ Template.calendar.events({
     	//console.log(e.currentTarget.innerHTML);
 	var element = e.currentTarget.childNodes[0];
 	var day = element.innerHTML;
-	var date = getDate(day - 1, " 1, ");
+	var date = getDate(day - 1, 1);
 	setCalText(date, false, true);
 	getCalFeed(date);
  	 },
-	'click .datepicker-prev': function(e){
-      var date = getDate(-7, " 1, ");
+	'click #monthPrev': function(e){
+      var date = getDate(-7, 1);
       loadCalendar(date, false);
   	},
-	'click .datepicker-next': function(e){
-      var date = getDate(7, " 28, ");
+	'click #monthNext': function(e){
+      var date = getDate(7, 28);
+      loadCalendar(date, false);
+  	},
+  	'click #yearPrev': function(e){
+      var date = getDate(-100);
+      loadCalendar(date, false);
+  	},
+	'click #yearNext': function(e){
+      var date = getDate(100);
       loadCalendar(date, false);
   	}
 });
@@ -65,7 +78,7 @@ function loadCalendar(date, shouldSelect){
 			dy=dy+1;
 	    }
 	    else {
-	    	string = string.concat("<td class=datepicker-td> </td>");
+	    	string = string.concat("<td class=empty> </td>");
 		} // Blank dates. 
     } // end of for loop
 
@@ -87,24 +100,11 @@ function getCalFeed(date){
 	dateMidnight.setMinutes(59);
 	dateMidnight.setSeconds(59);
 
-	var thoughts = Thoughts.find({"createdAt": {
+	renderFeed('#calFeed', 'calFeed-container', {"createdAt": {
 		$gt:startDate,
 		$lt:dateMidnight
-	}}).fetch();
-	$("#calFeed").empty();
-	if (thoughts.length > 0){
-		var string = "<ul></ul>"
-		for (var i = 0; i < thoughts.length; i++){
-			var thought = thoughts[i];
-			console.log(thought);
-			var string = "<li>" + thought.text + "</li>";
-			$("#calFeed").append(string);
-		}
-	}
-	else{
-		var string = "<p>Looks like you don't have any posts in your collection on this day!</p>";
-		$("#calFeed").append(string);
-	}
+	}});
+
 }
 //set calendar feed header + calendar month/year
 function setCalText(date, setCal, setHead){
@@ -113,18 +113,37 @@ function setCalText(date, setCal, setHead){
     var year = date.getFullYear().toString();
     var month = monthNames[date.getMonth()];
     var day = date.getDate();
-    if (setCal)
-  		$(".datepicker-title").text(month + " " + year);	
+    if (setCal){
+    	$("#monthTitle").text(month);
+    	$("#yearTitle").text(year);
+  	}
     if (setHead)
-  		$("#calFeedHead").text(month + " " + day + ", " + year);
+    	$("#calFeedHead").text("Day " + (date.getDOY() - 1));
 }
 //get date for previous or next month
+//val is number of days to change by
+//dateToSet is day to set to (1 for previous, 28 for next)
 function getDate(val, string){
-	var calendarDate = $(".datepicker-title").text();
-	calendarDate = calendarDate.split(" ");
-	calendarDate = Date.parse(calendarDate[0] + string + calendarDate[1]);
+	var calendarDate = localStorage.getItem("selectedDate");
+	calendarDate = new Date(calendarDate);
+	if (string){
+		calendarDate.setDate(string);
+	}
 	var newDate = new Date(1970,0,1);
 	newDate.setSeconds(calendarDate / 1000);
-	newDate.setDate(newDate.getDate() + val);
+	if (val){
+		//this means set year
+		if (Math.abs(val) == 100){
+			newDate.setYear(newDate.getYear() + val/100 + 1900);
+		}
+		else{
+			newDate.setDate(newDate.getDate() + val);
+		}
+	}
+	else{
+		newDate.setDate(newDate.getDate());
+	}
+
+	localStorage.setItem("selectedDate", $.format.date(newDate, "M d yyyy"))
 	return newDate;
 }

@@ -29,14 +29,10 @@ window.onload = function(){
     Meteor.setInterval(setTime, 1000);
 }
 
-<<<<<<< Updated upstream
-Template.feed.helpers({
-=======
 
 
 
 Template.myFeed.helpers({
->>>>>>> Stashed changes
     thoughts: function () {
         // Show all thoughts
         var thoughts = Thoughts.find({userId:Meteor.userId()}, {sort: {createdAt: -1}});
@@ -121,8 +117,10 @@ Template.thought.helpers({
 //put in username
 Template.main.helpers({
     username: function(){
-        var username = Meteor.user().username;
-        return username.split(" ")[0];
+        if (Meteor.user()) {
+            var username = Meteor.user().username.toUpperCase();
+            return username.split(" ")[0];
+        }
     },
     posts: function(){
         var thoughts = Thoughts.find({}, {sort: {createdAt: -1}});
@@ -139,6 +137,28 @@ Template.main.helpers({
 
     //request facebook data
 Template.main.events({
+    "submit .new-thought": function (event) {
+        event.preventDefault();
+        // This function is called when the new thought form is submitted
+        var text = event.target.text.value;
+
+        var thoughtId = Meteor.call("addThought", text, null,
+        function(err, data) {
+            if (err){
+                console.log(err);
+            } 
+            console.log(data)
+            // Add a new bubble
+            addThoughtsToStage([data], myStage); 
+        });
+
+        // Clear form
+        event.target.text.value = "";
+
+        // Prevent default form submit
+
+        return false;
+    },
     'click #btn-user-data': function(e) {
         Meteor.call('getFBUserData', function(err, data) {
             console.log(JSON.stringify(data, undefined, 4));
@@ -150,6 +170,32 @@ Template.main.events({
             //data[(post number)][from][name]
             //only want the one's from the user
         });
+    },
+    'click #btn-import-facebook': function(e){
+        Meteor.call('getFBPostData', function(err, data) {
+            if (err){
+                console.log(err);
+            }
+            else{
+                var posts = data["data"];
+                console.log(posts[0]);
+                var thoughtId = Meteor.call("addPost", posts[0],function(err, data) {
+                    if (err){
+                        console.log(err);
+                    }
+                    console.log(data)
+                });
+                // getLocationThought(thoughtId)
+                return false;
+            }
+        });
+    },
+    'click .feed-search-icon': function(e) {
+        $(e.target.nextElementSibling).animate({width: "toggle"}, 'fast');
+    },
+    'click .fa-caret-down, click .fa-caret-up': function(e) {
+        $("#worldButtons").slideToggle('fast');
+        $(e.target).toggleClass("fa-caret-down fa-caret-up");
     }
 
 
