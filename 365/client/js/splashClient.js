@@ -150,6 +150,13 @@ Template.carousel.onRendered(function() {
     	$('#carousel').carousel(0);
 });
 
+Template.teamPage.onRendered(function(){
+	$(".bioDiv").each(function(index, element){
+		console.log(index);
+		console.log($(this).height());
+	});
+});
+
 // Validates that the input string is a valid date formatted as "mm/dd/yyyy"
 function isValidDate(dateString)
 {
