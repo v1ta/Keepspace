@@ -1,25 +1,73 @@
-
-Thoughts = new Mongo.Collection("Thoughts");
+FindFriends = new Mongo.Collection("FindFriends");
+Thoughts = new Mongo.Collection("Thoughts"); //TODO Shard for scaling
 Friends = new Mongo.Collection("Friends");
-RankRecord = new Mongo.Collection("RankRecord");
-SavedPosts = new Mongo.Collection("SavedPosts");
 
-Meteor.methods({
 
+<<<<<<< Updated upstream
     addThought: function (text, location) {
         // Make sure the user is logged in before inserting a thought
         if(!UserLoggedIn) return false
         Thoughts.insert({
+=======
+Thoughts.attachSchema(Schemas.Thought);
+Friends.attachSchema(Schemas.FriendEdge);
+FindFriends.attachSchema(Schemas.FindFriend);
+
+if (Meteor.isServer) {
+    Friends._ensureIndex({ userId: 1, friendId: 1});
+    Thoughts._ensureIndex({ userId: 1, createdAt: 1});
+}
+
+Meteor.methods({
+    /*
+     * Call after confirmed friend
+     */
+    addSearchFriend: function(userId, user) {
+        FindFriends.insert(
+            {userid: userId},
+            {username: user.username}
+            );
+    },
+    addFriend: function (friendId) { 
+        if (!UserLoggedIn) return false;
+        Friends.update(
+            {userId: Meteor.userId()}, 
+            {$push: {friendList: friendId}},
+            {upsert: true}
+        );
+    },
+    addThought: function (text, location, visibility) {
+        /* 
+         * Make sure the user is logged in before inserting a thought
+         */
+        if(!UserLoggedIn) return false;
+        visibility = typeof visibility !== 'undefined' ? visibility : 'public';
+        
+        var newThought = {
+            userId: Meteor.userId(),
+>>>>>>> Stashed changes
             text: text,
             createdAt: new Date(),
-            owner: Meteor.userId(),
             rank: 0,
             username: Meteor.user().username,
+<<<<<<< Updated upstream
             position: location
         });
         return
+=======
+            position: location,
+            filter: visibility
+        };
+        if (visibility === 'friends') {
+            friendList = Friends.find({userID: Meteor.usedId()}, {friendList:1,  _id:0}).fetch();
+        }
+        Thoughts.insert(newThought);
+        return newThought;
+>>>>>>> Stashed changes
     },
-    //specifically for adding facebook posts
+    /*
+     * specifically for adding facebook posts
+     */
     addPost: function(post){
         if(!UserLoggedIn) return false
         var thoughtId;
@@ -28,12 +76,14 @@ Meteor.methods({
         Thoughts.insert({
             text: text,
             createdAt: new Date(),
-            owner: Meteor.userId(),
+            userId: Meteor.userId(),
             rank: 0,
             username: Meteor.user().username,
             postString: postString,
-            position: null  }, function(err,thoughtInserted){
-            thoughtId = thoughtInserted
+            position: null  
+        }, 
+        function(err,thoughtInserted){
+                thoughtId = thoughtInserted
         });
         return thoughtId
     },
@@ -45,10 +95,21 @@ Meteor.methods({
         if(!UserLoggedIn) return false
         var thought = Thoughts.findOne(thoughtId);
         if (thought.private && thought.owner !== Meteor.userId()) {
-            // If the thought is private, make sure only the owner can delete it
+            /*
+             * If the thought is private, make sure only the owner can delete it
+             */
             throw new Meteor.Error("not-authorized");
         }
         Thoughts.remove(thoughtId);
+    },
+    findFriend: function (friendId){
+        if (!UserLoggedIn) return false;
+        var friend = Meteor.users.find({userId: friendId}, {username:1}).fetch();
+        if (friend !== 'undefined') {
+            console.log(friend);
+        }else {
+            console.log("That person doesn't exist");
+        }
     },
     addToMyCollection: function(thoughtId){
         console.log(thoughtId);
@@ -71,8 +132,6 @@ Meteor.methods({
         }
         Thoughts.update(thoughtId, { $set: { private: setToPrivate } });
     },
-
-    //get username
     getUserName: function(){
         return Meteor.user().username;
     },
@@ -98,8 +157,7 @@ Meteor.methods({
         }
 });
 
-//facebook type
-    function Facebook(accessToken) {
+function Facebook(accessToken) {
         this.fb = Meteor.require('fbgraph');
         this.accessToken = accessToken;
         this.fb.setAccessToken(this.accessToken);
@@ -109,8 +167,16 @@ Meteor.methods({
             headers: {connection: "keep-alive"}
         }
         this.fb.setOptions(this.options);
+}
+
+function UserLoggedIn() {
+    if (! Meteor.userId()) {
+        throw new Meteor.Error("not-authorized");
     }
-    Facebook.prototype.query = function(query, method) {
+    return false;
+}
+
+Facebook.prototype.query = function(query, method) {
         var self = this;
         var method = (typeof method === 'undefined') ? 'get' : method;
         var data = Meteor.sync(function(done) {
@@ -119,18 +185,22 @@ Meteor.methods({
             });
         });
         return data.result;
-    }
-    Facebook.prototype.getUserData = function() {
+}
+
+Facebook.prototype.getUserData = function() {
         console.log("here");
         return this.query('me');
-    }
-    Facebook.prototype.getPostData = function() {
-        return this.query('/me/feed?limit=5');
-    }
-
-function UserLoggedIn() {
-    if (! Meteor.userId()) {
-        throw new Meteor.Error("not-authorized");
-    }
-    return false;
 }
+
+Facebook.prototype.getPostData = function() {
+        return this.query('/me/feed?limit=5');
+}
+
+/**
+ * Remove a callback from a hook
+ * @param {string} hook - The name of the hook
+ * @param {string} functionName - The name of the function to remove
+ */
+
+
+

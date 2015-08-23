@@ -8,6 +8,8 @@
   </div>
 </template>
 
+
+
 <template name="worldFeed">
     <br>
   <div class="container">
@@ -16,6 +18,13 @@
         {{> worldPost}}
       {{/each}}
     </ul>
+  </div>
+</template>
+
+<template name="friendFeed">
+  <div id="friendFeed" class="feed col-xs-4">
+      <div class="friendFeed">FRIEND</div>
+      <div id="friendFeed-container"></div>
   </div>
 </template>
 
@@ -30,6 +39,20 @@
         </div>
   {{/if}}
 </template>
+
+<template name="friendSearch">
+    <div id='friendSearch'>
+        <i class="fa fa-search feed-search-icon"></i>
+        <input type='text' placeholder="Search Keepspace" id="search-friends"/> 
+        <h4>Matches ({{friendCount}} entries)</h4>
+            <ul>
+            {{#each users}}
+                <li>{{username}}</li>
+            {{/each}}
+            </ul>
+    </div>
+</template>
+
 
 <!-- replace the existing task template with this code -->
 <template name="worldPost">
@@ -51,11 +74,15 @@
 
 <!-- modify the li tag to have the private class if the item is private -->
   <li class="{{#if checked}}checked{{/if}} {{#if private}}private{{/if}}">
-
       <span class="text"><strong>{{username}}</strong> - {{text}}</span>
     </li>
   </li> 
 </template>
+
+
+
+
+
 
 <!-- replace the existing task template with this code -->
 <template name="thought">
@@ -82,3 +109,5 @@
     </li>
   </div>
 </template>
+
+

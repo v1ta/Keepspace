@@ -12,3 +12,10 @@ bootstrap
 iron:router
 meteorhacks:npm
 npm
+insecure
+aldeed:collection2
+meteorhacks:search-source
+meteorhacks:kadira
+mizzao:bootstrap-3
+npm-container
+matb33:collection-hooks
