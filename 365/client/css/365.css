@@ -129,6 +129,10 @@ body, html {
   margin: 10px 0;
   overflow: hidden;
 }
+.feed > * {
+  position: relative;
+  z-index: 0;
+}
 .feed-name {
   position: absolute;
   top: 50%;
@@ -183,6 +187,7 @@ body, html {
 #tempForm {
   width: 100%;
   position: relative;
+  z-index: 1;
 }
 #tempForm button {
   padding: 0;
@@ -209,6 +214,10 @@ body, html {
   border-radius: 50px;
   background-color: #F38286;
 }
-/*.kineticjs-content {
+#fullFeed-canvas {
+  position: absolute;
+  z-index: 1;
+}
+.kineticjs-content {
   border: 1px dotted #000000;
-}*/
+}

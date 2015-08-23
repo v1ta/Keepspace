@@ -119,7 +119,7 @@ Template.main.events({
             } 
             console.log(data)
             // Add a new bubble
-            addThoughtsToStage([data], myStage); 
+            addThoughtsToStage([data], feedStage, 'center'); 
         });
 
         // Clear form

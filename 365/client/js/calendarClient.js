@@ -100,7 +100,8 @@ function getCalFeed(date){
 	dateMidnight.setMinutes(59);
 	dateMidnight.setSeconds(59);
 
-	renderFeed('#calFeed', 'calFeed-container', {"createdAt": {
+  feedStage = {};
+	renderFeed('#calFeed', 'calFeed-container', 'single', {"createdAt": {
 		$gt:startDate,
 		$lt:dateMidnight
 	}});
