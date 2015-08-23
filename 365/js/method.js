@@ -3,12 +3,6 @@ Thoughts = new Mongo.Collection("Thoughts"); //TODO Shard for scaling
 Friends = new Mongo.Collection("Friends");
 
 
-<<<<<<< Updated upstream
-    addThought: function (text, location) {
-        // Make sure the user is logged in before inserting a thought
-        if(!UserLoggedIn) return false
-        Thoughts.insert({
-=======
 Thoughts.attachSchema(Schemas.Thought);
 Friends.attachSchema(Schemas.FriendEdge);
 FindFriends.attachSchema(Schemas.FindFriend);
@@ -45,16 +39,10 @@ Meteor.methods({
         
         var newThought = {
             userId: Meteor.userId(),
->>>>>>> Stashed changes
             text: text,
             createdAt: new Date(),
             rank: 0,
             username: Meteor.user().username,
-<<<<<<< Updated upstream
-            position: location
-        });
-        return
-=======
             position: location,
             filter: visibility
         };
@@ -63,7 +51,6 @@ Meteor.methods({
         }
         Thoughts.insert(newThought);
         return newThought;
->>>>>>> Stashed changes
     },
     /*
      * specifically for adding facebook posts

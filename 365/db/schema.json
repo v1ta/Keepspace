@@ -1,35 +1,3 @@
-//user
-{
-   _id : ObjectId("oiufnp39048..."),
-   name: {
-      first: "Joseph",
-      last: "DeVita"
-   },
-   joinDate: "6/6/66",
-   friendList : [
-      {
-         friend: "<_id>" // This is NOT an object ref, it's a copy of the Obj _id itself
-      },
-      {
-         friend: "<_id>"
-      }
-   ]
-}
-
-//Friend Thought
-{
-   _id : ObjectId("nf3i4n04..."),
-   message : "<String>",
-   author : "Name",
-   isFriendThought : "true",
-   userFeed : [
-      {
-         friend: "<_id>"
-      },
-      {
-         friend: "<_id>"
-      }
-   ] 
-}
-
-//db.Thoughts.find( {userFeed : $elemMatch: {<client _id>}})
+/*
+ * Moved to schema.json
+ */ 
