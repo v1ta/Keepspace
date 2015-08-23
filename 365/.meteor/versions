@@ -19,7 +19,7 @@ ddp@1.1.0
 deps@1.0.7
 ejson@1.0.6
 email@1.0.6
-facebook@1.2.0
+facebook@1.2.1
 fastclick@1.0.3
 geojson-utils@1.0.3
 html-tools@1.0.4
@@ -48,7 +48,7 @@ meteor-platform@1.2.2
 meteorhacks:async@1.0.0
 meteorhacks:kadira@2.23.0
 meteorhacks:meteorx@1.3.1
-meteorhacks:npm@1.3.0
+meteorhacks:npm@1.4.0
 meteorhacks:picker@1.0.3
 meteorhacks:search-source@1.4.0
 minifiers@1.1.5
@@ -59,7 +59,7 @@ mongo@1.1.0
 mongo-livedata@1.0.8
 npm@0.0.0
 npm-bcrypt@0.7.8_2
-npm-container@1.0.0
+npm-container@1.1.0
 oauth@1.1.4
 oauth2@1.1.3
 observe-sequence@1.0.6

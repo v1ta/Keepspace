@@ -59,3 +59,4 @@ Template.login.events({
 		}
 	}
 });
+

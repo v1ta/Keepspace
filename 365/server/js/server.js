@@ -34,18 +34,13 @@ Meteor.publish("friends", function() {
 
                
 Accounts.onCreateUser(function(options, user){
+    user = Meteor.call("callbacksRun", "onCreateUser", user, options);
+    /*
     if (options.profile){
         user.profile = options.profile; 
     }
     // To give FB-created accounts a username
     user.username = ( user.username || options.profile.name);
-    user = Meteor.call("callbacksRun", "onCreateUser", user, options);
+    */
     return user;
 })
-
-
-
-Meteor.methods({
-    //Facebook request
-
-});
