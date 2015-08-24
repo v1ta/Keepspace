@@ -60,3 +60,4 @@ Template.login.events({
 	}
 });
 
+

@@ -155,13 +155,14 @@ body, html {
   display: none;
 }
 #search-friends {
-    position: absolute;
-  border: 1px solid #ddd;
-  padding: 5px 10px;
-  width: 250px;
-    z-index: 1;
+  position: absolute;
+  right: 35px;
+ /* border: 1px solid #ddd;
+  padding: 5px 10px;*/
+  width: 250px; 
+  z-index: 1;
+  display: none;
 }
-
 .world-dropdown {
   position: absolute;
   left: 15px;
@@ -214,6 +215,9 @@ body, html {
 
 .unhidden{
     display:block;
+}
+.selected{
+   background-color:#97D8F9;
 }
 
 /* Bubbles */

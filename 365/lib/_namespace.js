@@ -9,7 +9,7 @@ Schemas.FriendEdge = new SimpleSchema({
     },
     friendList: {
         type: [String],
-        label: "friendId",
+        label: "friendList",
         max:1000 //1000 friends cap
     }
 });

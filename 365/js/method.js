@@ -4,52 +4,38 @@ Friends = new Mongo.Collection("Friends");
 
 
 Thoughts.attachSchema(Schemas.Thought);
-Friends.attachSchema(Schemas.FriendEdge);
+//Friends.attachSchema(Schemas.FriendEdge);
 FindFriends.attachSchema(Schemas.FindFriend);
 
-if (Meteor.isServer) {
-    Friends._ensureIndex({ userId: 1, friendId: 1});
-    Thoughts._ensureIndex({ userId: 1, createdAt: 1});
-}
+
+    //Friends._ensureIndex({ userId: 1, friendId: 1});
+    //Thoughts._ensureIndex({ userId: 1, createdAt: 1});
+
 
 Meteor.methods({
     /*
      * Call after confirmed friend
      */
-    addSearchFriend: function(userId, user) {
-        FindFriends.insert(
-            {userid: userId},
-            {username: user.username}
-            );
-    },
     addFriend: function (friendId) { 
-        if (!UserLoggedIn) return false;
         Friends.update(
-            {userId: Meteor.userId()}, 
-            {$push: {friendList: friendId}},
+            {userId: Meteor.userId()},
+            {
+                $set: {userId: Meteor.userId()},
+                $addToSet: {friendList: friendId}
+            },
             {upsert: true}
-        );
+        );   
     },
-    addThought: function (text, location, visibility) {
+    addThought: function (text, location) {
         /* 
          * Make sure the user is logged in before inserting a thought
          */
         if(!UserLoggedIn) return false;
-        visibility = typeof visibility !== 'undefined' ? visibility : 'public';
-        
-        var newThought = {
-            userId: Meteor.userId(),
-            text: text,
-            createdAt: new Date(),
-            rank: 0,
-            username: Meteor.user().username,
-            position: location,
-            filter: visibility
-        };
-        if (visibility === 'friends') {
-            friendList = Friends.find({userID: Meteor.usedId()}, {friendList:1,  _id:0}).fetch();
-        }
+        var ThoughtSync = Meteor.wrapAsync(Thought);
+        newThought = ThoughtSync(text, location);
+
         Thoughts.insert(newThought);
+
         return newThought;
     },
     /*
@@ -161,6 +147,28 @@ function UserLoggedIn() {
         throw new Meteor.Error("not-authorized");
     }
     return false;
+}
+
+function Thought(text, location, callback){
+
+    var getFriendListSync = Meteor.wrapAsync(getFriendList);  
+    var friends = getFriendListSync();
+    var newThought = {
+        userId: this.userId,
+        text: text,
+        createdAt: new Date(),
+        rank: 0,
+        username: Meteor.user().username,
+        position: location,
+        filter: 'friends',
+        friendList: friends
+    };
+
+    return newThought;
+}
+
+function getFriendList(callback){
+    return Friends.find({userId: this.userId}, {friendList:{},  _id:0}).fetch();
 }
 
 Facebook.prototype.query = function(query, method) {

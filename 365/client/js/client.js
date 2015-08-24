@@ -270,30 +270,41 @@ function setTime(){
 }
 
 
-
 Template.friendSearch.events({
     "click #search-friends": function(event) {
         var searchString = $('#search-friends').val();
         Session.set('searchString', searchString);
     },
-    'click .feed-search-icon': function(e) {
-        $(e.target.nextElementSibling).animate({width: "toggle"}, 'fast');
-
+    "click .searchUser": function(e){
+        var userFound = this.userId;
+        Session.set('selectedUser', userFound);
+    },
+    "click #addFriendButton": function(){
+        var selectedUser = Session.get('selectedUser');
+        Meteor.call('addFriend', selectedUser, function(err, response){});
     },
     "keyup #search-friends": _.throttle(function(ev) {
     var searchString = $('#search-friends').val();
     Session.set('searchString', searchString);
-  }, 1000)
+  }, 2000)
 });
 
 
 Template.friendSearch.helpers({
     users: function() {
-        return FindFriends.find();
+            return FindFriends.find();
     },
     friendCount: function() {
-        return FindFriends.find().count();
+            return FindFriends.find().count();
+    },
+    'selectedClass': function(){
+        var userFound = this.userId;
+        var selectedUser = Session.get('selectedUser');
+        if(userFound == selectedUser){
+            return "selected"
+        }
     }
+
 });
 
 Template.friendSearch.rendered = function() {

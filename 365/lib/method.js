@@ -78,12 +78,11 @@ callbacksRunAsync: function (hook, item, constant) {
     return item;
   }
     
-},
-    
-postUpdate: function() {
+}
+/*postUpdate: function() {
     Meteor.users.after.insert(function (userId, user) {
         Meteor.call('addSearchFriend', userId, user);
     });
 }
-    
+  */  
 });

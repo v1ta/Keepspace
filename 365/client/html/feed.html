@@ -40,13 +40,16 @@
 <template name="friendSearch">
     <div id='friendSearch'>
         <i class="fa fa-search feed-search-icon"></i>
+
         <input type='text' placeholder="Search Keepspace" id="search-friends"/> 
+
         <h4>Matches ({{friendCount}} entries)</h4>
             <ul>
             {{#each users}}
-                <li>{{username}}</li>
+                <li class="searchUser {{selectedClass}}">{{username}}</li>
             {{/each}}
             </ul>
+            <input id="addFriendButton" type="button" value="addFriend"/>
     </div>
 </template>
 
