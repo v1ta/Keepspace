@@ -7,10 +7,28 @@ Thoughts.attachSchema(Schemas.Thought);
 //Friends.attachSchema(Schemas.FriendEdge);
 FindFriends.attachSchema(Schemas.FindFriend);
 
+if (Meteor.isServer){
+    Thoughts.allow({
+      insert: function (userId, doc) {
+        return true;
+      }
+    });
+
+    FindFriends.allow({
+      insert: function (userId, doc) {
+        return true;
+      }
+    });
+
+    Friends.allow({
+      insert: function (userId, doc) {
+        return true;
+      }
+    });
 
     //Friends._ensureIndex({ userId: 1, friendId: 1});
     //Thoughts._ensureIndex({ userId: 1, createdAt: 1});
-
+}
 
 Meteor.methods({
     /*
