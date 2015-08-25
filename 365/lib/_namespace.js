@@ -34,11 +34,6 @@ Schemas.Thought = new SimpleSchema({
         max: 1000,
         optional: true //might break non-friend queries in aggregate collection
     },
-        filter: {
-        type: String,
-        label: "filter",
-        max: 50
-    },
     userId: {
         type: String,
         label: "userId",

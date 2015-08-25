@@ -92,7 +92,7 @@ function initStage(containerDiv, canvas, numCols) {
 renderFeed = function(containerDiv, canvas, colName, findHash) {
   // Get thoughts
   var thoughts = Thoughts.find(findHash, {sort: {createdAt: -1}}).fetch();
-  //console.log(thoughts);
+  console.log(thoughts);
   if (containerDiv === "#calFeed"){
     if (thoughts.length === 0 ){
       $("#noPostText").show();
