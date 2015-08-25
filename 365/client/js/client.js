@@ -19,6 +19,10 @@ window.onload = function(){
             $("#changePasswordForm").hide();
             $(".dropButton").show();
         }
+        container = $("#main-menu");
+        if (!container.is(e.target) && container.has(e.target).length === 0){
+            hideMainMenu();
+        }
     });
     var configuration = {"location": null};
     if (!configuration){
@@ -28,9 +32,6 @@ window.onload = function(){
     // Set countdown timer
     Meteor.setInterval(setTime, 1000);
 }
-
-
-
 
 Template.myFeed.helpers({
     thoughts: function () {
@@ -149,7 +150,7 @@ Template.main.events({
             } 
             console.log(data)
             // Add a new bubble
-            addThoughtsToStage([data], myStage); 
+            addThoughtsToStage([data], feedStage, 'center'); 
         });
 
         // Clear form

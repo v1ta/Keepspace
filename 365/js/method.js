@@ -45,15 +45,17 @@ Meteor.methods({
         );   
     },
     addThought: function (text, location) {
-        /* 
-         * Make sure the user is logged in before inserting a thought
-         */
+        // Make sure the user is logged in before inserting a thought
         if(!UserLoggedIn) return false;
-        var ThoughtSync = Meteor.wrapAsync(Thought);
-        newThought = ThoughtSync(text, location);
-
+        var newThought = {
+            text: text,
+            createdAt: new Date(),
+            owner: Meteor.userId(),
+            rank: 0,
+            username: Meteor.user().username,
+            position: location
+        };
         Thoughts.insert(newThought);
-
         return newThought;
     },
     /*
