@@ -1,36 +1,95 @@
-/* Global vars for the feeds */
-myStage = {}, friendStage = {}, worldStage = {};
+/* Global var for the feeds */
+feedStage = {};
 
 Template.main.onRendered(function() {
   // Only find posts made after 00:00 of today
   var start = new Date();
   start.setHours(0,0,0,0);
-  renderFeed('#myFeed', 'myFeed-container', {owner:Meteor.userId(), createdAt: {$gte:start}});
-  renderFeed('#worldFeed', 'worldFeed-container', {owner:{$ne: Meteor.userId()}, createdAt: {$gte:start}});
+  feedStage = {};
+  renderFeed('.feed-wrapper', 'fullFeed-canvas', 'center', {owner:Meteor.userId(), createdAt: {$gte:start}});
+  renderFeed('.feed-wrapper', 'fullFeed-canvas', 'right', {owner:{$ne: Meteor.userId()}, createdAt: {$gte:start}});
 });
 
-function setupStage(containerDiv, canvas) {
+function initStage(containerDiv, canvas, numCols) {
   var container = $(containerDiv);
-  var cwidth = parseInt(container.css('width')) - parseInt(container.css('padding-left')) - parseInt(container.css('padding-right'));
-  var cheight = parseInt(container.css('height')) - parseInt(container.css('padding-top')) - parseInt(container.css('padding-bottom'));
+  var cwidth =  parseInt(container.css('width')) - 3;
+  var cheight = parseInt(container.css('height')) - 5;
 
   var stage = new Kinetic.Stage({
     container: canvas,
     width: cwidth,
     height: cheight
   });
-  if (containerDiv === '#myFeed') {
-    myStage = stage;
-    return myStage;
-  } else if (containerDiv === '#worldFeed') {
-    worldStage = stage;
-    return worldStage;
-  } else {
-    return stage;
+
+  // Set up cols
+  stage.cols = {}, colIndex = ['single', 'left', 'center', 'right'];
+  var left = 0, right = stage.width(), top = 0;
+  for (var i = 0; i < colIndex.length; i++) {
+    var colName = colIndex[i];
+    switch (colName) {
+      case 'single':
+        break; // initial values
+      case 'left':
+        left = 0;
+        right = Math.ceil(stage.width()/3);
+        top = 0;
+        break;
+      case 'center':
+        left = Math.ceil(stage.width()/3);
+        right = left*2;
+        top = 65;
+        break;
+      case 'right':
+        left = Math.ceil(stage.width()/3) * 2;
+        right = stage.width();
+        top = 0;
+        break;
+    }
+    stage.cols[colName] = {
+      left : left,
+      right : right,
+      top : top,
+      colWidth : right - left,
+      colHeight : stage.height() - top
+    }
   }
+
+  var background = new Kinetic.Layer();
+  if (numCols === 3) {
+    // Add the borders for drag and drop targets
+    for (var i = 1; i < colIndex.length; i++) {
+      var col = stage.cols[colIndex[i]];
+      background.add(new Kinetic.Rect({
+        name: colIndex[i] + 'Border',
+        x: col.left + 1,
+        y: col.top + 1,
+        width: col.colWidth - 1,
+        height: col.colHeight - 1,
+        stroke: '#333333',
+        strokeWidth: 2,
+        dash: [10, 5],
+        visible: false
+      }));
+    }
+  }
+  // Add the blur background
+  background.add(new Kinetic.Rect({
+    name: 'blurBG',
+    x: 0,
+    y: 0,
+    width: stage.width(),
+    height: stage.height(),
+    fill: '#bbbbbb',
+    opacity: 0.5,
+    visible: false
+  }));
+  stage.add(background);
+
+  feedStage = stage;
+  return feedStage;
 }
 
-renderFeed = function(containerDiv, canvas, findHash) {
+renderFeed = function(containerDiv, canvas, colName, findHash) {
   // Get thoughts
   var thoughts = Thoughts.find(findHash, {sort: {createdAt: -1}}).fetch();
   console.log(thoughts);
@@ -43,44 +102,46 @@ renderFeed = function(containerDiv, canvas, findHash) {
     }
   }
 
-  var stage = setupStage(containerDiv, canvas);
-  addThoughtsToStage(thoughts, stage);
-  console.log(stage.getChildren());
+  var numCols = colName === 'single' ? 1 : 3;
+  var stage = $.isEmptyObject(feedStage) ? initStage(containerDiv, canvas, numCols) : feedStage;
+  var column = stage.cols[colName];
 
-  // Add the blur background
-  layer = new Kinetic.Layer();
-  layer.add(new Kinetic.Rect({
-    name: 'blurBG',
-    width: stage.width(),
-    height: stage.height(),
-    fill: '#bbbbbb',
-    opacity: 0.5,
-    visible: false
+  addThoughtsToStage(thoughts, stage, colName);
+
+  // debug: col stats
+  var colDebug = new Kinetic.Layer(); 
+  colDebug.add(new Kinetic.Text({
+    fill: '#333333',
+    text: 'colWidth: '+column.colWidth+', colHeight: '+column.colHeight+', left: '+column.left+', top: '+column.top,
+    x: column.left,
+    y: column.top
   }));
-  stage.add(layer);
-    console.log(myStage);
+  stage.add(colDebug);
 }
 
-addThoughtsToStage = function(thoughts, stage) {
-  var x = 0, y = 0, radius = 0, sSize = 0, sIndex = 0, padding = 5, layer;
+addThoughtsToStage = function(thoughts, stage, colName) {
+  var x = 0, y = 0, radius = 0, sSize = 0, sIndex = 0, padding = 5, layer, col = stage.cols[colName];
   for (var i = 0; i < thoughts.length; i++) {
-    radius = 40*(thoughts[i].rank+1);
+    radius = 70*(thoughts[i].rank+1);
     // x position - random
-    x = getRandomInt(radius+padding, stage.width()-radius-padding);
+    // min = left + radius of bubble + animation amplitude, similar for max
+    x = getRandomInt(col.left + radius + 3, col.right - radius - 3);
 
     // y position - most recent posts towards the top, canvas divided into four sections
-    sSize = Math.floor(stage.height() / 4);
+    /*sSize = Math.floor(stage.height() / 4);
     sIndex = Math.floor(i / (thoughts.length/4));
-    y = getRandomInt(radius+padding + sSize*sIndex, sSize*(sIndex+1) - radius-padding);
+    y = getRandomInt(radius+padding + sSize*sIndex, sSize*(sIndex+1) - radius-padding);*/
+    y = getRandomInt(col.top + radius + 3, stage.height() - radius - 3);
 
     // If bubbles collide just try again
     // Todo: find a more graceful solution
-    if (stage.getIntersection({x:x, y:y})) {
+    /*if (stage.getIntersection({x:x, y:y})) {
       console.log('collision');
       i--; continue;
-    }
+    }*/
     layer = createBubble(thoughts[i].text, x, y, radius, padding, '#EA4949');
-    addClickHandler(layer, stage.width(), thoughts[i], 0.25, x, y, radius);
+    anim = animateBubble(layer, colName, thoughts[i], 0.25);
+    addClickHandler(layer, colName, thoughts[i], 0.25, anim);
     addPopHandler(layer, stage);
     stage.add(layer);
   }
@@ -89,19 +150,21 @@ addThoughtsToStage = function(thoughts, stage) {
 // Returns a new layer with bubble and text members
 function createBubble(thought, x, y, radius, padding, fill) {
   var layer = new Kinetic.Layer({
+    x: x,
+    y: y,
     draggable: true,
     dragDistance: 5
   });
 
   var bubble = new Kinetic.Circle({
-    x: x, y: y, radius: radius, fill: fill, opacity: 0.8
+    x: 0, y: 0, radius: radius, fill: fill, opacity: 0.8
   });
   var text = new Kinetic.Text({
     fontFamily: 'GeosansLight',
     text: thought,
     align: 'center',
-    x: x,
-    y: y,
+    x: 0,
+    y: 0,
     width: bubble.getWidth(),
     padding: padding,
     fill: '#ffffff'
@@ -124,23 +187,21 @@ function createBubble(thought, x, y, radius, padding, fill) {
       name: 'popIndicator',
       x: 0,
       y: 0,
-      data: describeArc(x, y, radius, 45*ii, 45*(ii+1)),
+      data: describeArc(0, 0, radius-2, 45*ii, 45*(ii+1)),
       stroke: '#0099FF',
       strokeWidth: 4,
       opacity: 0
     }));
   }
-  
-  animateBubble(layer);
 
   return layer;
 }
 
-function animateBubble(layer) {
+function animateBubble(layer, colName, thought, duration) {
   // Floating animation
   var amplitude = 3,
-      periodX = getRandomInt(5000,10000),
-      periodY = getRandomInt(5000,10000),
+      periodX = getRandomInt(3000,8000),
+      periodY = getRandomInt(3000,8000),
       baseX = layer.x(),
       baseY = layer.y();
   var anim = new Kinetic.Animation(function(frame) {
@@ -148,12 +209,88 @@ function animateBubble(layer) {
     layer.y(amplitude * Math.sin(frame.time * 2 * Math.PI / periodY) + baseY);
   }, layer);
   anim.start();
-  layer.on('click dragstart', function() { anim.stop(); });
-  layer.on('dragend', function() {
-    baseX = layer.x();
-    baseY = layer.y();
-    anim.start();
+  layer.on('click', function() { anim.stop(); });
+
+  // Drag and drop handlers
+  var initCoords = {}, pos = {}, cols = feedStage.cols,
+      leftBorder = feedStage.find('.leftBorder')[0],
+      centerBorder = feedStage.find('.centerBorder')[0],
+      rightBorder = feedStage.find('.rightBorder')[0];
+  var hasCols = leftBorder && centerBorder && rightBorder;
+  layer.on('dragstart.anim', function(e) {
+    anim.stop();
+    initCoords = {x: e.target.x(), y: e.target.y()};
   });
+  if (hasCols) {
+    layer.on('dragmove.anim', function(e) {
+      pos = this.parent.getPointerPosition().x;
+      if (colName !== 'left' && pos < cols.left.right) {
+        showBorders(leftBorder);
+        hideBorders([centerBorder, rightBorder]);
+      } else if (colName !== 'center' && pos >= cols.center.left && pos < cols.center.right) {
+        showBorders(centerBorder);
+        hideBorders([leftBorder, rightBorder]);
+      } else if (colName !== 'right' && pos >= cols.right.left) {
+        showBorders(rightBorder);
+        hideBorders([leftBorder, centerBorder]);
+      } else {
+        hideBorders([leftBorder, centerBorder, rightBorder]);
+      }
+    });
+  }
+  layer.on('dragend.anim', function(e) {
+    var tween = new Kinetic.Tween({
+      node: layer,
+      duration: 0.3,
+      x: initCoords.x,
+      y: initCoords.y,
+      onFinish: function() { anim.start(); }
+    });
+    if (hasCols) {
+      hideBorders([leftBorder, centerBorder, rightBorder]);
+      pos = this.parent.getPointerPosition().x;
+      if (colName !== 'left' && pos < cols.left.right) {
+        if (isDragValid()) {
+          relocateBubble(layer, 'left', thought, duration);
+        }
+      } else if (colName !== 'center' && pos >= cols.center.left && pos < cols.center.right) {
+        if (isDragValid()) {
+          relocateBubble(layer, 'center', thought, duration);
+        }
+      } else if (colName !== 'right' && pos >= cols.right.left) {
+        if (isDragValid()) {
+          relocateBubble(layer, 'right', thought, duration);
+        }
+      } else {
+        tween.play();
+      }
+    } else {
+      tween.play();
+    }
+  });
+  return anim;
+}
+
+// TODO : logic for dragging posts
+function isDragValid() { return true; }
+function relocateBubble(layer, colName, thought, duration) {
+  layer.off('click dragstart.anim dragmove.anim dragend.anim');
+  var anim = animateBubble(layer, colName, thought, duration);
+  addClickHandler(layer, colName, thought, duration, anim);
+}
+
+function showBorders(border) {
+  if (!border.isVisible()) {
+    border.visible(true);
+    border.parent.draw();
+  }
+}
+function hideBorders(borders) {
+  for (var i = 0; i < borders.length; i++)
+    if (borders[i].isVisible()) {
+      borders[i].visible(false);
+      borders[i].parent.draw();
+    }
 }
 
 function addPopHandler(layer, stage) {
@@ -171,12 +308,7 @@ function addPopHandler(layer, stage) {
   var pop;
   layer.on('mousedown', function() {
     anim.start();
-    pop = window.setTimeout(function() {
-      layer.destroyChildren();
-      layer.destroy();
-      stage.find('.blurBG').hide();
-      stage.draw();
-    }, 2000);
+    pop = window.setTimeout(function() { popBubble(layer, stage); }, 2000);
   });
   layer.on('mouseup dragstart', function() {
     anim.stop();
@@ -189,32 +321,40 @@ function addPopHandler(layer, stage) {
   })
 }
 
-function addClickHandler(layer, cwidth, thought, duration, x, y, radius) {
+function popBubble(layer, stage) {
+  var background = stage.find('.blurBG');
+  layer.destroyChildren();
+  layer.destroy();
+  background.off('click.condense');
+  background.hide();
+  stage.draw();
+}
+
+function addClickHandler(layer, colName, thought, duration, anim) {
   layer.on('click.expand', function(e) {
-    expandBubble(e, layer, cwidth, thought, duration, x, y, radius);
+    expandBubble(e, layer, colName, thought, duration, anim);
   });
 }
 
-function expandBubble(e, layer, cwidth, thought, duration, x, y, radius) {
-  var layerTween, bubbleTween, textTween, nodes, bubble, text;
+function expandBubble(e, layer, colName, thought, duration, anim) {
+  var layerTween, bubbleTween, textTween, nodes, bubble, text, col = feedStage.cols[colName];
+  var radius = layer.getChildren()[0].radius(), expandedRadius = col.colWidth/2;
+
   layer.draggable(false);
   layerTween = new Kinetic.Tween({
     node: layer,
     duration: duration,
-    x: 0,
-    y: 0
-  });
+    x: col.left + expandedRadius,
+    y: col.top + expandedRadius
+  })
 
   nodes = e.target.parent.getChildren();
   bubble = nodes[0];
   text = nodes[1];
   // Animate to fill the container
-  var expandedRadius = cwidth/2;
   bubbleTween = new Kinetic.Tween({
     node: bubble,
     duration: duration,
-    x: expandedRadius,
-    y: expandedRadius,
     radius: expandedRadius,
     opacity: 1
   });
@@ -222,7 +362,7 @@ function expandBubble(e, layer, cwidth, thought, duration, x, y, radius) {
   // Add username & date
   var username = new Kinetic.Text({
     fontFamily: 'GeosansLight',
-    text: Meteor.user().username == thought.username ? 'You:' : thought.username + ':',
+    text: Meteor.userId() === thought.owner ? 'You:' : thought.username + ':',
     fill: '#ffffff',
     fontSize: 16
   });
@@ -231,35 +371,59 @@ function expandBubble(e, layer, cwidth, thought, duration, x, y, radius) {
     text: $.format.date(thought.createdAt, 'h:mmp'),
     fill: '#ffffff',
     fontSize: 16
-  })
+  });
+  if (Meteor.userId() === thought.owner) {
+    var del = new Kinetic.Text({
+      fontFamily: 'GeosansLight',
+      text: 'Delete',
+      fill: '#ffffff',
+      fontSize: 16
+    });
+    del.offsetX(del.getWidth());
+    del.on('click', function () {
+      popBubble(layer, layer.parent);
+      Meteor.call("deleteThought", thought._id);
+    });
+  }
 
+  var oldHeight = text.getHeight();
   textTween = new Kinetic.Tween({
     node: text,
     duration: duration,
     width: expandedRadius*2,
     offsetX: expandedRadius,
-    x: expandedRadius,
-    y: expandedRadius,
     fontSize: 18,
-    padding: 20,
+    padding: 10,
     onFinish: function () {
-      username.x(expandedRadius - text.getTextWidth()/2);
-      username.y(expandedRadius - text.getHeight()/2);
+      text.offsetY(text.getHeight()/2);
+      var width = text.getTextWidth(), minWidth = 125;
+      if (width < minWidth) {
+        width = minWidth;
+      }
+      username.x(-width/2);
+      username.y(-text.getHeight()/2 - 10);
       layer.add(username);
-      date.x(expandedRadius - text.getTextWidth()/2);
-      date.y(expandedRadius + text.getHeight()/2);
+      date.x(-width/2);
+      date.y(text.getHeight()/2);
       layer.add(date);
+      if (del) {
+        del.x(width/2);
+        del.y(-text.getHeight()/2 - 10);
+        layer.add(del);
+      }
     }
   });
   // Adjust the pop indicators
   var indicators = layer.find('.popIndicator');
   for (var i = 0; i < 8; i++) {
-    indicators[i].data(describeArc(expandedRadius, expandedRadius, expandedRadius, 45*i, 45*(i+1)));
+    indicators[i].data(describeArc(0, 0, expandedRadius-5, 45*i, 45*(i+1)));
+    indicators[i].strokeWidth(10);
   }
   // Show the blur background
   var background = layer.parent.find('.blurBG')[0];
   background.visible(true);
-  background.draw();
+  background.parent.moveToTop();
+  background.parent.draw();
   // Play tweens
   layer.moveToTop();
   layerTween.play();
@@ -267,32 +431,39 @@ function expandBubble(e, layer, cwidth, thought, duration, x, y, radius) {
   textTween.play();
   // Set up condense animation
   layer.off('click.expand');
+  var toRemove = del ? [username, date, del] : [username, date]
   background.on('click.condense', function(e) {
-    condenseBubble(e, layer, cwidth, thought, duration, x, y, radius, [username, date], [textTween, bubbleTween, layerTween]);
+    condenseBubble(e, layer, colName, thought, duration, radius, anim, oldHeight, toRemove, [textTween, bubbleTween, layerTween]);
   });
 }
 
-function condenseBubble(e, layer, cwidth, thought, duration, x, y, radius, toRemove, tweens) {
+function condenseBubble(e, layer, colName, thought, duration, radius, anim, oldHeight, toRemove, tweens) {
   // Hide background
   e.target.visible(false);
   e.target.parent.draw();
   // Remove username/date and reverse tweens
   for (var i = 0; i < toRemove.length; i++) {
-    toRemove[i].remove();
+    toRemove[i].destroy();
   }
   for (var i = 0; i < tweens.length; i++) {
-    tweens[i].reverse();
+    var t = tweens[i].reverse();
+    // Resetting text offsetY
+    if (i === 0) {
+      t = t.node;
+      t.offsetY(oldHeight/2);
+    }
   }
   // Adjust the pop indicators
   var indicators = layer.find('.popIndicator');
   for (var i = 0; i < 8; i++) {
-    indicators[i].data(describeArc(x, y, radius, 45*i, 45*(i+1)));
+    indicators[i].data(describeArc(0, 0, radius-2, 45*i, 45*(i+1)));
+    indicators[i].strokeWidth(4);
   }
   // Set up expand animation
   e.target.off('click.condense');
   layer.draggable(true);
-  animateBubble(layer);
-  addClickHandler(layer, cwidth, thought, duration, x, y, radius);
+  anim.start();
+  addClickHandler(layer, colName, thought, duration, anim);
 }
 
 // Get random int in range (inclusive)

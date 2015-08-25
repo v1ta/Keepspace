@@ -1,0 +1,37 @@
+/* thoughts -> Score -> Queue -> Feed
+ * Sharding may not be necessary, but it really doesn't change the code to use/not use
+ * Mongo terminal code, Essentially makes a bucket of a fixed size (50 in this example)
+ * Posts are ordered by time, ideally this would mitigate another flaw of using MDB, -> shrink
+ * login query size 
+ */
+
+//Shard on "owner/sequence"
+db.shardCollection("mongodbdays.thoughts",
+  {owner: 1, sequence: 1})
+db.shardCollection("mongodbdays.users", {user_name: 1})
+
+msg={
+  from: "Joe",
+  to: ["Trump", "Bush"], //these would be _id
+  sent: new Date ()
+  message: "Hi!", 
+}
+//Send a message
+for(recipient in msg.to) {
+  count = db.users.findAndModify({
+    query: {user_name: msg.to[recipient]}, 
+  update:{"$inc":{"msg_count":1}},
+  upsert: true,
+  new: true}).msg_count;
+
+  sequence = Math.floor(count/50);
+
+  db.Thoughts.update({
+    owner: msg.to[recipient], sequence: sequence},
+    {$push:{"messages":msg}},
+    {upsert: true});
+}
+
+//Get Trump's feed
+db.Thougts.find ({owner: "Trump"})
+  .sort({sequence:-1}).limit(2)

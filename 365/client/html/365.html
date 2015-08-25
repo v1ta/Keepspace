@@ -14,14 +14,14 @@
 <template name="main">
   <div id="main-feed" class="container-fluid">
     <div class="row feed-wrapper">
+      <div id="fullFeed-canvas"></div>
       <div id="friendFeed" class="feed col-xs-4">
-        <i class="fa fa-search feed-search-icon"></i>
-        <form class="search">
-          <input type="text" name="search" placeholder="find a thought" />
-        </form>
+          {{>friendSearch}}
         <div class="feed-name">FRIENDS</div>
+        <div id="friendFeed-container"></div>
       </div>
 
+        
       <div id="myFeed" class="feed col-xs-4">
         <div id="tempForm">
           <form class="new-thought" autocomplete="off">
@@ -31,12 +31,8 @@
           <button id="btn-import-facebook" class="btn btn-primary"><i class="fa fa-facebook fa-fw"></i></button>
           <p id="time">...</p>
         </div>
-        <i class="fa fa-search feed-search-icon"></i>
-        <form class="search">
-          <input type="text" name="search" placeholder="find a thought" />
-        </form>
         <div class="feed-name">{{username}}</div>
-        <div id="myFeed-container"></div>
+        <div id="myFeed-canvas"></div>
       </div>
 
       <div id="worldFeed" class="feed col-xs-4">
@@ -50,11 +46,16 @@
           <li>Random</li>
         </ul>
         <div class="feed-name">WORLD</div>
-        <div id="worldFeed-container"></div>
+        <div id="worldFeed-canvas"></div>
       </div>
     </div>
   </div>
 </template>
+
+
+
+
+
 
 <template name="header">
   <div id="header" class="container-fluid">
@@ -77,9 +78,9 @@
 
       <div class="mid col-xs-4">
         <div id="homeButton" class="header-circle">
-          DAY <p id="dayNum">0</p>
+          DAY <span id="dayNum">0</span>
         </div>
-        <p id="date" class="vertical-center">00/00/00</p>
+        <div id="date">00/00/00</div>
       </div>
 
       <div class="right col-xs-4">

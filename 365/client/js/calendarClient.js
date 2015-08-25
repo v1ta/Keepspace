@@ -100,7 +100,8 @@ function getCalFeed(date){
 	dateMidnight.setMinutes(59);
 	dateMidnight.setSeconds(59);
 
-	renderFeed('#calFeed', 'calFeed-container', {owner:Meteor.userId(), "createdAt": {
+  feedStage = {};
+	renderFeed('#calFeed', 'calFeed-container', 'single', {"createdAt": {
 		$gt:startDate,
 		$lt:dateMidnight
 	}});

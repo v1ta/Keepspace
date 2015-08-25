@@ -1,5 +1,13 @@
 Meteor.subscribe("thoughts");
-Meteor.subscribe("userdata");
+Meteor.subscribe("users");
+Meteor.subscribe("friends");
+
+Tracker.autorun(function() {
+  var searchString = Session.get('searchString');
+  Meteor.subscribe('findFriends', searchString);
+});
+
+
 // Website has loaded
 window.onload = function(){
     //close dropdowns on outside click
@@ -10,6 +18,10 @@ window.onload = function(){
             container.hide();
             $("#changePasswordForm").hide();
             $(".dropButton").show();
+        }
+        container = $("#main-menu");
+        if (!container.is(e.target) && container.has(e.target).length === 0){
+            hideMainMenu();
         }
     });
     var configuration = {"location": null};
@@ -24,28 +36,38 @@ window.onload = function(){
 Template.myFeed.helpers({
     thoughts: function () {
         // Show all thoughts
-        var thoughts = Thoughts.find({owner:Meteor.userId()}, {sort: {createdAt: -1}});
+        var thoughts = Thoughts.find({userId:Meteor.userId()}, {sort: {createdAt: -1}});
         // console.log(thoughts.fetch());
         // console.log(Meteor.user().username);
         return thoughts
     }
 });
 
+
+
+
 Template.worldFeed.helpers({
     worldPosts: function () {
         // Show all thoughts
-        var thoughts = Thoughts.find({owner:{$ne: Meteor.userId()}}, {sort: {createdAt: -1}});
-        // var thoughts = Thoughts.find({owner:Meteor.userId()}, {sort: {createdAt: -1}});
+        var thoughts = Thoughts.find({userId:{$ne: Meteor.userId()}}, {sort: {createdAt: -1}});
+        // var thoughts = Thoughts.find({userId:Meteor.userId()}, {sort: {createdAt: -1}});
         console.log(thoughts.fetch());
         // console.log(Meteor.user().username);
         return thoughts
     }
 });
+
+
+
+
 Template.worldFeed.events({
     "click .addToCollection": function(){
         Meteor.call("addToMyCollection", this._id);
     }
 });
+
+
+
 Template.post.events({
     "submit .new-thought": function (event) {
         event.preventDefault();
@@ -69,6 +91,9 @@ Template.post.events({
     }
 });
 
+
+
+
 Template.thought.events({
     "click .delete": function () {
         Meteor.call("deleteThought", this._id);
@@ -78,11 +103,17 @@ Template.thought.events({
     },
 });
 
+
+
+
 Template.thought.helpers({
-    isOwner: function () {
-        return this.owner === Meteor.userId();
+    isuserId: function () {
+        return this.userId === Meteor.userId();
     }
 });
+
+
+
 
 //put in username
 Template.main.helpers({
@@ -99,7 +130,11 @@ Template.main.helpers({
         console.log("here");
         return thoughts
     }
+    
 });
+
+
+
 
     //request facebook data
 Template.main.events({
@@ -115,7 +150,7 @@ Template.main.events({
             } 
             console.log(data)
             // Add a new bubble
-            addThoughtsToStage([data], myStage); 
+            addThoughtsToStage([data], feedStage, 'center'); 
         });
 
         // Clear form
@@ -163,11 +198,15 @@ Template.main.events({
         $("#worldButtons").slideToggle('fast');
         $(e.target).toggleClass("fa-caret-down fa-caret-up");
     }
+
+
 });
+
+
 
 Template.user.helpers({
     'isUser': function(){
-        return this.owner === Meteor.userId()
+        return this.userId === Meteor.userId()
     },
     'Name' : function() {
         return "Robert"
@@ -175,6 +214,9 @@ Template.user.helpers({
 });
 // Accounts
 //
+
+
+
 Accounts.ui.config({
     passwordSignupFields: "USERNAME_ONLY",
     requestPermissions: {
@@ -182,6 +224,9 @@ Accounts.ui.config({
             'user_posts']
     }
 });
+
+
+
 
 // Helper Functions
 //
@@ -211,6 +256,7 @@ function showLocationError(error) {
     }
 }
 
+
 //set time in header
 function setTime(){
     var actualTime = new Date(Date.now());
@@ -223,3 +269,52 @@ function setTime(){
     var result = (hours < 10 ? "0" + hours : hours) + ":" + (minutes < 10 ? "0" + minutes : minutes) + ":" + (seconds  < 10 ? "0" + seconds : seconds);
     $("#time").text(result);
 }
+
+
+Template.friendSearch.events({
+    "click #search-friends": function(event) {
+        var searchString = $('#search-friends').val();
+        Session.set('searchString', searchString);
+    },
+    "click .searchUser": function(e){
+        var userFound = this.userId;
+        Session.set('selectedUser', userFound);
+    },
+    "click #addFriendButton": function(){
+        var selectedUser = Session.get('selectedUser');
+        Meteor.call('addFriend', selectedUser, function(err, response){});
+    },
+    "keyup #search-friends": _.throttle(function(ev) {
+    var searchString = $('#search-friends').val();
+        Session.set('searchString', searchString);
+  }, 2000)
+});
+
+
+Template.friendSearch.helpers({
+    users: function() {
+            return FindFriends.find();
+    },
+    friendCount: function() {
+            return FindFriends.find().count();
+    },
+    'selectedClass': function(){
+        var userFound = this.userId;
+        var selectedUser = Session.get('selectedUser');
+        if(userFound == selectedUser){
+            return "selected"
+        }
+    },
+    'hasInput': function() {
+        var searchString = Session.get('searchString');
+        if (searchString.length > 0)
+            return true;
+
+    }
+
+});
+
+Template.friendSearch.rendered = function() {
+        Session.set('searchString', '');
+};
+

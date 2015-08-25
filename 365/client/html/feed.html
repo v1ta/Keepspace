@@ -5,6 +5,8 @@
   </div>
 </template>
 
+
+
 <template name="worldFeed">
     <br>
   <div class="container">
@@ -13,6 +15,13 @@
         {{> worldPost}}
       {{/each}}
     </ul>
+  </div>
+</template>
+
+<template name="friendFeed">
+  <div id="friendFeed" class="feed col-xs-4">
+      <div class="friendFeed">FRIEND</div>
+      <div id="friendFeed-container"></div>
   </div>
 </template>
 
@@ -27,6 +36,24 @@
         </div>
   {{/if}}
 </template>
+
+
+<template name="friendSearch">
+        <i class="fa fa-search feed-search-icon"></i>
+        <div id='friendSearchBox'>
+          <input type='text' placeholder="Search Keepspace" id="search-friends"/> 
+          {{#if hasInput}}
+            <h4>({{friendCount}} users found)</h4>
+            <ul>
+            {{#each users}}
+                <li class="searchUser {{selectedClass}}">{{username}}<input id="addFriendButton" type="submit" value="addFriend" class="button-add"/></li>
+  
+            {{/each}}
+            </ul>
+            {{/if}}
+        </div>
+</template>
+
 
 <!-- replace the existing task template with this code -->
 <template name="worldPost">
@@ -48,11 +75,15 @@
 
 <!-- modify the li tag to have the private class if the item is private -->
   <li class="{{#if checked}}checked{{/if}} {{#if private}}private{{/if}}">
-
       <span class="text"><strong>{{username}}</strong> - {{text}}</span>
     </li>
   </li> 
 </template>
+
+
+
+
+
 
 <!-- replace the existing task template with this code -->
 <template name="thought">
@@ -79,3 +110,5 @@
     </li>
   </div>
 </template>
+
+

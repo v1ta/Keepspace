@@ -4,10 +4,18 @@
 # 'meteor add' and 'meteor remove' will edit this file for you,
 # but you can also edit it by hand.
 
-meteor-platform
-accounts-facebook
-accounts-password
-accounts-ui
-iron:router
-meteorhacks:npm
-npm
+ meteor-platform                               
+ accounts-facebook
+ accounts-password
+ accounts-ui
+ iron:router
+ meteorhacks:npm
+ npm
+ insecure
+ aldeed:collection2
+ meteorhacks:search-source
+ meteorhacks:kadira
+ mizzao:bootstrap-3
+ npm-container
+ matb33:collection-hooks
+ underscore
