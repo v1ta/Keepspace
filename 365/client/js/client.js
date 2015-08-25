@@ -285,7 +285,7 @@ Template.friendSearch.events({
     },
     "keyup #search-friends": _.throttle(function(ev) {
     var searchString = $('#search-friends').val();
-    Session.set('searchString', searchString);
+        Session.set('searchString', searchString);
   }, 2000)
 });
 
@@ -303,11 +303,17 @@ Template.friendSearch.helpers({
         if(userFound == selectedUser){
             return "selected"
         }
+    },
+    'hasInput': function() {
+        var searchString = Session.get('searchString');
+        if (searchString.length > 0)
+            return true;
+
     }
 
 });
 
 Template.friendSearch.rendered = function() {
-  Session.set('searchString', '');
+        Session.set('searchString', '');
 };
 

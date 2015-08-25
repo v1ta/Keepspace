@@ -37,20 +37,21 @@
   {{/if}}
 </template>
 
+
 <template name="friendSearch">
-    <div id='friendSearch'>
         <i class="fa fa-search feed-search-icon"></i>
-
-        <input type='text' placeholder="Search Keepspace" id="search-friends"/> 
-
-        <h4>Matches ({{friendCount}} entries)</h4>
+        <div id='friendSearchBox'>
+          <input type='text' placeholder="Search Keepspace" id="search-friends"/> 
+          {{#if hasInput}}
+            <h4>({{friendCount}} users found)</h4>
             <ul>
             {{#each users}}
-                <li class="searchUser {{selectedClass}}">{{username}}</li>
+                <li class="searchUser {{selectedClass}}">{{username}}<input id="addFriendButton" type="submit" value="addFriend" class="button-add"/></li>
+  
             {{/each}}
             </ul>
-            <input id="addFriendButton" type="button" value="addFriend"/>
-    </div>
+            {{/if}}
+        </div>
 </template>
 
 
