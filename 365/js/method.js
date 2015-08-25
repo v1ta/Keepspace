@@ -53,7 +53,7 @@ Meteor.methods({
         var newThought = {
             text: text,
             createdAt: new Date(),
-            owner: Meteor.userId(),
+            userId: Meteor.userId(),
             rank: 0,
             username: Meteor.user().username,
             position: location
@@ -90,7 +90,7 @@ Meteor.methods({
     deleteThought: function (thoughtId) {
         if(!UserLoggedIn) return false
         var thought = Thoughts.findOne(thoughtId);
-        if (thought.private && thought.owner !== Meteor.userId()) {
+        if (thought.private && thought.userId !== Meteor.userId()) {
             /*
              * If the thought is private, make sure only the owner can delete it
              */
@@ -113,7 +113,7 @@ Meteor.methods({
     changePrivacy: function (thoughtId, setChecked) {
         if(!UserLoggedIn) return false
         var thought = Thoughts.findOne(thoughtId);
-        if (thought.private && thought.owner !== Meteor.userId()) {
+        if (thought.private && thought.userId !== Meteor.userId()) {
             // If the thought is private, make sure only the owner can check it off
             throw new Meteor.Error("not-authorized");
         }
@@ -123,7 +123,7 @@ Meteor.methods({
         if(!UserLoggedIn) return false
         var thought = Thoughts.findOne(thoughtId);
         // Make sure only the thought owner can make a thought private
-        if (thought.owner !== Meteor.userId()) {
+        if (thought.userId !== Meteor.userId()) {
             throw new Meteor.Error("not-authorized");
         }
         Thoughts.update(thoughtId, { $set: { private: setToPrivate } });

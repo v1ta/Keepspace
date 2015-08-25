@@ -6,14 +6,14 @@ Template.main.onRendered(function() {
   var start = new Date();
   start.setHours(0,0,0,0);
   feedStage = {};
-  renderFeed('.feed-wrapper', 'fullFeed-canvas', 'center', {owner:Meteor.userId(), createdAt: {$gte:start}});
-  renderFeed('.feed-wrapper', 'fullFeed-canvas', 'right', {owner:{$ne: Meteor.userId()}, createdAt: {$gte:start}});
+  renderFeed('.feed-wrapper', 'fullFeed-canvas', 'center', {userId:Meteor.userId(), createdAt: {$gte:start}});
+  renderFeed('.feed-wrapper', 'fullFeed-canvas', 'right', {userId:{$ne: Meteor.userId()}, createdAt: {$gte:start}});
 });
 
 function initStage(containerDiv, canvas, numCols) {
   var container = $(containerDiv);
-  var cwidth =  parseInt(container.css('width')) - 3;
-  var cheight = parseInt(container.css('height')) - 5;
+  var cwidth =  parseInt(container.css('width')) - 1;
+  var cheight = parseInt(container.css('height')) - 7;
 
   var stage = new Kinetic.Stage({
     container: canvas,
@@ -36,12 +36,12 @@ function initStage(containerDiv, canvas, numCols) {
         break;
       case 'center':
         left = Math.ceil(stage.width()/3);
-        right = left*2;
+        right = left*2 - 1;
         top = 65;
         break;
       case 'right':
-        left = Math.ceil(stage.width()/3) * 2;
-        right = stage.width();
+        left = Math.ceil(stage.width()/3) * 2 - 1;
+        right = stage.width() - 1;
         top = 0;
         break;
     }
@@ -50,7 +50,7 @@ function initStage(containerDiv, canvas, numCols) {
       right : right,
       top : top,
       colWidth : right - left,
-      colHeight : stage.height() - top
+      colHeight : stage.height()-1 - top
     }
   }
 
@@ -108,7 +108,7 @@ renderFeed = function(containerDiv, canvas, colName, findHash) {
 
   addThoughtsToStage(thoughts, stage, colName);
 
-  // debug: col stats
+  /* debug: col stats
   var colDebug = new Kinetic.Layer(); 
   colDebug.add(new Kinetic.Text({
     fill: '#333333',
@@ -116,7 +116,7 @@ renderFeed = function(containerDiv, canvas, colName, findHash) {
     x: column.left,
     y: column.top
   }));
-  stage.add(colDebug);
+  stage.add(colDebug);*/
 }
 
 addThoughtsToStage = function(thoughts, stage, colName) {
@@ -362,7 +362,7 @@ function expandBubble(e, layer, colName, thought, duration, anim) {
   // Add username & date
   var username = new Kinetic.Text({
     fontFamily: 'GeosansLight',
-    text: Meteor.userId() === thought.owner ? 'You:' : thought.username + ':',
+    text: Meteor.userId() === thought.userId ? 'You:' : thought.username + ':',
     fill: '#ffffff',
     fontSize: 16
   });
@@ -372,7 +372,7 @@ function expandBubble(e, layer, colName, thought, duration, anim) {
     fill: '#ffffff',
     fontSize: 16
   });
-  if (Meteor.userId() === thought.owner) {
+  if (Meteor.userId() === thought.userId) {
     var del = new Kinetic.Text({
       fontFamily: 'GeosansLight',
       text: 'Delete',

@@ -314,7 +314,7 @@ Template.friendSearch.helpers({
 
 });
 
-Template.friendSearch.rendered = function() {
+Template.friendSearch.onCreated(function() {
         Session.set('searchString', '');
-};
+});
 
