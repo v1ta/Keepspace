@@ -2,6 +2,51 @@ Accounts.onLogin(function(){
 	Router.go("mainPage");
 });
 
+
+Template.login.events({
+	'submit form': function(event) {
+		event.preventDefault();
+		if ($("#passwordAgain").is(":visible"))
+		{
+			var emailVar = event.target.loginEmail.value;
+			var passwordVar = event.target.loginPassword.value;
+			var repeat = event.target.loginPasswordAgain.value;
+			if (passwordVar == repeat){
+				Accounts.createUser({
+				    username: emailVar,
+				    password: passwordVar
+				});
+			}
+			else{
+			//passwords do not match 
+			}
+		}
+		else{
+			var emailVar = event.target.loginEmail.value;
+			var passwordVar = event.target.loginPassword.value;
+			Meteor.loginWithPassword(emailVar, passwordVar, function(err){
+				if (!err){
+					Session.set("isFB", false);
+				  // $("#changePassword").show();
+				}
+			});
+		}        
+	},
+	'click #createAccount': function(){
+	if ($("#passwordAgain").is(":visible"))
+	{
+		$("#passwordAgain").hide();
+		$("#createAccount").text("Create Account");
+		$("#signIn").val("Sign In");
+	}
+	else{
+		$("#passwordAgain").show();
+		$("#createAccount").text("Cancel");
+		$("#signIn").val("Create");
+	}
+}
+});
+
 Template.signupPage.events({
 	'click .backButton': function(){
 		$("#firstSignPage").show();
