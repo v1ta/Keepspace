@@ -134,6 +134,10 @@ Template.signupPage.events({
 	
 });
 
+Template.splashBanner.onRendered(function(){
+	$(".alertDiv").click(closeAlert);
+	$(".closeAlert").click(closeAlert);
+})
 Template.carousel.onRendered(function() {
 	$('#carousel').on('slide.bs.carousel', function (event) {
   		if (event.relatedTarget.id == "loginSlide"){
@@ -243,6 +247,16 @@ show_signup_fields = function() {
     $("#signIn").val("Create");
   }
 }
+closeAlert = function(){
+	$(".alertTextTitle").empty();
+	$(".alertTextDetail").empty();
+	$(".alertDiv").hide();
+}
+customAlert = function(title, detail){
+	$(".alertTextTitle").html(title);
+	$(".alertTextDetail").html(detail);
+	$(".alertDiv").show();
+}
 
 //check if an email seems legit
 function validateEmail(email) {
@@ -257,7 +271,8 @@ function betaSignup(){
 		alert("Please enter a valid email address");
 	}
 	else{
+		var detail = "<span>Thank you.</span> <span>Now get ready to make every day count.</span>";
+		customAlert("You've signed up for beta.", detail);
 		Meteor.call("addBetaEmail", email);
-		
 	}
 }
