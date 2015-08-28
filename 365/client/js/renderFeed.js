@@ -93,7 +93,7 @@ function initStage(containerDiv, canvas, numCols) {
 renderFeed = function(containerDiv, canvas, colName, findHash) {
   // Get thoughts
   var thoughts = Thoughts.find(findHash, {sort: {createdAt: -1}}).fetch();
-  console.log(thoughts);
+  //console.log(thoughts);
   if (containerDiv === "#calFeed"){
     if (thoughts.length === 0 ){
       $("#noPostText").show();
@@ -121,36 +121,96 @@ renderFeed = function(containerDiv, canvas, colName, findHash) {
 }
 
 addThoughtsToStage = function(thoughts, stage, colName) {
-  var x = 0, y = 0, radius = 0, sSize = 0, sIndex = 0, padding = 5, layer, col = stage.cols[colName];
+  var x = 0, y = 0, radius = 0, padding = 5, layer, col = stage.cols[colName];
+  var bubbles = stage.get('.bubble'+colName), positions = [];
+  for (var i = 0; i < bubbles.length; i++) {
+    // Radius: add 3 to account for animation amplitude
+    positions.push({ x: bubbles[i].x(), y: bubbles[i].y(), radius: bubbles[i].getChildren()[0].radius()+3 });
+  }
+  var xmin, xmax, ymin, ymax, nextPos;
   for (var i = 0; i < thoughts.length; i++) {
     radius = 70*(thoughts[i].rank+1);
-    // x position - random
     // min = left + radius of bubble + animation amplitude, similar for max
-    x = getRandomInt(col.left + radius + 3, col.right - radius - 3);
+    xmin = col.left + radius + 3;
+    xmax = col.right - radius - 3;
+    ymin = col.top + radius + 3;
+    ymax = stage.height() - radius - 3;
 
-    // y position - most recent posts towards the top, canvas divided into four sections
-    /*sSize = Math.floor(stage.height() / 4);
-    sIndex = Math.floor(i / (thoughts.length/4));
-    y = getRandomInt(radius+padding + sSize*sIndex, sSize*(sIndex+1) - radius-padding);*/
-    y = getRandomInt(col.top + radius + 3, stage.height() - radius - 3);
-
-    // If bubbles collide just try again
-    // Todo: find a more graceful solution
-    /*if (stage.getIntersection({x:x, y:y})) {
-      console.log('collision');
-      i--; continue;
-    }*/
-    layer = createBubble(thoughts[i].text, x, y, radius, padding, '#EA4949');
+    nextPos = placeNextBubble(xmin, xmax, ymin, ymax, radius+3, positions);
+    if (nextPos === null) {
+      // No more room for bubbles
+      console.log('filled');
+      return;
+    } else {
+      x = nextPos.x;
+      y = nextPos.y;
+    }
+    layer = createBubble(thoughts[i].text, colName, x, y, radius, padding, '#EA4949');
     anim = animateBubble(layer, colName, thoughts[i], 0.25);
     addClickHandler(layer, colName, thoughts[i], 0.25, anim);
     addPopHandler(layer, stage);
+    positions.push({ x: layer.x(), y: layer.y(), radius: layer.getChildren()[0].radius()+3 });
     stage.add(layer);
   }
 }
 
+function placeNextBubble(xmin, xmax, ymin, ymax, radius, positions) {
+  var newx, newy, currTop, currBot, bLeft, bRight, bTop, bBot, bubbles, retry;
+  // Max 50 tries
+  for (var i = 0; i < 50; i++) {
+    retry = false;
+    // Find a random x, scan down that x for any y collisions
+    newx = getRandomInt(xmin, xmax);
+    newy = ymin;
+    bLeft = newx-radius;
+    bRight = newx+radius;
+    bubbles = findBubblesInXInt(positions, bLeft, bRight);
+    for (var j = 0; j < bubbles.length; j++) {
+      bTop = newy-radius, bBot = newy+radius;
+      currTop = bubbles[j].y - bubbles[j].radius;
+      currBot = bubbles[j].y + bubbles[j].radius;
+      if (bTop < currBot && bBot > currTop) {
+        // Bubble collision - update newy
+        newy += radius*2;
+      }
+      if (newy > ymax) {
+        // No more room in this x interval, try again
+        retry = true;
+        break;
+      }
+    }
+    if (!retry)
+      return { x: newx, y: newy }
+  }
+  // No room could be found
+  return null;
+}
+
+function findBubblesInXInt(positions, xmin, xmax) {
+  var result = [], bLeft, bRight;
+  for (var i = 0; i < positions.length; i++) {
+    bLeft = positions[i].x - positions[i].radius;
+    bRight = positions[i].x + positions[i].radius;
+    if (bLeft < xmax && bRight > xmin) {
+      result.push(positions[i]);
+    }
+  }
+  // Sort by y values
+  return result.sort(function(a, b) {
+    if (a.y < b.y) {
+      return -1;
+    } else if (a.y > b.y) {
+      return 1;
+    } else {
+      return 0;
+    }
+  });
+}
+
 // Returns a new layer with bubble and text members
-function createBubble(thought, x, y, radius, padding, fill) {
+function createBubble(thought, colName, x, y, radius, padding, fill) {
   var layer = new Kinetic.Layer({
+    name: 'bubble'+colName,
     x: x,
     y: y,
     draggable: true,
@@ -170,13 +230,16 @@ function createBubble(thought, x, y, radius, padding, fill) {
     padding: padding,
     fill: '#ffffff'
   });
+  // Increase bubble size if needed
+  if (text.getHeight() > bubble.getHeight()) {
+    var difference = (text.getHeight() - bubble.getHeight())/2;
+    bubble.radius(bubble.radius() + difference/2);
+    text.width(bubble.getWidth());
+    //text.height(bubble.getHeight());
+  }
   // Center text in bubble
   text.offsetX(text.getWidth()/2);
   text.offsetY(text.getHeight()/2);
-  // Increase bubble size if needed
-  if (text.getHeight() > bubble.getHeight()) {
-    bubble.radius(text.getHeight()/2 + padding);
-  }
   // TODO: ellipses for long posts. limit bubble size
 
   layer.add(bubble);
