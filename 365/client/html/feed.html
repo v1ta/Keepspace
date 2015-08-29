@@ -42,15 +42,17 @@
         <i class="fa fa-search feed-search-icon"></i>
         <div id="friendSearchBox">
           <input type="text" class="form-control" placeholder="Search Keepspace" id="search-friends"/> 
-          {{#if hasInput}}
-            <h4>({{friendCount}} users found)</h4>
+          {{> sAlert}}
+            <div id="friendSearchList">
+            {{#if hasInput}}
             <ul>
             {{#each users}}
-                <li class="searchUser {{selectedClass}}">{{username}}<input id="addFriendButton" type="submit" value="addFriend" class="button-add"/></li>
-  
+                <li class="searchUser {{selectedClass}}"><a href="#"><strong>{{username}}</strong><input id="addFriendButton" type="submit"  class="button-add"/></a></li>
             {{/each}}
+            <h4>{{friendCount}} user(s) found</h4>
             </ul>
             {{/if}}
+            </div>
         </div>
 </template>
 

@@ -250,9 +250,11 @@ ul
   margin:0;
 }
 .selected{
-  border: 1px solid #ddd;
-  padding: 5px 10px;
-  background-color:#97D8F9;
+  padding: 10px 15px;
+}
+
+.searchUser {
+  background-color: #f9f9f9;
 }
 
 /* Bubbles */
@@ -266,17 +268,55 @@ ul
   border: 1px dotted #000000;
 }*/
 input.button-add {
-    background-image: url(/images/add_user.png); /* 16px x 16px */
-    background-color: transparent; /* make the button transparent */
-    background-repeat: no-repeat;  /* make the background image appear only once */
-    background-position: 0px 0px;  /* equivalent to 'top left' */
-    border: none;           /* assuming we don't want any borders */
-    cursor: pointer;        /* make the cursor like hovering over an <a> element */
-    height: 22px;           /* make this the size of your image */
-    padding-left: 22px;     /* make text start to the right of the image */
-    vertical-align: middle; /* align the text vertically centered */
+    background-image: url(/images/add_user.png); 
+    background-color: transparent; 
+    background-repeat: no-repeat; 
+    background-position: 0px 0px; 
+    background-position: right 20px top;
+    border: none;           
+    cursor: pointer;        
+    height: 22px;        
+    color: transparent;
+    padding-left: 22px; 
+    vertical-align: middle; 
   }
 #fullFeed-canvas {
   position: absolute;
   z-index: 1;
 }
+
+#friendSearchList { 
+  background-color: #f9f9f9;
+  width:320px; 
+  font-family:Georgia, Times, serif; 
+  font-size: 15px; 
+  padding-top: 40px;
+}
+
+#friendSearchList ul { 
+  list-style: none; 
+}
+
+#friendSearchList ul li { 
+}
+
+#friendSearchList ul li a { 
+  display:block; 
+  text-decoration:none; 
+  color:#000000; 
+  background-color: #f9f9f9;
+  line-height:20px;
+  padding-left:10px; 
+  cursor:pointer; 
+}
+
+#friendSearchList ul li a:hover { 
+  color:#FFFFFF; 
+  background-image:url(../images/hover.png); 
+  background-repeat:repeat-x; 
+}
+
+#friendSearchList ul li a strong { 
+  margin-right:10px; 
+}
+

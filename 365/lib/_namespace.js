@@ -5,7 +5,7 @@ Schemas.FriendEdge = new SimpleSchema({
     userId: {
         type: String,
         label: "userId",
-        max: 1
+        max: 100
     },
     friendList: {
         type: [String],
@@ -28,11 +28,11 @@ Schemas.FindFriend = new SimpleSchema({
 });
 
 Schemas.Thought = new SimpleSchema({
-    fiendList: {
+    friendList: {
         type: [String],
         label: "friendList",
-        max: 1000,
-        optional: true //might break non-friend queries in aggregate collection
+        max: 1000
+        //optional: true //might break non-friend queries in aggregate collection
     },
     userId: {
         type: String,

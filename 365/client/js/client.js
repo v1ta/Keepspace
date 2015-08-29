@@ -282,7 +282,9 @@ Template.friendSearch.events({
     },
     "click #addFriendButton": function(){
         var selectedUser = Session.get('selectedUser');
-        Meteor.call('addFriend', selectedUser, function(err, response){});
+        Meteor.call('addFriend', selectedUser, function(err, response){
+            sAlert.success('Friend Request Sent!', {position: 'top-left', offset: '95px'});
+        });
     },
     "keyup #search-friends": _.throttle(function(ev) {
     var searchString = $('#search-friends').val();

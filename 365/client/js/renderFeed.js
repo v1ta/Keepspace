@@ -6,6 +6,7 @@ Template.main.onRendered(function() {
   var start = new Date();
   start.setHours(0,0,0,0);
   feedStage = {};
+  renderFeed('.feed-wrapper', 'fullFeed-canvas', 'left', {friendList:Meteor.userId(), createdAt: {$gte:start}});
   renderFeed('.feed-wrapper', 'fullFeed-canvas', 'center', {userId:Meteor.userId(), createdAt: {$gte:start}});
   renderFeed('.feed-wrapper', 'fullFeed-canvas', 'right', {userId:{$ne: Meteor.userId()}, createdAt: {$gte:start}});
 });
