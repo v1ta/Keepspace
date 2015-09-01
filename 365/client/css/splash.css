@@ -4,6 +4,7 @@
 	background:white;
 	padding-top:4%;
 	height:100%;
+	font-family: Roboto;
 }
 #repeatingSeamlessBackground{
 	background-image: url("images/keepspace_seamlessbg.png");
@@ -14,6 +15,7 @@
 	font-size: 96px;
 	color: #20A7BC;
 	margin-bottom: 5%;
+	font-family:Roboto;
 }
 
 .splashTitle {
@@ -88,6 +90,7 @@
 	padding-bottom:30px;
 	background:#E6F3FA;
 	color:#7B7978;
+	font-family:Roboto;
 }
 #splashBannerLogo{
 	display:inline-block;
