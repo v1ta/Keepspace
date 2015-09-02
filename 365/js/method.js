@@ -4,7 +4,23 @@ Friends = new Mongo.Collection("Friends");
 RankRecord = new Mongo.Collection("RankRecord");
 SavedPosts = new Mongo.Collection("SavedPosts");
 betaEmailCollection = new Mongo.Collection("betaSignup");
-
+Avatars = new FS.Collection("avatars", {
+    filter: {
+        maxSize: 10000000, // 10MB
+        allow: {
+            contentTypes: ['image/*'],
+            extensions: ['png','jpg','gif']
+        },
+        onInvalid: function (message) {
+          if (Meteor.isClient) {
+            alert(message);
+          } else {
+            console.log(message);
+          }
+        }
+    },
+    stores: [new FS.Store.GridFS("avatars")]
+})
 
 Thoughts.attachSchema(Schemas.Thought);
 //Friends.attachSchema(Schemas.FriendEdge);
@@ -31,6 +47,14 @@ if (Meteor.isServer){
 
     //Friends._ensureIndex({ userId: 1, friendId: 1});
     //Thoughts._ensureIndex({ userId: 1, createdAt: 1});
+
+    function isLoggedIn() {
+        return Meteor.user() ? true : false
+    }
+    Avatars.allow({
+        insert: isLoggedIn,
+        update: isLoggedIn
+    });
 }
 
 
@@ -61,7 +85,7 @@ Meteor.methods({
             rank: 0,
             username: Meteor.user().username,
             position: location,
-            friendList: friendList.friendList
+            friendList: friendList ? friendList.friendList : []
         };
         Thoughts.insert(newThought);
         return newThought;

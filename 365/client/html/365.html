@@ -12,7 +12,7 @@
 </body>
 
 <template name="main">
-  <div id="main-feed" class="container-fluid">
+  <div id="main-feed" class="container-fluid full-height">
     <div class="row feed-wrapper">
       <div id="fullFeed-canvas"></div>
       <div id="friendFeed" class="feed col-xs-4">
@@ -25,7 +25,7 @@
       <div id="myFeed" class="feed col-xs-4">
         <div id="tempForm">
           <form class="new-thought" autocomplete="off">
-            <input type="text" class="form-control" name="text" placeholder="How will you remember today?" />
+            <textarea class="form-control" name="text" placeholder="How will you remember today?"></textarea>
             <button id="submit-new-thought" class="btn">Keep</button>
           </form>
           <button id="btn-import-facebook" class="btn btn-primary"><i class="fa fa-facebook fa-fw"></i></button>
@@ -84,11 +84,15 @@
       </div>
 
       <div class="right col-xs-4">
-        <img id="settingsButton" class="header-circle vertical-center" alt="avatar" src="{{avatar}}" />
+        <img id="profile-picture" class="header-circle" alt="{{username}}" src="{{picture}}" />
         <span class="username vertical-center">{{username}}</span>
       </div>
     </div>
   </div>
+
+  {{#with showProfile}}
+    {{> profile}}
+  {{/with}}
 
   <div id="settingDropDown" class="dropdown-menu">
     <form id="changePasswordForm">
@@ -102,4 +106,40 @@
     <input type="submit" id="signOut" class="logout dropButton" value="Sign Out">
   </div>
   {{> yield}}
+</template>
+
+<template name="profile">
+  <div id="upload-picture" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="uploadLabel">
+    <div class="modal-dialog modal-sm" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+          <h4 id="uploadLabel" class="modal-title">Upload New Profile Picture</h4>
+        </div>
+        <div class="modal-body">
+          <form>
+            <div class="form-group">
+              <input type="file" id="new-picture">
+              <p class="help-block">Use a square photo for best results.</p>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="profile" class="full-height">
+    <img id="profile-picture-large" class="profile-circle-large" alt="{{username}}" src="{{picture}}" />
+    <div id="change-picture" class="profile-circle-large" data-toggle="modal" data-target="#upload-picture"><p class="vertical-center">Edit Picture</p></div>
+    <div id="username" class="profile-circle"><p class="vertical-center">{{username}}</p></div>
+    <div id="collects" class="profile-circle"><p class="vertical-center">Memories Collected:</p></div>
+    <div id="joined" class="profile-circle"><p class="vertical-center">Joined: {{joined}}</p></div>
+    <i id="close-profile" class="fa fa-times-circle-o fa-2x"></i>
+  </div>
+</template>
+
+<template name="loading">
+  Loading...
 </template>
