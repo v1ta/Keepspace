@@ -240,6 +240,7 @@ body, html {
   position: absolute;
   left: 1px;
   bottom: -22px;
+  display:none;
 }
 
 .hidden{
@@ -324,5 +325,8 @@ input.button-add {
 
 #friendSearchList ul li a strong { 
   margin-right:10px; 
+}
+.fa-facebook{
+  display:none;
 }
 
