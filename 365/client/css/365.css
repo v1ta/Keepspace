@@ -217,6 +217,15 @@ body, html {
   display: inline-block;
   border-radius: 5px;
 }
+#expandedThoughtContent {
+  position: absolute;
+  z-index: 2;
+  display: none;
+  padding: 5px;
+  color: #ffffff;
+  overflow: auto;
+  font-family: 'GeosansLight'
+}
 
 /* New post */
 #tempForm {

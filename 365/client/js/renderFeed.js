@@ -55,6 +55,7 @@ function initStage(containerDiv, canvas, numCols) {
     }
   }
 
+  var length, extraHeight, top, left, tolerance = 10;
   var background = new Kinetic.Layer();
   if (numCols === 3) {
     // Add the borders for drag and drop targets
@@ -72,7 +73,24 @@ function initStage(containerDiv, canvas, numCols) {
         visible: false
       }));
     }
+    // Length of a side of a square inscribed in a circle
+    length = stage.cols['center'].colWidth/2 * Math.sqrt(2);
+    extraHeight = (stage.cols['center'].colWidth - length) / 2;
+    top = parseInt($('#tempForm').css('height')) + parseInt($('#time').css('height'));
+    left = parseInt($('#myFeed').css('width'));
+  } else {
+    length = stage.cols['single'].colWidth/2 * Math.sqrt(2);
+    extraHeight = (stage.cols['single'].colWidth - length) / 2;
+    top = 0;
+    left = parseInt($('#calendarFeed').css('width'));
   }
+  // Set up long post view box  
+  $("#expandedThoughtContent").css({
+    'width': length - tolerance,
+    'height': length - tolerance,
+    'top': top + extraHeight + tolerance/2,
+    'left': (left - length + tolerance) / 2
+  });
   // Add the blur background
   background.add(new Kinetic.Rect({
     name: 'blurBG',
@@ -121,7 +139,7 @@ renderFeed = function(containerDiv, canvas, colName, findHash) {
 }
 
 addThoughtsToStage = function(thoughts, stage, colName) {
-  var x = 0, y = 0, radius = 0, padding = 5, layer, col = stage.cols[colName];
+  var x = 0, y = 0, radius = 0, padding = 5, layer, anim, col = stage.cols[colName];
   var bubbles = stage.get('.bubble'+colName), positions = [];
   for (var i = 0; i < bubbles.length; i++) {
     // Radius: add 3 to account for animation amplitude
@@ -220,27 +238,21 @@ function createBubble(thought, colName, x, y, radius, padding, fill) {
   var bubble = new Kinetic.Circle({
     x: 0, y: 0, radius: radius, fill: fill, opacity: 0.8
   });
+
   var text = new Kinetic.Text({
     fontFamily: 'GeosansLight',
-    text: thought,
+    text: thought.length > 175 ? thought.substr(0, 172) + '...' : thought,
     align: 'center',
     x: 0,
     y: 0,
-    width: bubble.getWidth(),
+    width: bubble.getWidth() - 5,
     padding: padding,
     fill: '#ffffff'
   });
-  // Increase bubble size if needed
-  if (text.getHeight() > bubble.getHeight()) {
-    var difference = (text.getHeight() - bubble.getHeight())/2;
-    bubble.radius(bubble.radius() + difference/2);
-    text.width(bubble.getWidth());
-    //text.height(bubble.getHeight());
-  }
+
   // Center text in bubble
   text.offsetX(text.getWidth()/2);
   text.offsetY(text.getHeight()/2);
-  // TODO: ellipses for long posts. limit bubble size
 
   layer.add(bubble);
   layer.add(text);
@@ -251,7 +263,7 @@ function createBubble(thought, colName, x, y, radius, padding, fill) {
       name: 'popIndicator',
       x: 0,
       y: 0,
-      data: describeArc(0, 0, radius-2, 45*ii, 45*(ii+1)),
+      data: describeArc(0, 0, bubble.radius()-2, 45*ii, 45*(ii+1)),
       stroke: '#0099FF',
       strokeWidth: 4,
       opacity: 0
@@ -365,7 +377,7 @@ function addPopHandler(layer, stage) {
     index = Math.floor(frame.time / step) % 8;
     if (indicators[index]) {
       if (indicators[index].opacity() < 1.0)
-        indicators[index].opacity(indicators[index].opacity() + 0.045);
+        indicators[index].opacity(indicators[index].opacity() + 0.2);
     }
   }, layer);
   // Pop bubble if mouse is held down for 2 seconds
@@ -389,6 +401,7 @@ function popBubble(layer, stage) {
   var background = stage.find('.blurBG');
   layer.destroyChildren();
   layer.destroy();
+  $('#expandedThoughtContent').hide();
   background.off('click.condense');
   background.hide();
   stage.draw();
@@ -401,7 +414,9 @@ function addClickHandler(layer, colName, thought, duration, anim) {
 }
 
 function expandBubble(e, layer, colName, thought, duration, anim) {
-  var layerTween, bubbleTween, textTween, nodes, bubble, text, col = feedStage.cols[colName];
+  var layerTween, bubbleTween, textTween, nodes, bubble, text;
+  // In main feed, always expand to center column
+  var col = colName === 'single' ? feedStage.cols['single'] : feedStage.cols['center'];
   var radius = layer.getChildren()[0].radius(), expandedRadius = col.colWidth/2;
 
   layer.draggable(false);
@@ -454,11 +469,17 @@ function expandBubble(e, layer, colName, thought, duration, anim) {
   textTween = new Kinetic.Tween({
     node: text,
     duration: duration,
-    width: expandedRadius*2,
-    offsetX: expandedRadius,
+    width: expandedRadius*Math.sqrt(2),
+    offsetX: expandedRadius*Math.sqrt(2)/2,
     fontSize: 18,
     padding: 10,
     onFinish: function () {
+      if (text.text() !== thought.text) {
+        text.height(expandedRadius*Math.sqrt(2));
+        text.hide();
+        $('#expandedThoughtContent').text(thought.text);
+        $('#expandedThoughtContent').show();
+      }
       text.offsetY(text.getHeight()/2);
       var width = text.getTextWidth(), minWidth = 125;
       if (width < minWidth) {
@@ -514,9 +535,15 @@ function condenseBubble(e, layer, colName, thought, duration, radius, anim, oldH
     // Resetting text offsetY
     if (i === 0) {
       t = t.node;
+      if ($('#expandedThoughtContent').css('display') === 'block') {
+        t.height(oldHeight);
+        t.show();
+        $('#expandedThoughtContent').hide();
+      }
       t.offsetY(oldHeight/2);
     }
   }
+  Meteor.setTimeout(function() { anim.start(); }, duration*1000);
   // Adjust the pop indicators
   var indicators = layer.find('.popIndicator');
   for (var i = 0; i < 8; i++) {
@@ -526,7 +553,6 @@ function condenseBubble(e, layer, colName, thought, duration, radius, anim, oldH
   // Set up expand animation
   e.target.off('click.condense');
   layer.draggable(true);
-  anim.start();
   addClickHandler(layer, colName, thought, duration, anim);
 }
 
