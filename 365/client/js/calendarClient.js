@@ -19,11 +19,14 @@ Template.calendar.helpers({
 Template.calendar.events({
 	'click .datepicker-td': function(e){
     	//console.log(e.currentTarget.innerHTML);
-	var element = e.currentTarget.childNodes[0];
-	var day = element.innerHTML;
-	var date = getDate(day - 1, 1);
-	setCalText(date, false, true);
-	getCalFeed(date);
+		var element = e.currentTarget.childNodes[0];
+		var parent = element.parentNode;
+		$(".selectedDate").removeClass("selectedDate");
+		$(parent).addClass("selectedDate");
+		var day = element.innerHTML;
+		var date = getDate(day - 1, 1);
+		setCalText(date, false, true);
+		getCalFeed(date);
  	 },
 	'click #monthPrev': function(e){
       var date = getDate(-7, 1);
@@ -70,7 +73,7 @@ function loadCalendar(date, shouldSelect){
 			numAdded += 1;
 			var classString = "";
 			if (numAdded == day && shouldSelect){
-				string = string.concat("<td class=today><a href=''>"+ dy +"</a></td>");
+				string = string.concat("<td class=selectedDate><a href=''>"+ dy +"</a></td>");
 			}
 			else{
 				string = string.concat("<td class=datepicker-td><a href=''>"+ dy +"</a></td>");
@@ -84,7 +87,7 @@ function loadCalendar(date, shouldSelect){
 
     string.concat("</tr>")
     tbody.append(string);
-    $(".today").addClass("datepicker-td");
+    $(".selectedDate").addClass("datepicker-td");
     dt.setDate(day);
     setCalText(dt, true, shouldSelect);
 }
