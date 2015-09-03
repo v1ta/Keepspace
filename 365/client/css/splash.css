@@ -90,8 +90,18 @@
 	padding-bottom:30px;
 	background:#E6F3FA;
 	color:#7B7978;
+	
 	font-family:Roboto;
 }
+#splashBannerHeader p{
+	transition: opacity 0.5s ease;
+	opacity:0.5;
+}
+#splashBannerHeader p:hover{
+	transition: opacity 0.5s ease;
+	opacity:1.0;
+}
+
 #splashBannerLogo{
 	display:inline-block;
 	height:50px;
