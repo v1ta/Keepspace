@@ -1,5 +1,11 @@
 /* Global var for the feeds */
 feedStage = {};
+KSColors = {
+  'left'  : '#32c0d2', //friends : blue
+  'center': '#f15f5a', //personal: red
+  'single': '#f15f5a', //calendar: red
+  'right' : '#faa43a'  //world   : orange
+}
 
 Template.main.onRendered(function() {
   // Only find posts made after 00:00 of today
@@ -163,7 +169,7 @@ addThoughtsToStage = function(thoughts, stage, colName) {
       x = nextPos.x;
       y = nextPos.y;
     }
-    layer = createBubble(thoughts[i].text, colName, x, y, radius, padding, '#EA4949');
+    layer = createBubble(thoughts[i].text, colName, x, y, radius, padding, KSColors[colName]);
     anim = animateBubble(layer, colName, thoughts[i], 0.25);
     addClickHandler(layer, colName, thoughts[i], 0.25, anim);
     addPopHandler(layer, stage);
@@ -372,7 +378,7 @@ function hideBorders(borders) {
 function addPopHandler(layer, stage) {
   var indicators = layer.find('.popIndicator');
   var index = 0;
-  var step = 2000/8;
+  var step = 1000/8;
   var anim = new Kinetic.Animation(function (frame) {
     index = Math.floor(frame.time / step) % 8;
     if (indicators[index]) {
@@ -384,7 +390,7 @@ function addPopHandler(layer, stage) {
   var pop;
   layer.on('mousedown', function() {
     anim.start();
-    pop = window.setTimeout(function() { popBubble(layer, stage); }, 2000);
+    pop = window.setTimeout(function() { popBubble(layer, stage); }, 1000);
   });
   layer.on('mouseup dragstart', function() {
     anim.stop();
@@ -417,7 +423,7 @@ function expandBubble(e, layer, colName, thought, duration, anim) {
   var layerTween, bubbleTween, textTween, nodes, bubble, text;
   // In main feed, always expand to center column
   var col = colName === 'single' ? feedStage.cols['single'] : feedStage.cols['center'];
-  var radius = layer.getChildren()[0].radius(), expandedRadius = col.colWidth/2;
+  var radius = layer.getChildren()[0].radius(), expandedRadius = Math.min(col.colWidth, col.colHeight)/2;
 
   layer.draggable(false);
   layerTween = new Kinetic.Tween({
