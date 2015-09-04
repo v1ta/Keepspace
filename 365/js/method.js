@@ -61,10 +61,17 @@ Meteor.methods({
             rank: 0,
             username: Meteor.user().username,
             position: location,
-            friendList: friendList.friendList
+            collectedBy: [],
+            friendList: friendList ? friendList.friendList : [],
+            
         };
         Thoughts.insert(newThought);
         return newThought;
+    },
+    addToMyCollection: function(thoughtID){
+        var id = Meteor.userId();
+        var thought = Thoughts.findOne(thoughtId);
+
     },
     /*
      * specifically for adding facebook posts

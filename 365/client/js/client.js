@@ -57,16 +57,11 @@ Template.worldFeed.helpers({
     }
 });
 
-
-
-
 Template.worldFeed.events({
     "click .addToCollection": function(){
         Meteor.call("addToMyCollection", this._id);
     }
 });
-
-
 
 Template.post.events({
     "submit .new-thought": function (event) {
@@ -91,9 +86,6 @@ Template.post.events({
     }
 });
 
-
-
-
 Template.thought.events({
     "click .delete": function () {
         Meteor.call("deleteThought", this._id);
@@ -103,17 +95,11 @@ Template.thought.events({
     },
 });
 
-
-
-
 Template.thought.helpers({
     isuserId: function () {
         return this.userId === Meteor.userId();
     }
 });
-
-
-
 
 //put in username
 Template.main.helpers({
@@ -132,9 +118,6 @@ Template.main.helpers({
     }
     
 });
-
-
-
 
     //request facebook data
 Template.main.events({
@@ -199,10 +182,7 @@ Template.main.events({
         $(e.target).toggleClass("fa-caret-down fa-caret-up");
     }
 
-
 });
-
-
 
 Template.user.helpers({
     'isUser': function(){
@@ -212,11 +192,9 @@ Template.user.helpers({
         return "Robert"
     }
 });
+
 // Accounts
 //
-
-
-
 Accounts.ui.config({
     passwordSignupFields: "USERNAME_ONLY",
     requestPermissions: {
@@ -224,9 +202,6 @@ Accounts.ui.config({
             'user_posts']
     }
 });
-
-
-
 
 // Helper Functions
 //
