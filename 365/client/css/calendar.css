@@ -1,5 +1,4 @@
 @import url(http://weloveiconfonts.com/api/?family=fontawesome);
-
 #calendarFeed{
   text-align:center;
   display:inline-block;
@@ -35,12 +34,13 @@
 #calendarContainer{
   position:absolute;
   width:35%;
+  top:95px;
 }
 
 html, body {
   background: #f9f9f9;
   color: #0e171c;
-  font: 300 100%/1.5em 'Lato', sans-serif;
+  /*font: 300 100%/1.5em 'Lato', sans-serif;*/
   margin: 0;
   height:100%;
 }
@@ -100,12 +100,11 @@ table {
   color: #7c8a95;
 }
 
-.calendar tbody td:hover {
-  border: 2px solid #00addf;
+.calendar td.datepicker-td:hover {
+  border: 2px solid green;
 }
 
 .calendar td {
-  border: 2px solid transparent;
   border-radius: 50%;
   display: inline-block;
   height: 2em;
@@ -120,7 +119,13 @@ table {
 .calendar td a{
   color: #f9f9f9;
 }
-
+.calendar td.selectedDate{
+  border: 2px solid red;
+}
+.selectedDate a{
+  position:relative;
+  top: -2px;
+}
 .calendar td.dayTitle{
   background: transparent;
   color: red;

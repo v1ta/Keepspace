@@ -29,6 +29,12 @@ Template.header.events({
         event.preventDefault();
         Meteor.logout(logoutFunction);
     },
+    'click .dropdownAbout': function(event){
+        Router.go("mainAbout");
+    },
+    'click .dropdownTeam': function(event){
+        Router.go("mainTeam");
+    },
     'click #changePassword': function(event){
         event.preventDefault();
         $(".dropButton").toggle();

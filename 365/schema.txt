@@ -20,6 +20,12 @@ Posts (aka Thoughts):
 	owner: owner id
 	position: physical location of user (default null)
 
+	collectedBy: {
+       		type: [String],
+       		label: "collectedBy",
+       		max: 1000
+   	}
+
 	For Facebook posts:
 		Also add facebook url, image/video url (if applicable), likes, type (status, wall post, etc.)
 

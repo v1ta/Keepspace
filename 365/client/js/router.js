@@ -54,6 +54,14 @@ Router.route("mainPage", function(){
   this.layout("header");
   this.render("main");
 });
+Router.route("mainAbout", function(){
+  this.layout("header");
+  this.render("aboutPage");
+});
+Router.route("mainTeam", function(){
+  this.layout("header");
+  this.render("teamPage");
+});
 Router.route("calendar", function(){
   this.layout("header");
   this.render("calendar");

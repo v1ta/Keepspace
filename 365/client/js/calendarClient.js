@@ -3,6 +3,8 @@ Template.calendar.rendered = function() {
 	if(!this._rendered) {
 	    this._rendered = true;
 	    var date = new Date();
+	    localStorage.setItem("selectedDate", $.format.date(date, "M d yyyy"));
+	    localStorage.setItem("displayDate", $.format.date(date, "M d yyyy"));
 	    loadCalendar(date, true);
 	    var otherDate = getDate(date.getDate() - 1, 1);
 	    getCalFeed(otherDate);
@@ -19,11 +21,15 @@ Template.calendar.helpers({
 Template.calendar.events({
 	'click .datepicker-td': function(e){
     	//console.log(e.currentTarget.innerHTML);
-	var element = e.currentTarget.childNodes[0];
-	var day = element.innerHTML;
-	var date = getDate(day - 1, 1);
-	setCalText(date, false, true);
-	getCalFeed(date);
+		var element = e.currentTarget.childNodes[0];
+		var parent = element.parentNode;
+		$(".selectedDate").removeClass("selectedDate");
+		$(parent).addClass("selectedDate");
+		var day = element.innerHTML;
+		var date = getDate(day - 1, 1);
+		localStorage.setItem("selectedDate", $.format.date(date, "M d yyyy"));
+		setCalText(date, false, true);
+		getCalFeed(date);
  	 },
 	'click #monthPrev': function(e){
       var date = getDate(-7, 1);
@@ -64,13 +70,30 @@ function loadCalendar(date, shouldSelect){
     var dy=1; // day variable for adjustment of starting date. 
     var string = "";
     var numAdded = 0; //count actual days added. 
+    var selectedDay = 0;
+
+    if (!shouldSelect){
+	    var selectedDate = new Date(localStorage.getItem("selectedDate"));
+	    console.log(selectedDate);
+	    var selectedMonth = selectedDate.getMonth();
+	    var selectedYear = selectedDate.getFullYear();
+	    var curMonth = dt.getMonth();
+	    var curYear = dt.getFullYear();
+	    
+	    if (selectedMonth == curMonth && selectedYear == curYear){
+	    	selectedDay = selectedDate.getDate();
+	    }
+	}
     for(i=0;i<=41;i++){
 	    if((i%7)==0){string = string.concat("</tr><tr>");} // if week is over then start a new line 
 	    if((i>= first_day) && (dy<= last_date)){
 			numAdded += 1;
 			var classString = "";
 			if (numAdded == day && shouldSelect){
-				string = string.concat("<td class=today><a href=''>"+ dy +"</a></td>");
+				string = string.concat("<td class=selectedDate><a href=''>"+ dy +"</a></td>");
+			}
+			else if(selectedDay != 0 && numAdded == selectedDay){
+				string = string.concat("<td class=selectedDate><a href=''>"+ dy +"</a></td>");
 			}
 			else{
 				string = string.concat("<td class=datepicker-td><a href=''>"+ dy +"</a></td>");
@@ -84,7 +107,7 @@ function loadCalendar(date, shouldSelect){
 
     string.concat("</tr>")
     tbody.append(string);
-    $(".today").addClass("datepicker-td");
+    $(".selectedDate").addClass("datepicker-td");
     dt.setDate(day);
     setCalText(dt, true, shouldSelect);
 }
@@ -125,7 +148,7 @@ function setCalText(date, setCal, setHead){
 //val is number of days to change by
 //dateToSet is day to set to (1 for previous, 28 for next)
 function getDate(val, string){
-	var calendarDate = localStorage.getItem("selectedDate");
+	var calendarDate = localStorage.getItem("displayDate");
 	calendarDate = new Date(calendarDate);
 	if (string){
 		calendarDate.setDate(string);
@@ -144,7 +167,6 @@ function getDate(val, string){
 	else{
 		newDate.setDate(newDate.getDate());
 	}
-
-	localStorage.setItem("selectedDate", $.format.date(newDate, "M d yyyy"))
+	localStorage.setItem("displayDate", $.format.date(newDate, "M d yyyy"));
 	return newDate;
 }
