@@ -100,6 +100,11 @@ Meteor.methods({
             {$addToSet : {'collectedBy': userID}}
         );
     },
+    addToMyCollection: function(thoughtID){
+        var id = Meteor.userId();
+        var thought = Thoughts.findOne(thoughtId);
+
+    },
     /*
      * specifically for adding facebook posts
      */
