@@ -61,7 +61,7 @@ Meteor.methods({
             rank: 0,
             username: Meteor.user().username,
             position: location,
-            friendList: friendList.friendList
+            friendList: friendList ? friendList.friendList : [] 
         };
         Thoughts.insert(newThought);
         return newThought;
