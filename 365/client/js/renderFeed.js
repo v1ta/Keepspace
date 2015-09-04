@@ -333,8 +333,6 @@ function popBubble(layer, stage) {
 
 function addClickHandler(layer, colName, thought, duration, anim) {
   layer.on('click.expand', function(e) {
-    console.log(thought.id);
-    console.log(thought);
     expandBubble(e, layer, colName, thought, duration, anim);
   });
 }

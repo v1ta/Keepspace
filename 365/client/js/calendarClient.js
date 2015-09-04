@@ -124,10 +124,19 @@ function getCalFeed(date){
 	dateMidnight.setSeconds(59);
 
   feedStage = {};
-	renderFeed('#calFeed', 'calFeed-container', 'single', {"createdAt": {
-		$gt:startDate,
-		$lt:dateMidnight
-	}});
+	renderFeed('#calFeed', 'calFeed-container', 'single', 
+		{$and: [
+			{"createdAt": 
+			{
+				$gt:startDate,
+				$lt:dateMidnight
+			}}, 
+			{$or: [
+				{"userId": Meteor.userId()},
+				{"collectedBy": Meteor.userId()}
+			]}
+		]}
+	);
 
 }
 //set calendar feed header + calendar month/year
