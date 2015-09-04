@@ -69,9 +69,11 @@ Meteor.methods({
         return newThought;
     },
     addToMyCollection: function(thoughtID){
-        var id = Meteor.userId();
-        var thought = Thoughts.findOne(thoughtId);
-
+        var userID = Meteor.userId();
+        Thoughts.update(
+            {"_id" : thoughtID},
+            {$addToSet : {'collectedBy': userID}}
+        );
     },
     /*
      * specifically for adding facebook posts
@@ -118,9 +120,6 @@ Meteor.methods({
         }else {
             console.log("That person doesn't exist");
         }
-    },
-    addToMyCollection: function(thoughtId){
-        console.log(thoughtId);
     },
     changePrivacy: function (thoughtId, setChecked) {
         if(!UserLoggedIn) return false
