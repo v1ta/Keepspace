@@ -44,7 +44,7 @@ body, html {
   font-size: 22px;
 }
 #homeButton {
-  background-color: #01C2CF;
+  background-color: #32c0d2;
   color: #ffffff;
   text-align: center;
   padding-top: 10px;
@@ -216,6 +216,15 @@ body, html {
   background-color: #E8F4FD;
   display: inline-block;
   border-radius: 5px;
+}
+#expandedThoughtContent {
+  position: absolute;
+  z-index: 2;
+  display: none;
+  padding: 5px;
+  color: #ffffff;
+  overflow: auto;
+  font-family: 'GeosansLight'
 }
 
 /* New post */
