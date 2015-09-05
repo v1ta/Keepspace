@@ -105,7 +105,7 @@ Template.thought.helpers({
 Template.main.helpers({
     username: function(){
         if (Meteor.user()) {
-            var username = Meteor.user().username.toUpperCase();
+            var username = Meteor.user().username;
             return username.split(" ")[0];
         }
     },
