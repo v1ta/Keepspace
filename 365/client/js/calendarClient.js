@@ -12,12 +12,13 @@ Template.calendar.onRendered(function() {
   }
 	getCalFeed(otherDate);
 });
-// Template.calendar.onRendered(function(){
-// 	renderFeed('#calFeed', 'calFeed-container', {owner:Meteor.userId()});
-// });
-Template.calendar.helpers({
 
-});
+Template.calendar.onDestroyed(function() {
+  // Cleanup canvas
+  feedStage.destroyChildren();
+  feedStage.destroy();
+})
+
 Template.calendar.events({
 	'click .datepicker-td': function(e){
     	//console.log(e.currentTarget.innerHTML);

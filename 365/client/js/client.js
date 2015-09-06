@@ -138,7 +138,7 @@ Template.main.events({
             var thoughtsList = Session.get('centerfeed');
             thoughtsList.push(thought);
             Session.set('centerfeed', thoughtsList);
-            addThoughtsToStage([thought], feedStage, 'center');
+            addThoughtsToStage([thought], 'center');
         });
 
         // Clear form

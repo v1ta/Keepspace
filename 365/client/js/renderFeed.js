@@ -39,6 +39,7 @@ function resetFeed(feed) {
       },
       { sort: {createdAt: -1} }
     ).fetch());
+    Session.set('leftqueue', []);
   }
   if (feed === 'centerfeed') {
     // Get user's posts and collected posts
@@ -50,6 +51,7 @@ function resetFeed(feed) {
           {collectedBy: Meteor.userId()}
         ]}
       ]}, { sort: {createdAt: -1} }).fetch());
+    Session.set('centerqueue', []);
   }
   if (feed === 'rightfeed') {
     Session.set('rightfeed', Thoughts.find({
@@ -62,6 +64,7 @@ function resetFeed(feed) {
       ]},
       { sort: {createdAt: -1} }
     ).fetch());
+    Session.set('rightqueue', []);
   }
 }
 
@@ -177,7 +180,7 @@ renderFeed = function(containerDiv, canvas, colName, thoughts) {
   var stage = $.isEmptyObject(feedStage) ? initStage(containerDiv, canvas, numCols) : feedStage;
   var column = stage.cols[colName];
 
-  addThoughtsToStage(thoughts, stage, colName);
+  addThoughtsToStage(thoughts, colName);
 
   /* debug: col stats
   var colDebug = new Kinetic.Layer(); 
@@ -190,27 +193,27 @@ renderFeed = function(containerDiv, canvas, colName, thoughts) {
   stage.add(colDebug);*/
 }
 
-addThoughtsToStage = function(thoughts, stage, colName) {
-  var x = 0, y = 0, radius = 0, padding = 5, layer, anim, col = stage.cols[colName];
-  var bubbles = stage.get('.bubble'+colName), positions = [];
+addThoughtsToStage = function(thoughts, colName) {
+  var x = 0, y = 0, radius = 0, padding = 5, layer, anim, col = feedStage.cols[colName];
+  var bubbles = feedStage.get('.bubble'+colName), positions = [];
   for (var i = 0; i < bubbles.length; i++) {
     // Radius: add 3 to account for animation amplitude
-    positions.push({ x: bubbles[i].x(), y: bubbles[i].y(), radius: bubbles[i].getChildren()[0].radius()+3 });
+    positions.push({ x: bubbles[i].x(), y: bubbles[i].y(), radius: bubbles[i].getChildren()[0].radius(), text:bubbles[i].getChildren()[1].text() });
   }
   var xmin, xmax, ymin, ymax, nextPos, fill;
+  var queue = Session.get(colName+'queue');
   for (var i = 0; i < thoughts.length; i++) {
     radius = 70*(thoughts[i].rank+1);
     // min = left + radius of bubble + animation amplitude, similar for max
     xmin = col.left + radius + 3;
     xmax = col.right - radius - 3;
     ymin = col.top + radius + 3;
-    ymax = stage.height() - radius - 3;
+    ymax = feedStage.height() - radius - 3;
 
     nextPos = placeNextBubble(xmin, xmax, ymin, ymax, radius+3, positions);
     if (nextPos === null) {
-      // No more room for bubbles
-      console.log('filled');
-      // TODO: add to queue
+      // No more room for bubbles, add the rest of the thoughts to queue
+      Session.set(colName+'queue', thoughts.slice(i));
       return;
     } else {
       x = nextPos.x;
@@ -226,10 +229,13 @@ addThoughtsToStage = function(thoughts, stage, colName) {
     layer = createBubble(thoughts[i].text, colName, x, y, radius, padding, fill);
     anim = animateBubble(layer, colName, thoughts[i], 0.25);
     addClickHandler(layer, colName, thoughts[i], 0.25, anim);
-    addPopHandler(layer, stage);
-    positions.push({ x: layer.x(), y: layer.y(), radius: layer.getChildren()[0].radius()+3 });
-    stage.add(layer);
+    addPopHandler(layer, colName, thoughts[i]);
+    positions.push({ x: layer.x(), y: layer.y(), radius: layer.getChildren()[0].radius() });
+    feedStage.add(layer);
+    if (queue && queue.length > 0)
+      queue.shift();
   }
+  Session.set(colName+'queue', queue);
 }
 
 function placeNextBubble(xmin, xmax, ymin, ymax, radius, positions) {
@@ -460,7 +466,7 @@ function hideBorders(borders) {
     }
 }
 
-function addPopHandler(layer, stage) {
+function addPopHandler(layer, colName, thought) {
   var indicators = layer.find('.popIndicator');
   var index = 0;
   var step = 1000/8;
@@ -475,7 +481,7 @@ function addPopHandler(layer, stage) {
   var pop;
   layer.on('mousedown', function() {
     anim.start();
-    pop = window.setTimeout(function() { popBubble(layer, stage); }, 1000);
+    pop = window.setTimeout(function() { popBubble(layer, colName, thought); }, 1000);
   });
   layer.on('mouseup dragstart', function() {
     anim.stop();
@@ -488,15 +494,18 @@ function addPopHandler(layer, stage) {
   })
 }
 
-function popBubble(layer, stage) {
-  var background = stage.find('.blurBG');
+function popBubble(layer, colName, thought) {
+  var background = feedStage.find('.blurBG');
   layer.destroyChildren();
   layer.destroy();
   $('#expandedThoughtContent').hide();
   background.off('click.condense');
   background.hide();
-  stage.draw();
-  // TODO: add the next thought in the queue
+  feedStage.draw();
+  // Add the next thought in the queue
+  removeFromSession(thought, colName);
+  var thoughts = Session.get(colName+'queue');
+  addThoughtsToStage(thoughts, colName);
 }
 
 function addClickHandler(layer, colName, thought, duration, anim) {
@@ -555,7 +564,7 @@ function expandBubble(e, layer, colName, thought, duration, anim) {
     });
     del.offsetX(del.getWidth());
     del.on('click', function () {
-      popBubble(layer, layer.parent);
+      popBubble(layer, colName, thought);
       removeFromSession(thought, colName);
       Meteor.call('deleteThought', thought._id);
     });
@@ -687,7 +696,7 @@ function condenseBubble(e, layer, colName, thought, duration, radius, anim, oldH
       // Get the new position
       var bubbles = feedStage.get('.bubble'+colName), positions = [];
       for (var i = 0; i < bubbles.length; i++) {
-        positions.push({ x: bubbles[i].x(), y: bubbles[i].y(), radius: bubbles[i].getChildren()[0].radius()+3 });
+        positions.push({ x: bubbles[i].x(), y: bubbles[i].y(), radius: bubbles[i].getChildren()[0].radius() });
       }
       var col = feedStage.cols[colName];
       var xmin = col.left + radius + 3;
@@ -707,8 +716,9 @@ function condenseBubble(e, layer, colName, thought, duration, radius, anim, oldH
         });
         layerTween.play();
       } else {
-        // TODO: Add bubble to the queue
-        console.log('no space to relocate?');
+        // Add the thought to queue
+        var queue = Session.get(colName+'queue');
+        Session.set(colName+'queue', queue.concat(thought));
       }
     } else {
       t = tweens[i].reverse();
