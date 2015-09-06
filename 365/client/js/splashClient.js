@@ -35,8 +35,8 @@ Template.loginPage.events({
 		)
 	},
 	'click .blueLoginButton': function(){
-		var emailVar = $("#email").text();
-		var passwordVar = $("#password").text();
+		var emailVar = $("#email").val();
+		var passwordVar = $("#password").val();
 		Meteor.loginWithPassword({email: emailVar}, passwordVar, function(err){
 			if (!err){
 				Session.set("isFB", false);
@@ -66,14 +66,12 @@ Template.signupPage.events({
 			    }
 			}
 		)},
-	'submit form': function(event) {
-		event.preventDefault();
-		console.log("submit");
-		var userName = event.target.userName.value;
-		var userEmail = event.target.userEmail.value;
-		var DOB = event.target.dateOfBirth.value;
-		var passwordVar = event.target.userPassword.value;
-		var repeat = event.target.userPasswordAgain.value;
+	'click #createButton': function(event) {
+		var userName = $("#username").val();
+		var DOB = $("#dateOfBirth").val();
+		var userEmail = $("#email").val();
+		var passwordVar = $("#password").val();
+		var repeat = $("#passwordAgain").val();
 
 		var emailValidate = validateEmail(userEmail);
 		var validate = true;
@@ -102,7 +100,7 @@ Template.signupPage.events({
 						alert(err);
 					}
 					else{
-						console.log("argh");
+
 					}
 				}
 			);

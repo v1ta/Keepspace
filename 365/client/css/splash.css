@@ -65,6 +65,7 @@
     padding-left: 10px;
     background: #EAE8E8 !important;
     margin-bottom:15px;
+    width:185px;
 }
 #login-buttons-facebook{
 	text-align:center;
@@ -81,8 +82,13 @@
     border: 2px solid #A0E4EA;
 }
 
+#nextLoginButton{
+	width:90px;
+}
+
 #createButton{
 	margin-top:15px;
+	width:90px;
 }
 
 #splashBannerHeader{
