@@ -12,7 +12,7 @@ Template.verifyemail.events({
       Accounts.createUser({email: email, password : password}, function(err){
         if (err) {
           if(err.reason === "Email already exists."){
-          // handle user exists.
+            alert("Email Already In Use");
           }
         } else {
           var userId = Meteor.userId();
