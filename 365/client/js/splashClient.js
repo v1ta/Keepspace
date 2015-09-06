@@ -303,12 +303,8 @@ customAlert = function(title, detail){
 	$(".alertDiv").show();
 }
 
-//check if an email seems legit
-function validateEmail(email) {
-    var re = /^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/i;
-    return re.test(email);
-}
 
+/*
 function betaSignup(){
 	var email = $("#betaEmail").val();
 	var valid = validateEmail(email);
@@ -321,7 +317,7 @@ function betaSignup(){
 		Meteor.call("addBetaEmail", email);
 	}
 }
-
+*/
 Template.login.events({
 	//login function
 	'submit form': function(event) {
