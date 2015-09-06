@@ -71,7 +71,7 @@ Template.header.events({
         }
     },
     'mouseenter #logo': function(e) {
-        $("#logo").css("background-color", "#bbbbbb");
+        $("#logo").css("background-color", "#f9f9f9");
     },
     'mouseleave #logo': function(e) {
         if ($("#main-menu").css("display") !== "block") {
@@ -79,10 +79,30 @@ Template.header.events({
         }
     },
     'mouseenter .menu-item': function(e) {
-        $(e.target).css("background-color", "#01C2CF");
+        $(e.target).css("background-color", "#32c0d2");
     },
     'mouseleave .menu-item': function(e) {
         $(e.target).css("background-color", "");
+    },
+    'click #profile-picture': function() {
+        // TODO: encrypt userId
+        Session.set('showProfile', Meteor.user());
+    },
+    'click #close-profile': function() {
+        Session.set('showProfile', false);
+    },
+    'mouseenter #profile-picture-large': function(e) {
+        if (Meteor.userId() === Session.get('showProfile')._id) {
+            if (e.relatedTarget.id !== "change-picture")
+                $("#change-picture").show();
+            else if ($("#upload-picture").css("display") === "none")
+                $("#change-picture").hide();
+        }
+    },
+    'mouseleave #change-picture': function() {
+        if ($("#upload-picture").css("display") === "none") {
+            $("#change-picture").hide();
+        }
     }
     // 'click #btn-import-facebook': function(e) {
     //     Meteor.call('getFBUserData', function(err, data) {
@@ -105,16 +125,29 @@ Template.header.helpers({
             return Meteor.user().username;
         }
     },
-    avatar: function() {
-        var user = Meteor.user();
-        if (user.services)
-            if (user.services.facebook) {
-                return "http://graph.facebook.com/" + user.services.facebook.id + "/picture/?type=large";
-            } else return "/avatars/default.png";
+    picture: function() {
+        if (Meteor.user()) {
+            var picture = Meteor.user().profile.picture;
+            var customAvatar = Avatars.findOne({ _id: picture });
+            if (customAvatar) { 
+                return customAvatar.url();
+            }
+        }
+        return picture;
+    },
+    showProfile: function() {
+        return Session.get('showProfile');
     }
 });
 
 Template.header.onCreated(function() {
+    // Reset Session variables for feeds
+    delete Session.keys['leftfeed'];
+    delete Session.keys['centerfeed'];
+    delete Session.keys['rightfeed'];
+    delete Session.keys['leftqueue'];
+    delete Session.keys['centerqueue'];
+    delete Session.keys['rightqueue'];
     $(window).resize(function() { setMidPadding(); });
 });
 Template.header.onDestroyed(function() {
@@ -128,7 +161,50 @@ Template.header.onRendered(function() {
     $("#date").text(currentDate);
     localStorage.setItem("selectedDate", $.format.date(today, "M d yyyy"));
     setMidPadding();
+    Session.set('showProfile', false);
 });
+
+Template.profile.helpers({
+    username: function() {
+        return Session.get('showProfile').username;
+    },
+    picture: function() {
+        var picture = Session.get('showProfile').profile.picture;
+        var customAvatar = Avatars.findOne({ _id: picture });
+        if (customAvatar) { 
+            return customAvatar.url();
+        } else {
+            return picture;
+        }
+    },
+    joined: function() {
+        return $.format.date(Session.get('showProfile').createdAt, 'M/d/yyyy');
+    },
+    collects: function() {
+        return Session.get('showProfile').profile.collects;
+    }
+});
+
+Template.profile.events({
+    'change #new-picture': function(event, template) {
+        FS.Utility.eachFile(event, function(file) {
+          Avatars.insert(file, function (err, fileObj) {
+            // Inserted new doc with ID fileObj._id, and kicked off the data upload using HTTP
+            if (err) {
+                console.log(err);
+            } else {
+                $('#upload-picture').modal('hide');
+                $('#change-picture').hide();
+                var avatarUrl = {
+                    'profile.picture' : fileObj._id
+                }
+                Meteor.users.update(Meteor.userId(), {$set: avatarUrl});
+                Session.set('showProfile', Meteor.user());
+            }
+          });
+        });
+    }
+})
 
 
 Date.prototype.getDOY = function() {
@@ -149,7 +225,7 @@ function setMidPadding() {
 showMainMenu = function() {
     $("#logo").css({"border-bottom-right-radius": "0",
                     "border-bottom-left-radius" : "0",
-                    "background-color": "#bbbbbb"});
+                    "background-color": "#f9f9f9"});
     $("#main-menu").slideDown('fast');
 }
 hideMainMenu = function() {

@@ -15,7 +15,6 @@
  aldeed:collection2
  meteorhacks:search-source
  meteorhacks:kadira
- mizzao:bootstrap-3
  npm-container
  matb33:collection-hooks
  underscore
@@ -26,3 +25,5 @@ mongo
 juliancwirko:s-alert
 juliancwirko:s-alert-flip
 email
+cfs:standard-packages
+cfs:gridfs

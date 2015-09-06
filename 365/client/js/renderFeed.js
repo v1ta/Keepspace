@@ -1,15 +1,72 @@
 /* Global var for the feeds */
 feedStage = {};
+KSColors = {
+  'blue'  : '#32c0d2',
+  'red'   : '#f15f5a',
+  'orange': '#faa43a'
+}
 
 Template.main.onRendered(function() {
+  feedStage = {};
+  if (!Session.get('leftfeed')) {
+    resetFeed('leftfeed');
+  }
+  if (!Session.get('centerfeed')) {
+    resetFeed('centerfeed');
+  }
+  if (!Session.get('rightfeed')) {
+    resetFeed('rightfeed');
+  }
+  renderFeed('.feed-wrapper', 'fullFeed-canvas', 'left', Session.get('leftfeed'));
+  renderFeed('.feed-wrapper', 'fullFeed-canvas', 'center', Session.get('centerfeed'));
+  renderFeed('.feed-wrapper', 'fullFeed-canvas', 'right', Session.get('rightfeed'));
+});
+
+Template.main.onDestroyed(function() {
+  // Cleanup canvas
+  feedStage.destroyChildren();
+  feedStage.destroy();
+})
+
+function resetFeed(feed) {
   // Only find posts made after 00:00 of today
   var start = new Date();
   start.setHours(0,0,0,0);
-  feedStage = {};
-  renderFeed('.feed-wrapper', 'fullFeed-canvas', 'left', {friendList:Meteor.userId(), createdAt: {$gte:start}});
-  renderFeed('.feed-wrapper', 'fullFeed-canvas', 'center', {userId:Meteor.userId(), createdAt: {$gte:start}});
-  renderFeed('.feed-wrapper', 'fullFeed-canvas', 'right', {userId:{$ne: Meteor.userId()}, createdAt: {$gte:start}});
-});
+  if (feed === 'leftfeed') {
+    Session.set('leftfeed', Thoughts.find({
+        friendList:Meteor.userId(),
+        createdAt: {$gte:start}
+      },
+      { sort: {createdAt: -1} }
+    ).fetch());
+    Session.set('leftqueue', []);
+  }
+  if (feed === 'centerfeed') {
+    // Get user's posts and collected posts
+    Session.set('centerfeed', Thoughts.find({
+      $and: [
+        {createdAt: {$gte:start}},
+        {$or: [
+          {userId: Meteor.userId()},
+          {collectedBy: Meteor.userId()}
+        ]}
+      ]}, { sort: {createdAt: -1} }).fetch());
+    Session.set('centerqueue', []);
+  }
+  if (feed === 'rightfeed') {
+    Session.set('rightfeed', Thoughts.find({
+      $and: [
+        {createdAt: {$gte:start}},
+        {$nor: [
+          {userId: Meteor.userId()},
+          {collectedBy: Meteor.userId()}
+        ]}
+      ]},
+      { sort: {createdAt: -1} }
+    ).fetch());
+    Session.set('rightqueue', []);
+  }
+}
 
 function initStage(containerDiv, canvas, numCols) {
   var container = $(containerDiv);
@@ -55,6 +112,7 @@ function initStage(containerDiv, canvas, numCols) {
     }
   }
 
+  var length, extraHeight, top, left, tolerance = 25;
   var background = new Kinetic.Layer();
   if (numCols === 3) {
     // Add the borders for drag and drop targets
@@ -72,7 +130,24 @@ function initStage(containerDiv, canvas, numCols) {
         visible: false
       }));
     }
+    // Length of a side of a square inscribed in a circle
+    length = stage.cols['center'].colWidth/2 * Math.sqrt(2);
+    extraHeight = (stage.cols['center'].colWidth - length) / 2;
+    top = parseInt($('#tempForm').css('height')) + parseInt($('#time').css('height'));
+    left = parseInt($('#myFeed').css('width'));
+  } else {
+    length = stage.cols['single'].colWidth/2 * Math.sqrt(2);
+    extraHeight = (stage.cols['single'].colWidth - length) / 2;
+    top = 0;
+    left = parseInt($('#calendarFeed').css('width'));
   }
+  // Set up long post view box  
+  $('#expandedThoughtContent').css({
+    'width': length - tolerance,
+    'height': length - tolerance,
+    'top': top + extraHeight,
+    'left': (left - length + tolerance) / 2
+  });
   // Add the blur background
   background.add(new Kinetic.Rect({
     name: 'blurBG',
@@ -90,16 +165,14 @@ function initStage(containerDiv, canvas, numCols) {
   return feedStage;
 }
 
-renderFeed = function(containerDiv, canvas, colName, findHash) {
-  // Get thoughts
-  var thoughts = Thoughts.find(findHash, {sort: {createdAt: -1}}).fetch();
-  console.log(thoughts);
-  if (containerDiv === "#calFeed"){
+renderFeed = function(containerDiv, canvas, colName, thoughts) {
+  //console.log(thoughts);
+  if (containerDiv === '#calFeed'){
     if (thoughts.length === 0 ){
-      $("#noPostText").show();
+      $('#noPostText').show();
     }
     else{
-      $("#noPostText").hide();
+      $('#noPostText').hide();
     }
   }
 
@@ -107,7 +180,7 @@ renderFeed = function(containerDiv, canvas, colName, findHash) {
   var stage = $.isEmptyObject(feedStage) ? initStage(containerDiv, canvas, numCols) : feedStage;
   var column = stage.cols[colName];
 
-  addThoughtsToStage(thoughts, stage, colName);
+  addThoughtsToStage(thoughts, colName);
 
   /* debug: col stats
   var colDebug = new Kinetic.Layer(); 
@@ -120,37 +193,108 @@ renderFeed = function(containerDiv, canvas, colName, findHash) {
   stage.add(colDebug);*/
 }
 
-addThoughtsToStage = function(thoughts, stage, colName) {
-  var x = 0, y = 0, radius = 0, sSize = 0, sIndex = 0, padding = 5, layer, col = stage.cols[colName];
+addThoughtsToStage = function(thoughts, colName) {
+  var x = 0, y = 0, radius = 0, padding = 5, layer, anim, col = feedStage.cols[colName];
+  var bubbles = feedStage.get('.bubble'+colName), positions = [];
+  for (var i = 0; i < bubbles.length; i++) {
+    // Radius: add 3 to account for animation amplitude
+    positions.push({ x: bubbles[i].x(), y: bubbles[i].y(), radius: bubbles[i].getChildren()[0].radius(), text:bubbles[i].getChildren()[1].text() });
+  }
+  var xmin, xmax, ymin, ymax, nextPos, fill;
+  var queue = Session.get(colName+'queue');
   for (var i = 0; i < thoughts.length; i++) {
     radius = 70*(thoughts[i].rank+1);
-    // x position - random
     // min = left + radius of bubble + animation amplitude, similar for max
-    x = getRandomInt(col.left + radius + 3, col.right - radius - 3);
+    xmin = col.left + radius + 3;
+    xmax = col.right - radius - 3;
+    ymin = col.top + radius + 3;
+    ymax = feedStage.height() - radius - 3;
 
-    // y position - most recent posts towards the top, canvas divided into four sections
-    /*sSize = Math.floor(stage.height() / 4);
-    sIndex = Math.floor(i / (thoughts.length/4));
-    y = getRandomInt(radius+padding + sSize*sIndex, sSize*(sIndex+1) - radius-padding);*/
-    y = getRandomInt(col.top + radius + 3, stage.height() - radius - 3);
-
-    // If bubbles collide just try again
-    // Todo: find a more graceful solution
-    /*if (stage.getIntersection({x:x, y:y})) {
-      console.log('collision');
-      i--; continue;
-    }*/
-    layer = createBubble(thoughts[i].text, x, y, radius, padding, '#EA4949');
+    nextPos = placeNextBubble(xmin, xmax, ymin, ymax, radius+3, positions);
+    if (nextPos === null) {
+      // No more room for bubbles, add the rest of the thoughts to queue
+      Session.set(colName+'queue', thoughts.slice(i));
+      return;
+    } else {
+      x = nextPos.x;
+      y = nextPos.y;
+    }
+    if (thoughts[i].userId === Meteor.userId()) {
+      fill = KSColors['red'];
+    } else if (thoughts[i].friendList.indexOf(Meteor.userId()) !== -1) {
+      fill = KSColors['blue'];
+    } else {
+      fill = KSColors['orange'];
+    }
+    layer = createBubble(thoughts[i].text, colName, x, y, radius, padding, fill);
     anim = animateBubble(layer, colName, thoughts[i], 0.25);
     addClickHandler(layer, colName, thoughts[i], 0.25, anim);
-    addPopHandler(layer, stage);
-    stage.add(layer);
+    addPopHandler(layer, colName, thoughts[i]);
+    positions.push({ x: layer.x(), y: layer.y(), radius: layer.getChildren()[0].radius() });
+    feedStage.add(layer);
+    if (queue && queue.length > 0)
+      queue.shift();
   }
+  Session.set(colName+'queue', queue);
+}
+
+function placeNextBubble(xmin, xmax, ymin, ymax, radius, positions) {
+  var newx, newy, currTop, currBot, bLeft, bRight, bTop, bBot, bubbles, retry;
+  // Max 50 tries
+  for (var i = 0; i < 50; i++) {
+    retry = false;
+    // Find a random x, scan down that x for any y collisions
+    newx = getRandomInt(xmin, xmax);
+    newy = ymin;
+    bLeft = newx-radius;
+    bRight = newx+radius;
+    bubbles = findBubblesInXInt(positions, bLeft, bRight);
+    for (var j = 0; j < bubbles.length; j++) {
+      bTop = newy-radius, bBot = newy+radius;
+      currTop = bubbles[j].y - bubbles[j].radius;
+      currBot = bubbles[j].y + bubbles[j].radius;
+      if (bTop < currBot && bBot > currTop) {
+        // Bubble collision - update newy
+        newy += radius*2;
+      }
+      if (newy > ymax) {
+        // No more room in this x interval, try again
+        retry = true;
+        break;
+      }
+    }
+    if (!retry)
+      return { x: newx, y: newy }
+  }
+  // No room could be found
+  return null;
+}
+
+function findBubblesInXInt(positions, xmin, xmax) {
+  var result = [], bLeft, bRight;
+  for (var i = 0; i < positions.length; i++) {
+    bLeft = positions[i].x - positions[i].radius;
+    bRight = positions[i].x + positions[i].radius;
+    if (bLeft < xmax && bRight > xmin) {
+      result.push(positions[i]);
+    }
+  }
+  // Sort by y values
+  return result.sort(function(a, b) {
+    if (a.y < b.y) {
+      return -1;
+    } else if (a.y > b.y) {
+      return 1;
+    } else {
+      return 0;
+    }
+  });
 }
 
 // Returns a new layer with bubble and text members
-function createBubble(thought, x, y, radius, padding, fill) {
+function createBubble(thought, colName, x, y, radius, padding, fill) {
   var layer = new Kinetic.Layer({
+    name: 'bubble'+colName,
     x: x,
     y: y,
     draggable: true,
@@ -160,24 +304,21 @@ function createBubble(thought, x, y, radius, padding, fill) {
   var bubble = new Kinetic.Circle({
     x: 0, y: 0, radius: radius, fill: fill, opacity: 0.8
   });
+
   var text = new Kinetic.Text({
-    fontFamily: 'GeosansLight',
-    text: thought,
+    fontFamily: 'Roboto',
+    text: thought.length > 175 ? thought.substr(0, 172) + '...' : thought,
     align: 'center',
     x: 0,
     y: 0,
-    width: bubble.getWidth(),
+    width: bubble.getWidth() - 5,
     padding: padding,
     fill: '#ffffff'
   });
+
   // Center text in bubble
   text.offsetX(text.getWidth()/2);
   text.offsetY(text.getHeight()/2);
-  // Increase bubble size if needed
-  if (text.getHeight() > bubble.getHeight()) {
-    bubble.radius(text.getHeight()/2 + padding);
-  }
-  // TODO: ellipses for long posts. limit bubble size
 
   layer.add(bubble);
   layer.add(text);
@@ -188,7 +329,7 @@ function createBubble(thought, x, y, radius, padding, fill) {
       name: 'popIndicator',
       x: 0,
       y: 0,
-      data: describeArc(0, 0, radius-2, 45*ii, 45*(ii+1)),
+      data: describeArc(0, 0, bubble.radius()-2, 45*ii, 45*(ii+1)),
       stroke: '#0099FF',
       strokeWidth: 4,
       opacity: 0
@@ -251,16 +392,22 @@ function animateBubble(layer, colName, thought, duration) {
       hideBorders([leftBorder, centerBorder, rightBorder]);
       pos = this.parent.getPointerPosition().x;
       if (colName !== 'left' && pos < cols.left.right) {
-        if (isDragValid()) {
-          relocateBubble(layer, 'left', thought, duration);
+        if (isDragValid('left')) {
+          relocateBubble(layer, colName, 'left', thought, duration);
+        } else {
+          tween.play();
         }
       } else if (colName !== 'center' && pos >= cols.center.left && pos < cols.center.right) {
-        if (isDragValid()) {
-          relocateBubble(layer, 'center', thought, duration);
+        if (isDragValid('center')) {
+          relocateBubble(layer, colName, 'center', thought, duration);
+        } else {
+          tween.play();
         }
       } else if (colName !== 'right' && pos >= cols.right.left) {
-        if (isDragValid()) {
-          relocateBubble(layer, 'right', thought, duration);
+        if (isDragValid('right')) {
+          relocateBubble(layer, colName, 'right', thought, duration);
+        } else {
+          tween.play();
         }
       } else {
         tween.play();
@@ -273,11 +420,36 @@ function animateBubble(layer, colName, thought, duration) {
 }
 
 // TODO : logic for dragging posts
-function isDragValid() { return true; }
-function relocateBubble(layer, colName, thought, duration) {
+function isDragValid(dest) {
+  // Can only drag to center
+  return dest === 'center';
+}
+function relocateBubble(layer, src, dest, thought, duration) {
+  if (dest === 'center') {
+    Meteor.call('addToMyCollection', thought._id);
+    // Add thought to dest list
+    var thoughtList = Session.get('centerfeed');
+    thoughtList.push(thought);
+    Session.set('centerfeed', thoughtList);
+    removeFromSession(thought, src);
+  }
   layer.off('click dragstart.anim dragmove.anim dragend.anim');
-  var anim = animateBubble(layer, colName, thought, duration);
-  addClickHandler(layer, colName, thought, duration, anim);
+  var anim = animateBubble(layer, dest, thought, duration);
+  addClickHandler(layer, dest, thought, duration, anim);
+}
+
+function removeFromSession(thought, colName) {
+  // Deletes from calendar page affect personal feed on main page
+  if (colName === 'single') colName = 'center';
+  // Remove thought from src list
+  var thoughtList = Session.get(colName+'feed');
+  for (var i = 0; i < thoughtList.length; i++) {
+    if (thoughtList[i]._id === thought._id) {
+      thoughtList.splice(i, 1);
+      break;
+    }
+  }
+  Session.set(colName+'feed', thoughtList);
 }
 
 function showBorders(border) {
@@ -294,22 +466,22 @@ function hideBorders(borders) {
     }
 }
 
-function addPopHandler(layer, stage) {
+function addPopHandler(layer, colName, thought) {
   var indicators = layer.find('.popIndicator');
   var index = 0;
-  var step = 2000/8;
+  var step = 1000/8;
   var anim = new Kinetic.Animation(function (frame) {
     index = Math.floor(frame.time / step) % 8;
     if (indicators[index]) {
       if (indicators[index].opacity() < 1.0)
-        indicators[index].opacity(indicators[index].opacity() + 0.045);
+        indicators[index].opacity(indicators[index].opacity() + 0.2);
     }
   }, layer);
   // Pop bubble if mouse is held down for 2 seconds
   var pop;
   layer.on('mousedown', function() {
     anim.start();
-    pop = window.setTimeout(function() { popBubble(layer, stage); }, 2000);
+    pop = window.setTimeout(function() { popBubble(layer, colName, thought); }, 1000);
   });
   layer.on('mouseup dragstart', function() {
     anim.stop();
@@ -322,30 +494,39 @@ function addPopHandler(layer, stage) {
   })
 }
 
-function popBubble(layer, stage) {
-  var background = stage.find('.blurBG');
+function popBubble(layer, colName, thought) {
+  var background = feedStage.find('.blurBG');
   layer.destroyChildren();
   layer.destroy();
+  $('#expandedThoughtContent').hide();
   background.off('click.condense');
   background.hide();
-  stage.draw();
+  feedStage.draw();
+  // Add the next thought in the queue
+  removeFromSession(thought, colName);
+  var thoughts = Session.get(colName+'queue');
+  addThoughtsToStage(thoughts, colName);
 }
 
 function addClickHandler(layer, colName, thought, duration, anim) {
   layer.on('click.expand', function(e) {
+    console.log(thought.id);
+    console.log(thought);
     expandBubble(e, layer, colName, thought, duration, anim);
   });
 }
 
 function expandBubble(e, layer, colName, thought, duration, anim) {
-  var layerTween, bubbleTween, textTween, nodes, bubble, text, col = feedStage.cols[colName];
-  var radius = layer.getChildren()[0].radius(), expandedRadius = col.colWidth/2;
+  var layerTween, bubbleTween, textTween, nodes, bubble, text;
+  // In main feed, always expand to center column
+  var col = colName === 'single' ? feedStage.cols['single'] : feedStage.cols['center'];
+  var radius = layer.getChildren()[0].radius(), expandedRadius = Math.min(col.colWidth, col.colHeight)/2;
 
   layer.draggable(false);
   layerTween = new Kinetic.Tween({
     node: layer,
     duration: duration,
-    x: col.left + expandedRadius,
+    x: col.left + col.colWidth/2,
     y: col.top + expandedRadius
   })
 
@@ -360,42 +541,84 @@ function expandBubble(e, layer, colName, thought, duration, anim) {
     opacity: 1
   });
 
+  var isOwner = Meteor.userId() === thought.userId;
+  var collected = colName === 'single' || colName === 'center';
+
   // Add username & date
   var username = new Kinetic.Text({
-    fontFamily: 'GeosansLight',
+    fontFamily: 'Roboto',
     text: Meteor.userId() === thought.userId ? 'You:' : thought.username + ':',
     fill: '#ffffff',
     fontSize: 16
   });
   var date = new Kinetic.Text({
-    fontFamily: 'GeosansLight',
+    fontFamily: 'Roboto',
     text: $.format.date(thought.createdAt, 'h:mmp'),
     fill: '#ffffff',
     fontSize: 16
   });
-  if (Meteor.userId() === thought.userId) {
+  if (isOwner) {
     var del = new Kinetic.Text({
-      fontFamily: 'GeosansLight',
+      fontFamily: 'Roboto',
       text: 'Delete',
       fill: '#ffffff',
       fontSize: 16
     });
     del.offsetX(del.getWidth());
     del.on('click', function () {
-      popBubble(layer, layer.parent);
-      Meteor.call("deleteThought", thought._id);
+      popBubble(layer, colName, thought);
+      removeFromSession(thought, colName);
+      Meteor.call('deleteThought', thought._id);
     });
+    var delOutline = new Kinetic.Rect({
+      width: del.getWidth() + 4,
+      height: del.getHeight() + 4,
+      cornerRadius: 5,
+      stroke: '#ffffff'
+    });
+    delOutline.offsetX(del.getWidth() + 2);
+    delOutline.offsetY(2);
+  } else if (!collected) {
+    var collect = new Kinetic.Text({
+      fontFamily: 'Roboto',
+      text: 'Collect',
+      fill: '#ffffff',
+      fontSize: 16
+    });
+    collect.offsetX(collect.getWidth());
+    var collectOutline = new Kinetic.Rect({
+      width: collect.getWidth() + 4,
+      height: collect.getHeight() + 4,
+      cornerRadius: 5,
+      stroke: '#ffffff'
+    });
+    collectOutline.offsetX(collect.getWidth() + 2);
+    collectOutline.offsetY(2);
   }
 
   var oldHeight = text.getHeight();
   textTween = new Kinetic.Tween({
     node: text,
     duration: duration,
-    width: expandedRadius*2,
-    offsetX: expandedRadius,
+    width: expandedRadius*Math.sqrt(2),
+    offsetX: expandedRadius*Math.sqrt(2)/2,
     fontSize: 18,
     padding: 10,
     onFinish: function () {
+      if (text.text() !== thought.text) {
+        text.height(expandedRadius*Math.sqrt(2));
+        text.hide();
+        $('#expandedThoughtContent').text(thought.text);
+        $('#expandedThoughtContent').show();
+        date.offsetY(date.offsetY()+10);
+        if (isOwner) {
+          del.offsetY(del.offsetY()+10);
+          delOutline.offsetY(delOutline.offsetY()+10);
+        } else {
+          collect.offsetY(collect.offsetY()+10);
+          collectOutline.offsetY(collectOutline.offsetY()+10);
+        }
+      }
       text.offsetY(text.getHeight()/2);
       var width = text.getTextWidth(), minWidth = 125;
       if (width < minWidth) {
@@ -407,10 +630,20 @@ function expandBubble(e, layer, colName, thought, duration, anim) {
       date.x(-width/2);
       date.y(text.getHeight()/2);
       layer.add(date);
-      if (del) {
+      if (isOwner) {
         del.x(width/2);
-        del.y(-text.getHeight()/2 - 10);
+        del.y(text.getHeight()/2);
+        delOutline.x(del.x());
+        delOutline.y(del.y());
+        layer.add(delOutline);
         layer.add(del);
+      } else if (!collected) {
+        collect.x(width/2);
+        collect.y(text.getHeight()/2);
+        collectOutline.x(collect.x());
+        collectOutline.y(collect.y());
+        layer.add(collectOutline);
+        layer.add(collect);
       }
     }
   });
@@ -432,26 +665,75 @@ function expandBubble(e, layer, colName, thought, duration, anim) {
   textTween.play();
   // Set up condense animation
   layer.off('click.expand');
-  var toRemove = del ? [username, date, del] : [username, date]
+  var toRemove = [];
+  if (isOwner) {
+    toRemove = [username, date, del, delOutline];
+  } else if (!collected) {
+    toRemove = [username, date, collect, collectOutline];
+    collect.on('click', function () {
+      background.off('click.collected');
+      condenseBubble(e, layer, 'center', thought, duration, radius, anim, oldHeight, toRemove, [textTween, bubbleTween, layerTween], true);
+    });
+  } else {
+    toRemove = [username, date];
+  }
   background.on('click.condense', function(e) {
-    condenseBubble(e, layer, colName, thought, duration, radius, anim, oldHeight, toRemove, [textTween, bubbleTween, layerTween]);
+    condenseBubble(e, layer, colName, thought, duration, radius, anim, oldHeight, toRemove, [textTween, bubbleTween, layerTween], false);
   });
 }
 
-function condenseBubble(e, layer, colName, thought, duration, radius, anim, oldHeight, toRemove, tweens) {
+function condenseBubble(e, layer, colName, thought, duration, radius, anim, oldHeight, toRemove, tweens, relocating) {
   // Hide background
-  e.target.visible(false);
-  e.target.parent.draw();
+  var background = layer.parent.find('.blurBG')[0];
+  background.visible(false);
+  background.parent.draw();
   // Remove username/date and reverse tweens
   for (var i = 0; i < toRemove.length; i++) {
     toRemove[i].destroy();
   }
+  var t;
   for (var i = 0; i < tweens.length; i++) {
-    var t = tweens[i].reverse();
-    // Resetting text offsetY
-    if (i === 0) {
-      t = t.node;
-      t.offsetY(oldHeight/2);
+    if (relocating && i === 2) {
+      // Redefine layer tween
+      // Get the new position
+      var bubbles = feedStage.get('.bubble'+colName), positions = [];
+      for (var j = 0; j < bubbles.length; j++) {
+        positions.push({ x: bubbles[j].x(), y: bubbles[j].y(), radius: bubbles[j].getChildren()[0].radius() });
+      }
+      var col = feedStage.cols[colName];
+      var xmin = col.left + radius + 3;
+      var xmax = col.right - radius - 3;
+      var ymin = col.top + radius + 3;
+      var ymax = feedStage.height() - radius - 3;
+      nextPos = placeNextBubble(xmin, xmax, ymin, ymax, radius+3, positions);
+      if (nextPos) {
+        var layerTween = new Kinetic.Tween({
+          node: layer,
+          duration: duration,
+          x: nextPos.x,
+          y: nextPos.y,
+          onFinish: function() {
+            relocateBubble(layer, colName, 'center', thought, duration);
+          }
+        });
+        layerTween.play();
+      } else {
+        // Add the thought to queue
+        var queue = Session.get(colName+'queue');
+        Session.set(colName+'queue', queue.concat(thought));
+      }
+    } else {
+      t = tweens[i].reverse();
+      // Resetting text offsetY
+      if (i === 0) {
+        t = t.node;
+        if ($('#expandedThoughtContent').css('display') === 'block') {
+          t.height(oldHeight);
+          t.show();
+          $('#expandedThoughtContent').hide();
+        }
+        t.offsetY(oldHeight/2);
+      }
     }
   }
   // Adjust the pop indicators
@@ -460,11 +742,14 @@ function condenseBubble(e, layer, colName, thought, duration, radius, anim, oldH
     indicators[i].data(describeArc(0, 0, radius-2, 45*i, 45*(i+1)));
     indicators[i].strokeWidth(4);
   }
-  // Set up expand animation
-  e.target.off('click.condense');
-  layer.draggable(true);
-  anim.start();
-  addClickHandler(layer, colName, thought, duration, anim);
+
+  if (!relocating) {
+    Meteor.setTimeout(function() { anim.start(); }, duration*1000);
+    // Set up expand animation
+    background.off('click.condense');
+    layer.draggable(true);
+    addClickHandler(layer, colName, thought, duration, anim);
+  }
 }
 
 // Get random int in range (inclusive)
@@ -485,12 +770,12 @@ function describeArc(x, y, radius, startAngle, endAngle){
   var start = polarToCartesian(x, y, radius, endAngle);
   var end = polarToCartesian(x, y, radius, startAngle);
 
-  var arcSweep = endAngle - startAngle <= 180 ? "0" : "1";
+  var arcSweep = endAngle - startAngle <= 180 ? '0' : '1';
 
   var d = [
-      "M", start.x, start.y, 
-      "A", radius, radius, 0, arcSweep, 0, end.x, end.y
-  ].join(" ");
+      'M', start.x, start.y, 
+      'A', radius, radius, 0, arcSweep, 0, end.x, end.y
+  ].join(' ');
 
   return d;
 }
