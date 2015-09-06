@@ -89,9 +89,11 @@ Meteor.methods({
             friendList: friendList ? friendList.friendList : [],
         };
         var thoughtId = Thoughts.insert(newThought);
+        collect();
         return thoughtId;
     },
     addToMyCollection: function(thoughtID){
+        collect();
         var userID = Meteor.userId();
         Thoughts.update(
             {"_id" : thoughtID},
@@ -118,6 +120,7 @@ Meteor.methods({
         function(err,thoughtInserted){
                 thoughtId = thoughtInserted
         });
+        collect();
         return thoughtId
     },
     changeRank: function(thoughtId, action){
@@ -212,6 +215,13 @@ function UserLoggedIn() {
         throw new Meteor.Error("not-authorized");
     }
     return false;
+}
+
+function collect() {
+    if(!UserLoggedIn) return false;
+    var profile = Meteor.user().profile;
+    profile.collects += 1;
+    Meteor.users.update(Meteor.userId(), { $set: {profile: profile} });
 }
 
 function Thought(text, location, callback){

@@ -179,6 +179,9 @@ Template.profile.helpers({
     },
     joined: function() {
         return $.format.date(Session.get('showProfile').createdAt, 'M/d/yyyy');
+    },
+    collects: function() {
+        return Session.get('showProfile').profile.collects;
     }
 });
 
@@ -191,6 +194,7 @@ Template.profile.events({
                 console.log(err);
             } else {
                 $('#upload-picture').modal('hide');
+                $('#change-picture').hide();
                 var avatarUrl = {
                     'profile.picture' : fileObj._id
                 }

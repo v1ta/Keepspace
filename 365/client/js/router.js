@@ -50,9 +50,12 @@ Router.route("main",{
     }
   }
 })
-Router.route("mainPage", function(){
-  this.layout("header");
-  this.render("main");
+Router.route("mainPage", {
+  waitOn: function() { return Meteor.subscribe("thoughts"); },
+  action: function() {
+    this.layout("header");
+    this.render("main");
+  }
 });
 Router.route("mainAbout", function(){
   this.layout("header");

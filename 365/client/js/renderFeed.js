@@ -695,8 +695,8 @@ function condenseBubble(e, layer, colName, thought, duration, radius, anim, oldH
       // Redefine layer tween
       // Get the new position
       var bubbles = feedStage.get('.bubble'+colName), positions = [];
-      for (var i = 0; i < bubbles.length; i++) {
-        positions.push({ x: bubbles[i].x(), y: bubbles[i].y(), radius: bubbles[i].getChildren()[0].radius() });
+      for (var j = 0; j < bubbles.length; j++) {
+        positions.push({ x: bubbles[j].x(), y: bubbles[j].y(), radius: bubbles[j].getChildren()[0].radius() });
       }
       var col = feedStage.cols[colName];
       var xmin = col.left + radius + 3;

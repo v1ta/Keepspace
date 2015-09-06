@@ -50,6 +50,8 @@ Accounts.onCreateUser(function(options, user){
     // To give FB-created accounts a username
     user.username = ( user.username || options.profile.name);
 
+    user.profile.collects = 0;
+
     
     (function(){
         FindFriends.insert({userId: user._id, username: user.username});
