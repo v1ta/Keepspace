@@ -37,7 +37,7 @@
   "env": {
     "PORT": 3000,
     "ROOT_URL": "http://mykeepspace.com",
-    "MONGO_URL": "mongodb://the365app:password@dogen.mongohq.com:10052/bow-ties-are-hard-to-tie",
+    "MONGO_URL": "mongodb://veet:password@dogen.mongohq.com:10052/bow-ties-are-hard-to-tie",
     "UPSTART_UID": "veet",
     "MAIL_URL": "smtp://localhost"
   },
