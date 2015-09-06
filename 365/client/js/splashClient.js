@@ -64,6 +64,35 @@ Template.splashBanner.events({
 	'click #aboutLink': function() { Router.go('about'); },
   	'click #teamLink': function() { Router.go('team'); },
   	'click #splashBannerLogo': function(){ Router.go('splash');},
+    'click #betaLink': function (e) {
+	    e.preventDefault(); // prevent refreshing the page
+
+	    var email = $('#betaEmail').val(),
+	    password = makeTempPassword(); // generate temporary password 
+
+	    email = trimInput(email);
+
+	    if (validateEmail(email)){ 
+
+	      Accounts.createUser({email: email, password : password}, function(err){
+	        if (err) {
+	          if(err.reason === "Email already exists."){
+	            alert("Email Already In Use");
+	          }
+	        } else {
+	          var detail = "<span>Thank you.</span> <span>Now get ready to make every day count.</span>";
+	          customAlert("You've signed up for beta.", detail);
+	          var userId = Meteor.userId();
+	          Meteor.call('serverVerifyEmail', email, userId, function(){
+	          });   
+	        }
+
+	      });   
+	    }else{
+	      alert("Please enter a valid email address");
+	    }
+  	}
+  	/*
   	'click #betaLink': function(){
   		betaSignup();
   	},
@@ -71,6 +100,7 @@ Template.splashBanner.events({
   		event.preventDefault();
   		betaSignup();
   	}
+  	*/
 });
 
 Template.loginPage.events({
@@ -301,6 +331,24 @@ customAlert = function(title, detail){
 	$(".alertTextTitle").html(title);
 	$(".alertTextDetail").html(detail);
 	$(".alertDiv").show();
+}
+
+var trimInput = function(val) {
+  return val.replace(/^\s*|\s*$/g, "");
+};
+
+function makeTempPassword() {
+    var text = "";
+    var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+
+    for( var i=0; i < 8; i++ )
+        text += possible.charAt(Math.floor(Math.random() * possible.length));
+    return text;
+}
+
+function validateEmail(email) {
+    var re = /^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/i;
+    return re.test(email);
 }
 
 
