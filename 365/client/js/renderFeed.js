@@ -1,21 +1,69 @@
 /* Global var for the feeds */
 feedStage = {};
 KSColors = {
-  'left'  : '#32c0d2', //friends : blue
-  'center': '#f15f5a', //personal: red
-  'single': '#f15f5a', //calendar: red
-  'right' : '#faa43a'  //world   : orange
+  'blue'  : '#32c0d2',
+  'red'   : '#f15f5a',
+  'orange': '#faa43a'
 }
 
 Template.main.onRendered(function() {
+  feedStage = {};
+  if (!Session.get('leftfeed')) {
+    resetFeed('leftfeed');
+  }
+  if (!Session.get('centerfeed')) {
+    resetFeed('centerfeed');
+  }
+  if (!Session.get('rightfeed')) {
+    resetFeed('rightfeed');
+  }
+  renderFeed('.feed-wrapper', 'fullFeed-canvas', 'left', Session.get('leftfeed'));
+  renderFeed('.feed-wrapper', 'fullFeed-canvas', 'center', Session.get('centerfeed'));
+  renderFeed('.feed-wrapper', 'fullFeed-canvas', 'right', Session.get('rightfeed'));
+});
+
+Template.main.onDestroyed(function() {
+  // Cleanup canvas
+  feedStage.destroyChildren();
+  feedStage.destroy();
+})
+
+function resetFeed(feed) {
   // Only find posts made after 00:00 of today
   var start = new Date();
   start.setHours(0,0,0,0);
-  feedStage = {};
-  renderFeed('.feed-wrapper', 'fullFeed-canvas', 'left', {friendList:Meteor.userId(), createdAt: {$gte:start}});
-  renderFeed('.feed-wrapper', 'fullFeed-canvas', 'center', {userId:Meteor.userId(), createdAt: {$gte:start}});
-  renderFeed('.feed-wrapper', 'fullFeed-canvas', 'right', {userId:{$ne: Meteor.userId()}, createdAt: {$gte:start}});
-});
+  if (feed === 'leftfeed') {
+    Session.set('leftfeed', Thoughts.find({
+        friendList:Meteor.userId(),
+        createdAt: {$gte:start}
+      },
+      { sort: {createdAt: -1} }
+    ).fetch());
+  }
+  if (feed === 'centerfeed') {
+    // Get user's posts and collected posts
+    Session.set('centerfeed', Thoughts.find({
+      $and: [
+        {createdAt: {$gte:start}},
+        {$or: [
+          {userId: Meteor.userId()},
+          {collectedBy: Meteor.userId()}
+        ]}
+      ]}, { sort: {createdAt: -1} }).fetch());
+  }
+  if (feed === 'rightfeed') {
+    Session.set('rightfeed', Thoughts.find({
+      $and: [
+        {createdAt: {$gte:start}},
+        {$nor: [
+          {userId: Meteor.userId()},
+          {collectedBy: Meteor.userId()}
+        ]}
+      ]},
+      { sort: {createdAt: -1} }
+    ).fetch());
+  }
+}
 
 function initStage(containerDiv, canvas, numCols) {
   var container = $(containerDiv);
@@ -61,7 +109,7 @@ function initStage(containerDiv, canvas, numCols) {
     }
   }
 
-  var length, extraHeight, top, left, tolerance = 10;
+  var length, extraHeight, top, left, tolerance = 25;
   var background = new Kinetic.Layer();
   if (numCols === 3) {
     // Add the borders for drag and drop targets
@@ -91,10 +139,10 @@ function initStage(containerDiv, canvas, numCols) {
     left = parseInt($('#calendarFeed').css('width'));
   }
   // Set up long post view box  
-  $("#expandedThoughtContent").css({
+  $('#expandedThoughtContent').css({
     'width': length - tolerance,
     'height': length - tolerance,
-    'top': top + extraHeight + tolerance/2,
+    'top': top + extraHeight,
     'left': (left - length + tolerance) / 2
   });
   // Add the blur background
@@ -114,16 +162,14 @@ function initStage(containerDiv, canvas, numCols) {
   return feedStage;
 }
 
-renderFeed = function(containerDiv, canvas, colName, findHash) {
-  // Get thoughts
-  var thoughts = Thoughts.find(findHash, {sort: {createdAt: -1}}).fetch();
+renderFeed = function(containerDiv, canvas, colName, thoughts) {
   //console.log(thoughts);
-  if (containerDiv === "#calFeed"){
+  if (containerDiv === '#calFeed'){
     if (thoughts.length === 0 ){
-      $("#noPostText").show();
+      $('#noPostText').show();
     }
     else{
-      $("#noPostText").hide();
+      $('#noPostText').hide();
     }
   }
 
@@ -151,7 +197,7 @@ addThoughtsToStage = function(thoughts, stage, colName) {
     // Radius: add 3 to account for animation amplitude
     positions.push({ x: bubbles[i].x(), y: bubbles[i].y(), radius: bubbles[i].getChildren()[0].radius()+3 });
   }
-  var xmin, xmax, ymin, ymax, nextPos;
+  var xmin, xmax, ymin, ymax, nextPos, fill;
   for (var i = 0; i < thoughts.length; i++) {
     radius = 70*(thoughts[i].rank+1);
     // min = left + radius of bubble + animation amplitude, similar for max
@@ -164,12 +210,20 @@ addThoughtsToStage = function(thoughts, stage, colName) {
     if (nextPos === null) {
       // No more room for bubbles
       console.log('filled');
+      // TODO: add to queue
       return;
     } else {
       x = nextPos.x;
       y = nextPos.y;
     }
-    layer = createBubble(thoughts[i].text, colName, x, y, radius, padding, KSColors[colName]);
+    if (thoughts[i].userId === Meteor.userId()) {
+      fill = KSColors['red'];
+    } else if (thoughts[i].friendList.indexOf(Meteor.userId()) !== -1) {
+      fill = KSColors['blue'];
+    } else {
+      fill = KSColors['orange'];
+    }
+    layer = createBubble(thoughts[i].text, colName, x, y, radius, padding, fill);
     anim = animateBubble(layer, colName, thoughts[i], 0.25);
     addClickHandler(layer, colName, thoughts[i], 0.25, anim);
     addPopHandler(layer, stage);
@@ -246,7 +300,7 @@ function createBubble(thought, colName, x, y, radius, padding, fill) {
   });
 
   var text = new Kinetic.Text({
-    fontFamily: 'GeosansLight',
+    fontFamily: 'Roboto',
     text: thought.length > 175 ? thought.substr(0, 172) + '...' : thought,
     align: 'center',
     x: 0,
@@ -332,16 +386,22 @@ function animateBubble(layer, colName, thought, duration) {
       hideBorders([leftBorder, centerBorder, rightBorder]);
       pos = this.parent.getPointerPosition().x;
       if (colName !== 'left' && pos < cols.left.right) {
-        if (isDragValid()) {
-          relocateBubble(layer, 'left', thought, duration);
+        if (isDragValid('left')) {
+          relocateBubble(layer, colName, 'left', thought, duration);
+        } else {
+          tween.play();
         }
       } else if (colName !== 'center' && pos >= cols.center.left && pos < cols.center.right) {
-        if (isDragValid()) {
-          relocateBubble(layer, 'center', thought, duration);
+        if (isDragValid('center')) {
+          relocateBubble(layer, colName, 'center', thought, duration);
+        } else {
+          tween.play();
         }
       } else if (colName !== 'right' && pos >= cols.right.left) {
-        if (isDragValid()) {
-          relocateBubble(layer, 'right', thought, duration);
+        if (isDragValid('right')) {
+          relocateBubble(layer, colName, 'right', thought, duration);
+        } else {
+          tween.play();
         }
       } else {
         tween.play();
@@ -354,11 +414,36 @@ function animateBubble(layer, colName, thought, duration) {
 }
 
 // TODO : logic for dragging posts
-function isDragValid() { return true; }
-function relocateBubble(layer, colName, thought, duration) {
+function isDragValid(dest) {
+  // Can only drag to center
+  return dest === 'center';
+}
+function relocateBubble(layer, src, dest, thought, duration) {
+  if (dest === 'center') {
+    Meteor.call('addToMyCollection', thought._id);
+    // Add thought to dest list
+    var thoughtList = Session.get('centerfeed');
+    thoughtList.push(thought);
+    Session.set('centerfeed', thoughtList);
+    removeFromSession(thought, src);
+  }
   layer.off('click dragstart.anim dragmove.anim dragend.anim');
-  var anim = animateBubble(layer, colName, thought, duration);
-  addClickHandler(layer, colName, thought, duration, anim);
+  var anim = animateBubble(layer, dest, thought, duration);
+  addClickHandler(layer, dest, thought, duration, anim);
+}
+
+function removeFromSession(thought, colName) {
+  // Deletes from calendar page affect personal feed on main page
+  if (colName === 'single') colName = 'center';
+  // Remove thought from src list
+  var thoughtList = Session.get(colName+'feed');
+  for (var i = 0; i < thoughtList.length; i++) {
+    if (thoughtList[i]._id === thought._id) {
+      thoughtList.splice(i, 1);
+      break;
+    }
+  }
+  Session.set(colName+'feed', thoughtList);
 }
 
 function showBorders(border) {
@@ -411,6 +496,7 @@ function popBubble(layer, stage) {
   background.off('click.condense');
   background.hide();
   stage.draw();
+  // TODO: add the next thought in the queue
 }
 
 function addClickHandler(layer, colName, thought, duration, anim) {
@@ -429,7 +515,7 @@ function expandBubble(e, layer, colName, thought, duration, anim) {
   layerTween = new Kinetic.Tween({
     node: layer,
     duration: duration,
-    x: col.left + expandedRadius,
+    x: col.left + col.colWidth/2,
     y: col.top + expandedRadius
   })
 
@@ -444,22 +530,25 @@ function expandBubble(e, layer, colName, thought, duration, anim) {
     opacity: 1
   });
 
+  var isOwner = Meteor.userId() === thought.userId;
+  var collected = colName === 'single' || colName === 'center';
+
   // Add username & date
   var username = new Kinetic.Text({
-    fontFamily: 'GeosansLight',
+    fontFamily: 'Roboto',
     text: Meteor.userId() === thought.userId ? 'You:' : thought.username + ':',
     fill: '#ffffff',
     fontSize: 16
   });
   var date = new Kinetic.Text({
-    fontFamily: 'GeosansLight',
+    fontFamily: 'Roboto',
     text: $.format.date(thought.createdAt, 'h:mmp'),
     fill: '#ffffff',
     fontSize: 16
   });
-  if (Meteor.userId() === thought.userId) {
+  if (isOwner) {
     var del = new Kinetic.Text({
-      fontFamily: 'GeosansLight',
+      fontFamily: 'Roboto',
       text: 'Delete',
       fill: '#ffffff',
       fontSize: 16
@@ -467,8 +556,33 @@ function expandBubble(e, layer, colName, thought, duration, anim) {
     del.offsetX(del.getWidth());
     del.on('click', function () {
       popBubble(layer, layer.parent);
-      Meteor.call("deleteThought", thought._id);
+      removeFromSession(thought, colName);
+      Meteor.call('deleteThought', thought._id);
     });
+    var delOutline = new Kinetic.Rect({
+      width: del.getWidth() + 4,
+      height: del.getHeight() + 4,
+      cornerRadius: 5,
+      stroke: '#ffffff'
+    });
+    delOutline.offsetX(del.getWidth() + 2);
+    delOutline.offsetY(2);
+  } else if (!collected) {
+    var collect = new Kinetic.Text({
+      fontFamily: 'Roboto',
+      text: 'Collect',
+      fill: '#ffffff',
+      fontSize: 16
+    });
+    collect.offsetX(collect.getWidth());
+    var collectOutline = new Kinetic.Rect({
+      width: collect.getWidth() + 4,
+      height: collect.getHeight() + 4,
+      cornerRadius: 5,
+      stroke: '#ffffff'
+    });
+    collectOutline.offsetX(collect.getWidth() + 2);
+    collectOutline.offsetY(2);
   }
 
   var oldHeight = text.getHeight();
@@ -485,6 +599,14 @@ function expandBubble(e, layer, colName, thought, duration, anim) {
         text.hide();
         $('#expandedThoughtContent').text(thought.text);
         $('#expandedThoughtContent').show();
+        date.offsetY(date.offsetY()+10);
+        if (isOwner) {
+          del.offsetY(del.offsetY()+10);
+          delOutline.offsetY(delOutline.offsetY()+10);
+        } else {
+          collect.offsetY(collect.offsetY()+10);
+          collectOutline.offsetY(collectOutline.offsetY()+10);
+        }
       }
       text.offsetY(text.getHeight()/2);
       var width = text.getTextWidth(), minWidth = 125;
@@ -497,10 +619,20 @@ function expandBubble(e, layer, colName, thought, duration, anim) {
       date.x(-width/2);
       date.y(text.getHeight()/2);
       layer.add(date);
-      if (del) {
+      if (isOwner) {
         del.x(width/2);
-        del.y(-text.getHeight()/2 - 10);
+        del.y(text.getHeight()/2);
+        delOutline.x(del.x());
+        delOutline.y(del.y());
+        layer.add(delOutline);
         layer.add(del);
+      } else if (!collected) {
+        collect.x(width/2);
+        collect.y(text.getHeight()/2);
+        collectOutline.x(collect.x());
+        collectOutline.y(collect.y());
+        layer.add(collectOutline);
+        layer.add(collect);
       }
     }
   });
@@ -522,44 +654,90 @@ function expandBubble(e, layer, colName, thought, duration, anim) {
   textTween.play();
   // Set up condense animation
   layer.off('click.expand');
-  var toRemove = del ? [username, date, del] : [username, date]
+  var toRemove = [];
+  if (isOwner) {
+    toRemove = [username, date, del, delOutline];
+  } else if (!collected) {
+    toRemove = [username, date, collect, collectOutline];
+    collect.on('click', function () {
+      background.off('click.collected');
+      condenseBubble(e, layer, 'center', thought, duration, radius, anim, oldHeight, toRemove, [textTween, bubbleTween, layerTween], true);
+    });
+  } else {
+    toRemove = [username, date];
+  }
   background.on('click.condense', function(e) {
-    condenseBubble(e, layer, colName, thought, duration, radius, anim, oldHeight, toRemove, [textTween, bubbleTween, layerTween]);
+    condenseBubble(e, layer, colName, thought, duration, radius, anim, oldHeight, toRemove, [textTween, bubbleTween, layerTween], false);
   });
 }
 
-function condenseBubble(e, layer, colName, thought, duration, radius, anim, oldHeight, toRemove, tweens) {
+function condenseBubble(e, layer, colName, thought, duration, radius, anim, oldHeight, toRemove, tweens, relocating) {
   // Hide background
-  e.target.visible(false);
-  e.target.parent.draw();
+  var background = layer.parent.find('.blurBG')[0];
+  background.visible(false);
+  background.parent.draw();
   // Remove username/date and reverse tweens
   for (var i = 0; i < toRemove.length; i++) {
     toRemove[i].destroy();
   }
+  var t;
   for (var i = 0; i < tweens.length; i++) {
-    var t = tweens[i].reverse();
-    // Resetting text offsetY
-    if (i === 0) {
-      t = t.node;
-      if ($('#expandedThoughtContent').css('display') === 'block') {
-        t.height(oldHeight);
-        t.show();
-        $('#expandedThoughtContent').hide();
+    if (relocating && i === 2) {
+      // Redefine layer tween
+      // Get the new position
+      var bubbles = feedStage.get('.bubble'+colName), positions = [];
+      for (var i = 0; i < bubbles.length; i++) {
+        positions.push({ x: bubbles[i].x(), y: bubbles[i].y(), radius: bubbles[i].getChildren()[0].radius()+3 });
       }
-      t.offsetY(oldHeight/2);
+      var col = feedStage.cols[colName];
+      var xmin = col.left + radius + 3;
+      var xmax = col.right - radius - 3;
+      var ymin = col.top + radius + 3;
+      var ymax = feedStage.height() - radius - 3;
+      nextPos = placeNextBubble(xmin, xmax, ymin, ymax, radius+3, positions);
+      if (nextPos) {
+        var layerTween = new Kinetic.Tween({
+          node: layer,
+          duration: duration,
+          x: nextPos.x,
+          y: nextPos.y,
+          onFinish: function() {
+            relocateBubble(layer, colName, 'center', thought, duration);
+          }
+        });
+        layerTween.play();
+      } else {
+        // TODO: Add bubble to the queue
+        console.log('no space to relocate?');
+      }
+    } else {
+      t = tweens[i].reverse();
+      // Resetting text offsetY
+      if (i === 0) {
+        t = t.node;
+        if ($('#expandedThoughtContent').css('display') === 'block') {
+          t.height(oldHeight);
+          t.show();
+          $('#expandedThoughtContent').hide();
+        }
+        t.offsetY(oldHeight/2);
+      }
     }
   }
-  Meteor.setTimeout(function() { anim.start(); }, duration*1000);
   // Adjust the pop indicators
   var indicators = layer.find('.popIndicator');
   for (var i = 0; i < 8; i++) {
     indicators[i].data(describeArc(0, 0, radius-2, 45*i, 45*(i+1)));
     indicators[i].strokeWidth(4);
   }
-  // Set up expand animation
-  e.target.off('click.condense');
-  layer.draggable(true);
-  addClickHandler(layer, colName, thought, duration, anim);
+
+  if (!relocating) {
+    Meteor.setTimeout(function() { anim.start(); }, duration*1000);
+    // Set up expand animation
+    background.off('click.condense');
+    layer.draggable(true);
+    addClickHandler(layer, colName, thought, duration, anim);
+  }
 }
 
 // Get random int in range (inclusive)
@@ -580,12 +758,12 @@ function describeArc(x, y, radius, startAngle, endAngle){
   var start = polarToCartesian(x, y, radius, endAngle);
   var end = polarToCartesian(x, y, radius, startAngle);
 
-  var arcSweep = endAngle - startAngle <= 180 ? "0" : "1";
+  var arcSweep = endAngle - startAngle <= 180 ? '0' : '1';
 
   var d = [
-      "M", start.x, start.y, 
-      "A", radius, radius, 0, arcSweep, 0, end.x, end.y
-  ].join(" ");
+      'M', start.x, start.y, 
+      'A', radius, radius, 0, arcSweep, 0, end.x, end.y
+  ].join(' ');
 
   return d;
 }

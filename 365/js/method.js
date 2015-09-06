@@ -64,8 +64,8 @@ Meteor.methods({
             collectedBy: [],
             friendList: friendList ? friendList.friendList : [],
         };
-        Thoughts.insert(newThought);
-        return newThought;
+        var thoughtId = Thoughts.insert(newThought);
+        return thoughtId;
     },
     addToMyCollection: function(thoughtID){
         var userID = Meteor.userId();

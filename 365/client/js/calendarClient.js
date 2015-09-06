@@ -1,5 +1,5 @@
 //calendar loading
-Template.calendar.rendered = function() {
+Template.calendar.onRendered(function() {
 	if(!this._rendered) {
 	    this._rendered = true;
 	    var date = new Date();
@@ -7,11 +7,11 @@ Template.calendar.rendered = function() {
 	    localStorage.setItem("displayDate", $.format.date(date, "M d yyyy"));
 	    loadCalendar(date, true);
 	    var otherDate = getDate(date.getDate() - 1, 1);
-	    getCalFeed(otherDate);
-	    var today = new Date();
-	    $("#calFeedHead").text("Day " + today.getDOY());
-	}
-};
+      var today = new Date();
+      $("#calFeedHead").text("Day " + today.getDOY());
+  }
+	getCalFeed(otherDate);
+});
 // Template.calendar.onRendered(function(){
 // 	renderFeed('#calFeed', 'calFeed-container', {owner:Meteor.userId()});
 // });
@@ -125,7 +125,7 @@ function getCalFeed(date){
 
   feedStage = {};
 	renderFeed('#calFeed', 'calFeed-container', 'single', 
-		{$and: [
+		Thoughts.find({$and: [
 			{"createdAt": 
 			{
 				$gt:startDate,
@@ -135,7 +135,7 @@ function getCalFeed(date){
 				{"userId": Meteor.userId()},
 				{"collectedBy": Meteor.userId()}
 			]}
-		]}
+		]}, { sort: {createdAt: -1} }).fetch()
 	);
 
 }

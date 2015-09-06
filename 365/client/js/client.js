@@ -132,8 +132,13 @@ Template.main.events({
                 console.log(err);
             } 
             console.log(data)
+            var thought = Thoughts.findOne({_id:data});
+            console.log(thought);
             // Add a new bubble
-            addThoughtsToStage([data], feedStage, 'center'); 
+            var thoughtsList = Session.get('centerfeed');
+            thoughtsList.push(thought);
+            Session.set('centerfeed', thoughtsList);
+            addThoughtsToStage([thought], feedStage, 'center');
         });
 
         // Clear form
