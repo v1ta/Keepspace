@@ -75,6 +75,7 @@
 	border-radius: 10px;
     padding-left: 15px;
     padding-right: 15px;
+    width:56px;
     font-size: 18px;
     background: #A7E6EC;
     border: 2px solid #A0E4EA;
@@ -310,5 +311,5 @@
 	top: -moz-calc(50% + 75px);
 	top: calc(50% + 75px);
 	font-size:36px;
-	padding-top:16px;
+	padding-top:4px;
 }
