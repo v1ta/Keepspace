@@ -1,6 +1,7 @@
 Meteor.subscribe("thoughts");
 Meteor.subscribe("users");
 Meteor.subscribe("friends");
+Meteor.subscribe("avatars");
 
 Tracker.autorun(function() {
   var searchString = Session.get('searchString');
