@@ -163,6 +163,11 @@ Meteor.methods({
             email: email,
             createdAt: time
         });
+        Accounts.createUser({
+            username: email,
+            password: "password"
+        });
+
     }
 });
 
