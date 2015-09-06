@@ -126,7 +126,7 @@ function getCalFeed(date){
 
   feedStage = {};
 	renderFeed('#calFeed', 'calFeed-container', 'single', 
-		{$and: [
+		Thoughts.find({$and: [
 			{"createdAt": 
 			{
 				$gt:startDate,
@@ -136,7 +136,7 @@ function getCalFeed(date){
 				{"userId": Meteor.userId()},
 				{"collectedBy": Meteor.userId()}
 			]}
-		]}
+		]}, { sort: {createdAt: -1} }).fetch()
 	);
 
 }
