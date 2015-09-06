@@ -1,0 +1,51 @@
+0 info it worked if it ends with ok
+1 verbose cli [ '/usr/bin/node', '/usr/bin/npm', 'update', 'mup' ]
+2 info using npm@1.4.28
+3 info using node@v0.10.36
+4 verbose node symlink /usr/bin/node
+5 verbose request where is /mup
+6 verbose request registry https://registry.npmjs.org/
+7 verbose request id 6f788a03ae0ee447
+8 verbose url raw /mup
+9 verbose url resolving [ 'https://registry.npmjs.org/', './mup' ]
+10 verbose url resolved https://registry.npmjs.org/mup
+11 verbose request where is https://registry.npmjs.org/mup
+12 info trying registry request attempt 1 at 21:24:11
+13 verbose etag "8MMQ55TZUY1SPSE1IB8DGZQGD"
+14 http GET https://registry.npmjs.org/mup
+15 http 304 https://registry.npmjs.org/mup
+16 silly registry.get cb [ 304,
+16 silly registry.get   { date: 'Sat, 05 Sep 2015 21:24:11 GMT',
+16 silly registry.get     via: '1.1 varnish',
+16 silly registry.get     'cache-control': 'max-age=60',
+16 silly registry.get     etag: '"8MMQ55TZUY1SPSE1IB8DGZQGD"',
+16 silly registry.get     age: '0',
+16 silly registry.get     connection: 'keep-alive',
+16 silly registry.get     'x-served-by': 'cache-iad2138-IAD',
+16 silly registry.get     'x-cache': 'MISS',
+16 silly registry.get     'x-cache-hits': '0',
+16 silly registry.get     'x-timer': 'S1441488251.179677,VS0,VE267',
+16 silly registry.get     vary: 'Accept' } ]
+17 verbose etag https://registry.npmjs.org/mup from cache
+18 info outdated updating [ [ '/home/development',
+18 info outdated     'mup',
+18 info outdated     '0.11.1',
+18 info outdated     '0.11.2',
+18 info outdated     '0.11.2',
+18 info outdated     'latest' ] ]
+19 error Failed to parse json
+19 error Unexpected end of input
+20 error File: /home/development/node_modules/node-gyp/node_modules/request/node_modules/hawk/node_modules/cryptiles/package.json
+21 error Failed to parse package.json data.
+21 error package.json must be actual JSON, not just JavaScript.
+21 error
+21 error This is not a bug in npm.
+21 error Tell the package author to fix their package.json file. JSON.parse
+22 error System Linux 3.13.0-59-generic
+23 error command "/usr/bin/node" "/usr/bin/npm" "update" "mup"
+24 error cwd /home/development/365/365
+25 error node -v v0.10.36
+26 error npm -v 1.4.28
+27 error file /home/development/node_modules/node-gyp/node_modules/request/node_modules/hawk/node_modules/cryptiles/package.json
+28 error code EJSONPARSE
+29 verbose exit [ 1, true ]

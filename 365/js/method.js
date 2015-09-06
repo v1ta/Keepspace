@@ -63,7 +63,6 @@ Meteor.methods({
             position: location,
             collectedBy: [],
             friendList: friendList ? friendList.friendList : [],
-            
         };
         Thoughts.insert(newThought);
         return newThought;
