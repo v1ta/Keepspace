@@ -154,7 +154,8 @@ Meteor.methods({
         else{
             return false;
         }
-    },
+    }
+    /*
     addBetaEmail: function(email){
         
         var createdAt = new Date();
@@ -169,6 +170,7 @@ Meteor.methods({
         });
 
     }
+    */
 });
 
 function Facebook(accessToken) {
