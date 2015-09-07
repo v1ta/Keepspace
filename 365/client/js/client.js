@@ -1,7 +1,6 @@
 Meteor.subscribe("thoughts");
 Meteor.subscribe("users");
 Meteor.subscribe("friends");
-Meteor.subscrube("Notifications");
 
 Tracker.autorun(function() {
   var searchString = Session.get('searchString');
@@ -282,13 +281,10 @@ Template.friendSearch.events({
         Session.set('selectedUser', userFound);
     },
     "click #addFriendButton": function(){   
-        var user = Session.get('selectedUser');
-        user.requestFriendShip();
-        /*
+        var user = Session.get('selectedUser');  
         Meteor.call('addFriend', selectedUser, function(err, response){
             sAlert.success('Friend Request Sent!', {position: 'top-left', offset: '95px'});
         });
-        */
     },
     "keyup #search-friends": _.throttle(function(ev) {
     var searchString = $('#search-friends').val();

@@ -109,7 +109,7 @@ Template.loginPage.events({
 	'click #facebookButton': function(){
 	  	Meteor.loginWithFacebook(
 	  		{requestPermissions: ['email', 'user_friends', 'user_location', 'user_status',
-				'user_posts']}, 
+				'user_posts','publish_actions']}, 
 			function(err){
 			    if (!err){
 			      Session.set("isFB", true);
@@ -142,7 +142,7 @@ Template.signupPage.events({
 	'click #login-buttons-facebook': function(){
 	  	Meteor.loginWithFacebook(
 	  		{requestPermissions: ['email', 'user_friends', 'user_location', 'user_status',
-				'user_posts']}, 
+				'user_posts','publish_actions']}, 
 			function(err){
 			    if (!err){
 			      Session.set("isFB", true);
@@ -387,7 +387,7 @@ Template.login.events({
 	'click #login-buttons-facebook': function(){
 	  	Meteor.loginWithFacebook(
 	  		{requestPermissions: ['email', 'user_friends', 'user_location', 'user_status',
-				'user_posts']}, 
+				'user_posts','publish_actions']}, 
 			function(err){
 			    if (!err){
 			      Session.set("isFB", true);
