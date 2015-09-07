@@ -81,16 +81,5 @@ Router.route('loginPage', function() {
   // this.render('signupPage');
   this.render("loginPage");
 });
-Router.route('verified', {
-  path: '/verified',
-  template: 'verified'
-});
 
 
-AccountController = RouteController.extend({
-    verifyEmail: function () {
-        Accounts.verifyEmail(this.params.token, function () {
-            Router.go('/verified');
-        });
-    }
-});
