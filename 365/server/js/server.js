@@ -54,14 +54,14 @@ Accounts.onCreateUser(function(options, user){
 Meteor.users.after.insert(function (userId, doc) {
     Accounts.sendVerificationEmail(userId);
 });
-/*
+
 Email.send({
   from: "do-not-reply@mykeepspace.com",
   to: "jodvita@gmail.com",
   subject: "Welcome To Keepspace",
   text: "Social media w/o the bs"
 });
-*/
+
 
 
 

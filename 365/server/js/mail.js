@@ -1,5 +1,4 @@
 Meteor.startup(function () {
-  process.env.MAIL_URL = "smtp://localhost:25";
 
   Accounts.emailTemplates.from = 'keepspace <no-reply@mykeepspace.com>';
 
@@ -13,9 +12,10 @@ Meteor.startup(function () {
 
   Accounts.emailTemplates.verifyEmail.text = function(user, url) {
     return 'click on the following link to verify your email address: ' + url;
-  };
-});
 
+  };
+
+});
 
 Accounts.validateLoginAttempt(function(attempt){
   if (attempt.user && attempt.user.emails && !attempt.user.emails[0].verified ) {
@@ -25,3 +25,8 @@ Accounts.validateLoginAttempt(function(attempt){
   }
   return true;
 }); 
+
+
+Accounts.config({
+    sendVerificationEmail: true
+});
