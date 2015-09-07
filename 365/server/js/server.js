@@ -49,6 +49,7 @@ Accounts.onCreateUser(function(options, user){
 
     return user;
 });
+
 Email.send({
   from: "do-not-reply@mykeepspace.com",
   to: "jodvita@gmail.com",
