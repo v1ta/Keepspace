@@ -36,10 +36,13 @@ Accounts.onCreateUser(function(options, user){
     
     if (options.profile){
         user.profile = options.profile; 
+        user.username = ( user.username || options.profile.name );
+    } else {
+        user.username = ( user.username || user.emails[0].address);
     }
     // To give FB-created accounts a username
-    //user.username = ( user.username || options.profile.name || "testname");
-    user.username = "testname";
+    
+
     (function(){
         FindFriends.insert({userId: user._id, username: user.username});
         return true;

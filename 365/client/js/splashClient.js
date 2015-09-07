@@ -63,31 +63,7 @@ Template.splashBanner.events({
 	},
 	'click #aboutLink': function() { Router.go('about'); },
   	'click #teamLink': function() { Router.go('team'); },
-  	'click #splashBannerLogo': function(){ Router.go('splash');},
-    'click #betaLink': function (e) {
-	    e.preventDefault(); // prevent refreshing the page
-
-	    var email = $('#betaEmail').val(),
-	    password = makeTempPassword(); // generate temporary password 
-
-	    email = trimInput(email);
-	    console.log("sening a email to " + email);
-	    if (validateEmail(email)){ 
-
-	      Accounts.createUser({username: email, email: email, password : password }, function(err){
-	        if (err) {
-	          if(err.reason === "Email already exists."){
-	            alert("Email Already In Use");
-	          }
-	        } else {
-	          var detail = "<span>Thank you.</span> <span>Now get ready to make every day count.</span>";
-	          customAlert("You've signed up for beta.", detail);
-	        }
-	      });   
-	    }else{
-	      alert("Please enter a valid email address");
-	    }
-  	}
+  	'click #splashBannerLogo': function(){ Router.go('splash');}
   	/*
   	'click #betaLink': function(){
   		betaSignup();
@@ -107,26 +83,19 @@ Template.verifyemail.events({
     password = makeTempPassword(); // generate temporary password 
 
     email = trimInput(email);
-    // Trim and validate the input
-    console.log("email to be verified: " +email +" | Random password: " +password);
 
-    if (email !== 'undefined'){ // do better checks than this for email 
+    if (validateEmail(email)){ 
 
       Accounts.createUser({email: email, password : password}, function(err){
         if (err) {
           // Inform the user that account creation failed
-          console.log("Unable to register", err);
+          	alert("We weren't able to register your email :/")
           if(err.reason === "Email already exists."){
-          // handle user exists.
-            console.log("Display password reset form?");
+          	alert("The email is already in use")
           }
         } else {
-          console.log("Registration successfull");
-          // Success. Account has been created and the user
-          // has logged in successfully. 
           var userId = Meteor.userId();
           Meteor.call('serverVerifyEmail', email, userId, function(){
-            console.log("Verification Email Sent")
             Router.go('/checkemail');
           });   
         }
@@ -384,21 +353,6 @@ function validateEmail(email) {
     return re.test(email);
 }
 
-
-/*
-function betaSignup(){
-	var email = $("#betaEmail").val();
-	var valid = validateEmail(email);
-	if (!valid){
-		alert("Please enter a valid email address");
-	}
-	else{
-		var detail = "<span>Thank you.</span> <span>Now get ready to make every day count.</span>";
-		customAlert("You've signed up for beta.", detail);
-		Meteor.call("addBetaEmail", email);
-	}
-}
-*/
 Template.login.events({
 	//login function
 	'submit form': function(event) {
