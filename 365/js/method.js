@@ -155,6 +155,7 @@ Meteor.methods({
             return false;
         }
     }
+  
     /*
     addBetaEmail: function(email){
         

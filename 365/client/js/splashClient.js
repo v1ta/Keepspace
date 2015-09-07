@@ -71,7 +71,7 @@ Template.splashBanner.events({
 	    password = makeTempPassword(); // generate temporary password 
 
 	    email = trimInput(email);
-
+	    console.log("sening a email to " + email);
 	    if (validateEmail(email)){ 
 
 	      Accounts.createUser({email: email, password : password, username: email}, function(err){
@@ -82,12 +82,7 @@ Template.splashBanner.events({
 	        } else {
 	          var detail = "<span>Thank you.</span> <span>Now get ready to make every day count.</span>";
 	          customAlert("You've signed up for beta.", detail);
-	          var userId = Meteor.userId();
-	          Meteor.call('serverVerifyEmail', email, userId, function(){
-	          	console.log("email sent");
-	          });   
 	        }
-
 	      });   
 	    }else{
 	      alert("Please enter a valid email address");
