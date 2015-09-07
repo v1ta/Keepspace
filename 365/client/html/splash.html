@@ -52,12 +52,15 @@
 	<div id="splashBannerHeader">
 		<img id="splashBannerLogo" src="images/keepspace-logo-blue.png">
 		<div id="centerDiv">
+		{{>verifyemail}}
+		<!--
 			<form class="splashForm">
 				<input class="headerEmail" id="betaEmail" type="email" name="betaEmail"
 		        placeholder="ENTER E-MAIL">
 		        <input type="submit" id="checkButton" value="✓" />
 	    	</form>
 	        <p id="betaLink" class="splashBannerP">SIGN UP FOR BETA</p>
+        -->
     	</div>
     	<div id="linkDiv">
 	        <p id="aboutLink" class="splashBannerP">ABOUT</p>
@@ -270,4 +273,25 @@
 	    	<img class="left carouselButton" src="images/left-arrow.png" href="#teamCarousel" role="button" data-slide="prev" style="z-index:20">
 		</div>
 	</div>
+</template>
+
+<template name="verifyemail">
+  <form role="form">
+     <div class="form-group">
+      <input type="text" class="form-control" id="email" placeholder="your@email.com" />
+      <input type="button" class="btn btn-success btn-lg" id="verify" value="Verify" />
+     </div>
+  </form>
+</template>
+
+<template name="checkemail">
+ <h1>Please check your email</h1>
+ <p>Once you verify you can do amazing things!</p>
+
+</template>
+
+<template name="verified">
+ <h1>Thank you for verifying your email address!</h1>
+ <p> now you can use our amazing app!</p>
+
 </template>

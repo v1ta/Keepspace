@@ -83,3 +83,29 @@ Router.route('loginPage', function() {
 });
 
 
+Router.route('verifyEmail', {
+    template: 'verifyemail',
+    controller: 'AccountController',
+    path: '/verify-email/:token',
+    action: 'verifyEmail'
+});
+
+Router.route('verified', {
+    path: '/verified',
+    template: 'verified'
+});
+
+Router.route('checkemail', {
+    path: '/checkemail',
+    template: 'checkemail'
+});
+
+
+AccountController = RouteController.extend({
+    verifyEmail: function () {
+        Accounts.verifyEmail(this.params.token, function () {
+            Router.go('/verified');
+        });
+    }
+});
+
