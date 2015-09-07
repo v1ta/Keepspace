@@ -1,6 +1,6 @@
 Meteor.startup(function () {
 
-  Accounts.emailTemplates.from = 'mykeepspace <no-reply@mykeepspace.com>';
+  Accounts.emailTemplates.from = 'veet@mykeepspace.com';
 
   
   Accounts.emailTemplates.siteName = 'mykeepspace';
