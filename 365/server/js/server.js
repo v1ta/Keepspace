@@ -50,19 +50,9 @@ Accounts.onCreateUser(function(options, user){
         Accounts.sendVerificationEmail(user._id);
     }, 2 * 1000);
 
-
-
-
     return user;
 });
 
-
-Email.send({
-  from: "do-not-reply@mykeepspace.com",
-  to: "jodvita@gmail.com",
-  subject: "Welcome To Keepspace",
-  text: "Social media w/o the bs"
-});
 
 
 
