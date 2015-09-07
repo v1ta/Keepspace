@@ -26,7 +26,3 @@ Accounts.validateLoginAttempt(function(attempt){
   return true;
 }); 
 
-
-Accounts.config({
-    sendVerificationEmail: true
-});

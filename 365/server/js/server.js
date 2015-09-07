@@ -43,9 +43,13 @@ Accounts.onCreateUser(function(options, user){
     
     (function(){
         FindFriends.insert({userId: user._id, username: user.username});
-        Accounts.sendVerificationEmail(user._id);
         return true;
     })();
+
+    Meteor.setTimeout(function() {
+        Accounts.sendVerificationEmail(user._id);
+    }, 2 * 1000);
+
 
 
 
