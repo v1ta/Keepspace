@@ -84,6 +84,7 @@ Template.splashBanner.events({
 	          customAlert("You've signed up for beta.", detail);
 	          var userId = Meteor.userId();
 	          Meteor.call('serverVerifyEmail', email, userId, function(){
+	          	console.log("email sent");
 	          });   
 	        }
 
