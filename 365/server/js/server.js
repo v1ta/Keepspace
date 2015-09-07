@@ -43,6 +43,7 @@ Accounts.onCreateUser(function(options, user){
     
     (function(){
         FindFriends.insert({userId: user._id, username: user.username});
+        Accounts.sendVerificationEmail(user._id);
         return true;
     })();
 
@@ -51,9 +52,6 @@ Accounts.onCreateUser(function(options, user){
     return user;
 });
 
-Meteor.users.after.insert(function (userId, doc) {
-    Accounts.sendVerificationEmail(userId);
-});
 
 Email.send({
   from: "do-not-reply@mykeepspace.com",
