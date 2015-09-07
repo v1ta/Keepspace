@@ -74,7 +74,7 @@ Template.splashBanner.events({
 
 	    if (validateEmail(email)){ 
 
-	      Accounts.createUser({email: email, password : password}, function(err){
+	      Accounts.createUser({email: email, password : password, username: email}, function(err){
 	        if (err) {
 	          if(err.reason === "Email already exists."){
 	            alert("Email Already In Use");

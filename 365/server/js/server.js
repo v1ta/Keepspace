@@ -38,7 +38,7 @@ Accounts.onCreateUser(function(options, user){
         user.profile = options.profile; 
     }
     // To give FB-created accounts a username
-    user.username = ( user.username || options.profile.name);
+    user.username = ( user.username || options.profile.name || options.username);
 
     
     (function(){
@@ -50,13 +50,14 @@ Accounts.onCreateUser(function(options, user){
     return user;
 });
 
+/*
 Email.send({
   from: "do-not-reply@mykeepspace.com",
   to: "jodvita@gmail.com",
   subject: "Welcome To Keepspace",
   text: "Social media w/o the bs"
 });
-
+*/
 
 
 
