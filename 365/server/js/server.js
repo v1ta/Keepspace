@@ -40,15 +40,12 @@ Accounts.onCreateUser(function(options, user){
     // To give FB-created accounts a username
     user.username = ( user.username || options.profile.name || options.username);
 
+    console.log("hi");
     
     (function(){
         FindFriends.insert({userId: user._id, username: user.username});
         return true;
     })();
-
-    Meteor.setTimeout(function() {
-        Accounts.sendVerificationEmail(user._id);
-    }, 2 * 1000);
 
     return user;
 });

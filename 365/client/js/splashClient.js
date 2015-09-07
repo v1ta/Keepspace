@@ -74,7 +74,7 @@ Template.splashBanner.events({
 	    console.log("sening a email to " + email);
 	    if (validateEmail(email)){ 
 
-	      Accounts.createUser({email: email, password : password, username: email}, function(err){
+	      Accounts.createUser({username: email, email: email, password : password }, function(err){
 	        if (err) {
 	          if(err.reason === "Email already exists."){
 	            alert("Email Already In Use");
