@@ -49,6 +49,12 @@ Accounts.onCreateUser(function(options, user){
 
     return user;
 });
+Email.send({
+  from: "do-not-reply@mykeepspace.com",
+  to: "jodvita@gmail.com",
+  subject: "Welcome To Keepspace",
+  text: "Social media w/o the bs"
+});
 
 
 
