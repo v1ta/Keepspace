@@ -17,6 +17,12 @@ Meteor.publish("users", function() {
     }
 });
 
+Meteor.punblish("Notfications"), function () {
+    if(this.userId){
+        return Meteor.users.find({_id: this.userId});
+    }
+}
+
 
 Meteor.publish("findFriends", function(searchString){
     var filter = new RegExp('^' + searchString, 'i');

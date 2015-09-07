@@ -27,6 +27,24 @@ Schemas.FindFriend = new SimpleSchema({
     }
 });
 
+Scheme.Notification = new SimpleSchema({
+    type: {
+        type: String,
+        label: "type",
+        max: 100
+    },
+    to: { //use email as unique id?
+        type: String,
+        label: "to",
+        max: 100
+    },
+    from: { //use email as unique id?
+        type: String,
+        label: "from",
+        max: 100
+    }
+})
+
 Schemas.Thought = new SimpleSchema({
     friendList: {
         type: [String],

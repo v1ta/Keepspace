@@ -4,6 +4,7 @@ Friends = new Mongo.Collection("Friends");
 RankRecord = new Mongo.Collection("RankRecord");
 SavedPosts = new Mongo.Collection("SavedPosts");
 betaEmailCollection = new Mongo.Collection("betaSignup");
+Notifications = new Mongo.Collection("Notifications");
 
 
 Thoughts.attachSchema(Schemas.Thought);
@@ -39,6 +40,8 @@ Meteor.methods({
      * Call after confirmed friend
      */
     addFriend: function (friendId) { 
+        var currentUser = Meteor.user();
+        /*
         Friends.update(
             {userId: Meteor.userId()},
             {
@@ -47,6 +50,7 @@ Meteor.methods({
             },
             {upsert: true}
         );   
+        */
     },
     addThought: function (text, location) {
         // Make sure the user is logged in before inserting a thought

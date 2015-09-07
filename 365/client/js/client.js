@@ -1,6 +1,7 @@
 Meteor.subscribe("thoughts");
 Meteor.subscribe("users");
 Meteor.subscribe("friends");
+Meteor.subscrube("Notifications");
 
 Tracker.autorun(function() {
   var searchString = Session.get('searchString');
@@ -280,11 +281,14 @@ Template.friendSearch.events({
         var userFound = this.userId;
         Session.set('selectedUser', userFound);
     },
-    "click #addFriendButton": function(){
-        var selectedUser = Session.get('selectedUser');
+    "click #addFriendButton": function(){   
+        var user = Session.get('selectedUser');
+        user.requestFriendShip();
+        /*
         Meteor.call('addFriend', selectedUser, function(err, response){
             sAlert.success('Friend Request Sent!', {position: 'top-left', offset: '95px'});
         });
+        */
     },
     "keyup #search-friends": _.throttle(function(ev) {
     var searchString = $('#search-friends').val();
@@ -319,4 +323,28 @@ Template.friendSearch.helpers({
 Template.friendSearch.onCreated(function() {
         Session.set('searchString', '');
 });
+
+Template.friendRequests.events({
+    'click .accept': function() {
+        var request = Meteor.requests.findOne({requesterId:Meteor.userId(), userId:this._id});
+        request && request.accept();
+    },
+    'click .deny': function() {
+        var request = Meteor.requests.findOne({requesterId:Meteor.userId(), userId:this._id});
+        request && request.deny();
+    }
+})
+
+Template.friendList.events({
+    'click .add-friend': function() {
+        this.requestFriendShip();
+    },
+    'click .cancel-request': function() {
+        var request = Meteor.requests.findOne({requesterId:Meteor.userId(), userId:this._id});
+        request.cancel();
+    },
+    'click .end-friendship': function() {
+        this.unfriend();
+    }
+})
 
