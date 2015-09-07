@@ -28,7 +28,7 @@
   "enableUploadProgressBar": true,
 
   // Application name (No spaces)
-  "appName": "365",
+  "appName": "mykeepspace",
 
   // Location of app (local directory)
   "app": "/home/development/365/365",

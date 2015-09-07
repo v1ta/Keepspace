@@ -53,14 +53,6 @@
 		<img id="splashBannerLogo" src="images/keepspace-logo-blue.png">
 		<div id="centerDiv">
 		{{>verifyemail}}
-		<!--
-			<form class="splashForm">
-				<input class="headerEmail" id="betaEmail" type="email" name="betaEmail"
-		        placeholder="ENTER E-MAIL">
-		        <input type="submit" id="checkButton" value="✓" />
-	    	</form>
-	        <p id="betaLink" class="splashBannerP">SIGN UP FOR BETA</p>
-        -->
     	</div>
     	<div id="linkDiv">
 	        <p id="aboutLink" class="splashBannerP">ABOUT</p>
@@ -71,6 +63,8 @@
 	
 	{{> yield}}
 </template>
+
+
 
 <template name="carousel">
   <div id="carousel" class="carousel slide" data-ride="carousel" data-wrap="false">
@@ -276,10 +270,10 @@
 </template>
 
 <template name="verifyemail">
-  <form role="form">
+  <form role="form" class="splashForm">
      <div class="form-group">
-      <input type="text" class="form-control" id="email" placeholder="your@email.com" />
-      <input type="button" class="btn btn-success btn-lg" id="verify" value="Verify" />
+      <input type="text" class="headerEmail" id="email" placeholder="signupforbeta@youremailhere.com" />
+      <input type="button" class="btn btn-primary btn-lg" id="verify" value="✓" />
      </div>
   </form>
 </template>
