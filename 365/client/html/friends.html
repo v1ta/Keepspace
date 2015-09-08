@@ -13,7 +13,7 @@
 		<button class="btn-primary add-friend">Add Friend</button>
 		{{/if}}
 	{{/if}}
-
+</template>
 
 
 
@@ -34,9 +34,9 @@
 
 
 <template name="friendRequests">
-	<h2>Requests<h2>
+	<h2>Requests</h2>
 	{{#each requests}}
-		{{user.username}} <a href"" class="accept">Accept</a> <a href="" class="deny">Deny</a>
+		{{user.username}} <a href="" class="accept">Accept</a> <a href="" class="deny">Deny</a>
 	{{else}}
 		<p>No prending requests</p>
 	{{/each}}
