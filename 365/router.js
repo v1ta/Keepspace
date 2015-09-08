@@ -100,6 +100,18 @@ Router.route('checkemail', {
     template: 'checkemail'
 });
 
+Router.route('/users/:username', {
+  name: 'userPage',
+  waitOn: function() {
+    Meteor.subscribe('friendRequest');
+  },
+  data: function() {
+    return Meteor.users.findOne({username: this.params.username })
+  }
+});
+
+ 
+
 
 AccountController = RouteController.extend({
     verifyEmail: function () {

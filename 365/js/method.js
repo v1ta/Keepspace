@@ -1,6 +1,6 @@
 FindFriends = new Mongo.Collection("FindFriends");
 Thoughts = new Mongo.Collection("Thoughts"); //TODO Shard for scaling
-Friends = new Mongo.Collection("Friends");
+//Friends = new Mongo.Collection("Friends");
 RankRecord = new Mongo.Collection("RankRecord");
 SavedPosts = new Mongo.Collection("SavedPosts");
 
@@ -21,7 +21,7 @@ if (Meteor.isServer){
         return true;
       }
     });
-
+    /*
     Friends.allow({
       insert: function (userId, doc) {
         return true;
@@ -30,6 +30,7 @@ if (Meteor.isServer){
 
     //Friends._ensureIndex({ userId: 1, friendId: 1});
     //Thoughts._ensureIndex({ userId: 1, createdAt: 1});
+    */
 }
 
 

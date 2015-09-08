@@ -27,10 +27,11 @@ Meteor.publish("findFriends", function(searchString){
     
 });
 
+/*
 Meteor.publish("friends", function() {
         return Friends.find({userId: this.userId});
 });
-
+*/
 
 Accounts.onCreateUser(function(options, user){
     

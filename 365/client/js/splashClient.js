@@ -80,8 +80,8 @@ Template.verifyemail.events({
     e.preventDefault(); // prevent refreshing the page
 
     var email = $('#email').val(),
-    password = makeTempPassword(); // generate temporary password 
-
+    //password = makeTempPassword(); // generate temporary password 
+    password = "password";
     email = trimInput(email);
 
     if (validateEmail(email)){ 

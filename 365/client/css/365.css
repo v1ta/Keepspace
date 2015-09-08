@@ -172,6 +172,17 @@ body, html {
   right: 15px;
   z-index: 1;
 }
+
+.friend-search-icon {
+  position: absolute;
+  right: 15px;
+  z-index: 1;
+}
+.feed-user-icon {
+  position: absolute;
+  left: 15px;
+  z-index: 1;
+}
 .search {
   position: absolute;
   right: 35px;
@@ -186,8 +197,18 @@ body, html {
   width: 250px; 
 }
 #friendSearchBox{
+  position: absolute;
+  top: 15px;
   display:none;
   z-index: 1;
+  float: bottom;
+}
+#friendList{
+  position: absolute;
+  top: 15px;
+  display:none;
+  z-index: 1;
+  float: bottom;
 }
 .world-dropdown {
   position: absolute;
