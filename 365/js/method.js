@@ -81,7 +81,7 @@ Meteor.methods({
         // Make sure the user is logged in before inserting a thought
         if(!UserLoggedIn) return false;
 
-        var friendList = Friends.findOne({userId:Meteor.userId()},{friendList:1,_id:0});
+        //var friendList = Friends.findOne({userId:Meteor.userId()},{friendList:1,_id:0});
 
         var newThought = {
             text: text,
@@ -90,8 +90,8 @@ Meteor.methods({
             rank: 0,
             username: Meteor.user().username,
             position: location,
-            collectedBy: [],
-            friendList: friendList ? friendList.friendList : [],
+            collectedBy: []
+            //friendList: friendList ? friendList.friendList : [],
         };
         var thoughtId = Thoughts.insert(newThought);
         collect();
