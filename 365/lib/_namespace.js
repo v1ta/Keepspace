@@ -33,7 +33,7 @@ Schemas.Thought = new SimpleSchema({
         type: [String],
         label: "friendList",
         max: 1000
-        //optional: true //might break non-friend queries in aggregate collection
+        optional: true //might break non-friend queries in aggregate collection
     },
     userId: {
         type: String,
