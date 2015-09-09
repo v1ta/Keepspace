@@ -1,9 +1,7 @@
 /* CSS declarations go here */
 
-/*@font-face {font-family: GeosansLight; src: url('fonts/geo_sans_light/GeosansLight.ttf') format('truetype');}
-@font-face {font-family: GeosansLightOblique; src: url('fonts/geo_sans_light/GeosansLightOblique.ttf');}*/
-@font-face {font-family: Roboto; src: url('fonts/roboto/Roboto-Regular.ttf');}
-@font-face {font-family: Gotham; src: url('fonts/GothamHTF-Medium.ttf');}
+@font-face {font-family: Roboto; src: url('fonts/roboto/Roboto-Regular.ttf') format('truetype');}
+@font-face {font-family: Gotham; src: url('fonts/GothamHTF-Bold.otf');}
 
 
 body, html {
@@ -41,10 +39,10 @@ body, html {
   padding: 10px;
 }
 #header .username {
-  font-size: 30px;
+  font-size: 22px;
 }
 #homeButton {
-  background-color: #01C2CF;
+  background-color: #32c0d2;
   color: #ffffff;
   text-align: center;
   padding-top: 10px;
@@ -90,7 +88,7 @@ body, html {
 }
 #main-menu ul {
   list-style: none;
-  background: #bbbbbb;
+  background: #f9f9f9;
   margin-left: 0;
   border-radius: 0 0 5px 5px;
   width: 245px;
@@ -137,6 +135,8 @@ body, html {
 /* Main Feed */
 #main-feed {
   font-family: Roboto;
+}
+.full-height {
   /* 100% of page minus total height of header */
   height: 100%; /* fallback */
   height: -webkit-calc(100% - 95px);
@@ -217,6 +217,15 @@ body, html {
   display: inline-block;
   border-radius: 5px;
 }
+#expandedThoughtContent {
+  position: absolute;
+  z-index: 2;
+  display: none;
+  padding: 5px;
+  color: #ffffff;
+  overflow: auto;
+  font-family: 'Roboto'
+}
 
 /* New post */
 #tempForm {
@@ -227,9 +236,8 @@ body, html {
 #tempForm button {
   padding: 0;
 }
-.new-thought input {
-  width: 100%;
-  padding: 15px;
+.new-thought textarea {
+  height: 34px;
 }
 #submit-new-thought {
   position: absolute;
@@ -330,3 +338,75 @@ input.button-add {
   display:none;
 }
 
+/* Profile view */
+#profile {
+  font-family: Roboto;
+  font-size: 20px;
+  font-weight: bold;
+  background: #ffffff;
+  background: rgba(255,255,255,0.7);
+  color: #ffffff;
+  position: absolute;
+  width: 100%;
+  z-index: 3;
+  text-align: center;
+}
+#profile > * {
+  position: absolute;
+}
+.profile-circle {
+  height: 120px;
+  width: 120px;
+  border-radius: 60px;
+  padding: auto 0;
+}
+.profile-circle-large {
+  height: 200px;
+  width: 200px;
+  border-radius: 100px;
+  top: 5%;
+  left: 50%;
+  left: -webkit-calc(50% - 100px);
+  left: -moz-calc(50% - 100px);
+  left: calc(50% - 100px);
+}
+#change-picture {
+  background: #f9f9f9;
+  background: rgba(187,187,187,0.7);
+  display: none;
+}
+#username {
+  background: #32c0d2;
+  left: 33%;
+  left: -webkit-calc(33% - 60px);
+  left: -moz-calc(33% - 60px);
+  left: calc(33% - 60px);
+  top: 50%;
+  top: -webkit-calc(50% - 60px);
+  top: -moz-calc(50% - 60px);
+  top: calc(50% - 60px);
+}
+#collects {
+  background: #f15f5a;
+  left: 50%;
+  left: -webkit-calc(50% - 60px);
+  left: -moz-calc(50% - 60px);
+  left: calc(50% - 60px);
+  top: 66%;
+}
+#joined {
+  background: #faa43a;
+  left: 66%;
+  left: -webkit-calc(66% - 60px);
+  left: -moz-calc(66% - 60px);
+  left: calc(66% - 60px);
+  top: 50%;
+  top: -webkit-calc(50% - 60px);
+  top: -moz-calc(50% - 60px);
+  top: calc(50% - 60px);
+}
+#close-profile {
+  color: #f15f5a;
+  top: 10px;
+  left: 70%;
+}

@@ -65,6 +65,7 @@
     padding-left: 10px;
     background: #EAE8E8 !important;
     margin-bottom:15px;
+    width:185px;
 }
 #login-buttons-facebook{
 	text-align:center;
@@ -75,13 +76,19 @@
 	border-radius: 10px;
     padding-left: 15px;
     padding-right: 15px;
+    width:56px;
     font-size: 18px;
     background: #A7E6EC;
     border: 2px solid #A0E4EA;
 }
 
+#nextLoginButton{
+	width:90px;
+}
+
 #createButton{
 	margin-top:15px;
+	width:90px;
 }
 
 #splashBannerHeader{
@@ -90,12 +97,12 @@
 	padding-bottom:30px;
 	background:#E6F3FA;
 	color:#7B7978;
-	
 	font-family:Roboto;
 }
 #splashBannerHeader p{
 	transition: opacity 0.5s ease;
 	opacity:0.5;
+	font-family:Gotham;
 }
 #splashBannerHeader p:hover{
 	transition: opacity 0.5s ease;
@@ -310,5 +317,5 @@
 	top: -moz-calc(50% + 75px);
 	top: calc(50% + 75px);
 	font-size:36px;
-	padding-top:16px;
+	padding-top:4px;
 }

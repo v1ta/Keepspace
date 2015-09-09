@@ -63,6 +63,10 @@ Schemas.Thought = new SimpleSchema({
         type: Object,
         label: "position",
         optional: true
+    },
+    collectedBy: {
+        type: [String],
+        label: "collectedBy",
+        max: 1000
     }
-
 });

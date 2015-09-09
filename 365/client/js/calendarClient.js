@@ -1,5 +1,5 @@
 //calendar loading
-Template.calendar.rendered = function() {
+Template.calendar.onRendered(function() {
 	if(!this._rendered) {
 	    this._rendered = true;
 	    var date = new Date();
@@ -7,17 +7,18 @@ Template.calendar.rendered = function() {
 	    localStorage.setItem("displayDate", $.format.date(date, "M d yyyy"));
 	    loadCalendar(date, true);
 	    var otherDate = getDate(date.getDate() - 1, 1);
-	    getCalFeed(otherDate);
-	    var today = new Date();
-	    $("#calFeedHead").text("Day " + today.getDOY());
-	}
-};
-// Template.calendar.onRendered(function(){
-// 	renderFeed('#calFeed', 'calFeed-container', {owner:Meteor.userId()});
-// });
-Template.calendar.helpers({
-
+      var today = new Date();
+      $("#calFeedHead").text("Day " + today.getDOY());
+  }
+	getCalFeed(otherDate);
 });
+
+Template.calendar.onDestroyed(function() {
+  // Cleanup canvas
+  feedStage.destroyChildren();
+  feedStage.destroy();
+})
+
 Template.calendar.events({
 	'click .datepicker-td': function(e){
     	//console.log(e.currentTarget.innerHTML);
@@ -124,10 +125,19 @@ function getCalFeed(date){
 	dateMidnight.setSeconds(59);
 
   feedStage = {};
-	renderFeed('#calFeed', 'calFeed-container', 'single', {"createdAt": {
-		$gt:startDate,
-		$lt:dateMidnight
-	}});
+	renderFeed('#calFeed', 'calFeed-container', 'single', 
+		Thoughts.find({$and: [
+			{"createdAt": 
+			{
+				$gt:startDate,
+				$lt:dateMidnight
+			}}, 
+			{$or: [
+				{"userId": Meteor.userId()},
+				{"collectedBy": Meteor.userId()}
+			]}
+		]}, { sort: {createdAt: -1} }).fetch()
+	);
 
 }
 //set calendar feed header + calendar month/year

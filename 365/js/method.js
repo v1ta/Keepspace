@@ -4,7 +4,23 @@ Friends = new Mongo.Collection("Friends");
 RankRecord = new Mongo.Collection("RankRecord");
 SavedPosts = new Mongo.Collection("SavedPosts");
 betaEmailCollection = new Mongo.Collection("betaSignup");
-
+Avatars = new FS.Collection("avatars", {
+    filter: {
+        maxSize: 10000000, // 10MB
+        allow: {
+            contentTypes: ['image/*'],
+            extensions: ['png','jpg','gif']
+        },
+        onInvalid: function (message) {
+          if (Meteor.isClient) {
+            alert(message);
+          } else {
+            console.log(message);
+          }
+        }
+    },
+    stores: [new FS.Store.GridFS("avatars")]
+})
 
 Thoughts.attachSchema(Schemas.Thought);
 //Friends.attachSchema(Schemas.FriendEdge);
@@ -31,6 +47,14 @@ if (Meteor.isServer){
 
     //Friends._ensureIndex({ userId: 1, friendId: 1});
     //Thoughts._ensureIndex({ userId: 1, createdAt: 1});
+
+    function isLoggedIn() {
+        return Meteor.user() ? true : false
+    }
+    Avatars.allow({
+        insert: isLoggedIn,
+        update: isLoggedIn
+    });
 }
 
 
@@ -61,10 +85,32 @@ Meteor.methods({
             rank: 0,
             username: Meteor.user().username,
             position: location,
-            friendList: friendList ? friendList.friendList : [] 
+            collectedBy: [],
+            friendList: friendList ? friendList.friendList : [],
         };
-        Thoughts.insert(newThought);
-        return newThought;
+        var thoughtId = Thoughts.insert(newThought);
+        collect();
+        return thoughtId;
+    },
+    addToMyCollection: function(thoughtID){
+        collect();
+        var userID = Meteor.userId();
+        Thoughts.update(
+            {"_id" : thoughtID},
+            {$addToSet : {'collectedBy': userID}}
+        );
+    },
+    addToMyCollection: function(thoughtID){
+        var id = Meteor.userId();
+        var thought = Thoughts.findOne(thoughtId);
+
+    },
+    addToMyCollection: function(thoughtID){
+        var userID = Meteor.userId();
+        Thoughts.update(
+            {"_id" : thoughtID},
+            {$addToSet : {'collectedBy': userID}}
+        );
     },
     /*
      * specifically for adding facebook posts
@@ -86,6 +132,7 @@ Meteor.methods({
         function(err,thoughtInserted){
                 thoughtId = thoughtInserted
         });
+        collect();
         return thoughtId
     },
     changeRank: function(thoughtId, action){
@@ -111,9 +158,6 @@ Meteor.methods({
         }else {
             console.log("That person doesn't exist");
         }
-    },
-    addToMyCollection: function(thoughtId){
-        console.log(thoughtId);
     },
     changePrivacy: function (thoughtId, setChecked) {
         if(!UserLoggedIn) return false
@@ -183,6 +227,13 @@ function UserLoggedIn() {
         throw new Meteor.Error("not-authorized");
     }
     return false;
+}
+
+function collect() {
+    if(!UserLoggedIn) return false;
+    var profile = Meteor.user().profile;
+    profile.collects += 1;
+    Meteor.users.update(Meteor.userId(), { $set: {profile: profile} });
 }
 
 function Thought(text, location, callback){

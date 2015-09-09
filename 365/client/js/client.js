@@ -1,6 +1,7 @@
 Meteor.subscribe("thoughts");
 Meteor.subscribe("users");
 Meteor.subscribe("friends");
+Meteor.subscribe("avatars");
 
 Tracker.autorun(function() {
   var searchString = Session.get('searchString');
@@ -57,16 +58,11 @@ Template.worldFeed.helpers({
     }
 });
 
-
-
-
 Template.worldFeed.events({
     "click .addToCollection": function(){
         Meteor.call("addToMyCollection", this._id);
     }
 });
-
-
 
 Template.post.events({
     "submit .new-thought": function (event) {
@@ -91,9 +87,6 @@ Template.post.events({
     }
 });
 
-
-
-
 Template.thought.events({
     "click .delete": function () {
         Meteor.call("deleteThought", this._id);
@@ -103,23 +96,17 @@ Template.thought.events({
     },
 });
 
-
-
-
 Template.thought.helpers({
     isuserId: function () {
         return this.userId === Meteor.userId();
     }
 });
 
-
-
-
 //put in username
 Template.main.helpers({
     username: function(){
         if (Meteor.user()) {
-            var username = Meteor.user().username.toUpperCase();
+            var username = Meteor.user().username;
             return username.split(" ")[0];
         }
     },
@@ -132,9 +119,6 @@ Template.main.helpers({
     }
     
 });
-
-
-
 
     //request facebook data
 Template.main.events({
@@ -149,8 +133,13 @@ Template.main.events({
                 console.log(err);
             } 
             console.log(data)
+            var thought = Thoughts.findOne({_id:data});
+            console.log(thought);
             // Add a new bubble
-            addThoughtsToStage([data], feedStage, 'center'); 
+            var thoughtsList = Session.get('centerfeed');
+            thoughtsList.push(thought);
+            Session.set('centerfeed', thoughtsList);
+            addThoughtsToStage([thought], 'center');
         });
 
         // Clear form
@@ -199,10 +188,7 @@ Template.main.events({
         $(e.target).toggleClass("fa-caret-down fa-caret-up");
     }
 
-
 });
-
-
 
 Template.user.helpers({
     'isUser': function(){
@@ -212,11 +198,9 @@ Template.user.helpers({
         return "Robert"
     }
 });
+
 // Accounts
 //
-
-
-
 Accounts.ui.config({
     passwordSignupFields: "USERNAME_ONLY",
     requestPermissions: {
@@ -224,9 +208,6 @@ Accounts.ui.config({
             'user_posts']
     }
 });
-
-
-
 
 // Helper Functions
 //
