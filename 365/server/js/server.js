@@ -27,18 +27,21 @@ Meteor.publish("findFriends", function(searchString){
     
 });
 
+/*
 Meteor.publish("friends", function() {
         return Friends.find({userId: this.userId});
 });
+*/
 
 Meteor.publish("avatars", function() {
     return Avatars.find();
 });
 
-
 Accounts.onCreateUser(function(options, user){
     
     if (options.profile){
+        user.profile = options.profile; 
+        user.username = ( user.username || options.profile.name );
         if (user.services.facebook)
             options.profile.picture = "http://graph.facebook.com/" + user.services.facebook.id + "/picture/?height=200&width=200";
         else
@@ -46,20 +49,17 @@ Accounts.onCreateUser(function(options, user){
         user.profile = options.profile;
     } else {
         user.profile.picture = "/avatars/default.png";
+        user.username = ( user.username || user.emails[0].address);
     }
-    // To give FB-created accounts a username
-    user.username = ( user.username || options.profile.name);
 
     user.profile.collects = 0;
 
     
+
     (function(){
         FindFriends.insert({userId: user._id, username: user.username});
         return true;
     })();
-    
 
     return user;
 });
-
-

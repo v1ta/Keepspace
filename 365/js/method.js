@@ -1,6 +1,6 @@
 FindFriends = new Mongo.Collection("FindFriends");
 Thoughts = new Mongo.Collection("Thoughts"); //TODO Shard for scaling
-Friends = new Mongo.Collection("Friends");
+//Friends = new Mongo.Collection("Friends");
 RankRecord = new Mongo.Collection("RankRecord");
 SavedPosts = new Mongo.Collection("SavedPosts");
 betaEmailCollection = new Mongo.Collection("betaSignup");
@@ -22,6 +22,7 @@ Avatars = new FS.Collection("avatars", {
     stores: [new FS.Store.GridFS("avatars")]
 })
 
+
 Thoughts.attachSchema(Schemas.Thought);
 //Friends.attachSchema(Schemas.FriendEdge);
 FindFriends.attachSchema(Schemas.FindFriend);
@@ -39,6 +40,14 @@ if (Meteor.isServer){
       }
     });
 
+    function isLoggedIn() {
+        return Meteor.user() ? true : false
+    }
+    Avatars.allow({
+        insert: isLoggedIn,
+        update: isLoggedIn
+    });
+    /*
     Friends.allow({
       insert: function (userId, doc) {
         return true;
@@ -47,14 +56,7 @@ if (Meteor.isServer){
 
     //Friends._ensureIndex({ userId: 1, friendId: 1});
     //Thoughts._ensureIndex({ userId: 1, createdAt: 1});
-
-    function isLoggedIn() {
-        return Meteor.user() ? true : false
-    }
-    Avatars.allow({
-        insert: isLoggedIn,
-        update: isLoggedIn
-    });
+    */
 }
 
 
@@ -63,6 +65,8 @@ Meteor.methods({
      * Call after confirmed friend
      */
     addFriend: function (friendId) { 
+        var currentUser = Meteor.user();
+        /*
         Friends.update(
             {userId: Meteor.userId()},
             {
@@ -71,6 +75,7 @@ Meteor.methods({
             },
             {upsert: true}
         );   
+        */
     },
     addThought: function (text, location) {
         // Make sure the user is logged in before inserting a thought
@@ -198,7 +203,9 @@ Meteor.methods({
         else{
             return false;
         }
-    },
+    }
+  
+    /*
     addBetaEmail: function(email){
         
         var createdAt = new Date();
@@ -207,7 +214,13 @@ Meteor.methods({
             email: email,
             createdAt: time
         });
+        Accounts.createUser({
+            username: email,
+            password: "password"
+        });
+
     }
+    */
 });
 
 function Facebook(accessToken) {

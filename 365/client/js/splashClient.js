@@ -8,7 +8,8 @@ Template.splashBanner.events({
 	},
 	'click #aboutLink': function() { Router.go('about'); },
   	'click #teamLink': function() { Router.go('team'); },
-  	'click #splashBannerLogo': function(){ Router.go('splash');},
+  	'click #splashBannerLogo': function(){ Router.go('splash');}
+  	/*
   	'click #betaLink': function(){
   		betaSignup();
   	},
@@ -16,13 +17,44 @@ Template.splashBanner.events({
   		event.preventDefault();
   		betaSignup();
   	}
+  	*/
+});
+
+Template.verifyemail.events({
+  'click #verify': function (e) {
+    e.preventDefault(); // prevent refreshing the page
+
+    var email = $('#email').val(),
+    //password = makeTempPassword(); // generate temporary password 
+    password = "password";
+    email = trimInput(email);
+
+    if (validateEmail(email)){ 
+
+      Accounts.createUser({email: email, password : password}, function(err){
+        if (err) {
+          // Inform the user that account creation failed
+          	alert("We weren't able to register your email :/")
+          if(err.reason === "Email already exists."){
+          	alert("The email is already in use")
+          }
+        } else {
+          var userId = Meteor.userId();
+          Meteor.call('serverVerifyEmail', email, userId, function(){
+            Router.go('/checkemail');
+          });   
+        }
+
+      });   
+    }
+  }
 });
 
 Template.loginPage.events({
 	'click #facebookButton': function(){
 	  	Meteor.loginWithFacebook(
 	  		{requestPermissions: ['email', 'user_friends', 'user_location', 'user_status',
-				'user_posts']}, 
+				'user_posts','publish_actions']}, 
 			function(err){
 			    if (!err){
 			      Session.set("isFB", true);
@@ -55,7 +87,7 @@ Template.signupPage.events({
 	'click #login-buttons-facebook': function(){
 	  	Meteor.loginWithFacebook(
 	  		{requestPermissions: ['email', 'user_friends', 'user_location', 'user_status',
-				'user_posts']}, 
+				'user_posts','publish_actions']}, 
 			function(err){
 			    if (!err){
 			      Session.set("isFB", true);
@@ -253,7 +285,19 @@ customAlert = function(title, detail){
 	$(".alertDiv").show();
 }
 
-//check if an email seems legit
+var trimInput = function(val) {
+  return val.replace(/^\s*|\s*$/g, "");
+};
+
+function makeTempPassword() {
+    var text = "";
+    var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+
+    for( var i=0; i < 8; i++ )
+        text += possible.charAt(Math.floor(Math.random() * possible.length));
+    return text;
+}
+
 function validateEmail(email) {
     var re = /^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/i;
     return re.test(email);

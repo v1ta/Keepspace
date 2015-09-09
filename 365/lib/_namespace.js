@@ -27,6 +27,7 @@ Schemas.FindFriend = new SimpleSchema({
     }
 });
 
+
 Schemas.Thought = new SimpleSchema({
     friendList: {
         type: [String],

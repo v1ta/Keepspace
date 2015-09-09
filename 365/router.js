@@ -92,3 +92,43 @@ Router.route('loginPage', function() {
   // this.render('signupPage');
   this.render("loginPage");
 });
+
+
+Router.route('verifyEmail', {
+    template: 'verifyemail',
+    controller: 'AccountController',
+    path: '/verify-email/:token',
+    action: 'verifyEmail'
+});
+
+Router.route('verified', {
+    path: '/verified',
+    template: 'verified'
+});
+
+Router.route('checkemail', {
+    path: '/checkemail',
+    template: 'checkemail'
+});
+
+Router.route('/users/:username', {
+  name: 'userPage',
+  waitOn: function() {
+    Meteor.subscribe('friendRequest');
+  },
+  data: function() {
+    return Meteor.users.findOne({username: this.params.username })
+  }
+});
+
+ 
+
+
+AccountController = RouteController.extend({
+    verifyEmail: function () {
+        Accounts.verifyEmail(this.params.token, function () {
+            Router.go('/verified');
+        });
+    }
+});
+
