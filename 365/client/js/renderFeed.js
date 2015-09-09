@@ -221,9 +221,9 @@ addThoughtsToStage = function(thoughts, colName) {
     }
     if (thoughts[i].userId === Meteor.userId()) {
       fill = KSColors['red'];
-    } else if (thoughts[i].friendList.indexOf(Meteor.userId()) !== -1) {
+    } /*else if (thoughts[i].friendList.indexOf(Meteor.userId()) !== -1) {
       fill = KSColors['blue'];
-    } else {
+    }*/ else {
       fill = KSColors['orange'];
     }
     layer = createBubble(thoughts[i].text, colName, x, y, radius, padding, fill);
