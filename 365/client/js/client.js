@@ -45,9 +45,6 @@ Template.myFeed.helpers({
     }
 });
 
-
-
-
 Template.worldFeed.helpers({
     worldPosts: function () {
         // Show all thoughts
@@ -313,6 +310,18 @@ Template.friendSearch.onCreated(function() {
         Session.set('searchString', '');
 });
 
+Template.friendList.helpers({
+    "numRequests": function(){
+        var numRequests = 0;
+        var string = "Requests";
+        if (numRequests == 0){
+            return string;
+        }
+        else{
+            return string + " (" + numRequests + ")";
+        }
+    }
+})
 Template.friendList.events({
     'click .accept': function() {
         var request = Meteor.requests.findOne({userId:Meteor.userId(), requesterId:this._id});

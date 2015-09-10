@@ -20,25 +20,24 @@
 
 
 <template name ="friendList">
-<i class="fa fa-users feed-user-icon"></i>
+	<i class="fa fa-users feed-user-icon"></i>
 	<div id="friendList">
-	<h2>Friends</h2>
-	{{#each friendsAsUsers}}
-	<p>
-		<a href="{{pathFor 'userProfile' username=user.username}}">
-			{{username}}
-		</a>
-	</p>
-	{{else}}
-		<p>No friends</p>
-	{{/each}}
-	
-	<h2>Requests</h2>
-	{{#each requests}}
-		{{user.username}} <a href="" class="accept">Accept</a> <a href="" class="deny">Deny</a>
-	{{else}}
-		<p>No prending requests</p>
-	{{/each}}
-
+		<h2>Friends</h2>
+		{{#each friendsAsUsers}}
+		<p>
+			<a href="{{pathFor 'userProfile' username=user.username}}">
+				{{username}}
+			</a>
+		</p>
+		{{else}}
+			<p>No friends</p>
+		{{/each}}
+		
+		<h2>{{numRequests}}</h2>
+		{{#each requests}}
+			{{user.username}} <a href="" class="accept">Accept</a> <a href="" class="deny">Deny</a>
+		{{else}}
+			<p>No prending requests</p>
+		{{/each}}
 	</div>
 </template>
