@@ -46,10 +46,11 @@ Router.route("main",{
       Session.set('c_login', false);
       this.redirect('splash');
     } else {
-      this.next();
+      this.redirect("mainPage");
     }
   }
 })
+
 Router.route("mainPage", {
   onBeforeAction: function(){
     if (!Meteor.user()){
