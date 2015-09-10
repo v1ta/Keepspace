@@ -69,5 +69,10 @@ Schemas.Thought = new SimpleSchema({
         type: [String],
         label: "collectedBy",
         max: 1000
+    },
+    privacy: {
+        type: String,
+        label: "privacy",
+        allowedValues: ['private', 'friends', 'public']
     }
 });

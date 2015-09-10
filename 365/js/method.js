@@ -79,7 +79,8 @@ Meteor.methods({
             rank: 0,
             username: Meteor.user().username,
             position: location,
-            collectedBy: []
+            collectedBy: [],
+            privacy: 'private'
             //friendList: friendList ? friendList.friendList : [],
         };
         var thoughtId = Thoughts.insert(newThought);
@@ -94,17 +95,18 @@ Meteor.methods({
             {$addToSet : {'collectedBy': userID}}
         );
     },
-    addToMyCollection: function(thoughtID){
-        var id = Meteor.userId();
-        var thought = Thoughts.findOne(thoughtId);
-
-    },
-    addToMyCollection: function(thoughtID){
-        var userID = Meteor.userId();
-        Thoughts.update(
-            {"_id" : thoughtID},
-            {$addToSet : {'collectedBy': userID}}
-        );
+    /*
+     * posting to other feeds
+     * Assumes the posting is valid! (i.e. user hasn't already posted a thought today)
+     */
+    postToFeed: function (thought, setPrivacy) {
+        // Update user's profile.lastShared info to this thought
+        var profile = Meteor.user().profile;
+        profile.lastShared.date = new Date();
+        profile.lastShared.thoughtId = thought._id;
+        Meteor.users.update(Meteor.userId(), {$set : { profile: profile }});
+        // Update privacy setting of the thought itself
+        Thoughts.update({'_id': thought._id}, {$set: {privacy: setPrivacy}});
     },
     /*
      * specifically for adding facebook posts

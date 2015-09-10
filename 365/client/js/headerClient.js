@@ -141,13 +141,6 @@ Template.header.helpers({
 });
 
 Template.header.onCreated(function() {
-    // Reset Session variables for feeds
-    delete Session.keys['leftfeed'];
-    delete Session.keys['centerfeed'];
-    delete Session.keys['rightfeed'];
-    delete Session.keys['leftqueue'];
-    delete Session.keys['centerqueue'];
-    delete Session.keys['rightqueue'];
     $(window).resize(function() { setMidPadding(); });
 });
 Template.header.onDestroyed(function() {

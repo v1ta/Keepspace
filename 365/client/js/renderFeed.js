@@ -6,6 +6,16 @@ KSColors = {
   'orange': '#faa43a'
 }
 
+resetAllFeeds = function() {
+  // Reset Session variables for feeds
+  delete Session.keys['leftfeed'];
+  delete Session.keys['centerfeed'];
+  delete Session.keys['rightfeed'];
+  delete Session.keys['leftqueue'];
+  delete Session.keys['centerqueue'];
+  delete Session.keys['rightqueue'];
+}
+
 Template.main.onRendered(function() {
   feedStage = {};
   if (!Session.get('leftfeed')) {
@@ -57,6 +67,7 @@ function resetFeed(feed) {
     Session.set('rightfeed', Thoughts.find({
       $and: [
         {createdAt: {$gte:start}},
+        {privacy: 'public'},
         {$nor: [
           {userId: Meteor.userId()},
           {collectedBy: Meteor.userId()}
@@ -114,21 +125,27 @@ function initStage(containerDiv, canvas, numCols) {
 
   var length, extraHeight, top, left, tolerance = 25;
   var background = new Kinetic.Layer();
+  var col, outline;
   if (numCols === 3) {
     // Add the borders for drag and drop targets
     for (var i = 1; i < colIndex.length; i++) {
-      var col = stage.cols[colIndex[i]];
-      background.add(new Kinetic.Rect({
+      col = stage.cols[colIndex[i]];
+      outline = new Kinetic.Rect({
         name: colIndex[i] + 'Border',
         x: col.left + 1,
         y: col.top + 1,
         width: col.colWidth - 1,
         height: col.colHeight - 1,
-        stroke: '#333333',
         strokeWidth: 2,
         dash: [10, 5],
         visible: false
-      }));
+      });
+      switch (i) {
+        case 1: outline.stroke(KSColors['blue']); break;
+        case 2: outline.stroke(KSColors['red']); break;
+        case 3: outline.stroke(KSColors['orange']); break;
+      }
+      background.add(outline);
     }
     // Length of a side of a square inscribed in a circle
     length = stage.cols['center'].colWidth/2 * Math.sqrt(2);
@@ -392,21 +409,15 @@ function animateBubble(layer, colName, thought, duration) {
       hideBorders([leftBorder, centerBorder, rightBorder]);
       pos = this.parent.getPointerPosition().x;
       if (colName !== 'left' && pos < cols.left.right) {
-        if (isDragValid('left')) {
-          relocateBubble(layer, colName, 'left', thought, duration);
-        } else {
+        if ( !relocateBubble(layer, colName, 'left', thought, duration) ) {
           tween.play();
         }
       } else if (colName !== 'center' && pos >= cols.center.left && pos < cols.center.right) {
-        if (isDragValid('center')) {
-          relocateBubble(layer, colName, 'center', thought, duration);
-        } else {
+        if ( !relocateBubble(layer, colName, 'center', thought, duration) ) {
           tween.play();
         }
       } else if (colName !== 'right' && pos >= cols.right.left) {
-        if (isDragValid('right')) {
-          relocateBubble(layer, colName, 'right', thought, duration);
-        } else {
+        if ( !relocateBubble(layer, colName, 'right', thought, duration) ) {
           tween.play();
         }
       } else {
@@ -419,23 +430,36 @@ function animateBubble(layer, colName, thought, duration) {
   return anim;
 }
 
-// TODO : logic for dragging posts
-function isDragValid(dest) {
-  // Can only drag to center
-  return dest === 'center';
-}
 function relocateBubble(layer, src, dest, thought, duration) {
-  if (dest === 'center') {
+  var isOwner = thought.userId === Meteor.userId();
+  var start = new Date();
+  start.setHours(0,0,0,0);
+  var profile = Meteor.user().profile;
+  // Users can only post 1 thought per day
+  var firstPostOfToday = profile.lastShared.date <= start || profile.lastShared.thoughtId === thought._id;
+  // TODO : finish logic for posting
+  if (dest === 'center' && !isOwner) {
     Meteor.call('addToMyCollection', thought._id);
-    // Add thought to dest list
-    var thoughtList = Session.get('centerfeed');
-    thoughtList.push(thought);
-    Session.set('centerfeed', thoughtList);
-    removeFromSession(thought, src);
+  } else if (dest === 'left' && isOwner && firstPostOfToday) {
+    Meteor.call('postToFeed', thought, 'friends');
+  } else if (dest === 'right' && isOwner && firstPostOfToday) {
+    Meteor.call('postToFeed', thought, 'public');
+  } else {
+    alert("You've already posted today!");
+    return false;
   }
+  // Add thought to dest list
+  var thoughtList = Session.get(dest+'feed');
+  thoughtList.push(thought);
+  Session.set(dest+'feed', thoughtList);
+  // Remove thought from src list
+  removeFromSession(thought, src);
+
   layer.off('click dragstart.anim dragmove.anim dragend.anim');
+  layer.name('bubble'+dest);
   var anim = animateBubble(layer, dest, thought, duration);
   addClickHandler(layer, dest, thought, duration, anim);
+  return true;
 }
 
 function removeFromSession(thought, colName) {
@@ -510,8 +534,6 @@ function popBubble(layer, colName, thought) {
 
 function addClickHandler(layer, colName, thought, duration, anim) {
   layer.on('click.expand', function(e) {
-    console.log(thought.id);
-    console.log(thought);
     expandBubble(e, layer, colName, thought, duration, anim);
   });
 }
@@ -672,7 +694,7 @@ function expandBubble(e, layer, colName, thought, duration, anim) {
     toRemove = [username, date, collect, collectOutline];
     collect.on('click', function () {
       background.off('click.collected');
-      condenseBubble(e, layer, 'center', thought, duration, radius, anim, oldHeight, toRemove, [textTween, bubbleTween, layerTween], true);
+      condenseBubble(e, layer, colName, thought, duration, radius, anim, oldHeight, toRemove, [textTween, bubbleTween, layerTween], true);
     });
   } else {
     toRemove = [username, date];
