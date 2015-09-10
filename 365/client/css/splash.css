@@ -94,7 +94,6 @@
 #splashBannerHeader{
 	padding-top:30px;
 	text-align:center;
-	padding-bottom:30px;
 	background:#E6F3FA;
 	color:#7B7978;
 	font-family:Roboto;
@@ -115,6 +114,9 @@
 	position:absolute;
 	left:40px;
 	top:22px;
+}
+.fullScreen{
+	min-width:100%;
 }
 #betaEmail{
 	display:inline-block;
@@ -155,6 +157,7 @@
 	display:inline-block;
 	position:absolute;
 	right:0px;
+	margin-top:6px;
 }
 #linkDiv p{
 	margin-right:30px;
