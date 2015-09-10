@@ -67,7 +67,7 @@ Template.loginPage.events({
 		)
 	},
 	'click .blueLoginButton': function(){
-		var emailVar = $("#email").val();
+		var emailVar = $("#loginEmail").val();
 		var passwordVar = $("#password").val();
 		Meteor.loginWithPassword({email: emailVar}, passwordVar, function(err){
 			if (!err){
@@ -101,7 +101,7 @@ Template.signupPage.events({
 	'click #createButton': function(event) {
 		var userName = $("#username").val();
 		var DOB = $("#dateOfBirth").val();
-		var userEmail = $("#email").val();
+		var userEmail = $("#signupEmail").val();
 		var passwordVar = $("#password").val();
 		var repeat = $("#passwordAgain").val();
 

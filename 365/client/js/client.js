@@ -320,6 +320,9 @@ Template.friendList.helpers({
         else{
             return string + " (" + numRequests + ")";
         }
+    },
+    requests: function(){
+        return Meteor.friendRequest.find({userId:Meteor.userId()});
     }
 })
 Template.friendList.events({
