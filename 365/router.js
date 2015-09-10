@@ -51,6 +51,14 @@ Router.route("main",{
   }
 })
 Router.route("mainPage", {
+  onBeforeAction: function(){
+    if (!Meteor.user()){
+      this.redirect('splash');
+    }
+    else{
+      this.next();
+    }
+  },
   waitOn: function() { return Meteor.subscribe("thoughts"); },
   action: function() {
     this.layout("header");
