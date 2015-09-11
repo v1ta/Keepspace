@@ -48,6 +48,7 @@ Accounts.onCreateUser(function(options, user){
             options.profile.picture = "/avatars/default.png";
         user.profile = options.profile;
     } else {
+        user.profile = {};
         user.profile.picture = "/avatars/default.png";
         user.username = ( user.username || user.emails[0].address);
     }
