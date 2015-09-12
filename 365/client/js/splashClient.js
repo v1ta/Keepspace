@@ -97,6 +97,9 @@ Template.verifyemail.events({
           var userId = Meteor.userId();
           Meteor.call('serverVerifyEmail', email, userId, function(){
             Router.go('/checkemail');
+            setInterval(function(){
+              Router.go('/spash');
+            },2000);
           });   
         }
 

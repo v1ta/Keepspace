@@ -69,6 +69,7 @@ Accounts.onCreateUser(function(options, user){
     return user;
 });
 
+
 Meteor.publish("friends", function (options) {
     if(!this.userId){
         return this.ready();
