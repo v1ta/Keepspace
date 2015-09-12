@@ -24,7 +24,6 @@ Avatars = new FS.Collection("avatars", {
 
 
 Thoughts.attachSchema(Schemas.Thought);
-//Friends.attachSchema(Schemas.FriendEdge);
 FindFriends.attachSchema(Schemas.FindFriend);
 
 if (Meteor.isServer){
@@ -47,16 +46,6 @@ if (Meteor.isServer){
         insert: isLoggedIn,
         update: isLoggedIn
     });
-    /*
-    Friends.allow({
-      insert: function (userId, doc) {
-        return true;
-      }
-    });
-
-    //Friends._ensureIndex({ userId: 1, friendId: 1});
-    //Thoughts._ensureIndex({ userId: 1, createdAt: 1});
-    */
 }
 
 
@@ -139,6 +128,20 @@ Meteor.methods({
         });
         collect();
         return thoughtId
+    },
+    acceptRequest: function(){
+        searchId = Meteor.userId();
+        var request = Meteor.requests.findOne({userId:searchId});
+        (function(){
+            request && request.accept();
+            //setInterval(function(){
+
+               // Meteor.friends.update({userId:searchId, friendId:searchId},{$set: {userId:request.requesterId}});
+              // }, 3000);
+        })();
+        //console.log(request.requesterId);
+        //console.log(Meteor.userId());
+        console.log("requestAccepted");
     },
     changeRank: function(thoughtId, action){
         if(!UserLoggedIn) return false
@@ -291,6 +294,12 @@ Facebook.prototype.getPostData = function() {
         return this.query('/me/feed?limit=5');
 }
 
+User.registerBlockingHook(function(user){
+    console.log("called");
+    if(currentUser.blockAnnoyingUsers && user.flaggedCount > 10){
+        return true;
+    }
+});
 /**
  * Remove a callback from a hook
  * @param {string} hook - The name of the hook

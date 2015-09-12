@@ -55,9 +55,6 @@ Router.route("mainPage", {
   waitOn: function() {
     Meteor.subscribe('friendRequests');
   },
-  data: function() {
-    return Meteor.users.findOne({ username: this.params.username })
-  },
     waitOn: function() {
     Meteor.subscribe('friends');
   },

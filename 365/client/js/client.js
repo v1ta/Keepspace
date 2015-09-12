@@ -4,6 +4,7 @@ Meteor.subscribe("avatars");
 Meteor.subscribe("friends");
 Meteor.subscribe("friendRequests");
 Meteor.subscribe("outgoingFriendRequests");
+Meteor.subscribe('ignoredFriendRequests');
 
 Tracker.autorun(function() {
   var searchString = Session.get('searchString');
@@ -271,15 +272,12 @@ Template.friendSearch.events({
     },
     "click #addFriendButton": function(){   
         var userid = Session.get('selectedUser');
-        console.log(userid);
         sendTo = Meteor.users.findOne({_id:userid});
-        console.log(sendTo);
         if (sendTo != undefined){
             sendTo.requestFriendship();
             sAlert.success('Friend Request Sent!', {position: 'top-left', offset: '95px'});
         }else{
-            console.log("could not send request");
-            console.log(sendTo)
+            alert("could not sendRequest");
         }
     },
     "keyup #search-friends": _.throttle(function(ev) {
@@ -318,12 +316,7 @@ Template.friendSearch.onCreated(function() {
 
 Template.friendList.events({
     'click .accept': function() {
-        var request = Meteor.requests.findOne({userId:Meteor.userId()});
-        request && request.accept();
-        console.log(request);
-        console.log(Meteor.userId());
-        console.log(this._id);
-        console.log("request accepted");
+        Meteor.call('acceptRequest');
     },
     'click .deny': function() {
         var request = Meteor.requests.findOne({userId:Meteor.userId()});

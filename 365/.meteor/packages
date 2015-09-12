@@ -12,7 +12,6 @@
  meteorhacks:npm
  npm
  insecure
- aldeed:collection2
  meteorhacks:search-source
  meteorhacks:kadira
  npm-container
@@ -28,3 +27,4 @@ email
 cfs:standard-packages
 cfs:gridfs
 socialize:friendships
+aldeed:collection2

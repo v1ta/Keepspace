@@ -23,8 +23,8 @@
 <i class="fa fa-users feed-user-icon"></i>
 	<div id="friendList">
 	<h2>Friends</h2>
-		{{#each currentUser.friends}}
-			<p>{{user.username}}</p>
+		{{#each currentUser.friendsAsUsers}}
+			<p>{{username}}</p>
 		{{else}}
 		<p>No friends</p>
 	{{/each}}
@@ -32,7 +32,7 @@
 	<h2>Requests</h2>
 		<div class="requests">
 			{{#each currentUser.requests}}
-				<p>{{user.username}} <a href="" class="accept">Accept</a><a href="" class="deny">Deny</a></p>
+				<p>{{requester.username}} <a href="" class="accept">Accept</a><a href="" class="deny">Deny</a></p>
 			{{else}}
 				<p>No prending requests</p>
 			{{/each}}

@@ -165,3 +165,4 @@ Meteor.publish('outgoingFriendRequests', function(options){
     });
 
 });
+
