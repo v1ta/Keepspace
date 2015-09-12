@@ -90,7 +90,8 @@ Meteor.methods({
             rank: 0,
             username: Meteor.user().username,
             position: location,
-            collectedBy: []
+            collectedBy: [],
+            randomIndex: Math.floor(Math.random() * 100000000) + 1, 
             //friendList: friendList ? friendList.friendList : [],
         };
         var thoughtId = Thoughts.insert(newThought);
@@ -132,7 +133,8 @@ Meteor.methods({
             rank: 0,
             username: Meteor.user().username,
             postString: postString,
-            position: null  
+            position: null,
+            randomIndex: Math.floor(Math.random() * 100000000) + 1,  
         }, 
         function(err,thoughtInserted){
                 thoughtId = thoughtInserted
@@ -203,8 +205,12 @@ Meteor.methods({
         else{
             return false;
         }
+    },
+    showRandomPost: function(){
+        if (userLoggedIn()){
+
+        }
     }
-  
     /*
     addBetaEmail: function(email){
         

@@ -7,8 +7,13 @@ Template.calendar.onRendered(function() {
 	    localStorage.setItem("displayDate", $.format.date(date, "M d yyyy"));
 	    loadCalendar(date, true);
 	    var otherDate = getDate(date.getDate() - 1, 1);
-      var today = new Date();
-      $("#calFeedHead").text("Day " + today.getDOY());
+      	var today = new Date();
+      	$("#calFeedHead").text("Day " + today.getDOY());
+      	rand = Math.floor(Math.random() * 100000000) + 1;
+		result = Thoughts.findOne( { userId:Meteor.userId(), randomIndex : { $gte : rand } } );
+		if ( result == null ) {
+	  		result = Thoughts.findOne( { userId:Meteor.userId(), randomIndex : { $lte : rand } } );
+		}
   }
 	getCalFeed(otherDate);
 });

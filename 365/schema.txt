@@ -19,6 +19,7 @@ Posts (aka Thoughts):
 	
 	owner: owner id
 	position: physical location of user (default null)
+	randomIndex: random number (not necessarily unique) between 1 and 100000000
 
 	collectedBy: {
        		type: [String],

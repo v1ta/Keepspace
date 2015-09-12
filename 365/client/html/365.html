@@ -65,7 +65,7 @@
         </div>
         <div id="main-menu">
           <ul>
-            <li class="menu-item">Change Password</li>
+            <li class="menu-item" id="changePasswordButton">Change Password</li>
             <li class="menu-item">How To Use</li>
             <li class="menu-item dropdownAbout">What We Do</li>
             <li class="menu-item dropdownTeam">Team</li>
@@ -87,22 +87,27 @@
       </div>
     </div>
   </div>
+  <div class="alertDiv" id="changePassword">
+    <div id="fyouupdiv">
+      <form id="changePassForm">
+        <input class="loginForm" id="changeOld" type="email" name="oldPass"
+        placeholder="old password">
+        <br>
+        <input class="loginForm" id="changeNew" type="password" name="newPass"
+        placeholder="new password">
+        <br>
+        <input class="loginForm" id="changeConfirm" type="password" name="newPassConfirm"
+        placeholder="new password (again)">
+        <br>
+        <input type="submit" class="blueLoginButton" id="changePasswordSubmit" value="Confirm">
+      </form>
+    </div>
+  </div>
 
   {{#with showProfile}}
     {{> profile}}
   {{/with}}
 
-  <div id="settingDropDown" class="dropdown-menu">
-    <form id="changePasswordForm">
-        <input type="password" name="oldPass" placeholder="Old Password">
-        <input type="password" name="newPass" placeholder="New Password">
-        <input type="password" name="newPassConfirm" placeholder="New Password (again)">
-        <input type="submit" id="changePasswordSubmit" value="Change Password">
-    </form>
-    <input type="submit" id="changePassword" class="dropButton" value="Change Password">
-    <br>
-    <input type="submit" id="signOut" class="logout dropButton" value="Sign Out">
-  </div>
   {{> yield}}
 </template>
 

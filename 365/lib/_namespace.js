@@ -69,5 +69,10 @@ Schemas.Thought = new SimpleSchema({
         type: [String],
         label: "collectedBy",
         max: 1000
+    },
+    randomIndex: {
+        type: Number, // between 1 and 100000000
+        label: "randomIndex",
+        optional: false
     }
 });
