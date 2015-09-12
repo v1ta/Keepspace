@@ -316,7 +316,7 @@ Template.friendSearch.onCreated(function() {
 
 Template.friendList.events({
     'click .accept': function() {
-        Meteor.call('acceptRequest');
+        Meteor.requests.findOne({userId:Meteor.userId()}).accept();
     },
     'click .deny': function() {
         var request = Meteor.requests.findOne({userId:Meteor.userId()});

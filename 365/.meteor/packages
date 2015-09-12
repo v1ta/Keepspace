@@ -26,5 +26,10 @@ juliancwirko:s-alert-flip
 email
 cfs:standard-packages
 cfs:gridfs
-socialize:friendships
 aldeed:collection2
+coffeescript
+meteorhacks:unblock
+socialize:base-model
+socialize:server-time
+socialize:user-model
+tmeasday:publish-with-relations

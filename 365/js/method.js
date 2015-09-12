@@ -129,20 +129,6 @@ Meteor.methods({
         collect();
         return thoughtId
     },
-    acceptRequest: function(){
-        searchId = Meteor.userId();
-        var request = Meteor.requests.findOne({userId:searchId});
-        (function(){
-            request && request.accept();
-            //setInterval(function(){
-
-               // Meteor.friends.update({userId:searchId, friendId:searchId},{$set: {userId:request.requesterId}});
-              // }, 3000);
-        })();
-        //console.log(request.requesterId);
-        //console.log(Meteor.userId());
-        console.log("requestAccepted");
-    },
     changeRank: function(thoughtId, action){
         if(!UserLoggedIn) return false
         RankRecord.find({thoughtId: thoughtId}, {UserId:Meteor.userId()})
@@ -300,11 +286,5 @@ User.registerBlockingHook(function(user){
         return true;
     }
 });
-/**
- * Remove a callback from a hook
- * @param {string} hook - The name of the hook
- * @param {string} functionName - The name of the function to remove
- */
-
 
 
