@@ -1,8 +1,9 @@
 Meteor.subscribe("thoughts");
 Meteor.subscribe("users");
-Meteor.subscribe("friends");
 Meteor.subscribe("avatars");
-Meteor.subscribe('friendRequest');
+Meteor.subscribe("friends");
+Meteor.subscribe("friendRequests");
+Meteor.subscribe("outgoingFriendRequests");
 
 Tracker.autorun(function() {
   var searchString = Session.get('searchString');
@@ -265,19 +266,21 @@ Template.friendSearch.events({
         Session.set('searchString', searchString);
     },
     "click .searchUser": function(e){
-        var userFound = this._id;
+        var userFound = this.userId;
         Session.set('selectedUser', userFound);
     },
     "click #addFriendButton": function(){   
         var userid = Session.get('selectedUser');
-        user = Meteor.users.findOne({_id:userid});
-        if (user != undefined)
-            user.requestFriendship();
-        /*
-        Meteor.call('addFriend', selectedUser, function(err, response){
+        console.log(userid);
+        sendTo = Meteor.users.findOne({_id:userid});
+        console.log(sendTo);
+        if (sendTo != undefined){
+            sendTo.requestFriendship();
             sAlert.success('Friend Request Sent!', {position: 'top-left', offset: '95px'});
-        });
-*/
+        }else{
+            console.log("could not send request");
+            console.log(sendTo)
+        }
     },
     "keyup #search-friends": _.throttle(function(ev) {
     var searchString = $('#search-friends').val();
@@ -315,12 +318,17 @@ Template.friendSearch.onCreated(function() {
 
 Template.friendList.events({
     'click .accept': function() {
-        var request = Meteor.requests.findOne({userId:Meteor.userId(), requesterId:this._id});
+        var request = Meteor.requests.findOne({userId:Meteor.userId()});
         request && request.accept();
+        console.log(request);
+        console.log(Meteor.userId());
+        console.log(this._id);
+        console.log("request accepted");
     },
     'click .deny': function() {
-        var request = Meteor.requests.findOne({requesterId:Meteor.userId(), userId:this._id});
+        var request = Meteor.requests.findOne({userId:Meteor.userId()});
         request && request.deny();
+        console.log("request denied");
     }
 })
 
