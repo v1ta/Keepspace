@@ -79,7 +79,7 @@ Template.verifyemail.events({
   'click #verify': function (e) {
     e.preventDefault(); // prevent refreshing the page
 
-    var email = $('#email').val(),
+    var email = $('#headeremail').val(),
     //password = makeTempPassword(); // generate temporary password 
     password = "password";
     email = trimInput(email);
@@ -116,6 +116,7 @@ Template.loginPage.events({
 			function(err){
 			    if (!err){
 			      Session.set("isFB", true);
+            resetAllFeeds();
 			      // $("#changePassword").hide();
 			    }
 			    else{
@@ -131,6 +132,7 @@ Template.loginPage.events({
 		Meteor.loginWithPassword(emailVar, passwordVar, function(err){
 			if (!err){
 				Session.set("isFB", false);
+        resetAllFeeds();
 			}
 			else{
 				alert(err);
@@ -149,6 +151,7 @@ Template.signupPage.events({
 			function(err){
 			    if (!err){
 			      Session.set("isFB", true);
+            resetAllFeeds();
 			      // $("#changePassword").hide();
 			    }
 			    else{
@@ -191,7 +194,7 @@ Template.signupPage.events({
 						alert(err);
 					}
 					else{
-						console.log("argh");
+            resetAllFeeds();
 					}
 				}
 			);

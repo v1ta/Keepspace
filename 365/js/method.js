@@ -79,7 +79,8 @@ Meteor.methods({
             rank: 0,
             username: Meteor.user().username,
             position: location,
-            collectedBy: []
+            collectedBy: [],
+            privacy: 'private'
             //friendList: friendList ? friendList.friendList : [],
         };
         var thoughtId = Thoughts.insert(newThought);
@@ -94,17 +95,24 @@ Meteor.methods({
             {$addToSet : {'collectedBy': userID}}
         );
     },
-    addToMyCollection: function(thoughtID){
-        var id = Meteor.userId();
-        var thought = Thoughts.findOne(thoughtId);
-
-    },
-    addToMyCollection: function(thoughtID){
-        var userID = Meteor.userId();
-        Thoughts.update(
-            {"_id" : thoughtID},
-            {$addToSet : {'collectedBy': userID}}
-        );
+    /*
+     * posting a thought to other feeds/recalling that thought
+     * Assumes the posting is valid! (i.e. user hasn't already posted a thought today)
+     */
+    shareThought: function (thought, setPrivacy) {
+        var profile = Meteor.user().profile;
+        if (setPrivacy === 'private') {
+            // Reset lastShared
+            profile.lastShared.date = 0;
+            profile.lastShared.thoughtId = 0;
+        } else {
+            // Update user's profile.lastShared info to this thought
+            profile.lastShared.date = new Date();
+            profile.lastShared.thoughtId = thought._id;   
+        }
+        Meteor.users.update(Meteor.userId(), {$set : { profile: profile }});
+        // Update privacy setting of the thought itself
+        Thoughts.update({'_id': thought._id}, {$set: {privacy: setPrivacy}});
     },
     /*
      * specifically for adding facebook posts
@@ -136,11 +144,16 @@ Meteor.methods({
     deleteThought: function (thoughtId) {
         if(!UserLoggedIn) return false
         var thought = Thoughts.findOne(thoughtId);
-        if (thought.private && thought.userId !== Meteor.userId()) {
+        if (thought.privacy === 'private' && thought.userId !== Meteor.userId()) {
             /*
              * If the thought is private, make sure only the owner can delete it
              */
             throw new Meteor.Error("not-authorized");
+        }
+        if (thoughtId === Meteor.user().profile.lastShared.thoughtId) {
+            // Reset lastShared
+            profile.lastShared.date = 0;
+            profile.lastShared.thoughtId = 0;
         }
         Thoughts.remove(thoughtId);
     },

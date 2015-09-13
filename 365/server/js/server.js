@@ -65,7 +65,10 @@ Accounts.onCreateUser(function(options, user){
     }
 
     user.profile.collects = 0;
-
+    user.profile.lastShared = {
+        date: 0,
+        thoughtId: 0
+    };
     
 
     (function(){

@@ -41,7 +41,7 @@ body, html {
   font-family: Gotham;
   padding-top: 10px;
   padding-bottom: 10px;
-  background-color:#E8F4FD;
+  background-color:rgba(50,192,208,0.2);
 }
 #header .row > * {
   height: 75px;
@@ -58,6 +58,7 @@ body, html {
 #logo {
   width: 245px;
   border-radius: 5px;
+  cursor: pointer;
 }
 #logo img {
   height: 75px;
@@ -74,6 +75,7 @@ body, html {
   position: relative;
   z-index: 2;
   display: inline-block;
+  cursor: pointer;
 }
 #dayNum {
   font-size: 30px;
@@ -94,6 +96,7 @@ body, html {
   top: -10px;
   display: inline-block;
   font-family:Roboto;
+  cursor: pointer;
 }
 #time{
   color:#ED1C24;
@@ -179,6 +182,9 @@ body, html {
   margin: 10px 0;
   overflow: hidden;
 }
+.feed .fa {
+  cursor: pointer;
+}
 .feed > * {
   position: relative;
   z-index: 0;
@@ -260,7 +266,7 @@ body, html {
 }
 #worldButtons li {
   padding: 5px 15px;
-  background-color: #E8F4FD;
+  background-color: #32c0d2;
   display: inline-block;
   border-radius: 5px;
 }
@@ -410,6 +416,9 @@ input.button-add {
 #profile > * {
   position: absolute;
 }
+#profile-picture {
+  cursor: pointer;
+}
 .profile-circle {
   height: 120px;
   width: 120px;
@@ -430,6 +439,7 @@ input.button-add {
   background: #f9f9f9;
   background: rgba(187,187,187,0.7);
   display: none;
+  cursor: pointer;
 }
 #username {
   background: #32c0d2;
@@ -465,4 +475,5 @@ input.button-add {
   color: #f15f5a;
   top: 10px;
   left: 70%;
+  cursor: pointer;
 }
