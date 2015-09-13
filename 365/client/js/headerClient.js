@@ -177,6 +177,7 @@ Template.header.onRendered(function() {
     localStorage.setItem("selectedDate", $.format.date(today, "M d yyyy"));
     setMidPadding();
     Session.set('showProfile', false);
+    
 });
 
 Template.profile.helpers({
@@ -221,12 +222,6 @@ Template.profile.events({
     }
 })
 
-
-Date.prototype.getDOY = function() {
-    var onejan = new Date(this.getFullYear(),0,1);
-    return Math.ceil((this - onejan) / 86400000);
-}
-
 logoutFunction = function(){
     Router.go("main");
 }
@@ -234,6 +229,32 @@ logoutFunction = function(){
 function setMidPadding() {
     var padding = parseInt($(".mid").css("width")) - ( parseInt($("#homeButton").css("width"))+parseInt($("#date").css("width"))-parseInt($("#date").css("padding-left")) );
     $(".mid").css("padding-left", padding/2);
+}
+
+function showOldPost(){
+
+    rand = Math.floor(Math.random() * 100000000) + 1;
+    result = Thoughts.findOne( { userId:Meteor.userId(), randomIndex : { $gte : rand } } );
+    if ( result == null ) {
+        result = Thoughts.findOne( { userId:Meteor.userId(), randomIndex : { $lte : rand } } );
+    }
+    var time = result.createdAt;
+    var newDate = new Date(time);
+    var text = result.text;
+    var day = "Day " + newDate.getDOY();
+    var hours = newDate.getHours() == 12 ? newDate.getHours() : newDate.getHours() % 12;
+    var minutes = newDate.getMinutes() < 10 ? "0" + newDate.getMinutes().toString() : newDate.getMinutes();
+    var time = hours + ":" + minutes;
+
+    $(".oldPostDay").text(day);
+    $(".oldPostTime").text(time);
+    $(".oldPostText").text(text);
+    $(".alertBubble").click(function(event){
+        event.stopPropagation();
+    });
+    $(".alertDiv").click(closeAlert);
+    $(".closeAlert").click(closeAlert);
+    $(alertID).show();
 }
 
 // Handlers for showing and hiding main menu

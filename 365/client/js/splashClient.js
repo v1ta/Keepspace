@@ -279,10 +279,10 @@ closeAlert = function(){
 	$(".alertTextDetail").empty();
 	$(".alertDiv").hide();
 }
-customAlert = function(title, detail){
+customAlert = function(title, detail, alertID){
 	$(".alertTextTitle").html(title);
 	$(".alertTextDetail").html(detail);
-	$(".alertDiv").show();
+	$(alertID).show();
 }
 
 var trimInput = function(val) {
@@ -312,7 +312,7 @@ function betaSignup(){
 	}
 	else{
 		var detail = "<span>Thank you.</span> <span>Now get ready to make every day count.</span>";
-		customAlert("You've signed up for beta.", detail);
+		customAlert("You've signed up for beta.", detail, "#betaDiv");
 		Meteor.call("addBetaEmail", email);
 	}
 }

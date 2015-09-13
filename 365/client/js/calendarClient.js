@@ -9,11 +9,6 @@ Template.calendar.onRendered(function() {
 	    var otherDate = getDate(date.getDate() - 1, 1);
       	var today = new Date();
       	$("#calFeedHead").text("Day " + today.getDOY());
-      	rand = Math.floor(Math.random() * 100000000) + 1;
-		result = Thoughts.findOne( { userId:Meteor.userId(), randomIndex : { $gte : rand } } );
-		if ( result == null ) {
-	  		result = Thoughts.findOne( { userId:Meteor.userId(), randomIndex : { $lte : rand } } );
-		}
   }
 	getCalFeed(otherDate);
 });
@@ -184,4 +179,9 @@ function getDate(val, string){
 	}
 	localStorage.setItem("displayDate", $.format.date(newDate, "M d yyyy"));
 	return newDate;
+}
+
+Date.prototype.getDOY = function() {
+    var onejan = new Date(this.getFullYear(),0,1);
+    return Math.ceil((this - onejan) / 86400000);
 }

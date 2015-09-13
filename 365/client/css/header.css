@@ -42,3 +42,19 @@
 	height:100%;
 	text-align:center;
 }
+.oldPostDay{
+	font-size:28px;
+	line-height:32px;
+	margin-top:35px;
+	margin-left:57px;
+	margin-bottom:0px;
+	width:215px;
+}
+.oldPostTime{
+
+}
+.oldPostText{
+	margin-top:20px;
+	text-align:left;
+	margin-left:15px;
+}
