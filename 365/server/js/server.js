@@ -1,5 +1,8 @@
 // Only publish thoughts that are public or belong to the current user
 Meteor.publish("thoughts", function () {
+
+   // getFriendListAsync = Meteor.wrapAsync(getFriendList);
+    //var friendList = getFriendListAsync();
     return Thoughts.find({
         $or: [
             { private: {$ne: true} },
@@ -40,6 +43,10 @@ Meteor.publish("avatars", function() {
     return Avatars.find();
 });
 
+
+function getFriendList(callback){
+    return Meteor.friends.find({userId: this.userId}, {friendId:1,userId:0,_id:0}).fetch();
+}
 
 Accounts.onCreateUser(function(options, user){
     

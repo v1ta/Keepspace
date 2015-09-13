@@ -270,20 +270,33 @@ Template.friendSearch.events({
         var userFound = this.userId;
         Session.set('selectedUser', userFound);
     },
-    "click #addFriendButton": function(){   
+    "click .send-friend-request": function(){   
+        var userid = Session.get('selectedUser');
+        if(userid === undefined){
+            userid = this.userId;
+        }
+        sendTo = Meteor.users.findOne({_id:userid});
+        if (sendTo != undefined){
+            sendTo.requestFriendship();
+            sAlert.success('Friend Request Sent', {position: 'bottom'});
+        }else{
+            sAlert.error('Could Not Send Request', {position: 'bottom'});
+        }
+    },
+    ".click cancel-request": function(e){
         var userid = Session.get('selectedUser');
         sendTo = Meteor.users.findOne({_id:userid});
         if (sendTo != undefined){
             sendTo.requestFriendship();
-            sAlert.success('Friend Request Sent!', {position: 'top-left', offset: '95px'});
+            sAlert.success('Friend Request Cancelled', {position: 'bottom'});
         }else{
-            alert("could not sendRequest");
+            sAlert.error('Could Not Cancel Request', {position: 'bottom'});
         }
     },
     "keyup #search-friends": _.throttle(function(ev) {
     var searchString = $('#search-friends').val();
         Session.set('searchString', searchString);
-  }, 2000)
+  }, 1500)
 });
 
 
@@ -315,14 +328,19 @@ Template.friendSearch.onCreated(function() {
 });
 
 Template.friendList.events({
-    'click .accept': function() {
-        Meteor.requests.findOne({userId:Meteor.userId()}).accept();
+    // request object methods
+    'click [data-action=accept]': function() {
+        this.accept();
     },
-    'click .deny': function() {
-        var request = Meteor.requests.findOne({userId:Meteor.userId()});
-        request && request.deny();
-        console.log("request denied");
-    }
+    'click [data-action=deny]': function() {
+        this.deny();
+    },
+    // user object methods
+    'click [data-action=unfriend]': function() {
+        //assumes context is a instance of a user
+        this.unfriend();
+    },
+
 })
 
 Template.userPage.events({

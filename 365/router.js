@@ -135,7 +135,7 @@ AccountController = RouteController.extend({
         Accounts.verifyEmail(this.params.token, function () {
             Router.go('/verified');
             setInterval(function(){
-              Router.go('/spash');
+              Router.go('/splash');
             },2000);
         });
     }
