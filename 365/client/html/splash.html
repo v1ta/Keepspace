@@ -25,7 +25,7 @@
 			        <br>
 			        <input class="loginForm" id="passwordAgain" type="password" name="userPasswordAgain" placeholder="password (again please!)">
 			        <br>
-			        <input class="blueLoginButton" id="createButton" value="Create">
+			        <input class="blueLoginButton" type="submit" id="createButton" value="Create">
 		    	</div>
 	    	</form>
 		    <button class="blueLoginButton" id="nextLoginButton">next</button> 
@@ -77,6 +77,7 @@
     </ol>
     <!-- Slides -->
     <div class="carousel-inner" role="listbox">
+    	
 		<div class="item active">
         	<img class="fullScreen" src="/images/homepage/Disappear.png" alt="Live in the moment."/>
       	</div>
@@ -86,6 +87,7 @@
         <div class="item">
         	<img class="fullScreen" src="/images/homepage/DailyGrind.png" alt="Break out of your daily grind."/>
         </div>
+
       <!-- Log in form -->
       <div id="loginSlide" class="item">
         <div class="row">
@@ -115,6 +117,7 @@
     </form>
 </template>
 
+
 <template name="loginPage">
 	<div class="splashContent">
   		<img class="splashLogo" src="images/signup_bubble.png">
@@ -130,13 +133,39 @@
 			        <input class="loginForm" id="password" type="password" name="password"
 			        placeholder="password">
 			        <br>
-			        <input class="blueLoginButton" id="goButton" value="Go">
+			        <input class="blueLoginButton" type="submit" id="createButton" value="Go">
 		        </div>
 		    </form>
 		    <div id="login-buttons-facebook">
 		        <input type="image" id="facebookButton" src="images/facebookLogin.png">
 		  	</div>
 	  	</div>
+	</div>
+</template>
+
+<template name="login">
+	<div id="loginButtons">
+	    <form>
+	        <input class="loginForm" id="username" type="username" name="loginEmail"
+	        placeholder="Username">
+	        <br>
+	        <input class="loginForm" id="password" type="password" name="loginPassword"
+	        placeholder="Password">
+	        <br>
+	        <input class="loginForm" id="passwordAgain" type="password" name="loginPasswordAgain" placeholder="Password (again)" style="display:none">
+	        <br>
+	        <input type="submit" id="signIn" value="Sign In">
+	    </form>
+	    <button id="createAccount">Create Account</button>
+	    <br>
+	    <div class="accounts-dialog">
+
+
+		    <div class="login-button single-login-button" id="login-buttons-facebook">
+		        <span class="text-besides-image sign-in-text-facebook">Sign in with Facebook</span>
+		  	</div>
+		</div>
+
 	</div>
 </template>
 
@@ -238,7 +267,7 @@
 <template name="verifyemail">
   <form role="form" class="splashForm">
      <div class="form-group">
-      <input type="text" class="headerEmail" id="email" placeholder="signupforbeta@youremailhere.com" />
+      <input type="text" class="headerEmail" id="headeremail" placeholder="signupforbeta@youremailhere.com" />
       <input type="button" class="btn btn-primary btn-lg" id="verify" value="✓" />
      </div>
   </form>

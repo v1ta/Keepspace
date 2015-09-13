@@ -12,7 +12,6 @@
  meteorhacks:npm
  npm
  insecure
- aldeed:collection2
  meteorhacks:search-source
  meteorhacks:kadira
  npm-container
@@ -27,3 +26,11 @@ juliancwirko:s-alert-flip
 email
 cfs:standard-packages
 cfs:gridfs
+aldeed:collection2
+coffeescript
+meteorhacks:unblock
+socialize:base-model
+socialize:server-time
+socialize:user-model
+tmeasday:publish-with-relations
+socialize:friendships

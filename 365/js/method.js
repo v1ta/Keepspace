@@ -24,7 +24,6 @@ Avatars = new FS.Collection("avatars", {
 
 
 Thoughts.attachSchema(Schemas.Thought);
-//Friends.attachSchema(Schemas.FriendEdge);
 FindFriends.attachSchema(Schemas.FindFriend);
 
 if (Meteor.isServer){
@@ -47,16 +46,6 @@ if (Meteor.isServer){
         insert: isLoggedIn,
         update: isLoggedIn
     });
-    /*
-    Friends.allow({
-      insert: function (userId, doc) {
-        return true;
-      }
-    });
-
-    //Friends._ensureIndex({ userId: 1, friendId: 1});
-    //Thoughts._ensureIndex({ userId: 1, createdAt: 1});
-    */
 }
 
 
@@ -92,6 +81,7 @@ Meteor.methods({
             position: location,
             collectedBy: [],
             randomIndex: Math.floor(Math.random() * 100000000) + 1, 
+            privacy: 'private',
             //friendList: friendList ? friendList.friendList : [],
         };
         var thoughtId = Thoughts.insert(newThought);
@@ -106,17 +96,24 @@ Meteor.methods({
             {$addToSet : {'collectedBy': userID}}
         );
     },
-    addToMyCollection: function(thoughtID){
-        var id = Meteor.userId();
-        var thought = Thoughts.findOne(thoughtId);
-
-    },
-    addToMyCollection: function(thoughtID){
-        var userID = Meteor.userId();
-        Thoughts.update(
-            {"_id" : thoughtID},
-            {$addToSet : {'collectedBy': userID}}
-        );
+    /*
+     * posting a thought to other feeds/recalling that thought
+     * Assumes the posting is valid! (i.e. user hasn't already posted a thought today)
+     */
+    shareThought: function (thought, setPrivacy) {
+        var profile = Meteor.user().profile;
+        if (setPrivacy === 'private') {
+            // Reset lastShared
+            profile.lastShared.date = 0;
+            profile.lastShared.thoughtId = 0;
+        } else {
+            // Update user's profile.lastShared info to this thought
+            profile.lastShared.date = new Date();
+            profile.lastShared.thoughtId = thought._id;   
+        }
+        Meteor.users.update(Meteor.userId(), {$set : { profile: profile }});
+        // Update privacy setting of the thought itself
+        Thoughts.update({'_id': thought._id}, {$set: {privacy: setPrivacy}});
     },
     /*
      * specifically for adding facebook posts
@@ -149,11 +146,16 @@ Meteor.methods({
     deleteThought: function (thoughtId) {
         if(!UserLoggedIn) return false
         var thought = Thoughts.findOne(thoughtId);
-        if (thought.private && thought.userId !== Meteor.userId()) {
+        if (thought.privacy === 'private' && thought.userId !== Meteor.userId()) {
             /*
              * If the thought is private, make sure only the owner can delete it
              */
             throw new Meteor.Error("not-authorized");
+        }
+        if (thoughtId === Meteor.user().profile.lastShared.thoughtId) {
+            // Reset lastShared
+            profile.lastShared.date = 0;
+            profile.lastShared.thoughtId = 0;
         }
         Thoughts.remove(thoughtId);
     },
@@ -297,11 +299,11 @@ Facebook.prototype.getPostData = function() {
         return this.query('/me/feed?limit=5');
 }
 
-/**
- * Remove a callback from a hook
- * @param {string} hook - The name of the hook
- * @param {string} functionName - The name of the function to remove
- */
-
+User.registerBlockingHook(function(user){
+    console.log("called");
+    if(currentUser.blockAnnoyingUsers && user.flaggedCount > 10){
+        return true;
+    }
+});
 
 

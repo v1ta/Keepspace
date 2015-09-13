@@ -20,7 +20,7 @@ Template.verifyemail.events({
   'click #verify': function (e) {
     e.preventDefault(); // prevent refreshing the page
 
-    var email = $('#email').val(),
+    var email = $('#headeremail').val(),
     //password = makeTempPassword(); // generate temporary password 
     password = "password";
     email = trimInput(email);
@@ -38,6 +38,9 @@ Template.verifyemail.events({
           var userId = Meteor.userId();
           Meteor.call('serverVerifyEmail', email, userId, function(){
             Router.go('/checkemail');
+            setInterval(function(){
+              Router.go('/splash');
+            },2000);
           });   
         }
 
@@ -53,9 +56,10 @@ Template.loginPage.events({
 				'user_posts','publish_actions']}, 
 			function(err){
 			    if (!err){
-			      Session.set("isFB", true);
-			      localStorage.setItem("justLoggedIn", "true");
-			      Router.go("mainPage");
+					Session.set("isFB", true);
+					localStorage.setItem("justLoggedIn", "true");
+					resetAllFeeds();
+					Router.go("mainPage");
 			      // $("#changePassword").hide();
 			    }
 			    else{
@@ -71,14 +75,15 @@ Template.loginPage.events({
 			if (!err){
 				Session.set("isFB", false);
 				localStorage.setItem("justLoggedIn", "true");
+				resetAllFeeds();
 				Router.go("mainPage");
 			  // $("#changePassword").show();
 			}
 			else{
 				alert(err);
 			}
-		});     
-	},
+		});
+	}
 });
 
 //custom login/register functionas
@@ -90,8 +95,9 @@ Template.signupPage.events({
 				'user_posts','publish_actions']}, 
 			function(err){
 			    if (!err){
-			      Session.set("isFB", true);
-			      localStorage.setItem("justLoggedIn", "true");
+			      	Session.set("isFB", true);
+			      	localStorage.setItem("justLoggedIn", "true");
+			      	resetAllFeeds();
 					Router.go("mainPage");
 			      // $("#changePassword").hide();
 			    }
@@ -106,7 +112,6 @@ Template.signupPage.events({
 		var userEmail = $("#signupEmail").val();
 		var passwordVar = $("#password").val();
 		var repeat = $("#passwordAgain").val();
-
 		var emailValidate = validateEmail(userEmail);
 		var validate = true;
 		if (passwordVar != repeat){
@@ -115,7 +120,6 @@ Template.signupPage.events({
 			validate = false;
 		}
 		else if (!emailValidate){
-			console.log(userEmail);
 			alert("Please enter a valid email.");
 			validate = false;
 		}
@@ -135,6 +139,7 @@ Template.signupPage.events({
 					}
 					else{
 						localStorage.setItem("justLoggedIn", "true");
+						resetAllFeeds();
 						Router.go("mainPage");
 					}
 				}
@@ -161,13 +166,14 @@ Template.signupPage.events({
 		$("#secondSignPage").hide();
 		$(".backButton").hide();
 		$("#splashTitle").css("margin-right", "0px");
-	}
+	},
+	
 });
 
 Template.splashBanner.onRendered(function(){
 	$(".alertDiv").click(closeAlert);
 	$(".closeAlert").click(closeAlert);
-})
+});
 Template.carousel.onRendered(function() {
 	$('#carousel').on('slide.bs.carousel', function (event) {
   		if (event.relatedTarget.id == "loginSlide"){

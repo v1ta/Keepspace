@@ -60,7 +60,9 @@ Router.route("mainPage", {
       this.next();
     }
   },
-  waitOn: function() { return Meteor.subscribe("thoughts"); },
+  waitOn: function() {
+    return [Meteor.subscribe("thoughts"), Meteor.subscribe('friendRequests'), Meteor.subscribe('friends')];
+  },
   action: function() {
     this.layout("header");
     this.render("main");
@@ -137,6 +139,9 @@ AccountController = RouteController.extend({
     verifyEmail: function () {
         Accounts.verifyEmail(this.params.token, function () {
             Router.go('/verified');
+            setInterval(function(){
+              Router.go('/splash');
+            },2000);
         });
     }
 });

@@ -74,5 +74,10 @@ Schemas.Thought = new SimpleSchema({
         type: Number, // between 1 and 100000000
         label: "randomIndex",
         optional: false
+    },
+    privacy: {
+        type: String,
+        label: "privacy",
+        allowedValues: ['private', 'friends', 'public']
     }
 });
