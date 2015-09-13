@@ -355,20 +355,3 @@ Template.friendList.events({
 
 })
 
-Template.userPage.events({
-    'click .add-friend': function() {
-        this.requestFriendShip();
-    },
-    'click .cancel-request': function() {
-        var request = Meteor.requests.findOne({requesterId:Meteor.userId(), userId:this._id});
-        request && request.cancel();
-    },
-    'click .end-friendship': function() {
-        this.unfriend();
-    },
-    'click .accept': function() {
-        var request = Meteor.requests.findOne({userId:Meteor.userId(), requesterId:this._id});
-        request && request.accept();
-    }
-})
-
