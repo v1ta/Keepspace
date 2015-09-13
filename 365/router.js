@@ -51,12 +51,8 @@ Router.route("main",{
   }
 })
 Router.route("mainPage", {
-  waitOn: function() { return Meteor.subscribe("thoughts"); },
   waitOn: function() {
-    Meteor.subscribe('friendRequests');
-  },
-    waitOn: function() {
-    Meteor.subscribe('friends');
+    return [Meteor.subscribe("thoughts"), Meteor.subscribe('friendRequests'), Meteor.subscribe('friends')];
   },
   action: function() {
     this.layout("header");
