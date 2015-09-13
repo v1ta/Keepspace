@@ -181,7 +181,7 @@ Template.header.onRendered(function() {
     if (loggedIn == "true"){
         var rand = Math.random();
         alert(rand);
-        if (rand < 0.73){
+        if (rand < 0.33){
             showOldPost();
         }
         localStorage.setItem("justLoggedIn", "false");
@@ -241,7 +241,6 @@ function setMidPadding() {
 }
 
 function showOldPost(){
-    alert("here");
     rand = Math.floor(Math.random() * 100000000) + 1;
     result = Thoughts.findOne( { userId:Meteor.userId(), randomIndex : { $gte : rand } } );
     if ( result == null ) {
