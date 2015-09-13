@@ -177,6 +177,15 @@ Template.header.onRendered(function() {
     localStorage.setItem("selectedDate", $.format.date(today, "M d yyyy"));
     setMidPadding();
     Session.set('showProfile', false);
+    var loggedIn = localStorage.getItem("justLoggedIn");
+    if (loggedIn == "true"){
+        var rand = Math.random();
+        alert(rand);
+        if (rand < 0.73){
+            showOldPost();
+        }
+        localStorage.setItem("justLoggedIn", "false");
+    };
     
 });
 
@@ -232,7 +241,7 @@ function setMidPadding() {
 }
 
 function showOldPost(){
-
+    alert("here");
     rand = Math.floor(Math.random() * 100000000) + 1;
     result = Thoughts.findOne( { userId:Meteor.userId(), randomIndex : { $gte : rand } } );
     if ( result == null ) {
@@ -249,12 +258,13 @@ function showOldPost(){
     $(".oldPostDay").text(day);
     $(".oldPostTime").text(time);
     $(".oldPostText").text(text);
+    $("#mainAlert").show();
+
     $(".alertBubble").click(function(event){
         event.stopPropagation();
     });
     $(".alertDiv").click(closeAlert);
     $(".closeAlert").click(closeAlert);
-    $(alertID).show();
 }
 
 // Handlers for showing and hiding main menu

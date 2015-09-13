@@ -1,7 +1,3 @@
-Accounts.onLogin(function(){
-	Router.go("mainPage");
-});
-
 Template.splashBanner.events({
 	'click #loginLink': function(){
 		Router.go("loginPage");
@@ -58,6 +54,8 @@ Template.loginPage.events({
 			function(err){
 			    if (!err){
 			      Session.set("isFB", true);
+			      localStorage.setItem("justLoggedIn", "true");
+			      Router.go("mainPage");
 			      // $("#changePassword").hide();
 			    }
 			    else{
@@ -72,6 +70,8 @@ Template.loginPage.events({
 		Meteor.loginWithPassword({email: emailVar}, passwordVar, function(err){
 			if (!err){
 				Session.set("isFB", false);
+				localStorage.setItem("justLoggedIn", "true");
+				Router.go("mainPage");
 			  // $("#changePassword").show();
 			}
 			else{
@@ -91,6 +91,8 @@ Template.signupPage.events({
 			function(err){
 			    if (!err){
 			      Session.set("isFB", true);
+			      localStorage.setItem("justLoggedIn", "true");
+					Router.go("mainPage");
 			      // $("#changePassword").hide();
 			    }
 			    else{
@@ -132,7 +134,8 @@ Template.signupPage.events({
 						alert(err);
 					}
 					else{
-
+						localStorage.setItem("justLoggedIn", "true");
+						Router.go("mainPage");
 					}
 				}
 			);
