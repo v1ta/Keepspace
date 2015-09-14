@@ -202,7 +202,7 @@ body, html {
   width: calc(100% - 30px);
   text-align: center;
   font-size: 50px;
-  color:#97D8F9;
+  color:#32c0d2;
 }
 .feed-search-icon {
   position: absolute;
@@ -287,15 +287,15 @@ body, html {
   z-index: 1;
 }
 #tempForm button {
-  padding: 0;
+  padding: 1px 5px;
 }
 .new-thought textarea {
   height: 34px;
 }
 #submit-new-thought {
   position: absolute;
-  right: 1px;
-  bottom: -22px;
+  right: 0;
+  bottom: -25px;
 }
 #btn-import-facebook {
   position: absolute;
