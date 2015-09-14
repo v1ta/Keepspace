@@ -63,9 +63,18 @@ function resetFeed(feed) {
     // TODO: Do better than O(n)?
     var friends = getFriendsAsUsers();
     var thought, thoughts = [];
+    // Get user's last shared thought from today, if it exists
+    if (Meteor.user().profile.lastShared.date >= start) {
+      thought = Thoughts.findOne(Meteor.user().profile.lastShared.thoughtId);
+      if (thought && thought.privacy === 'friends') {
+        thoughts.push(thought);
+      }
+    }
     for (var i = 0; i < friends.length; i++) {
       thought = Thoughts.findOne(friends[i].profile.lastShared.thoughtId);
-      if (thought) thoughts.push(thought);
+      if (thought && thought.collectedBy.indexOf(Meteor.userId()) === -1) {
+        thoughts.push(thought);
+      };
     }
     Session.set('leftfeed', thoughts);
     Session.set('leftqueue', []);
@@ -74,6 +83,7 @@ function resetFeed(feed) {
     // Get user's posts and collected posts
     Session.set('centerfeed', Thoughts.find({
       $and: [
+        {_id: {$not: Meteor.user().profile.lastShared.thoughtId}},
         {createdAt: {$gte:start}},
         {$or: [
           {userId: Meteor.userId()},
@@ -83,8 +93,16 @@ function resetFeed(feed) {
     Session.set('centerqueue', []);
   }
   if (feed === 'rightfeed') {
+    var thought, thoughts = [];
+    // Get user's last shared thought from today, if it exists
+    if (Meteor.user().profile.lastShared.date >= start) {
+      thought = Thoughts.findOne(Meteor.user().profile.lastShared.thoughtId);
+      if (thought && thought.privacy === 'public') {
+        thoughts.push(thought);
+      }
+    }
     var friendIds = getFriendIds();
-    Session.set('rightfeed', Thoughts.find({
+    thoughts = thoughts.concat(Thoughts.find({
       $and: [
         {createdAt: {$gte:start}},
         {privacy: 'public'},
@@ -94,8 +112,8 @@ function resetFeed(feed) {
           {collectedBy: Meteor.userId()}
         ]}
       ]},
-      { sort: {createdAt: -1} }
-    ).fetch());
+      { sort: {createdAt: -1} }).fetch());
+    Session.set('rightfeed', thoughts);
     Session.set('rightqueue', []);
   }
 }
@@ -741,7 +759,7 @@ function expandBubble(e, layer, colName, thought, duration, anim) {
   } else if (!collected) {
     toRemove = [username, date, collect, collectOutline];
     collect.on('click', function () {
-      background.off('click.collected');
+      background.off('click.condense');
       condenseBubble(e, layer, colName, thought, duration, radius, anim, oldHeight, toRemove, [textTween, bubbleTween, layerTween], true);
     });
   } else {
@@ -789,8 +807,13 @@ function condenseBubble(e, layer, colName, thought, duration, radius, anim, oldH
         layerTween.play();
       } else {
         // Add the thought to queue
-        var queue = Session.get(colName+'queue');
-        Session.set(colName+'queue', queue.concat(thought));
+        var queue = Session.get('centerqueue');
+        Session.set('centerqueue', queue.concat(thought));
+        //TODO: refactor with relocateBubble()
+        Meteor.call('addToMyCollection', thought._id);
+        // Hide bubble
+        layer.destroyChildren();
+        layer.destroy();
       }
     } else {
       t = tweens[i].reverse();

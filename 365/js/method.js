@@ -152,10 +152,12 @@ Meteor.methods({
              */
             throw new Meteor.Error("not-authorized");
         }
-        if (thoughtId === Meteor.user().profile.lastShared.thoughtId) {
+        var profile = Meteor.user().profile;
+        if (thoughtId === profile.lastShared.thoughtId) {
             // Reset lastShared
             profile.lastShared.date = 0;
             profile.lastShared.thoughtId = 0;
+            Meteor.users.update(Meteor.userId(), { $set: {profile: profile} });
         }
         Thoughts.remove(thoughtId);
     },
