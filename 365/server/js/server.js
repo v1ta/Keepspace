@@ -1,13 +1,10 @@
 // Only publish thoughts that are public or belong to the current user
 Meteor.publish("thoughts", function () {
 
-   // getFriendListAsync = Meteor.wrapAsync(getFriendList);
-    //var friendList = getFriendListAsync();
     return Thoughts.find({
         $or: [
             { private: {$ne: true} },
-            { userId: this.userId },
-            { friendList: this.userId }
+            { userId: this.userId }
         ]
     });
 });
@@ -33,18 +30,13 @@ Meteor.publish("findFriends", function(searchString){
     
 });
 
-/*
-Meteor.publish("friends", function() {
-        return Friends.find({userId: this.userId});
-});
-*/
 
 Meteor.publish("avatars", function() {
     return Avatars.find();
 });
 
 
-function getFriendList(callback){
+function getFriendList(){
     return Meteor.friends.find({userId: this.userId}, {friendId:1,userId:0,_id:0}).fetch();
 }
 
@@ -92,7 +84,7 @@ Meteor.publish("friends", function (options) {
 
 
 
-    Meteor.publishWithRelations({
+Meteor.publishWithRelations({
         handle: this,
         collection: Meteor.friends,
         filter: {userId:this.userId, friendId:{$ne:this.userId}},

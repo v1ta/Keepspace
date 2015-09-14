@@ -68,9 +68,10 @@ Template.loginPage.events({
 			}
 		)
 	},
-	'click .blueLoginButton': function(){
-		var emailVar = $("#loginEmail").val();
-		var passwordVar = $("#password").val();
+	'submit form': function(){
+		event.preventDefault();
+		var emailVar = event.target.email.value;
+		var passwordVar = event.target.password.value;
 		Meteor.loginWithPassword({email: emailVar}, passwordVar, function(err){
 			if (!err){
 				Session.set("isFB", false);
