@@ -173,7 +173,6 @@ Template.header.onRendered(function() {
     var loggedIn = localStorage.getItem("justLoggedIn");
     if (loggedIn == "true"){
         var rand = Math.random();
-        alert(rand);
         if (rand < 0.33){
             showOldPost();
         }
