@@ -91,12 +91,22 @@
 	width:90px;
 }
 
+#verify{
+	margin-top:-7px;
+	position:relative;
+}
+#headeremail{
+	position:relative;
+	top:-2px;
+}
+
 #splashBannerHeader{
 	padding-top:30px;
 	text-align:center;
-  background-color:rgba(50,192,208,0.2);
+  	background-color:rgba(50,192,208,0.2);
 	color:#7B7978;
 	font-family:Roboto;
+	height:91px;
 }
 #splashBannerHeader p{
 	transition: opacity 0.5s ease;

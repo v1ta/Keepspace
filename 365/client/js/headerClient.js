@@ -15,7 +15,8 @@ Template.header.events({
         $("#changePassword").hide();
     },
     'click #homeButton': function(e) {
-        Router.go("mainPage");
+        // Router.go("mainPage");
+        Router.go("calendar");
     },
     'click #settingsButton': function(event){
         console.log(Meteor.user());
@@ -78,19 +79,29 @@ Template.header.events({
             $("#changePassword").hide();
         }
     },
-    'click #logo, click #main-menu': function(e) {
+    'click #dropdownDiv, click #main-menu': function(e) {
+        e.stopPropagation();
         if ($("#main-menu").css("display") === "block") {
             hideMainMenu();
         } else {
             showMainMenu();
         }
     },
-    'mouseenter #logo': function(e) {
-        $("#logo").css("background-color", "#f9f9f9");
+    'click #homeLogo': function(e){
+        Router.go("mainPage");
+    },
+    'mouseenter #dropdownDiv': function(e) {
+        $("#dropdownDiv").css("background-color", "#E0E0E0");
+        $("#homeLogo").css("background-color", "#f9f9f9");
+    },
+    'mouseenter #homeLogo': function(e) {
+        $("#dropdownDiv").css("background-color", "#f9f9f9");
+        $("#homeLogo").css("background-color", "#E0E0E0");
     },
     'mouseleave #logo': function(e) {
         if ($("#main-menu").css("display") !== "block") {
-            $("#logo").css("background-color", "");
+            $("#dropdownDiv").css("background-color", "");
+            $("#homeLogo").css("background-color", "");
         }
     },
     'mouseenter .menu-item': function(e) {
@@ -173,8 +184,6 @@ Template.header.onRendered(function() {
     var loggedIn = localStorage.getItem("justLoggedIn");
     if (loggedIn == "true"){
         var rand = Math.random();
-        //alert(rand);
-	
         if (rand < 0.33){
             showOldPost();
         }
@@ -263,13 +272,17 @@ function showOldPost(){
 
 // Handlers for showing and hiding main menu
 showMainMenu = function() {
-    $("#logo").css({"border-bottom-right-radius": "0",
-                    "border-bottom-left-radius" : "0",
-                    "background-color": "#f9f9f9"});
+    // $("#logo").css({"border-bottom-right-radius": "0",
+    //                 "border-bottom-left-radius" : "0",
+    //                 "background-color": "#f9f9f9"});
+    $("#dropdownDiv").css("background-color", "#E0E0E0");
+    $("#homeLogo").css("background-color", "#f9f9f9");
     $("#main-menu").slideDown('fast');
 }
 hideMainMenu = function() {
     $("#main-menu").slideUp('fast', function() {
-        $("#logo").css({"border-radius": "5px", "background-color": ""});    
+        $("#logo").css({"border-radius": "5px", "background-color": ""}); 
+        $("#homeLogo").css({"background-color": ""}); 
+        $("#dropdownDiv").css({"background-color": ""}); 
     });
 }

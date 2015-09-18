@@ -7,11 +7,27 @@
 	text-align:center;
 }
 
+#dropdownDiv{
+    display: inline-block;
+    height: 75px;
+    width: 70px;
+    padding-left: 20px;
+    position: relative;
+    right: 20px;
+    bottom: 16px;
+    padding-top: 10px;
+    /*background: white;*/
+}
+
 #settingDropDown input[type="submit"]{
 	width:90%;
 	margin-left:5%;
 	margin-right:5%;
 	margin-top:5%;
+}
+.menu-dropdown{
+	position:relative;
+	top:15px;
 }
 
 #changePassForm{

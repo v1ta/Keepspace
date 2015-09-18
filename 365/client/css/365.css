@@ -1,7 +1,8 @@
 /* CSS declarations go here */
 
-@font-face {font-family: Roboto; src: url('fonts/roboto/Roboto-Regular.ttf') format('truetype');}
-@font-face {font-family: Gotham; src: url('fonts/GothamHTF-Bold.otf');}
+@font-face {font-family: Roboto; src: url('fonts/roboto/Roboto-Medium.ttf') format('truetype');}
+@font-face {font-family: Roboto-Italic; src: url('fonts/roboto/Roboto-MediumItalic.ttf') format('truetype');}
+@font-face {font-family: Gotham; src: url('fonts/GothamHTF-Medium.otf');}
 
 #acceptRequest{
   text-decoration: none;
@@ -38,7 +39,7 @@ body, html {
 
 /* Header */
 #header{
-  font-family: Gotham;
+  font-family: Roboto;
   padding-top: 10px;
   padding-bottom: 10px;
   background-color:rgba(50,192,208,0.2);
@@ -56,13 +57,23 @@ body, html {
   margin: 5px;
 }
 #logo {
-  width: 245px;
+  width: 325px;
   border-radius: 5px;
   cursor: pointer;
+  padding-right:0px;
+}
+
+#homeLogo{
+  height: 75px;
+  display:inline-block;
+}
+#homeDrop{
+  display:inline-block;
 }
 #logo img {
-  height: 75px;
+  /*height: 75px;*/
   padding: 10px;
+  padding-right:0px;
 }
 #header .username {
   font-size: 22px;
@@ -78,24 +89,24 @@ body, html {
   cursor: pointer;
 }
 #dayNum {
-  font-size: 30px;
+  font-size: 32px;
   position: relative;
   font-family:Roboto;
-  top:-5px;
+  top:-7px;
 }
 #date {
   background-color: #ffffff;
   color: #000000;
-  font-size: 30px;
+  font-size: 26px;
   border-radius: 5px;
-  padding: 10px;
   padding-left: 25px;
+  padding-right:10px;
   margin-left: -15px;
   position: relative;
   z-index: 1;
-  top: -10px;
+  top: -13px;
   display: inline-block;
-  font-family:Roboto;
+  /*font-family:Roboto;*/
   cursor: pointer;
 }
 #time{
@@ -113,13 +124,15 @@ body, html {
   display: none;
   position: absolute;
   z-index: 2;
+  top:75px;
+  width:296px;
 }
 #main-menu ul {
   list-style: none;
   background: #f9f9f9;
   margin-left: 0;
   border-radius: 0 0 5px 5px;
-  width: 245px;
+  width: 296px;
   overflow: visible;
 }
 #main-menu li {
@@ -181,7 +194,7 @@ body, html {
   height: calc(100% - 20px);
   margin: 10px 0;
   overflow: hidden;
-}
+} 
 .feed .fa {
   cursor: pointer;
 }
@@ -202,7 +215,7 @@ body, html {
   width: calc(100% - 30px);
   text-align: center;
   font-size: 50px;
-  color:#32c0d2;
+  color:rgba(50, 192, 210, 0.5);
 }
 .feed-search-icon {
   position: absolute;
