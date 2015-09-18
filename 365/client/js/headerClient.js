@@ -187,6 +187,7 @@ Template.header.onRendered(function() {
         if (rand < 0.33){
             showOldPost();
         }
+	
         localStorage.setItem("justLoggedIn", "false");
     };
     
