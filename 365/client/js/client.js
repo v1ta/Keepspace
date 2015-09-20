@@ -120,9 +120,21 @@ Template.main.helpers({
     
 });
 
+Template.main.onRendered(function(){
+    $("#newThoughtBox").keypress(function(e) {
+        var code = (e.keyCode ? e.keyCode : e.which);
+        if (code == 13){
+          $('.new-thought').submit();
+          return false;  // stop propagation of the keypress
+        }
+       return true;
+    });
+})
+
     //request facebook data
 Template.main.events({
     "submit .new-thought": function (event) {
+        console.log("here");
         event.preventDefault();
         // This function is called when the new thought form is submitted
         var text = event.target.text.value;

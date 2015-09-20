@@ -103,7 +103,20 @@ Router.route('loginPage', function() {
   // this.render('signupPage');
   this.render("loginPage");
 });
-
+Router.route('signup', {
+  onBeforeAction: function(){
+    if (Meteor.user()){
+      this.redirect('mainPage');
+    }
+    else{
+      this.next();
+    }
+  },
+  action: function() {
+    this.layout("splashBanner");
+    this.render('signupPage');
+  }
+});
 
 Router.route('verifyEmail', {
     template: 'verifyemail',
