@@ -51,12 +51,6 @@ Accounts.onCreateUser(function(options, user){
         date: 0,
         thoughtId: 0
     };
-    
-
-    (function(){
-        FindFriends.insert({userId: user._id, username: user.username});
-        return true;
-    })();
 
     return user;
 });
