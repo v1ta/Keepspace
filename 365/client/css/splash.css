@@ -332,3 +332,7 @@
 	font-size:36px;
 	padding-top:4px;
 }
+#forgotPass{
+	font-size:10px;
+	cursor: pointer;
+}

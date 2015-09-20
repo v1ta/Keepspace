@@ -19,5 +19,5 @@ Meteor.methods({
     if (typeof callback !== 'undefined') {
       callback();
     }
-  }
+  },
 })

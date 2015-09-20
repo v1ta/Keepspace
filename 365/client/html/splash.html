@@ -140,6 +140,7 @@
 		        <input type="image" id="facebookButton" src="images/facebookLogin.png">
 		  	</div>
 	  	</div>
+	  	<p id="forgotPass">Forgot Password?</p>
 	</div>
 </template>
 
@@ -282,5 +283,24 @@
 <template name="verified">
  <h1>Thank you for verifying your email address!</h1>
  <p> Welcome to Keepspace</p>
+
+</template>
+
+<template name="changeEmail">
+ <h1>Please check your email</h1>
+ <p> You should have received a temporary url to change your password</p>
+
+</template>
+
+<template name="ResetPassword">
+
+    {{#if resetPassword}}
+    <form action="/reset-password"  id="resetPasswordForm" method="post">
+        <input id="resetPasswordPassword" name="password" placeholder="New Password" type="password" >
+        <input id="resetPasswordPasswordConfirm" name="password-confirm" placeholder="Confirm" type="password" >
+        <input class="btn-submit" type="submit" value="Reset">
+    </form>
+    <!-- end #reset-password-form -->
+    {{/if}}
 
 </template>

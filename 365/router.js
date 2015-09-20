@@ -135,6 +135,11 @@ Router.route('checkemail', {
     template: 'checkemail'
 });
 
+Router.route('changeEmail', {
+    path: '/changeEmail',
+    template: 'changeEmail'
+});
+
 Router.route('/users/:username', {
   name: 'userPage',
   waitOn: function() {
