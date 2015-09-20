@@ -6,10 +6,7 @@ Meteor.subscribe("friendRequests");
 Meteor.subscribe("outgoingFriendRequests");
 Meteor.subscribe('ignoredFriendRequests');
 
-Tracker.autorun(function() {
-  var searchString = Session.get('searchString');
-  Meteor.subscribe('findFriends', searchString);
-});
+
 
 
 // Website has loaded
@@ -299,10 +296,10 @@ Template.friendSearch.events({
 
 Template.friendSearch.helpers({
     users: function() {
-            return FindFriends.find();
+            return searchUsers(Session.get("searchString"));
     },
     friendCount: function() {
-            return FindFriends.find().count();
+            return searchUsers(Session.get("searchString")).count();
     },
     'selectedClass': function(){
         var userFound = this.userId;
@@ -320,8 +317,13 @@ Template.friendSearch.helpers({
 
 });
 
+
 Template.friendSearch.onCreated(function() {
+        var self = this;
         Session.set('searchString', '');
+        self.autorun(function (){
+            Meteor.subscribe('SearchUsers', Session.get('searchString'));
+        });
 });
 
 Template.friendList.helpers({

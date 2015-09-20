@@ -1,9 +1,7 @@
-FindFriends = new Mongo.Collection("FindFriends");
+
 Thoughts = new Mongo.Collection("Thoughts"); //TODO Shard for scaling
-//Friends = new Mongo.Collection("Friends");
 RankRecord = new Mongo.Collection("RankRecord");
 SavedPosts = new Mongo.Collection("SavedPosts");
-betaEmailCollection = new Mongo.Collection("betaSignup");
 Avatars = new FS.Collection("avatars", {
     filter: {
         maxSize: 10000000, // 10MB
@@ -24,16 +22,9 @@ Avatars = new FS.Collection("avatars", {
 
 
 Thoughts.attachSchema(Schemas.Thought);
-FindFriends.attachSchema(Schemas.FindFriend);
 
 if (Meteor.isServer){
     Thoughts.allow({
-      insert: function (userId, doc) {
-        return true;
-      }
-    });
-
-    FindFriends.allow({
       insert: function (userId, doc) {
         return true;
       }
@@ -280,6 +271,7 @@ function Thought(text, location, callback){
 function getFriendList(callback){
     return Friends.find({userId: this.userId}, {friendList:{},  _id:0}).fetch();
 }
+
 
 Facebook.prototype.query = function(query, method) {
         var self = this;

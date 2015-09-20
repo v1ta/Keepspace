@@ -10,25 +10,15 @@ Meteor.publish("thoughts", function () {
 });
 
 Meteor.publish("users", function() {
-    return Meteor.users.find({});
-    /*
     if (this.userId){
         return Meteor.users.find({_id: this.userId},{fields: {'services': 1, 'createdAt': 1}});
     } else {
         this.ready();
     }
-    */
 });
 
 
-Meteor.publish("findFriends", function(searchString){
-    var filter = new RegExp('^' + searchString, 'i');
-    return FindFriends.find(
-        {username: filter},
-        {sort: {username: 1}, limit:20}
-    );
-    
-});
+Meteor.publish("SearchUsers", searchUsers);
 
 
 Meteor.publish("avatars", function() {

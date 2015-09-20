@@ -1,0 +1,17 @@
+<template name="friendSearch">
+        <i class="fa fa-search friend-search-icon"></i>
+        <div id="friendSearchBox">
+          <input type="text" class="form-control" placeholder="Search Keepspace" id="search-friends"/> 
+          {{> sAlert}}
+            <div id="friendSearchList">
+            {{#if hasInput}}
+            <ul>
+            {{#each users}}
+                <li class="searchUser {{selectedClass}}"><a href="#" class="searchUser">{{username}}  <button class="btn-small btn-primary send-friend-request">Send Request</button></a></li>
+            {{/each}}
+            <h4>{{friendCount}} user(s) found</h4>
+            </ul>
+            {{/if}}
+            </div>
+        </div>
+</template>
