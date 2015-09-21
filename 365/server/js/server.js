@@ -10,8 +10,7 @@ Meteor.publish("thoughts", function () {
 });
 
 Meteor.publish("users", function() {
-    return Meteor.users.find({_id: this.userId},{fields: {'services': 1, 'createdAt': 1}});
-
+    return Meteor.users.find({});
 });
 
 

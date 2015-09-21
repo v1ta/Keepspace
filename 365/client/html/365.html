@@ -13,12 +13,12 @@
 </body>
 
 <template name="main">
+          {{> sAlert}}
   <div id="main-feed" class="container-fluid full-height">
     <div class="row feed-wrapper">
       <div id="fullFeed-canvas"></div>
       <div id="friendFeed" class="feed col-xs-4">
          {{>friendList}}
-
           {{>friendSearch}}
         <div class="feed-name">Friends</div>
         <div id="friendFeed-container"></div>
