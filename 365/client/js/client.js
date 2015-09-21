@@ -255,77 +255,6 @@ function setTime(){
 }
 
 
-Template.friendSearch.events({
-    "click #search-friends": function(event) {
-        var searchString = $('#search-friends').val();
-        Session.set('searchString', searchString);
-    },
-    "click .searchUser": function(e){
-        var userFound = this.userId;
-        Session.set('selectedUser', userFound);
-    },
-    "click .send-friend-request": function(){   
-        var userid = Session.get('selectedUser');
-        if(userid === undefined){
-            userid = this.userId;
-        }
-        sendTo = Meteor.users.findOne({_id:userid});
-        if (sendTo != undefined){
-            sendTo.requestFriendship();
-            sAlert.success('Friend Request Sent', {position: 'bottom'});
-        }else{
-            sAlert.error('Could Not Send Request', {position: 'bottom'});
-        }
-    },
-    ".click cancel-request": function(e){
-        var userid = Session.get('selectedUser');
-        sendTo = Meteor.users.findOne({_id:userid});
-        if (sendTo != undefined){
-            sendTo.requestFriendship();
-            sAlert.success('Friend Request Cancelled', {position: 'bottom'});
-        }else{
-            sAlert.error('Could Not Cancel Request', {position: 'bottom'});
-        }
-    },
-    "keyup #search-friends": _.throttle(function(ev) {
-    var searchString = $('#search-friends').val();
-        Session.set('searchString', searchString);
-  }, 1500)
-});
-
-
-Template.friendSearch.helpers({
-    users: function() {
-            return searchUsers(Session.get("searchString"));
-    },
-    friendCount: function() {
-            return searchUsers(Session.get("searchString")).count();
-    },
-    'selectedClass': function(){
-        var userFound = this.userId;
-        var selectedUser = Session.get('selectedUser');
-        if(userFound == selectedUser){
-            return "selected"
-        }
-    },
-    'hasInput': function() {
-        var searchString = Session.get('searchString');
-        if (searchString.length > 0)
-            return true;
-
-    }
-
-});
-
-
-Template.friendSearch.onCreated(function() {
-        var self = this;
-        Session.set('searchString', '');
-        self.autorun(function (){
-            Meteor.subscribe('SearchUsers', Session.get('searchString'));
-        });
-});
-
 Template.friendList.helpers({
     "numRequests": function(){
         var numRequests = 0;
@@ -341,17 +270,15 @@ Template.friendList.helpers({
         return Meteor.friendRequest.find({userId:Meteor.userId()});
     }
 })
+
 Template.friendList.events({
-    // request object methods
-    'click [data-action=accept]': function() {
+    'click #acceptRequest': function() {
         this.accept();
     },
-    'click [data-action=deny]': function() {
+    'click #denyRequest': function() {
         this.deny();
     },
-    // user object methods
-    'click [data-action=unfriend]': function() {
-        //assumes context is a instance of a user
+    'click #removeFriend': function() {
         this.unfriend();
     },
 

@@ -14,16 +14,16 @@ Schemas.FriendEdge = new SimpleSchema({
     }
 });
 
-Schemas.FindFriend = new SimpleSchema({
+Schemas.Notifications = new SimpleSchema({
     userId: {
         type: String,
         label: "userId",
         max: 100
     },
-    username: {
+    friendId: {
         type: String,
-        label: "username",
-        max: 50
+        label: "friendId",
+        max: 100
     }
 });
 
@@ -84,6 +84,7 @@ Schemas.Thought = new SimpleSchema({
 
 searchUsers = function (searchString) {
     var filter = new RegExp('^' + searchString, 'i');
+    
     var cursor = Meteor.users.find(
         {username: filter},
         {sort: {username: 1}, limit:20}

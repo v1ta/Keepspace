@@ -1,7 +1,10 @@
 
-Thoughts = new Mongo.Collection("Thoughts"); //TODO Shard for scaling
-RankRecord = new Mongo.Collection("RankRecord");
-SavedPosts = new Mongo.Collection("SavedPosts");
+ Thoughts = new Mongo.Collection("Thoughts"); //TODO Shard for scaling
+ RankRecord = new Mongo.Collection("RankRecord");
+ SavedPosts = new Mongo.Collection("SavedPosts");
+ Notifications = new Mongo.Collection("Notifications");
+
+
 Avatars = new FS.Collection("avatars", {
     filter: {
         maxSize: 10000000, // 10MB
@@ -22,6 +25,7 @@ Avatars = new FS.Collection("avatars", {
 
 
 Thoughts.attachSchema(Schemas.Thought);
+Notifications.attachSchema(Schemas.Notifications);
 
 if (Meteor.isServer){
     Thoughts.allow({
@@ -205,6 +209,9 @@ Meteor.methods({
         if (userLoggedIn()){
 
         }
+    },
+    clearNotifications: function(userId){
+        Notifications.remove({userId:userId});
     }
     /*
     addBetaEmail: function(email){
@@ -294,9 +301,14 @@ Facebook.prototype.getPostData = function() {
 }
 
 User.registerBlockingHook(function(user){
-    console.log("called");
     if(currentUser.blockAnnoyingUsers && user.flaggedCount > 10){
         return true;
+    }
+});
+
+Meteor.friends.after.insert(function (userId, doc){
+    if (doc.userId != Meteor.userId()){
+        Notifications.insert({userId:doc.userId, friendId:doc.friendId});
     }
 });
 

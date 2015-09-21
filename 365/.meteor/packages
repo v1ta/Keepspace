@@ -35,3 +35,5 @@ socialize:user-model
 tmeasday:publish-with-relations
 socialize:friendships
 meteorhacks:kadira-profiler
+tmeasday:publish-counts
+mizzao:bootstrap-3

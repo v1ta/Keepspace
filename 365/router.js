@@ -61,7 +61,7 @@ Router.route("mainPage", {
     }
   },
   waitOn: function() {
-    return [Meteor.subscribe("thoughts"), Meteor.subscribe('friendRequests'), Meteor.subscribe('friends')];
+    return [Meteor.subscribe("thoughts"), Meteor.subscribe('friendRequests'), Meteor.subscribe('friends'), Meteor.subscribe('Notifications')];
   },
   action: function() {
     this.layout("header");

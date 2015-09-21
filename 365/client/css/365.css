@@ -6,17 +6,14 @@
 
 #acceptRequest{
   text-decoration: none;
-  color: #FFFFFF;
 }
 
 #denyRequest{
   text-decoration: none;
-  color: #FFFFFF;
 }
 
 #removeFriend{
   text-decoration: none;
-  color: #FFFFFF;
 }
 
 .friendsList{
@@ -239,21 +236,6 @@ body, html {
   z-index: 1;
   display: none;
 }
-#search-friends {
-  position: absolute;
-  /* left: 35px; */ 
-  border: 1px solid #ddd;
-  /* padding: 5px 10px; */
-  /* width: 250px; */ 
-}
-#friendSearchBox{
-  position: absolute;
-  width:90%;
-  top: 20px;
-  display:none;
-  z-index: 1;
-  float: bottom;
-}
 #friendList{
   position: absolute;
   top: 15px;
@@ -367,48 +349,7 @@ input.button-add {
   z-index: 1;
 }
 
-#friendSearchList { 
-  display:inline-block;
-  background-color: #f9f9f9;
-  width:100%;
-  /*font-family:Georgia, Times, serif; */
-  font-size: 15px; 
-  padding-top: 40px;
-}
 
-#friendSearchList ul { 
-  list-style: none; 
-  text-align: right;
-  width:100%;
-}
-
-#friendSearchList ul li { 
-  display:inline-block;
-  width:100%;
-}
-
-#friendSearchList ul li a { 
-  text-decoration:none; 
-  font-size:120%;
-  color:#000000; 
-  margin: 0px; 
-  display: block; 
-  border-radius: 5px;
-  background-color: #f9f9f9;
-  line-height:20px;
-  cursor:pointer; 
-}
-
-#friendSearchList ul li a:hover { 
-  color:#FFFFFF; 
-  width:100%;
-  background-image:url(../images/hover.png); 
-  background-repeat:repeat-x; 
-}
-
-#friendSearchList ul li a strong { 
-  width:100%;
-}
 .fa-facebook{
   display:none;
 }

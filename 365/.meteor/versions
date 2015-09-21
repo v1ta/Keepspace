@@ -75,6 +75,7 @@ meteorhacks:search-source@1.4.0
 meteorhacks:unblock@1.1.0
 minifiers@1.1.5
 minimongo@1.0.8
+mizzao:bootstrap-3@3.3.1_1
 mobile-status-bar@1.0.3
 mongo@1.1.0
 mongo-livedata@1.0.8
@@ -103,6 +104,7 @@ spacebars@1.0.6
 spacebars-compiler@1.0.6
 srp@1.0.3
 templating@1.1.1
+tmeasday:publish-counts@0.7.2
 tmeasday:publish-with-relations@0.2.0
 tracker@1.0.7
 ui@1.0.6

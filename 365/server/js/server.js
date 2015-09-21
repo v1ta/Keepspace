@@ -10,16 +10,18 @@ Meteor.publish("thoughts", function () {
 });
 
 Meteor.publish("users", function() {
-    if (this.userId){
-        return Meteor.users.find({_id: this.userId},{fields: {'services': 1, 'createdAt': 1}});
-    } else {
-        this.ready();
-    }
+    return Meteor.users.find({_id: this.userId},{fields: {'services': 1, 'createdAt': 1}});
+
 });
 
 
 Meteor.publish("SearchUsers", searchUsers);
 
+Meteor.publish("Notifications", function() {
+    var cursor = Notifications.find({userId: this.userId});
+    Counts.publish(this, "Notifications-Counter", Notifications.find({userId: this.userId}), {noReady: true});
+    return cursor;
+});
 
 Meteor.publish("avatars", function() {
     return Avatars.find();
