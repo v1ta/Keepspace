@@ -199,7 +199,8 @@ Template.main.events({
         $(e.target.nextElementSibling).animate({width: "toggle"}, 'fast');
     },
     'click .feed-user-icon': function(e) {
-        $(e.target.nextElementSibling).animate({width: "toggle"}, 'fast');
+        // $(e.target.nextElementSibling).animate({width: "toggle"}, 'fast');
+        $("#friendRequests").show();
     },
     'click .fa-caret-down, click .fa-caret-up': function(e) {
         $("#worldButtons").slideToggle('fast');

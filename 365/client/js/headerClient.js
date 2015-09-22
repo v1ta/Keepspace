@@ -129,20 +129,24 @@ Template.header.events({
         if ($("#upload-picture").css("display") === "none") {
             $("#change-picture").hide();
         }
+    },
+    'click [data-action=accept]': function() {
+        this.accept();
+    },
+    'click [data-action=deny]': function() {
+        this.deny();
+    },
+    // user object methods
+    'click [data-action=unfriend]': function() {
+        //assumes context is a instance of a user
+        this.unfriend();
+    },
+    'click #closeFriends': function(){
+        $("#friendRequests").hide();
+    },
+    'click #friendRequests':function(event){
+        event.stopPropagation();
     }
-    // 'click #btn-import-facebook': function(e) {
-    //     Meteor.call('getFBUserData', function(err, data) {
-    //         console.log(JSON.stringify(data, undefined, 4));
-    //      });
-    //     Meteor.call('getFBPostData', function(err, data) {
-    //         console.log(data);
-    //         console.log(JSON.stringify(data, undefined, 4));
-    //         // console.log(data["data"]);
-    //         //check whose post it is using
-    //         //data[(post number)][from][name]
-    //         //only want the one's from the user
-    //     });
-    // },
 });
 
 Template.header.helpers({
@@ -190,7 +194,18 @@ Template.header.onRendered(function() {
 	
         localStorage.setItem("justLoggedIn", "false");
     };
-    
+    $(document).mouseup(function (e){
+        if (!$("#friendRequests").is(e.target) // if the target of the click isn't the container...
+            && $("#friendRequests").has(e.target).length === 0) // ... nor a descendant of the container
+        {
+            $("#friendRequests").hide();
+        }
+        else if(!$("#profile").is(e.target) // if the target of the click isn't the container...
+            && $("#profile").has(e.target).length === 0) // ... nor a descendant of the container
+        {
+            $("#profile").hide();
+        }
+    });
 });
 
 Template.profile.helpers({
