@@ -11,6 +11,7 @@ Meteor.publish("thoughts", function () {
 
 Meteor.publish("users", function() {
     return Meteor.users.find({});
+
 });
 
 
