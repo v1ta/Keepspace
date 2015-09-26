@@ -6,14 +6,17 @@
 
 #acceptRequest{
   text-decoration: none;
+  text-rendering: optimizeLegibility;
 }
 
 #denyRequest{
   text-decoration: none;
+  text-rendering: optimizeLegibility;
 }
 
 #removeFriend{
   text-decoration: none;
+  text-rendering: optimizeLegibility;
 }
 
 .friendsList{

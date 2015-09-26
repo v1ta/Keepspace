@@ -1,27 +1,21 @@
-Meteor.subscribe("thoughts");
 Meteor.subscribe("users");
 Meteor.subscribe("avatars");
-Meteor.subscribe("friends");
-Meteor.subscribe("friendRequests");
 Meteor.subscribe("outgoingFriendRequests");
 Meteor.subscribe('ignoredFriendRequests');
 
-
-
-
 // Website has loaded
-window.onload = function(){
+window.onload = function(event){
     //close dropdowns on outside click
-    $(document).mouseup(function (e){
+    $(document).mouseup(function (event){
         var container = $(".dropdown-menu");
         // if the target of the click isn't the container... nor a descendant of the container
-        if (!container.is(e.target) && container.has(e.target).length === 0){
+        if (!container.is(event.target) && container.has(event.target).length === 0){
             container.hide();
             $("#changePasswordForm").hide();
             $(".dropButton").show();
         }
         container = $("#main-menu");
-        if (!container.is(e.target) && container.has(e.target).length === 0){
+        if (!container.is(event.target) && container.has(event.target).length === 0){
             hideMainMenu();
         }
     });
@@ -79,35 +73,35 @@ Template.post.events({
         // Prevent default form submit
         return false;
     },
-    "click #btn-cancel-post": function(e){
+    "click #btn-cancel-post": function(event){
         $("#tempForm").hide();
     }
 });
 
 Template.thought.events({
-    "click .delete": function () {
+    "click .delete": function (event) {
         Meteor.call("deleteThought", this._id);
     },
-    "click .toggle-private": function () {
+    "click .toggle-private": function (event) {
         Meteor.call("setPrivate", this._id, ! this.private);
     },
 });
 
 Template.thought.helpers({
-    isuserId: function () {
+    isuserId: function (event) {
         return this.userId === Meteor.userId();
     }
 });
 
 //put in username
-Template.main.helpers({
-    username: function(){
+Template.mainPage.helpers({
+    username: function(event){
         if (Meteor.user()) {
             var username = Meteor.user().username;
             return username.split(" ")[0];
         }
     },
-    posts: function(){
+    posts: function(event){
         var thoughts = Thoughts.find({}, {sort: {createdAt: -1}});
         console.log(thoughts.fetch());
         console.log(Meteor.user().username);
@@ -129,7 +123,7 @@ Template.main.onRendered(function(){
 })
 
     //request facebook data
-Template.main.events({
+Template.mainPage.events({
     "submit .new-thought": function (event) {
         console.log("here");
         event.preventDefault();
@@ -158,7 +152,7 @@ Template.main.events({
 
         return false;
     },
-    'click #btn-user-data': function(e) {
+    'click #btn-user-data': function(event) {
         Meteor.call('getFBUserData', function(err, data) {
             console.log(JSON.stringify(data, undefined, 4));
          });
@@ -170,7 +164,7 @@ Template.main.events({
             //only want the one's from the user
         });
     },
-    'click #btn-import-facebook': function(e){
+    'click #btn-import-facebook': function(event){
         Meteor.call('getFBPostData', function(err, data) {
             if (err){
                 console.log(err);
@@ -189,28 +183,28 @@ Template.main.events({
             }
         });
     },
-    'click .feed-search-icon': function(e) {
-        $(e.target.nextElementSibling).animate({width: "toggle"}, 'fast');
+    'click .feed-search-icon': function(event) {
+        $(event.target.nextElementSibling).animate({width: "toggle"}, 'fast');
     },
-    'click .friend-search-icon': function(e) {
-        $(e.target.nextElementSibling).animate({width: "toggle"}, 'fast');
+    'click .friend-search-icon': function(event) {
+        $(event.target.nextElementSibling).animate({width: "toggle"}, 'fast');
     },
     'click .feed-user-icon': function(e) {
-        // $(e.target.nextElementSibling).animate({width: "toggle"}, 'fast');
+        // $(event.target.nextElementSibling).animate({width: "toggle"}, 'fast');
         $("#friendRequests").show();
     },
-    'click .fa-caret-down, click .fa-caret-up': function(e) {
+    'click .fa-caret-down, click .fa-caret-up': function(event) {
         $("#worldButtons").slideToggle('fast');
-        $(e.target).toggleClass("fa-caret-down fa-caret-up");
+        $(event.target).toggleClass("fa-caret-down fa-caret-up");
     }
 
 });
 
 Template.user.helpers({
-    'isUser': function(){
+    'isUser': function(event){
         return this.userId === Meteor.userId()
     },
-    'Name' : function() {
+    'Name' : function(event) {
         return "Robert"
     }
 });
@@ -227,7 +221,7 @@ Accounts.ui.config({
 
 // Helper Functions
 //
-function getLocation() {
+function getLocation(event) {
     if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(function(position){
             configuration.location = position
@@ -269,7 +263,7 @@ function setTime(){
 
 
 Template.friendList.helpers({
-    "numRequests": function(){
+    "numRequests": function(event){
         var numRequests = 0;
         var string = "Requests";
         if (numRequests == 0){
@@ -279,19 +273,19 @@ Template.friendList.helpers({
             return string + " (" + numRequests + ")";
         }
     },
-    requests: function(){
+    requests: function(event){
         return Meteor.friendRequest.find({userId:Meteor.userId()});
     }
 })
 
 Template.friendList.events({
-    'click #acceptRequest': function() {
+    'click #acceptRequest': function(event) {
         this.accept();
     },
-    'click #denyRequest': function() {
+    'click #denyRequest': function(event) {
         this.deny();
     },
-    'click #removeFriend': function() {
+    'click #removeFriend': function(event) {
         this.unfriend();
     },
 

@@ -24,7 +24,25 @@ Schemas.Notifications = new SimpleSchema({
         type: String,
         label: "friendId",
         max: 100
+    },
+    type: {
+        type: String,
+        label: "type",
+        max: 100,
+        optional: true
+    },
+    text: {
+        type: String,
+        label: "text",
+        max: 200,
+        optional: true
+    }/*
+    seen: {
+        type: Boolean,
+        label: "seen",
+        optional: true
     }
+    */
 });
 
 

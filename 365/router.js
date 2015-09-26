@@ -1,59 +1,8 @@
-// Router.route('/', function () {
-//   this.render('main');
-// });
-
-// Router.route('/signin', function () {
-//   this.render('sign');
-// });
-
-// Router.route('/items/:_id', function () {
-//   var item = Items.findOne({_id: this.params._id});
-//   this.render('ShowItem', {data: item});
-// });
-
-// Router.route('/files/:filename', function () {
-//   this.response.end('hi from the server\n');
-// }, {where: 'server'});
-
-// Router.route('/restful', {where: 'server'})
-//   .get(function () {
-//     this.response.end('get request\n');
-//   })
-//   .post(function () {
-//     this.response.end('post request\n');
-//   });
-
-
-// Always route to splash page if not logged in
-/*
-Router.onBeforeAction(function() {
-	if (! Meteor.userId()) {
-		this.render('splash');
-	} else {
-    if (Meteor.loggingIn()) {
-      this.render('loggingIn');
-    } else {
-  		this.next();
-    }
-	}
-});
-*/
-
-Router.route("main",{
-  path:"/",
-  onBeforeAction: function() {
-    if (! Meteor.userId() ) {
-      Session.set('c_login', false);
-      this.redirect('splash');
-    } else {
-      this.redirect("mainPage");
-    }
-  }
-})
-
 Router.route("mainPage", {
+  path:"/",
   onBeforeAction: function(){
     if (!Meteor.user()){
+      Session.set('c_login', false);
       this.redirect('splash');
     }
     else{
@@ -65,7 +14,7 @@ Router.route("mainPage", {
   },
   action: function() {
     this.layout("header");
-    this.render("main");
+    this.render("mainPage");
   }
 });
 Router.route("mainAbout", function(){
@@ -157,7 +106,7 @@ AccountController = RouteController.extend({
     verifyEmail: function () {
         Accounts.verifyEmail(this.params.token, function () {
             Router.go('/verified');
-            setInterval(function(){
+            setTimeout(function(){
               Router.go('/splash');
             },2000);
         });
