@@ -11,25 +11,17 @@ Meteor.publish("thoughts", function () {
 
 Meteor.publish("users", function() {
     return Meteor.users.find({});
-    /*
-    if (this.userId){
-        return Meteor.users.find({_id: this.userId},{fields: {'services': 1, 'createdAt': 1}});
-    } else {
-        this.ready();
-    }
-    */
+
 });
 
 
-Meteor.publish("findFriends", function(searchString){
-    var filter = new RegExp('^' + searchString, 'i');
-    return FindFriends.find(
-        {username: filter},
-        {sort: {username: 1}, limit:20}
-    );
-    
-});
+Meteor.publish("SearchUsers", searchUsers);
 
+Meteor.publish("Notifications", function() {
+    var cursor = Notifications.find({userId: this.userId});
+    Counts.publish(this, "Notifications-Counter", Notifications.find({userId: this.userId}), {noReady: true});
+    return cursor;
+});
 
 Meteor.publish("avatars", function() {
     return Avatars.find();
@@ -61,12 +53,6 @@ Accounts.onCreateUser(function(options, user){
         date: 0,
         thoughtId: 0
     };
-    
-
-    (function(){
-        FindFriends.insert({userId: user._id, username: user.username});
-        return true;
-    })();
 
     return user;
 });

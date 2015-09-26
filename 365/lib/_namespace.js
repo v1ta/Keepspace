@@ -14,16 +14,16 @@ Schemas.FriendEdge = new SimpleSchema({
     }
 });
 
-Schemas.FindFriend = new SimpleSchema({
+Schemas.Notifications = new SimpleSchema({
     userId: {
         type: String,
         label: "userId",
         max: 100
     },
-    username: {
+    friendId: {
         type: String,
-        label: "username",
-        max: 50
+        label: "friendId",
+        max: 100
     }
 });
 
@@ -81,3 +81,17 @@ Schemas.Thought = new SimpleSchema({
         allowedValues: ['private', 'friends', 'public']
     }
 });
+
+searchUsers = function (searchString) {
+    var filter = new RegExp('^' + searchString, 'i');
+    
+    var cursor = Meteor.users.find(
+        {username: filter},
+        {sort: {username: 1}, limit:20}
+    );
+    return cursor;
+}
+
+friendUsers = function(){
+    return Meteor.friends.find({userId:Meteor.userId()},{_id:0,userId:0,friendId:1});
+}

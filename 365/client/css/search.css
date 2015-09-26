@@ -1,0 +1,65 @@
+#friendSearchList { 
+  display:inline-block;
+  background-color: #f9f9f9;
+  width:100%;
+  font-size: 20px; 
+  padding-top: 40px;
+}
+
+#friendSearchList ul { 
+  list-style: none; 
+  text-align: left;
+  width:100%;
+}
+
+#friendSearchList ul li { 
+  display:inline-block;
+  width:100%;
+}
+
+#friendSearchList ul li a { 
+  text-decoration:none; 
+  color:#000000; 
+  margin: 0px; 
+  display: block; 
+  border-radius: 5px;
+  background-color: #f9f9f9;
+  line-height:40px;
+  cursor:pointer; 
+}
+
+#friendSearchList ul li a:hover { 
+  color:#FFFFFF; 
+  background-size: 80%;
+  background-image:url(../images/hover.png); 
+  background-repeat:repeat-x; 
+}
+
+#friendSearchList ul li a strong { 
+  width:100%;
+}
+#search-friends {
+  position: absolute;
+  border: 1px solid #ddd;
+}
+#friendSearchBox{
+  position: absolute;
+  width:95%;
+  top: 20px;
+  display:none;
+  z-index: 1;
+  float: bottom;
+}
+
+.btn-circle {
+  float: right;
+  width: 40px;
+  height: 40px;
+  outline: 0px;
+  text-align: center;
+  padding: 6px 0;
+  font-size: 12px;
+  border-radius: 22px;
+}
+
+.btn:focus { outline:0 !important; }

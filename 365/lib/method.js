@@ -1,9 +1,10 @@
-FindFriends = new Mongo.Collection("FindFriends");
-Thoughts = new Mongo.Collection("Thoughts"); //TODO Shard for scaling
-//Friends = new Mongo.Collection("Friends");
-RankRecord = new Mongo.Collection("RankRecord");
-SavedPosts = new Mongo.Collection("SavedPosts");
-betaEmailCollection = new Mongo.Collection("betaSignup");
+
+ Thoughts = new Mongo.Collection("Thoughts"); //TODO Shard for scaling
+ RankRecord = new Mongo.Collection("RankRecord");
+ SavedPosts = new Mongo.Collection("SavedPosts");
+ Notifications = new Mongo.Collection("Notifications");
+
+
 Avatars = new FS.Collection("avatars", {
     filter: {
         maxSize: 10000000, // 10MB
@@ -24,16 +25,10 @@ Avatars = new FS.Collection("avatars", {
 
 
 Thoughts.attachSchema(Schemas.Thought);
-FindFriends.attachSchema(Schemas.FindFriend);
+Notifications.attachSchema(Schemas.Notifications);
 
 if (Meteor.isServer){
     Thoughts.allow({
-      insert: function (userId, doc) {
-        return true;
-      }
-    });
-
-    FindFriends.allow({
       insert: function (userId, doc) {
         return true;
       }
@@ -214,6 +209,9 @@ Meteor.methods({
         if (userLoggedIn()){
 
         }
+    },
+    clearNotifications: function(userId){
+        Notifications.remove({userId:userId});
     }
     /*
     addBetaEmail: function(email){
@@ -281,6 +279,7 @@ function getFriendList(callback){
     return Friends.find({userId: this.userId}, {friendList:{},  _id:0}).fetch();
 }
 
+
 Facebook.prototype.query = function(query, method) {
         var self = this;
         var method = (typeof method === 'undefined') ? 'get' : method;
@@ -302,9 +301,14 @@ Facebook.prototype.getPostData = function() {
 }
 
 User.registerBlockingHook(function(user){
-    console.log("called");
     if(currentUser.blockAnnoyingUsers && user.flaggedCount > 10){
         return true;
+    }
+});
+
+Meteor.friends.after.insert(function (userId, doc){
+    if (doc.userId != Meteor.userId()){
+        Notifications.insert({userId:doc.userId, friendId:doc.friendId});
     }
 });
 
