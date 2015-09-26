@@ -15,6 +15,7 @@
     z-index: 3;
     text-align: center;
     height:100%;
+    display:none;
 }
 #closeFriends{
 	color: #f15f5a;
@@ -25,9 +26,11 @@
 }
 #friendContainer{
 	left:15%;
+	border: 2px solid #32c0d2;
 }
 #requestContainer{
 	right:15%;
+	border: 2px solid #faa43a;
 }
 #friendHeaders{
 	color:black;
@@ -60,7 +63,7 @@
 	height:250px;
 	width:275px;
 	top:50px;
-	left:35px;
+	left:50px;
 	background:transparent;
 	text-align:left;
 }
@@ -68,7 +71,7 @@
 	color: black;
     margin: 0px;
     font-size: 18px;
-    margin-left: 10px;
+    margin-left: 15px;
     display:inline-block;
     width:175px;
 }
@@ -85,6 +88,7 @@
     font-weight:bold;
 }
 .noFriends{
+	margin-left:-10px;
 	text-align:center;
 	width:100%;
 	color:black;
