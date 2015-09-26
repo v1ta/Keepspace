@@ -17,8 +17,8 @@ Template.splashBanner.events({
 });
 
 Template.verifyemail.events({
-  'click #verify': function (e) {
-    e.preventDefault(); // prevent refreshing the page
+  'click #verify': function (event) {
+    event.preventDefault(); // prevent refreshing the page
 
     var email = $('#headeremail').val(),
     //password = makeTempPassword(); // generate temporary password 
@@ -68,7 +68,7 @@ Template.loginPage.events({
 			}
 		)
 	},
-	'submit form': function(){
+	'submit form': function(event){
 		event.preventDefault();
 		var emailVar = event.target.email.value;
 		var passwordVar = event.target.password.value;

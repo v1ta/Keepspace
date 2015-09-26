@@ -7,14 +7,14 @@ Template.header.events({
             $("#tempForm").hide();
         }
     },*/
-    'click #date': function(e) {
+    'click #date': function(event) {
         Router.go("calendar");
     },
     'click #header': function(event){
 
         $("#changePassword").hide();
     },
-    'click #homeButton': function(e) {
+    'click #homeButton': function(event) {
         // Router.go("mainPage");
         Router.go("calendar");
     },
@@ -79,53 +79,53 @@ Template.header.events({
             $("#changePassword").hide();
         }
     },
-    'click #dropdownDiv, click #main-menu': function(e) {
-        e.stopPropagation();
+    'click #dropdownDiv, click #main-menu': function(event) {
+        event.stopPropagation();
         if ($("#main-menu").css("display") === "block") {
             hideMainMenu();
         } else {
             showMainMenu();
         }
     },
-    'click #homeLogo': function(e){
+    'click #homeLogo': function(event){
         Router.go("mainPage");
     },
-    'mouseenter #dropdownDiv': function(e) {
+    'mouseenter #dropdownDiv': function(event) {
         $("#dropdownDiv").css("background-color", "#E0E0E0");
         $("#homeLogo").css("background-color", "#f9f9f9");
     },
-    'mouseenter #homeLogo': function(e) {
+    'mouseenter #homeLogo': function(event) {
         $("#dropdownDiv").css("background-color", "#f9f9f9");
         $("#homeLogo").css("background-color", "#E0E0E0");
     },
-    'mouseleave #logo': function(e) {
+    'mouseleave #logo': function(event) {
         if ($("#main-menu").css("display") !== "block") {
             $("#dropdownDiv").css("background-color", "");
             $("#homeLogo").css("background-color", "");
         }
     },
-    'mouseenter .menu-item': function(e) {
-        $(e.target).css("background-color", "#32c0d2");
+    'mouseenter .menu-item': function(event) {
+        $(event.target).css("background-color", "#32c0d2");
     },
-    'mouseleave .menu-item': function(e) {
-        $(e.target).css("background-color", "");
+    'mouseleave .menu-item': function(event) {
+        $(event.target).css("background-color", "");
     },
-    'click #profile-picture': function() {
+    'click #profile-picture': function(event) {
         // TODO: encrypt userId
         Session.set('showProfile', Meteor.user());
     },
-    'click #close-profile': function() {
+    'click #close-profile': function(event) {
         Session.set('showProfile', false);
     },
-    'mouseenter #profile-picture-large': function(e) {
+    'mouseenter #profile-picture-large': function(event) {
         if (Meteor.userId() === Session.get('showProfile')._id) {
-            if (e.relatedTarget.id !== "change-picture")
+            if (event.relatedTarget.id !== "change-picture")
                 $("#change-picture").show();
             else if ($("#upload-picture").css("display") === "none")
                 $("#change-picture").hide();
         }
     },
-    'mouseleave #change-picture': function() {
+    'mouseleave #change-picture': function(event) {
         if ($("#upload-picture").css("display") === "none") {
             $("#change-picture").hide();
         }
@@ -166,14 +166,14 @@ Template.header.helpers({
     }
 });
 
-Template.header.onCreated(function() {
+Template.header.onCreated(function(event) {
     $(window).resize(function() { setMidPadding(); });
 });
-Template.header.onDestroyed(function() {
+Template.header.onDestroyed(function(event) {
     $(window).off('resize');
 });
 
-Template.header.onRendered(function() {
+Template.header.onRendered(function(event) {
     var today = new Date();
     $("#dayNum").text(today.getDOY());
     var currentDate = $.format.date(today, "MMMM D");
@@ -209,7 +209,7 @@ Template.profile.helpers({
     joined: function() {
         return $.format.date(Session.get('showProfile').createdAt, 'M/d/yyyy');
     },
-    collects: function() {
+    collects: function(event) {
         return Session.get('showProfile').profile.collects;
     }
 });
@@ -236,7 +236,7 @@ Template.profile.events({
 })
 
 logoutFunction = function(){
-    Router.go("main");
+    Router.go("mainPage");
 }
 
 function setMidPadding() {
@@ -271,7 +271,7 @@ function showOldPost(){
 }
 
 // Handlers for showing and hiding main menu
-showMainMenu = function() {
+showMainMenu = function(event) {
     // $("#logo").css({"border-bottom-right-radius": "0",
     //                 "border-bottom-left-radius" : "0",
     //                 "background-color": "#f9f9f9"});
@@ -279,7 +279,7 @@ showMainMenu = function() {
     $("#homeLogo").css("background-color", "#f9f9f9");
     $("#main-menu").slideDown('fast');
 }
-hideMainMenu = function() {
+hideMainMenu = function(event) {
     $("#main-menu").slideUp('fast', function() {
         $("#logo").css({"border-radius": "5px", "background-color": ""}); 
         $("#homeLogo").css({"background-color": ""}); 

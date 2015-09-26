@@ -20,9 +20,9 @@ Template.calendar.onDestroyed(function() {
 })
 
 Template.calendar.events({
-	'click .datepicker-td': function(e){
+	'click .datepicker-td': function(event){
     	//console.log(e.currentTarget.innerHTML);
-		var element = e.currentTarget.childNodes[0];
+		var element = event.currentTarget.childNodes[0];
 		var parent = element.parentNode;
 		$(".selectedDate").removeClass("selectedDate");
 		$(parent).addClass("selectedDate");
@@ -32,19 +32,19 @@ Template.calendar.events({
 		setCalText(date, false, true);
 		getCalFeed(date);
  	 },
-	'click #monthPrev': function(e){
+	'click #monthPrev': function(){
       var date = getDate(-7, 1);
       loadCalendar(date, false);
   	},
-	'click #monthNext': function(e){
+	'click #monthNext': function(){
       var date = getDate(7, 28);
       loadCalendar(date, false);
   	},
-  	'click #yearPrev': function(e){
+  	'click #yearPrev': function(){
       var date = getDate(-100);
       loadCalendar(date, false);
   	},
-	'click #yearNext': function(e){
+	'click #yearNext': function(){
       var date = getDate(100);
       loadCalendar(date, false);
   	}

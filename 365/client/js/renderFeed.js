@@ -16,7 +16,7 @@ resetAllFeeds = function() {
   delete Session.keys['rightqueue'];
 }
 
-Template.main.onRendered(function() {
+Template.mainPage.onRendered(function() {
   feedStage = {};
   if (!Session.get('leftfeed')) {
     resetFeed('leftfeed');
@@ -32,7 +32,7 @@ Template.main.onRendered(function() {
   renderFeed('.feed-wrapper', 'fullFeed-canvas', 'right', Session.get('rightfeed'));
 });
 
-Template.main.onDestroyed(function() {
+Template.mainPage.onDestroyed(function() {
   // Cleanup canvas
   feedStage.destroyChildren();
   feedStage.destroy();
@@ -416,9 +416,9 @@ function animateBubble(layer, colName, thought, duration) {
       centerBorder = feedStage.find('.centerBorder')[0],
       rightBorder = feedStage.find('.rightBorder')[0];
   var hasCols = leftBorder && centerBorder && rightBorder;
-  layer.on('dragstart.anim', function(e) {
+  layer.on('dragstart.anim', function(event) {
     anim.stop();
-    initCoords = {x: e.target.x(), y: e.target.y()};
+    initCoords = {x: event.target.x(), y: event.target.y()};
   });
   if (hasCols) {
     layer.on('dragmove.anim', function(e) {
@@ -437,7 +437,7 @@ function animateBubble(layer, colName, thought, duration) {
       }
     });
   }
-  layer.on('dragend.anim', function(e) {
+  layer.on('dragend.anim', function(event) {
     var tween = new Kinetic.Tween({
       node: layer,
       duration: 0.3,
@@ -492,7 +492,7 @@ function relocateBubble(layer, src, dest, thought, duration) {
         // Share to friends
         Meteor.call('shareThought', thought, 'friends');
       } else {
-        alert("You've already posted today!");
+        sAlert.error('You\'ve already shared a thought today!', {position: 'bottom'});
         return false;
       }
     } else {
@@ -504,7 +504,7 @@ function relocateBubble(layer, src, dest, thought, duration) {
         // Share to world
         Meteor.call('shareThought', thought, 'public');
       } else {
-        alert("You've already posted today!");
+        sAlert.error('You\'ve already shared a thought today!', {position: 'bottom'});
         return false;
       }
     } else {
@@ -604,7 +604,7 @@ function addClickHandler(layer, colName, thought, duration, anim) {
   });
 }
 
-function expandBubble(e, layer, colName, thought, duration, anim) {
+function expandBubble(event, layer, colName, thought, duration, anim) {
   var layerTween, bubbleTween, textTween, nodes, bubble, text;
   // In main feed, always expand to center column
   var col = colName === 'single' ? feedStage.cols['single'] : feedStage.cols['center'];
@@ -618,7 +618,7 @@ function expandBubble(e, layer, colName, thought, duration, anim) {
     y: col.top + expandedRadius
   })
 
-  nodes = e.target.parent.getChildren();
+  nodes = event.target.parent.getChildren();
   bubble = nodes[0];
   text = nodes[1];
   // Animate to fill the container
@@ -653,7 +653,7 @@ function expandBubble(e, layer, colName, thought, duration, anim) {
       fontSize: 16
     });
     del.offsetX(del.getWidth());
-    del.on('click', function () {
+    del.on('click', function () { 
       popBubble(layer, colName, thought);
       removeFromSession(thought, colName);
       Meteor.call('deleteThought', thought._id);
@@ -758,19 +758,19 @@ function expandBubble(e, layer, colName, thought, duration, anim) {
     toRemove = [username, date, del, delOutline];
   } else if (!collected) {
     toRemove = [username, date, collect, collectOutline];
-    collect.on('click', function () {
+    collect.on('click', function (event) {
       background.off('click.condense');
-      condenseBubble(e, layer, colName, thought, duration, radius, anim, oldHeight, toRemove, [textTween, bubbleTween, layerTween], true);
+      condenseBubble(event, layer, colName, thought, duration, radius, anim, oldHeight, toRemove, [textTween, bubbleTween, layerTween], true);
     });
   } else {
     toRemove = [username, date];
   }
-  background.on('click.condense', function(e) {
-    condenseBubble(e, layer, colName, thought, duration, radius, anim, oldHeight, toRemove, [textTween, bubbleTween, layerTween], false);
+  background.on('click.condense', function(event) {
+    condenseBubble(event, layer, colName, thought, duration, radius, anim, oldHeight, toRemove, [textTween, bubbleTween, layerTween], false);
   });
 }
 
-function condenseBubble(e, layer, colName, thought, duration, radius, anim, oldHeight, toRemove, tweens, collecting) {
+function condenseBubble(event, layer, colName, thought, duration, radius, anim, oldHeight, toRemove, tweens, collecting) {
   // Hide background
   var background = layer.parent.find('.blurBG')[0];
   background.visible(false);

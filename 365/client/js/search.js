@@ -2,11 +2,6 @@ Template.friendSearch.helpers({
     users: function() {
             return searchUsers(Session.get("searchString"));
     },
-    /* count not worth the extra compute power
-    friendCount: function() {
-            return searchUsers(Session.get("searchString")).count();
-    },
-    */
     canRequest: function(userId){
         var request = Meteor.requests.findOne({
             $or: [
@@ -33,14 +28,14 @@ Template.friendSearch.helpers({
         else
             return false;
     },
-    'selectedClass': function(){
+    'selectedClass': function(event){
         var userFound = this._id;
         var selectedUser = Session.get('selectedUser');
         if(userFound == selectedUser){
             return "selected"
         }
     },
-    'hasInput': function() {
+    'hasInput': function(event) {
         var searchString = Session.get('searchString');
         if (searchString.length > 0)
             return true;
@@ -54,11 +49,11 @@ Template.friendSearch.events({
         var searchString = $('#search-friends').val();
         Session.set('searchString', searchString);
     },
-    "click .searchUser": function(e){
+    "click .searchUser": function(event){
         var userFound = this._id;
         Session.set('selectedUser', userFound);
     },
-    "click #send-friend-request": function(){   
+    "click #send-friend-request": function(event){   
         var sendTo = Meteor.users.findOne({_id:this._id});
         if (sendTo != undefined){
             sendTo.requestFriendship();
@@ -67,7 +62,7 @@ Template.friendSearch.events({
             sAlert.error('Could Not Send Request', {position: 'bottom'});
         }
     },
-    "click #cancel-friend-request": function(){
+    "click #cancel-friend-request": function(event){
         var sendTo = Meteor.users.findOne({_id:this._id});
         if (sendTo != undefined){
             sendTo.cancelFriendshipRequest();
