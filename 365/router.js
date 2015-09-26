@@ -99,9 +99,6 @@ Router.route('/users/:username', {
   }
 });
 
- 
-
-
 AccountController = RouteController.extend({
     verifyEmail: function () {
         Accounts.verifyEmail(this.params.token, function () {

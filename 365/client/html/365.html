@@ -207,7 +207,26 @@
       <p id="notificationHeader">Notifications</p>
       <p id="markAsRead">Mark all as read</p>
       <div id="notificationTable">
-        <div class="notificationRow"> 
+
+        <!-- {{#each currentUser.friendsAsUsers}}
+        <div class="friendLine">
+          <p class="friendName">{{username}}</p>
+          <img class="friendButton" src="/images/deleteButton.png" data-action="unfriend">
+        </div>
+        {{else}}
+        <p class="noFriends">No friends :(</p>
+        {{/each}} -->
+
+        {{#each notifications}}
+          <div class="notificationRow"> 
+            <p class="notificationText">{{notification}}</p>
+            <p class="notificationTime">{{timeString}}</p>
+          </div>
+        {{else}}
+          <p id="noNotifications">No Notifications</p>
+        {{/each}}
+
+        <!-- <div class="notificationRow"> 
           <p class="notificationText">One and plenty more text just to see what happens</p>
           <p class="notificationTime">1 hr</p>
         </div>
@@ -238,7 +257,7 @@
         <div class="notificationRow"> 
           <p class="notificationText">One</p>
           <p class="notificationTime">1 hr</p>
-        </div>
+        </div> -->
       </div>
     </div>
   </div>

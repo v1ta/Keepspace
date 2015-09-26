@@ -211,7 +211,7 @@ Meteor.methods({
         }
     },
     clearNotifications: function(userId){
-        Notifications.remove({userId:userId});
+        // Notifications.remove({userId:userId});
     }
     /*
     addBetaEmail: function(email){
@@ -308,7 +308,7 @@ User.registerBlockingHook(function(user){
 
 Meteor.friends.after.insert(function (userId, doc){
     if (doc.userId != Meteor.userId()){
-        Notifications.insert({userId:doc.userId, friendId:doc.friendId, type:"acceptRequest"/*, seen:false*/});
+        Notifications.insert({userId:doc.userId, friendId:doc.friendId, type:"acceptRequest", createdAt: new Date(),/*, seen:false*/});
     }
 });
 
@@ -318,7 +318,7 @@ Thoughts.after.update(function(userId, doc){
     if(index > 0) {
         //this isn't 100% fullproof but the chance of it making a notfication for a non collected thought are slim
         if(userId === doc.collectedBy[index-1]){ 
-            Notifications.insert({userId:doc.userId, friendId:doc.collectedBy[index-1], type:"collectThought"/*, seen:false*/});
+            Notifications.insert({userId:doc.userId, friendId:doc.collectedBy[index-1], type:"collectThought",createdAt: new Date(), /*, seen:false*/});
         }
     }
     else return;

@@ -28,11 +28,11 @@
   height: 200px;
   width: 200px;
   border-radius: 100px;
-  top: 5%;
-  left: 50%;
-  left: -webkit-calc(50% - 100px);
-  left: -moz-calc(50% - 100px);
-  left: calc(50% - 100px);
+  top: 8%;
+  left: 35%;
+  left: -webkit-calc(35% - 100px);
+  left: -moz-calc(35% - 100px);
+  left: calc(35% - 100px);
 }
 #change-picture {
   background: #f9f9f9;
@@ -42,10 +42,10 @@
 }
 #username {
   background: #32c0d2;
-  left: 33%;
-  left: -webkit-calc(33% - 60px);
-  left: -moz-calc(33% - 60px);
-  left: calc(33% - 60px);
+  left: 18%;
+  left: -webkit-calc(18% - 60px);
+  left: -moz-calc(18% - 60px);
+  left: calc(18% - 60px);
   top: 50%;
   top: -webkit-calc(50% - 60px);
   top: -moz-calc(50% - 60px);
@@ -53,18 +53,18 @@
 }
 #collects {
   background: #f15f5a;
-  left: 50%;
-  left: -webkit-calc(50% - 60px);
-  left: -moz-calc(50% - 60px);
-  left: calc(50% - 60px);
+  left: 35%;
+  left: -webkit-calc(35% - 60px);
+  left: -moz-calc(35% - 60px);
+  left: calc(35% - 60px);
   top: 66%;
 }
 #joined {
   background: #faa43a;
-  left: 66%;
-  left: -webkit-calc(66% - 60px);
-  left: -moz-calc(66% - 60px);
-  left: calc(66% - 60px);
+  left: 51%;
+  left: -webkit-calc(51% - 60px);
+  left: -moz-calc(51% - 60px);
+  left: calc(51% - 60px);
   top: 50%;
   top: -webkit-calc(50% - 60px);
   top: -moz-calc(50% - 60px);
@@ -73,15 +73,30 @@
 #close-profile {
   color: #f15f5a;
   top: 10px;
-  left: 70%;
+  right: 2%;
   cursor: pointer;
 }
 
 #notifications{
   color:black;
+  right:50px;
+  top:12%;
+}
+#noNotfications{
+  font-size:14px;
+}
+#notifications p{
+  font-weight: normal;
+}
+#markAsRead{
+  margin-bottom:0px;
+  font-size:12px;
+  cursor:pointer;
+  margin-left:120px;
+  color:#3B589F;
 }
 #notificationTable{
-  overflow-y:auto;
+  overflow-y:scroll;
   height:200px;
   border: 2px solid #32c0d2;
   border-radius:10px;
@@ -97,7 +112,7 @@
 .notificationText{
   display:inline-block;
   text-align:left;
-  width:200px;
+  width:180px;
   padding:bottom:5px;
   margin-left:10px;
   font-size:16px;
@@ -106,6 +121,6 @@
   display:inline-block;
   font-size:14px;
   text-align:left;
-  width:50px;
+  width:35px;
   color: #8B8B8C;
 }

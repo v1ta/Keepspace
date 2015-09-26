@@ -36,7 +36,11 @@ Schemas.Notifications = new SimpleSchema({
         label: "text",
         max: 200,
         optional: true
-    }/*
+    },
+    createdAt: {
+        type: Date,
+        label: "createdAt"
+    },/*
     seen: {
         type: Boolean,
         label: "seen",

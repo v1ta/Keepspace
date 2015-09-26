@@ -113,6 +113,7 @@ Template.header.events({
     'click #profile-picture': function(event) {
         // TODO: encrypt userId
         Session.set('showProfile', Meteor.user());
+        event.stopPropagation();
     },
     'click #close-profile': function(event) {
         Session.set('showProfile', false);
@@ -146,6 +147,12 @@ Template.header.events({
     },
     'click #friendRequests':function(event){
         event.stopPropagation();
+    },
+    'click #profile': function(event){
+        event.stopPropagation();
+    },
+    'click #markAsRead': function(event){
+        Meteor.call("clearNotifications", Meteor.userId());
     }
 });
 
@@ -200,10 +207,10 @@ Template.header.onRendered(function(event) {
         {
             $("#friendRequests").hide();
         }
-        else if(!$("#profile").is(e.target) // if the target of the click isn't the container...
+        if(!$("#profile").is(e.target) // if the target of the click isn't the container...
             && $("#profile").has(e.target).length === 0) // ... nor a descendant of the container
         {
-            $("#profile").hide();
+            Session.set('showProfile', false);
         }
     });
 });
@@ -226,6 +233,68 @@ Template.profile.helpers({
     },
     collects: function(event) {
         return Session.get('showProfile').profile.collects;
+    },
+    notifications: function(){
+        var notifications = Notifications.find().fetch();
+        result = [];
+        notifications.forEach(function (notification) {    
+            console.log(notification);     
+            var user = Meteor.users.findOne({_id:notification.friendId});
+            var element = {};
+
+            if (notification.type == "acceptRequest"){
+                element.notification = user.username + " accepted your friend request!";
+            }
+            else{
+                element.notification = user.username + ' collected your thought!';
+            }
+
+            var date = new Date();
+            var createdAt = new Date(notification.createdAt);
+            var diffHours = (date - createdAt) / 36e5;
+            var timeString;
+            if (diffHours < 1){
+                diffHours = diffHours * 60;
+                var numMinutes = Math.floor(diffHours);
+                if (numMinutes == 1){
+                    timeString = numHours.toString() + " min";
+                }
+                else{
+                    timeString = numHours.toString() + " mins";
+                }
+            }
+            else if (diffHours > 24){
+                diffHours = diffHours / 24;
+                var numDays = Math.floor(diffHours);
+                if (numDays == 1){
+                    timeString = numHours.toString() + " day";
+                }
+                else{
+                    timeString = numHours.toString() + " days";
+                }
+            }
+            else{
+                var numHours = Math.floor(diffHours);
+                if (numHours == 1){
+                    timeString = numHours.toString() + " hr";
+                }
+                else{
+                    timeString = numHours.toString() + " hrs";
+                }
+            }
+
+            element.timeString = timeString;
+            element.username = user.username;
+            element["type"] = notification.type;
+            result.push(element);
+            // if (notification.type == "acceptRequest")
+            //     sAlert.success(user.username + ' accepted your friend request!', {position: 'bottom'});
+            // else
+            //     sAlert.success(user.username + ' collected your thought!', {position: 'bottom'});
+        });
+        console.log(result);
+        console.log(result[0]);
+        return result;
     }
 });
 
@@ -247,7 +316,8 @@ Template.profile.events({
             }
           });
         });
-    }
+    },
+
 })
 
 logoutFunction = function(){

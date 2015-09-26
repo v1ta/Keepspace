@@ -111,7 +111,7 @@ Template.mainPage.helpers({
     
 });
 
-Template.main.onRendered(function(){
+Template.mainPage.onRendered(function(){
     $("#newThoughtBox").keypress(function(e) {
         var code = (e.keyCode ? e.keyCode : e.which);
         if (code == 13){
