@@ -9,7 +9,7 @@ Tracker.autorun(function() {
 
 function getNotifications(){
     if (Counts.get('Notifications-Counter') > 0){
-        var notfications = Notifications.find().fetch();
+        var notfications = Notifications.find({seen:false}).fetch();
         notfications.forEach(function (notification) {            
             var user = Meteor.users.findOne({_id:notification.friendId});
             if (notification.type == "acceptRequest")
@@ -17,6 +17,6 @@ function getNotifications(){
             else
                 sAlert.success(user.username + ' collected your thought!', {position: 'bottom'});
         });
-        Meteor.call("clearNotifications", Meteor.userId());
+        Meteor.call("seeNotifications", Meteor.userId());
     }
 }

@@ -100,6 +100,7 @@
   height:200px;
   border: 2px solid #32c0d2;
   border-radius:10px;
+  width:245px;
 }
 
 .notificationRow{
@@ -121,6 +122,6 @@
   display:inline-block;
   font-size:14px;
   text-align:left;
-  width:35px;
+  width:45px;
   color: #8B8B8C;
 }

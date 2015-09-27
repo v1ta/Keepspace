@@ -61,9 +61,7 @@
     <div class="row">
       <div class="left col-xs-4">
         <div id="logo">
-          <!-- <img src="/images/keepspace_logo.png" /> -->
           <img id="homeLogo" src="/images/keepspace_home_button.png">
-          <!-- <img id="homeDrop" src="/images/keepspace_home_arrow.png"> -->
           <div id="dropdownDiv">
             <i class="menu-dropdown fa fa-caret-down fa-lg"></i>
           </div>
@@ -71,9 +69,9 @@
         <div id="main-menu">
           <ul>
             <li class="menu-item" id="changePasswordButton">Change Password</li>
-            <li class="menu-item">How To Use</li>
-            <li class="menu-item dropdownAbout">What We Do</li>
+            <li class="menu-item dropdownAbout">About</li>
             <li class="menu-item dropdownTeam">Team</li>
+            <li class="menu-item">Help</li>
             <li class="menu-item logout">Log Out</li>
           </ul>
         </div>
@@ -207,16 +205,6 @@
       <p id="notificationHeader">Notifications</p>
       <p id="markAsRead">Mark all as read</p>
       <div id="notificationTable">
-
-        <!-- {{#each currentUser.friendsAsUsers}}
-        <div class="friendLine">
-          <p class="friendName">{{username}}</p>
-          <img class="friendButton" src="/images/deleteButton.png" data-action="unfriend">
-        </div>
-        {{else}}
-        <p class="noFriends">No friends :(</p>
-        {{/each}} -->
-
         {{#each notifications}}
           <div class="notificationRow"> 
             <p class="notificationText">{{notification}}</p>
@@ -225,39 +213,6 @@
         {{else}}
           <p id="noNotifications">No Notifications</p>
         {{/each}}
-
-        <!-- <div class="notificationRow"> 
-          <p class="notificationText">One and plenty more text just to see what happens</p>
-          <p class="notificationTime">1 hr</p>
-        </div>
-        <div class="notificationRow"> 
-          <p class="notificationText">One</p>
-          <p class="notificationTime">1 hr</p>
-        </div>
-        <div class="notificationRow"> 
-          <p class="notificationText">One</p>
-          <p class="notificationTime">1 hr</p>
-        </div>
-        <div class="notificationRow"> 
-          <p class="notificationText">One</p>
-          <p class="notificationTime">1 hr</p>
-        </div>
-        <div class="notificationRow"> 
-          <p class="notificationText">One</p>
-          <p class="notificationTime">1 hr</p>
-        </div>
-        <div class="notificationRow"> 
-          <p class="notificationText">One</p>
-          <p class="notificationTime">1 hr</p>
-        </div>
-        <div class="notificationRow"> 
-          <p class="notificationText">One</p>
-          <p class="notificationTime">1 hr</p>
-        </div>
-        <div class="notificationRow"> 
-          <p class="notificationText">One</p>
-          <p class="notificationTime">1 hr</p>
-        </div> -->
       </div>
     </div>
   </div>

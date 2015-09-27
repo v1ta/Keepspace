@@ -79,7 +79,7 @@ Template.header.events({
             $("#changePassword").hide();
         }
     },
-    'click #dropdownDiv, click #main-menu': function(event) {
+    'click #dropdownDiv, click #main-menu, click .menu-dropdown': function(event) {
         event.stopPropagation();
         if ($("#main-menu").css("display") === "block") {
             hideMainMenu();
@@ -91,12 +91,12 @@ Template.header.events({
         Router.go("mainPage");
     },
     'mouseenter #dropdownDiv': function(event) {
-        $("#dropdownDiv").css("background-color", "#E0E0E0");
-        $("#homeLogo").css("background-color", "#f9f9f9");
+        // $("#dropdownDiv").css("background-color", "#E0E0E0");
+        // $("#homeLogo").css("background-color", "#f9f9f9");
     },
     'mouseenter #homeLogo': function(event) {
-        $("#dropdownDiv").css("background-color", "#f9f9f9");
-        $("#homeLogo").css("background-color", "#E0E0E0");
+        // $("#dropdownDiv").css("background-color", "#f9f9f9");
+        // $("#homeLogo").css("background-color", "#E0E0E0");
     },
     'mouseleave #logo': function(event) {
         if ($("#main-menu").css("display") !== "block") {
@@ -248,7 +248,6 @@ Template.profile.helpers({
             else{
                 element.notification = user.username + ' collected your thought!';
             }
-
             var date = new Date();
             var createdAt = new Date(notification.createdAt);
             var diffHours = (date - createdAt) / 36e5;
@@ -257,20 +256,20 @@ Template.profile.helpers({
                 diffHours = diffHours * 60;
                 var numMinutes = Math.floor(diffHours);
                 if (numMinutes == 1){
-                    timeString = numHours.toString() + " min";
+                    timeString = numMinutes.toString() + " min";
                 }
                 else{
-                    timeString = numHours.toString() + " mins";
+                    timeString = numMinutes.toString() + " mins";
                 }
             }
             else if (diffHours > 24){
                 diffHours = diffHours / 24;
                 var numDays = Math.floor(diffHours);
                 if (numDays == 1){
-                    timeString = numHours.toString() + " day";
+                    timeString = numDays.toString() + " day";
                 }
                 else{
-                    timeString = numHours.toString() + " days";
+                    timeString = numDays.toString() + " days";
                 }
             }
             else{
@@ -360,14 +359,14 @@ showMainMenu = function(event) {
     // $("#logo").css({"border-bottom-right-radius": "0",
     //                 "border-bottom-left-radius" : "0",
     //                 "background-color": "#f9f9f9"});
-    $("#dropdownDiv").css("background-color", "#E0E0E0");
-    $("#homeLogo").css("background-color", "#f9f9f9");
+    // $("#dropdownDiv").css("background-color", "#E0E0E0");
+    // $("#homeLogo").css("background-color", "#f9f9f9");
     $("#main-menu").slideDown('fast');
 }
 hideMainMenu = function(event) {
     $("#main-menu").slideUp('fast', function() {
         $("#logo").css({"border-radius": "5px", "background-color": ""}); 
         $("#homeLogo").css({"background-color": ""}); 
-        $("#dropdownDiv").css({"background-color": ""}); 
+        // $("#dropdownDiv").css({"background-color": ""}); 
     });
 }

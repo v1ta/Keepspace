@@ -11,11 +11,12 @@
     display: inline-block;
     height: 75px;
     width: 70px;
-    padding-left: 20px;
+    padding-left: 10px;
     position: relative;
     right: 20px;
     bottom: 16px;
     padding-top: 10px;
+    z-index:5;
     /*background: white;*/
 }
 
