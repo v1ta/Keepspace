@@ -214,7 +214,6 @@ Meteor.methods({
         Notifications.remove({userId:userId});
     },
     seeNotifications: function(userId){
-        console.log("here");
         Notifications.update({userId:userId}, {$set:{seen:true}});
     }
     /*
@@ -296,7 +295,6 @@ Facebook.prototype.query = function(query, method) {
 }
 
 Facebook.prototype.getUserData = function() {
-        console.log("here");
         return this.query('me');
 }
 

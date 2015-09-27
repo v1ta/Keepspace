@@ -9,15 +9,14 @@
 
 #dropdownDiv{
     display: inline-block;
-    height: 75px;
-    width: 70px;
+    height: 45px;
+    width: 30px;
     padding-left: 10px;
     position: relative;
     right: 20px;
     bottom: 16px;
     padding-top: 10px;
     z-index:5;
-    /*background: white;*/
 }
 
 #settingDropDown input[type="submit"]{

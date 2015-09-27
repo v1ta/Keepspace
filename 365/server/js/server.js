@@ -68,9 +68,7 @@ Meteor.publish("friends", function (options) {
     //only allow the limit and skip options
     options = _.pick(options, "limit", "skip", "sort");
 
-
-
-Meteor.publishWithRelations({
+    Meteor.publishWithRelations({
         handle: this,
         collection: Meteor.friends,
         filter: {userId:this.userId, friendId:{$ne:this.userId}},

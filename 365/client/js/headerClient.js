@@ -174,6 +174,26 @@ Template.header.helpers({
     },
     showProfile: function() {
         return Session.get('showProfile');
+    },
+    requests: function() {
+        var results =  Meteor.requests.find({
+            $or: [
+                {userId:Meteor.userId()},
+                {requesterId:Meteor.userId()}
+            ]
+        });
+        console.log(results.fetch());
+        return results;
+    },
+    isOutgoing: function(requesterId){
+        var userId = Meteor.userId();
+        if (requesterId == userId){
+            console.log("true");
+            return true;
+        }
+        else{
+            return false;
+        }
     }
 });
 
