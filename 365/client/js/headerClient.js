@@ -143,7 +143,8 @@ Template.header.events({
         this.unfriend();
     },
     'click #closeFriends': function(){
-        $("#friendRequests").hide();
+        Session.set("showFriendPage", false);
+        // $("#friendRequests").hide();
     },
     'click #friendRequests':function(event){
         event.stopPropagation();
@@ -174,6 +175,9 @@ Template.header.helpers({
     },
     showProfile: function() {
         return Session.get('showProfile');
+    },
+    showFriendPage: function(){
+        return Session.get("showFriendPage");
     },
     requests: function() {
         var results =  Meteor.requests.find({
@@ -212,6 +216,7 @@ Template.header.onRendered(function(event) {
     localStorage.setItem("selectedDate", $.format.date(today, "M d yyyy"));
     setMidPadding();
     Session.set('showProfile', false);
+    Session.set('showFriendPage', false);
     var loggedIn = localStorage.getItem("justLoggedIn");
     if (loggedIn == "true"){
         var rand = Math.random();
@@ -225,7 +230,8 @@ Template.header.onRendered(function(event) {
         if (!$("#friendRequests").is(e.target) // if the target of the click isn't the container...
             && $("#friendRequests").has(e.target).length === 0) // ... nor a descendant of the container
         {
-            $("#friendRequests").hide();
+            // $("#friendRequests").hide();
+            Session.set("showFriendPage", false);
         }
         if(!$("#profile").is(e.target) // if the target of the click isn't the container...
             && $("#profile").has(e.target).length === 0) // ... nor a descendant of the container

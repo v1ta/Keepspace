@@ -15,7 +15,7 @@
     z-index: 3;
     text-align: center;
     height:100%;
-    display:none;
+    /*display:none;*/
 }
 #closeFriends{
 	color: #f15f5a;

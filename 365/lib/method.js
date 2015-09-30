@@ -214,7 +214,10 @@ Meteor.methods({
         Notifications.remove({userId:userId});
     },
     seeNotifications: function(userId){
-        Notifications.update({userId:userId}, {$set:{seen:true}});
+        var things = Notifications.find({userId:userId});
+        console.log(things.fetch());
+        Notifications.update({userId:userId}, {$set:{seen:true}}, {multi:true});
+        console.log("here");
     }
     /*
     addBetaEmail: function(email){

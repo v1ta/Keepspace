@@ -189,9 +189,11 @@ Template.mainPage.events({
     'click .friend-search-icon': function(event) {
         $(event.target.nextElementSibling).animate({width: "toggle"}, 'fast');
     },
-    'click .feed-user-icon': function(e) {
+    'click .feed-user-icon, click .badge.success': function(e) {
         // $(event.target.nextElementSibling).animate({width: "toggle"}, 'fast');
-        $("#friendRequests").show();
+        e.stopPropagation();
+        // $("#friendRequests").show();
+        Session.set("showFriendPage", true);
     },
     'click .fa-caret-down, click .fa-caret-up': function(event) {
         $("#worldButtons").slideToggle('fast');
@@ -275,7 +277,7 @@ Template.friendList.helpers({
     },
     requests: function(event){
         return Meteor.friendRequest.find({userId:Meteor.userId()});
-    }
+    },
 })
 
 Template.friendList.events({

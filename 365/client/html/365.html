@@ -116,64 +116,11 @@
     <p class="alertBubble closeAlert">X</p>
   </div>
 
-  <div id="friendRequests" class="full-height" style="">
-    <i id="closeFriends" class="fa fa-times-circle-o fa-2x"></i>
-    <p id="friendTitle"> You have friends </p>
-    <div id="friendHeaders">
-      <p id="friendHeader">Friends</p>
-      <p id="requestHeader">Requests</p>
-    </div>
-    <div class="friendsCircle" id="friendContainer">
-      <div class="frList">
-        <!-- <div class="friendLine">
-          <p class="friendName">Amanpreet Kandola</p>
-          <img class="friendButton" src="/images/deleteButton.png" data-action="unfriend">
-        </div> -->
-
-        {{#each currentUser.friendsAsUsers}}
-        <div class="friendLine">
-          <p class="friendName">{{username}}</p>
-          <img class="friendButton" src="/images/deleteButton.png" data-action="unfriend">
-        </div>
-        {{else}}
-        <p class="noFriends">No friends :(</p>
-        {{/each}}
-
-      </div>
-    </div>
-    <div class="friendsCircle" id="requestContainer">
-      <div class="frList">
-        <!-- <div class="friendLine">
-          <p class="friendName">Amanpreet Kandola</p>
-          <img class="friendButton" src="/images/deleteButton.png">
-          <img class="friendButton" src="/images/acceptButton.png">
-        </div>
-        <div class="friendLine">
-          <p class="friendName">Amanpreet Kandola</p>
-          <p class="requestPending">pending.</p>
-        </div> -->
-          {{#each requests}}
-            {{#if isOutgoing requesterId}}
-              <div class="friendLine">
-                <p class="friendName">{{username}}</p>
-                <p class="requestPending">pending.</p>
-              </div> 
-            {{else}}
-            <div class="friendLine">
-              <p class="friendName">{{requester.username}}</p>
-              <img class="friendButton" src="/images/deleteButton.png" data-action="deny">
-              <img class="friendButton" src="/images/acceptButton.png" data-action="accept">
-            </div>
-            {{/if}}
-          {{else}}
-            <p class="noFriends">No pending requests</p>
-          {{/each}}
-      </div>
-    </div>
-  </div>
-
   {{#with showProfile}}
     {{> profile}}
+  {{/with}}
+  {{#with showFriendPage}}
+    {{> friendRequestPage}}
   {{/with}}
 
   {{> yield}}
