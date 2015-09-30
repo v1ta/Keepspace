@@ -11,8 +11,8 @@ Template.header.events({
         Router.go("calendar");
     },
     'click #header': function(event){
-
-        $("#changePassword").hide();
+        Session.set("showChangePassword", false);
+        // $("#changePassword").hide();
     },
     'click #homeButton': function(event) {
         // Router.go("mainPage");
@@ -44,10 +44,12 @@ Template.header.events({
         event.preventDefault();
         event.stopPropagation();
         hideMainMenu();
-        $("#changePassword").show();
+        Session.set("showChangePassword", true);
+        //$("#changePassword").show();
     },
     'click #changePassword': function(event){
-        $("#changePassword").hide();
+        Session.set("showChangePassword", false);
+        //$("#changePassword").hide();
     },
     'click #changePassForm': function(event){
         event.stopPropagation();
@@ -59,24 +61,28 @@ Template.header.events({
         var newConfirm = event.target.newPassConfirm.value;
         if (Session.get("isFB")){
             alert("You logged in with FB!");
-            $("#changePassword").hide();
+            Session.set("showChangePassword", false);
+            // $("#changePassword").hide();
         }
         else if (newPassword == newConfirm){
             Accounts.changePassword(oldPassword, newPassword, function(err){
             if (err){
                 alert(err.reason);
-                $("#changePassword").hide();
+                Session.set("showChangePassword", false);
+                // $("#changePassword").hide();
             }
             else{
                 console.log("success");
-                $("#changePassword").hide();
+                Session.set("showChangePassword", false);
+                // $("#changePassword").hide();
             }
         });
         }
         else{
             //TODO Send error to user
             alert("Passwords no not match");
-            $("#changePassword").hide();
+            Session.set("showChangePassword", false);
+            // $("#changePassword").hide();
         }
     },
     'click #dropdownDiv, click #main-menu, click .menu-dropdown': function(event) {
@@ -179,6 +185,9 @@ Template.header.helpers({
     showFriendPage: function(){
         return Session.get("showFriendPage");
     },
+    showChangePassword: function(){
+        return Session.get("showChangePassword");
+    },
     requests: function() {
         var results =  Meteor.requests.find({
             $or: [
@@ -217,6 +226,7 @@ Template.header.onRendered(function(event) {
     setMidPadding();
     Session.set('showProfile', false);
     Session.set('showFriendPage', false);
+    Session.set("showChangePassword", false);
     var loggedIn = localStorage.getItem("justLoggedIn");
     if (loggedIn == "true"){
         var rand = Math.random();

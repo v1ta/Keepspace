@@ -90,22 +90,6 @@
       </div>
     </div>
   </div>
-  <div class="alertDiv" id="changePassword">
-    <div id="fyouupdiv">
-      <form id="changePassForm">
-        <input class="loginForm" id="changeOld" type="email" name="oldPass"
-        placeholder="old password">
-        <br>
-        <input class="loginForm" id="changeNew" type="password" name="newPass"
-        placeholder="new password">
-        <br>
-        <input class="loginForm" id="changeConfirm" type="password" name="newPassConfirm"
-        placeholder="new password (again)">
-        <br>
-        <input type="submit" class="blueLoginButton" id="changePasswordSubmit" value="Confirm">
-      </form>
-    </div>
-  </div>
 
   <div class="alertDiv" id="mainAlert">
     <div class="alertBubble" id="alertText">
@@ -116,6 +100,9 @@
     <p class="alertBubble closeAlert">X</p>
   </div>
 
+  {{#with showChangePassword}}
+    {{> changePass}}
+  {{/with}}
   {{#with showProfile}}
     {{> profile}}
   {{/with}}
@@ -125,6 +112,25 @@
 
   {{> yield}}
 </template>
+
+  <template name="changePass">
+    <div class="alertDiv" id="changePassword">
+      <div id="fyouupdiv">
+        <form id="changePassForm">
+          <input class="loginForm" id="changeOld" type="password" name="oldPass"
+          placeholder="old password">
+          <br>
+          <input class="loginForm" id="changeNew" type="password" name="newPass"
+          placeholder="new password">
+          <br>
+          <input class="loginForm" id="changeConfirm" type="password" name="newPassConfirm"
+          placeholder="new password (again)">
+          <br>
+          <input type="submit" class="blueLoginButton" id="changePasswordSubmit" value="Confirm">
+        </form>
+      </div>
+    </div>
+  </template>
 
 <template name="profile">
   <div id="upload-picture" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="uploadLabel">

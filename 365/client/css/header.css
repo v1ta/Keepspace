@@ -42,7 +42,7 @@
 	background:rgba(255,255,255,0.7);
 	margin:0px;
 	text-align:center;
-	display:none;
+	display:block;
 }
 #changePage{
 	text-align:center;
