@@ -249,8 +249,8 @@ Template.carousel.onRendered(function() {
 
 Template.teamPage.onRendered(function(){
 	$(".bioDiv").each(function(index, element){
-		console.log(index);
-		console.log($(this).height());
+		//console.log(index);
+		//console.log($(this).height());
 	});
 });
 

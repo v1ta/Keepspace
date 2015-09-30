@@ -124,6 +124,7 @@
 	position:absolute;
 	left:40px;
 	top:22px;
+	cursor:pointer;
 }
 .fullScreen{
 	min-width:100%;
@@ -331,6 +332,7 @@
 	top: calc(50% + 75px);
 	font-size:36px;
 	padding-top:4px;
+	cursor:pointer;
 }
 #forgotPass{
 	font-size:10px;
