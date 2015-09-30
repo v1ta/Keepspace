@@ -127,6 +127,7 @@ body, html {
   top:85px;
   left:80px;
   width:200px;
+  box-shadow: 10px 10px 5px #888888;
 }
 #main-menu ul {
   list-style: none;
