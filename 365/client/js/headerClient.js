@@ -121,6 +121,11 @@ Template.header.events({
         Session.set('showProfile', Meteor.user());
         event.stopPropagation();
     },
+    'click .username': function(event) {
+        // TODO: encrypt userId
+        Session.set('showProfile', Meteor.user());
+        event.stopPropagation();
+    },
     'click #close-profile': function(event) {
         Session.set('showProfile', false);
     },

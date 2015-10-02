@@ -59,10 +59,10 @@
 <template name="header">
   <div id="header" class="container-fluid">
     <div class="row">
-      <div class="left col-xs-4">
+      <div class="left col-xs-4 unselectable">
         <div id="logo">
-          <img id="homeLogo" src="/images/keepspace_home_button.png">
-          <div id="dropdownDiv">
+          <img class="unselectable" id="homeLogo" src="/images/keepspace_home_button.png">
+          <div class="unselectable" id="dropdownDiv">
             <i class="menu-dropdown fa fa-caret-down fa-lg"></i>
           </div>
         </div>
@@ -79,7 +79,7 @@
         </div>
       </div>
 
-      <div class="mid col-xs-4">
+      <div class="mid col-xs-4 unselectable">
         <div id="homeButton" class="header-circle">
           DAY <span id="dayNum">0</span>
         </div>
@@ -87,8 +87,8 @@
       </div>
 
       <div class="right col-xs-4">
-        <img id="profile-picture" class="header-circle" alt="{{username}}" src="{{picture}}" />
-        <span class="username vertical-center">{{username}}</span>
+        <img id="profile-picture" class="header-circle unselectable" alt="{{username}}" src="{{picture}}" />
+        <span class="username vertical-center unselectable">{{username}}</span>
       </div>
     </div>
   </div>
