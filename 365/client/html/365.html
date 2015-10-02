@@ -14,30 +14,30 @@
 
 <template name="mainPage">
           {{> sAlert}}
-  <div id="main-feed" class="container-fluid full-height">
+  <div id="main-feed" class="container-fluid full-height unselectable">
     <div class="row feed-wrapper">
       <div id="fullFeed-canvas"></div>
       <div id="friendFeed" class="feed col-xs-4">
          {{>friendList}}
           {{>friendSearch}}
-        <div class="feed-name">Friends</div>
+        <div class="feed-name unselectable">Friends</div>
         <div id="friendFeed-container"></div>
       </div>
-      <div id="myFeed" class="feed col-xs-4">
+      <div id="myFeed" class="feed col-xs-4 unselectable">
         <div id="tempForm">
           <form class="new-thought" autocomplete="off">
-            <textarea id="newThoughtBox" class="form-control" name="text" placeholder="How will you remember today?"></textarea>
+            <textarea id="newThoughtBox" class="form-control unselectable" name="text" placeholder="How will you remember today?"></textarea>
             <button id="submit-new-thought" class="btn">Keep</button>
           </form>
           <button id="btn-import-facebook" class="btn btn-primary"><i class="fa fa-facebook fa-fw"></i></button>
           <p id="time">...</p>
         </div>
-        <div class="feed-name">{{username}}</div>
+        <div class="feed-name unselectable">{{username}}</div>
         <div id="myFeed-canvas"></div>
         <div id="expandedThoughtContent"></div>
       </div>
 
-      <div id="worldFeed" class="feed col-xs-4">
+      <div id="worldFeed" class="feed col-xs-4 unselectable">
         <i class="fa fa-search feed-search-icon"></i>
         <form class="search">
           <input type="text" name="search" class="form-control" placeholder="find a thought" />
@@ -49,7 +49,7 @@
           <li>Random</li>
         </ul>
         -->
-        <div class="feed-name">World</div>
+        <div class="feed-name unselectable">World</div>
         <div id="worldFeed-canvas"></div>
       </div>
     </div>

@@ -1,27 +1,27 @@
 <template name="calendar">
 
   <div id="calendarFeed">
-    <p id="calFeedHead" class="feed-name">Feed</p>
-    <p id="noPostText" style="display:none">Looks like you didn't collect anything on this day</p>
+    <p id="calFeedHead" class="feed-name unselectable">Feed</p>
+    <p id="noPostText" class="unselectable" style="display:none">Looks like you didn't collect anything on this day</p>
     <div id="expandedThoughtContent"></div>
-    <div id="calFeed">
+    <div id="calFeed" class="unselectable">
       <div id="calFeed-container"></div>
     </div>
   </div>
 
-  <div class="container" id="calendarContainer">
+  <div class="container unselectable" id="calendarContainer">
 
-    <div class="calendar">
+    <div class="calendar unselectable">
 
-      <div id="calendarHeader">     
+      <div id="calendarHeader" class="unselectable">     
 
-        <div id="monthDetails" class="calendarHeaderSelectors">
+        <div id="monthDetails" class="calendarHeaderSelectors unselectable">
           <a class="btn-prev fontawesome-angle-left " id="monthPrev" href="#"></a>
-          <div class="calendarTitle" id="monthTitle">September</div>
+          <div class="calendarTitle unselectable" id="monthTitle">September</div>
           <a class="btn-next fontawesome-angle-right" id="monthNext" href="#"></a> 
         </div>
         <br>
-        <div id="yearDetails" class="calendarHeaderSelectors">
+        <div id="yearDetails" class="calendarHeaderSelectors unselectable">
           <a class="btn-prev fontawesome-angle-left yearChanger" id="yearPrev" href="#"></a>
           <div class="calendarTitle" id="yearTitle">2015</div>
           <a class="btn-next fontawesome-angle-right yearChanger" id="yearNext" href="#"></a>  

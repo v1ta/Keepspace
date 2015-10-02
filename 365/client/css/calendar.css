@@ -107,6 +107,9 @@ table {
 .calendar td.datepicker-td:hover {
   border: 2px solid green;
 }
+.datepicker-td{
+  cursor:pointer;
+}
 
 .calendar td {
   border-radius: 50%;
@@ -133,6 +136,7 @@ table {
 .calendar td.dayTitle{
   background: transparent;
   color: red;
+  cursor:default;
 }
 .calendar td.empty{
   background:none;
@@ -220,10 +224,12 @@ table {
   width:100px;
   display:inline-block;
   font-size:20px;
+  cursor:default;
 }
 #yearTitle{
   display:inline-block;
   font-size:14px;
+  cursor:default;
 }
 
 #monthDetails{
@@ -236,4 +242,7 @@ table {
 .calendarHeaderSelectors{
   text-align:center;
   width:100%;
+}
+#noPostText{
+  cursor:default;
 }

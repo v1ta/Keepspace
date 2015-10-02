@@ -120,6 +120,7 @@ body, html {
   left: -webkit-calc(50% - 25px);
   left: -moz-calc(50% - 25px);
   left: calc(50% - 25px);
+  cursor:default;
 }
 #main-menu {
   display: none;
@@ -220,6 +221,7 @@ body, html {
   text-align: center;
   font-size: 50px;
   color:rgba(50, 192, 210, 0.5);
+  cursor:default;
 }
 .feed-search-icon {
   position: absolute;
