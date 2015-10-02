@@ -34,7 +34,7 @@ Router.route('/user/:_id', function () {
     this.render('user', {data: this.params._id});
 });
 
-//splash page and accoiated routing
+//splash page and associated routing
 Router.route('splash', function() { 
   this.layout("splashBanner");
   this.render('carousel');
