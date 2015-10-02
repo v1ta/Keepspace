@@ -322,7 +322,7 @@ Template.profile.helpers({
             }
             var date = new Date();
             var createdAt = new Date(notification.createdAt);
-            var diffHours = (date - createdAt) / 36e5;
+            var diffHours = Math.abs((date - createdAt) / 36e5);
             var timeString;
             if (diffHours < 1){
                 diffHours = diffHours * 60;

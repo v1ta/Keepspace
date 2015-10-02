@@ -301,8 +301,8 @@ body, html {
 #btn-import-facebook {
   position: absolute;
   left: 1px;
-  bottom: -22px;
-  display:none;
+  /*bottom: -22px;*/
+  /*display:none;*/
 }
 
 .hidden{

@@ -300,7 +300,19 @@ Facebook.prototype.getUserData = function() {
 }
 
 Facebook.prototype.getPostData = function() {
-        return this.query('/me/feed?limit=5');
+        // return this.query('/me/feed?limit=5');
+        result = []
+        offset = 0;
+        console.log(offset.toString());
+        query = this.query('/me/feed?offset=' + offset.toString());
+        numTimes = 0;
+        while (query && numTimes < 5){
+            result = result.concat(query["data"]);
+            offset += 25;
+            query = this.query('/me/feed?offset=' + offset.toString());
+            numTimes += 1;
+        }
+        return result;
 }
 
 User.registerBlockingHook(function(user){

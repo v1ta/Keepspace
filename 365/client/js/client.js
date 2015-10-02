@@ -171,13 +171,16 @@ Template.mainPage.events({
             }
             else{
                 var posts = data["data"];
-                console.log(posts[0]);
-                var thoughtId = Meteor.call("addPost", posts[0],function(err, data) {
-                    if (err){
-                        console.log(err);
-                    }
-                    console.log(data)
-                });
+                console.log(data);
+
+
+
+                // var thoughtId = Meteor.call("addPost", posts[0],function(err, data) {
+                //     if (err){
+                //         console.log(err);
+                //     }
+                //     console.log(data)
+                // });
                 // getLocationThought(thoughtId)
                 return false;
             }
