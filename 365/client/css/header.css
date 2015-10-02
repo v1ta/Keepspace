@@ -30,10 +30,19 @@
 	top:15px;
 }
 #menuCarat{
-    color: white;
+    color: black;
     position: absolute;
     right: 18px;
     top: -10px;
+    z-index:2;
+}
+
+#menuBack{
+	color: #888888;
+    position: absolute;
+    right: 14px;
+    top: -10px;
+    z-index:1;
 }
 
 #changePassForm{
