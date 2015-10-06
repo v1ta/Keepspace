@@ -106,6 +106,11 @@ table {
 
 .calendar td.datepicker-td:hover {
   border: 2px solid green;
+  /*margin-top:3px;*/
+}
+.calendar td.datepicker-td:hover a{
+  position:relative;
+  top:-2px;
 }
 .datepicker-td{
   cursor:pointer;
@@ -245,4 +250,14 @@ table {
 }
 #noPostText{
   cursor:default;
+}
+
+a.monthButton:focus {
+  outline: none !important; 
+  outline-offset: 0px !important; 
+  text-decoration:initial !important;
+  color:#cbd1d2 !important;
+}
+.datepicker-td a:focus{
+  text-decoration:initial !important;
 }
