@@ -205,11 +205,6 @@ Meteor.methods({
             return false;
         }
     },
-    showRandomPost: function(){
-        if (userLoggedIn()){
-
-        }
-    },
     clearNotifications: function(userId){
         Notifications.remove({userId:userId});
     },

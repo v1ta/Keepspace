@@ -82,7 +82,7 @@ Template.mainPage.helpers({
         var thoughts = Thoughts.find({}, {sort: {createdAt: -1}});
         console.log(thoughts.fetch());
         console.log(Meteor.user().username);
-        console.log("here");
+        console.log("zooddady");
         return thoughts
     }
     
@@ -183,15 +183,6 @@ Template.mainPage.events({
 
 });
 
-Template.user.helpers({
-    'isUser': function(event){
-        return this.userId === Meteor.userId()
-    },
-    'Name' : function(event) {
-        return "Robert"
-    }
-});
-
 // Accounts
 //
 Accounts.ui.config({
@@ -245,32 +236,4 @@ function setTime(){
 }
 
 
-Template.friendList.helpers({
-    "numRequests": function(event){
-        var numRequests = 0;
-        var string = "Requests";
-        if (numRequests == 0){
-            return string;
-        }
-        else{
-            return string + " (" + numRequests + ")";
-        }
-    },
-    requests: function(event){
-        return Meteor.friendRequest.find({userId:Meteor.userId()});
-    },
-})
-
-Template.friendList.events({
-    'click #acceptRequest': function(event) {
-        this.accept();
-    },
-    'click #denyRequest': function(event) {
-        this.deny();
-    },
-    'click #removeFriend': function(event) {
-        this.unfriend();
-    },
-
-})
 

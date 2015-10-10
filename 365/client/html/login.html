@@ -1,29 +1,3 @@
-<template name="login">
-	<div id="loginButtons">
-	    <form>
-	        <input class="loginForm" id="username" type="username" name="loginEmail"
-	        placeholder="Username">
-	        <br>
-	        <input class="loginForm" id="password" type="password" name="loginPassword"
-	        placeholder="Password">
-	        <br>
-	        <input class="loginForm" id="passwordAgain" type="password" name="loginPasswordAgain" placeholder="Password (again)" style="display:none">
-	        <br>
-	        <input type="submit" id="signIn" value="Sign In">
-	    </form>
-	    <button id="createAccount">Create Account</button>
-	    <br>
-	    <div class="accounts-dialog">
-
-
-		    <div class="login-button single-login-button" id="login-buttons-facebook">
-		        <span class="text-besides-image sign-in-text-facebook">Sign in with Facebook</span>
-		  	</div>
-		</div>
-
-	</div>
-</template>
-
 <template name="loginPage">
 	<div class="splashContent">
   		<img class="splashLogo" src="images/signup_bubble.png">
@@ -46,6 +20,7 @@
 		        <input type="image" id="facebookButton" src="images/facebookLogin.png">
 		  	</div>
 	  	</div>
+	  	<p id="forgotPass">Forgot Password?</p>
 	</div>
 </template>
 

@@ -182,28 +182,8 @@ Template.header.helpers({
     showChangePassword: function(){
         return Session.get("showChangePassword");
     },
-    requests: function() {
-        var results =  Meteor.requests.find({
-            $or: [
-                {userId:Meteor.userId()},
-                {requesterId:Meteor.userId()}
-            ]
-        });
-        alert("here");
-        console.log(results.fetch());
-        return results;
-    },
-    isOutgoing: function(requesterId){
-        var userId = Meteor.userId();
-        if (requesterId == userId){
-            console.log("true");
-            return true;
-        }
-        else{
-            return false;
-        }
-    }
 });
+
 Template.friendRequestPage.events({
     'click [data-action=accept]': function() {
         this.accept();
