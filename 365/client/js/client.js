@@ -55,29 +55,6 @@ Template.worldFeed.events({
     }
 });
 
-Template.post.events({
-    "submit .new-thought": function (event) {
-        event.preventDefault();
-        // This function is called when the new thought form is submitted
-        var text = event.target.text.value;
-
-        var thoughtId = Meteor.call("addThought", text, null,
-        function(err, data) {
-            if (err){
-                console.log(err);
-            } 
-            console.log(data)
-        });
-        // Clear form
-        event.target.text.value = "";
-        // Prevent default form submit
-        return false;
-    },
-    "click #btn-cancel-post": function(event){
-        $("#tempForm").hide();
-    }
-});
-
 Template.thought.events({
     "click .delete": function (event) {
         Meteor.call("deleteThought", this._id);
@@ -128,7 +105,8 @@ Template.mainPage.events({
         console.log("here");
         event.preventDefault();
         // This function is called when the new thought form is submitted
-        var text = event.target.text.value;
+        var text = $("#newThoughtBox").val();
+        console.log(text);
 
         var thoughtId = Meteor.call("addThought", text, null,
         function(err, data) {
@@ -146,7 +124,7 @@ Template.mainPage.events({
         });
 
         // Clear form
-        event.target.text.value = "";
+        $("#newThoughtBox").val("");
 
         // Prevent default form submit
 
