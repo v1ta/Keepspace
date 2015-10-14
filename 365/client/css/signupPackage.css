@@ -1,0 +1,28 @@
+#signupForm{
+	margin:0px;
+}
+
+.backButton{
+	display:inline-block;
+	position:relative;
+	right:50px;
+	bottom:8px;
+	height:60px;
+}
+#nextLoginButton{
+	width:90px;
+}
+
+#createButton{
+	margin-top:15px;
+	width:90px;
+}
+
+#verify{
+	margin-top:-7px;
+	position:relative;
+}
+#headeremail{
+	position:relative;
+	top:-2px;
+}
