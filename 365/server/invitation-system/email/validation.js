@@ -16,7 +16,7 @@
       HTTP.call("GET", "https://api.kickbox.io/v1/verify", {
         params: {
           email: address,
-          apikey: "Enter your own Kickbox API key here."
+          apikey: "."
         }
       }, function(error, response) {
         if (error) {
