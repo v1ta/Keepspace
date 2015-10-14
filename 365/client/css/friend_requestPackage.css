@@ -1,0 +1,31 @@
+#acceptRequest{
+  text-decoration: none;
+  text-rendering: optimizeLegibility;
+}
+
+#denyRequest{
+  text-decoration: none;
+  text-rendering: optimizeLegibility;
+}
+
+#removeFriend{
+  text-decoration: none;
+  text-rendering: optimizeLegibility;
+}
+
+.friendsList{
+  font-family: Gotham;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  font-size:160%
+}
+.friendListHeader{
+  font-family: Roboto;
+  font-size:260%
+}
+
+.feed-user-icon {
+  position: absolute;
+  left: 15px;
+  z-index: 1;
+}

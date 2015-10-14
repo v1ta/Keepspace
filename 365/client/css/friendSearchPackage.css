@@ -1,0 +1,14 @@
+.feed-search-icon {
+  position: absolute;
+  right: 15px;
+  z-index: 1;
+}
+.friend-search-icon {
+  position: absolute;
+  right: 15px;
+  z-index: 1;
+}
+.searchUser {
+  width:90%;
+  background-color: #f9f9f9;
+}
