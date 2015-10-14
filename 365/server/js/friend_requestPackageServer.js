@@ -1,62 +1,6 @@
-// Only publish thoughts that are public or belong to the current user
-Meteor.publish("thoughts", function () {
-
-    return Thoughts.find({
-        $or: [
-            { private: {$ne: true} },
-            { userId: this.userId }
-        ]
-    });
-});
-
-Meteor.publish("users", function() {
-    return Meteor.users.find({});
-
-});
-
-
-Meteor.publish("SearchUsers", searchUsers);
-
-Meteor.publish("Notifications", function() {
-    var cursor = Notifications.find({userId: this.userId});
-    Counts.publish(this, "Notifications-Counter", Notifications.find({userId: this.userId}), {noReady: true});
-    return cursor;
-});
-
-Meteor.publish("avatars", function() {
-    return Avatars.find();
-});
-
-
 function getFriendList(){
     return Meteor.friends.find({userId: this.userId}, {friendId:1,userId:0,_id:0}).fetch();
 }
-
-Accounts.onCreateUser(function(options, user){
-    
-    if (options.profile){
-        user.profile = options.profile; 
-        user.username = ( user.username || options.profile.name );
-        if (user.services.facebook)
-            options.profile.picture = "http://graph.facebook.com/" + user.services.facebook.id + "/picture/?height=200&width=200";
-        else
-            options.profile.picture = "/avatars/default.png";
-        user.profile = options.profile;
-    } else {
-        user.profile = {};
-        user.profile.picture = "/avatars/default.png";
-        user.username = ( user.username || user.emails[0].address);
-    }
-
-    user.profile.collects = 0;
-    user.profile.lastShared = {
-        date: 0,
-        thoughtId: 0
-    };
-
-    return user;
-});
-
 
 Meteor.publish("friends", function (options) {
     if(!this.userId){
@@ -152,4 +96,3 @@ Meteor.publish('outgoingFriendRequests', function(options){
     });
 
 });
-
