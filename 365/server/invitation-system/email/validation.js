@@ -1,6 +1,8 @@
 /*
- * 3rd party API for custom keys
+  Email Validation
+  Method for validating email addresses for authenticity.
  */
+
 (function() {
   var Future;
 
@@ -14,7 +16,7 @@
       HTTP.call("GET", "https://api.kickbox.io/v1/verify", {
         params: {
           email: address,
-          apikey: ""
+          apikey: "Enter your own Kickbox API key here."
         }
       }, function(error, response) {
         if (error) {

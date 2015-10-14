@@ -1,13 +1,12 @@
-(function() {
-  Meteor.startup(function() {
+Meteor.startup(function() {
 
     var checkUser, i, id, len, results, user, users;
 
     users = [
-      {
-        name: "Steve Urkel",
-        email: "admin@mykeepspace.com",
-        password: "rashdoggystyle",
+     {
+        name: "dashboard admin",
+        email: "admin@thekeepspace.com",
+        password: "password",
         roles: ['admin']
       }
     ];
@@ -37,4 +36,3 @@
     return results;
   });
 
-}).call(this);

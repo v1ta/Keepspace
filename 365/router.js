@@ -1,9 +1,10 @@
+
 Router.route("mainPage", {
   path:"/",
   onBeforeAction: function(){
     if (!Meteor.user()){
       Session.set('c_login', false);
-      this.redirect('splash');
+      this.redirect('index');
     }
     else{
       this.next();
@@ -17,6 +18,7 @@ Router.route("mainPage", {
     this.render("mainPage");
   }
 });
+
 Router.route("mainAbout", function(){
   this.layout("header");
   this.render("aboutPage");
@@ -52,6 +54,7 @@ Router.route('loginPage', function() {
   // this.render('signupPage');
   this.render("loginPage");
 });
+
 Router.route('signup', {
   onBeforeAction: function(){
     if (Meteor.user()){
@@ -98,6 +101,7 @@ Router.route('/users/:username', {
     return Meteor.users.findOne({username: this.params.username })
   }
 });
+
 
 AccountController = RouteController.extend({
     verifyEmail: function () {

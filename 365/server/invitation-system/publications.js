@@ -1,5 +1,4 @@
-(function() {
-  Meteor.publish('/invites', function() {
+Meteor.publish('/invites', function() {
     if (Roles.userIsInRole(this.userId, ['admin'])) {
       return Invites.find({}, {
         fields: {
@@ -24,4 +23,3 @@
     });
   });
 
-}).call(this);
