@@ -1,0 +1,57 @@
+<template name="signupPage">
+	<div class="splashContent">
+  		<img class="splashLogo" src="images/signup_bubble.png">
+  		<div class="singleLine">
+	  		<img class="backButton" src="images/backButton.png" style="display:none">
+	     	<p class="splashTitle">Welcome to Keepspace</p>
+     	</div>
+      	<div class="splashButtons">
+		    <form id="signupForm">
+		    	<div id="firstSignPage">
+			        <input class="loginForm" id="username" type="username" name="userName"
+			        placeholder="name">
+			        <br>
+			        <input class="loginForm" id="dateOfBirth" type="username" name="dateOfBirth"
+			        placeholder="date of birth (mm/dd/yyyy)">
+			        <br>
+			        
+		        </div>
+		        <div id="secondSignPage" style="display:none">
+			        <input class="loginForm" id="signupEmail" type="email" name="userEmail"
+			        placeholder="e-mail">
+			        <br>
+			        <input class="loginForm" id="password" type="password" name="userPassword"
+			        placeholder="password">
+			        <br>
+			        <input class="loginForm" id="passwordAgain" type="password" name="userPasswordAgain" placeholder="password (again please!)">
+			        <br>
+			        <input class="blueLoginButton" type="submit" id="createButton" value="Create">
+		    	</div>
+	    	</form>
+		    <button class="blueLoginButton" id="nextLoginButton">next</button> 
+		    <br>
+		    <div id="login-buttons-facebook">
+		        <input type="image" id="facebookButton" src="images/facebookSignIn.png">
+		  	</div>
+		</div>
+	</div>
+</template>
+
+<template name="verifyemail">
+  <form role="form" class="splashForm">
+     <div class="form-group">
+      <input type="text" class="headerEmail" id="headeremail" placeholder="signupforbeta@youremailhere.com" />
+      <input type="button" class="btn btn-primary btn-lg" id="verify" value="✓" />
+     </div>
+  </form>
+</template>
+
+<template name="checkemail">
+ <h1>Please check your email</h1>
+ <p>Once you verify you can do amazing things!</p>
+</template>
+
+<template name="verified">
+ <h1>Thank you for verifying your email address!</h1>
+ <p> Welcome to Keepspace</p>
+</template>
