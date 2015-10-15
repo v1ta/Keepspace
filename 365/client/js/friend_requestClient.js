@@ -8,7 +8,13 @@ Template.header.onRendered(function(event) {
             Session.set("showFriendPage", false);
         }
     });
-})
+});
+
+Template.header.helpers({
+    showFriendPage: function(){
+        return Session.get("showFriendPage");
+    },
+});
 
 Template.friendRequestPage.events({
     'click [data-action=accept]': function() {

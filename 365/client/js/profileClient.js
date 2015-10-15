@@ -10,6 +10,12 @@ Template.header.onRendered(function(event) {
     });
 });
 
+Template.header.helpers({
+    showProfile: function() {
+        return Session.get('showProfile');
+    },
+});
+
 Template.profile.helpers({
     username: function() {
         return Session.get('showProfile').username;

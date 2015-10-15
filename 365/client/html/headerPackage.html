@@ -34,15 +34,10 @@
       </div>
     </div>
   </div>
-  <div class="alertDiv" id="mainAlert">
-    <div class="alertBubble" id="alertText">
-      <p class="oldPostDay"></p>
-      <p class="oldPostTime"></p>
-      <p class="oldPostText"></p>
-    </div>
-    <p class="alertBubble closeAlert">X</p>
-  </div>
-
+  
+  {{#with showRandomReminder}}
+    {{> randomReminder}}
+  {{/with}}
   {{#with showChangePassword}}
     {{> changePass}}
   {{/with}}

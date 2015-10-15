@@ -49,6 +49,12 @@ Template.header.events({
     },
 });
 
+Template.header.helpers({
+    showChangePassword: function(){
+        return Session.get("showChangePassword");
+    },
+});
+
 Template.header.onRendered(function(event) {
 	Session.set("showChangePassword", false);
 });
