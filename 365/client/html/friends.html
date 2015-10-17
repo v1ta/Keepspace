@@ -1,25 +1,32 @@
-<template name ="friendList">
-<i class="fa fa-users feed-user-icon"><div class="badge success">{{currentUser.numRequests}}</div></i>
-	<div id="friendList">
-	<h2 class="friendListHeader" align="center">Friends</h2>
-		{{#each currentUser.friendsAsUsers}}
-			<p class="friendsList">{{username}}
-			<button type="button" id="removeFriend" class="btn btn-default btn-circle"  onclick="this.blur();"><i class="glyphicon glyphicon-remove"></i></button> 
-			</p>
-		{{else}}
-		<p class="friendsList">No friends</p>
-	{{/each}}
-	
-	<h2 class="friendListHeader" align="center">Requests</h2>
-		<div class="requests">
-			{{#each currentUser.requests}}
-				<p class="friendsList">{{requester.username}}
-				<button type="button" id="denyRequest" class="btn btn-default btn-circle"  onclick="this.blur();"><i class="glyphicon glyphicon-remove"></i></button> 
-				<button type="button" id="acceptRequest" class="btn btn-default btn-circle"  onclick="this.blur();"><i class="glyphicon glyphicon-ok"></i></button> 
-				</p>
-			{{else}}
-				<p class="friendsList">No pending requests</p>
-			{{/each}}
-		</div>
-	</div>
+<template name="friendList">
+    <i class="fa fa-users feed-user-icon">
+        <div class="badge success">{{currentUser.numRequests}}</div>
+    </i>
+
+    <div id="friendList">
+        <h2 class="friendListHeader" align="center">Friends</h2>
+        {{#each currentUser.friendsAsUsers}}
+            <p class="friendsList">{{username}}
+                <button type="button" id="removeFriend" class="btn btn-default btn-circle" onclick="this.blur();"><i
+                        class="glyphicon glyphicon-remove"></i></button>
+            </p>
+        {{else}}
+            <p class="friendsList">No friends</p>
+        {{/each}}
+
+        <h2 class="friendListHeader" align="center">Requests</h2>
+
+        <div class="requests">
+            {{#each currentUser.requests}}
+                <p class="friendsList">{{requester.username}}
+                    <button type="button" id="denyRequest" class="btn btn-default btn-circle" onclick="this.blur();"><i
+                            class="glyphicon glyphicon-remove"></i></button>
+                    <button type="button" id="acceptRequest" class="btn btn-default btn-circle" onclick="this.blur();">
+                        <i class="glyphicon glyphicon-ok"></i></button>
+                </p>
+            {{else}}
+                <p class="friendsList">No pending requests</p>
+            {{/each}}
+        </div>
+    </div>
 </template>

@@ -1,100 +1,93 @@
 <template name="myFeed">
-  <div id="myFeed" class="feed col-xs-4">
-    <div class="feed-name">{{username}}</div>
-    <div id="myFeed-container"></div>
-  </div>
+    <div id="myFeed" class="feed col-xs-4">
+        <div class="feed-name">{{username}}</div>
+        <div id="myFeed-container"></div>
+    </div>
 </template>
-
 
 
 <template name="worldFeed">
     <br>
-  <div class="container">
-    <ul>
-      {{#each worldPosts}}
-        {{> worldPost}}
-      {{/each}}
-    </ul>
-  </div>
+
+    <div class="container">
+        <ul>
+            {{#each worldPosts}}
+                {{> worldPost}}
+            {{/each}}
+        </ul>
+    </div>
 </template>
 
 <template name="friendFeed">
-  <div id="friendFeed" class="feed col-xs-4">
-      <div class="friendFeed">FRIEND</div>
-      <div id="friendFeed-container"></div>
-  </div>
+    <div id="friendFeed" class="feed col-xs-4">
+        <div class="friendFeed">FRIEND</div>
+        <div id="friendFeed-container"></div>
+    </div>
 </template>
 
 <template name="post">
     {{#if currentUser}}
         <div id="tempForm" style="display:none">
             <form class="new-thought">
-                <input type="text" name="text" placeholder="Type to add new thought" />
+                <input type="text" name="text" placeholder="Type to add new thought"/>
             </form>
             <button class="btn" id="btn-import-facebook">Use Facebook Post</button>
             <button class="btn" id="btn-cancel-post">Cancel</button>
         </div>
-  {{/if}}
+    {{/if}}
 </template>
-
-
-
 
 
 <!-- replace the existing task template with this code -->
 <template name="worldPost">
-  <li class="{{#if checked}}checked{{/if}}">
-  <button class="delete">&times;</button>
+    <li class="{{#if checked}}checked{{/if}}">
+        <button class="delete">&times;</button>
 
-    <!-- add right below the code for the checkbox in the task template -->
-  {{#if isOwner}}
-    <button class="toggle-private">
-      {{#if private}}
-        Private
-      {{else}}
-        Public
-      {{/if}}
-    </button>
-    {{else}}
-    <button class="addToCollection">Add To Collection</button>
-  {{/if}}
+        <!-- add right below the code for the checkbox in the task template -->
+        {{#if isOwner}}
+            <button class="toggle-private">
+                {{#if private}}
+                    Private
+                {{else}}
+                    Public
+                {{/if}}
+            </button>
+        {{else}}
+            <button class="addToCollection">Add To Collection</button>
+        {{/if}}
 
-<!-- modify the li tag to have the private class if the item is private -->
-  <li class="{{#if checked}}checked{{/if}} {{#if private}}private{{/if}}">
-      <span class="text"><strong>{{username}}</strong> - {{text}}</span>
+        <!-- modify the li tag to have the private class if the item is private -->
+    <li class="{{#if checked}}checked{{/if}} {{#if private}}private{{/if}}">
+        <span class="text"><strong>{{username}}</strong> - {{text}}</span>
     </li>
-  </li> 
+    </li>
 </template>
-
-
-
-
 
 
 <!-- replace the existing task template with this code -->
 <template name="thought">
-  <div class="thought">
-    <li class="{{#if checked}}checked{{/if}}">
-    <button class="delete">X</button>
+    <div class="thought">
+        <li class="{{#if checked}}checked{{/if}}">
+            <button class="delete">X</button>
 
-      <!-- add right below the code for the checkbox in the task template -->
-    {{#if isOwner}}
-      <button class="toggle-private">
-        {{#if private}}
-          Private
-        {{else}}
-          Public
-        {{/if}}
-      </button>
-    {{/if}}
+            <!-- add right below the code for the checkbox in the task template -->
+            {{#if isOwner}}
+                <button class="toggle-private">
+                    {{#if private}}
+                        Private
+                    {{else}}
+                        Public
+                    {{/if}}
+                </button>
+            {{/if}}
 
-  <!-- modify the li tag to have the private class if the item is private -->
-    <li class="{{#if checked}}checked{{/if}} {{#if private}}private{{/if}}">
+            <!-- modify the li tag to have the private class if the item is private -->
+        <li class="{{#if checked}}checked{{/if}} {{#if private}}private{{/if}}">
 
-        <span class="text"><strong>{{username}}</strong> - {{text}}</span>
-      </li>
-    </li>
-  </div>
+            <span class="text"><strong>{{username}}</strong> - {{text}}</span>
+        </li>
+        </li>
+    </div>
 </template>
 
 

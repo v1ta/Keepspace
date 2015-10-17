@@ -1,12 +1,12 @@
 UI.registerHelper('currentRoute', function(route) {
     if (Session.equals('currentRoute', route)) {
-      return 'active';
+        return 'active';
     } else {
-      return '';
+        return '';
     }
-  });
+});
 
-  UI.registerHelper('epochToString', function(timestamp) {
+UI.registerHelper('epochToString', function(timestamp) {
     return moment.unix(timestamp / 1000).format("MMMM Do, YYYY");
-  });
+});
 

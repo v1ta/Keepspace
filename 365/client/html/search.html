@@ -1,27 +1,33 @@
 <template name="friendSearch">
-        <i class="fa fa-search friend-search-icon"></i>
-        <div id="friendSearchBox">
-          <input type="text" class="form-control" placeholder="Search Keepspace" id="search-friends"/> 
-            <div id="friendSearchList">
+    <i class="fa fa-search friend-search-icon"></i>
+
+    <div id="friendSearchBox">
+        <input type="text" class="form-control" placeholder="Search Keepspace" id="search-friends"/>
+
+        <div id="friendSearchList">
             {{#if hasInput}}
-            <ul>
-            {{#each users}}
-                {{#if notCurrentUser _id}}
-                <li class="searchUser {{selectedClass}}">
-                    <a href="#" class="searchUser">{{username}}
-                        {{#if canRequest _id }}
-                            {{#if notFriend _id}}  
-                                <button type="button" id="send-friend-request" class="btn btn-default btn-circle"  onclick="this.blur();"><i class="glyphicon glyphicon-plus"></i></button>
-                            {{/if}}
-                        {{else}}
-                            <button type="button" id="cancel-friend-request" class="btn btn-default btn-circle"  onclick="this.blur();"><i class="glyphicon glyphicon-minus"></i></button>
+                <ul>
+                    {{#each users}}
+                        {{#if notCurrentUser _id}}
+                            <li class="searchUser {{selectedClass}}">
+                                <a href="#" class="searchUser">{{username}}
+                                    {{#if canRequest _id }}
+                                        {{#if notFriend _id}}
+                                            <button type="button" id="send-friend-request"
+                                                    class="btn btn-default btn-circle" onclick="this.blur();"><i
+                                                    class="glyphicon glyphicon-plus"></i></button>
+                                        {{/if}}
+                                    {{else}}
+                                        <button type="button" id="cancel-friend-request"
+                                                class="btn btn-default btn-circle" onclick="this.blur();"><i
+                                                class="glyphicon glyphicon-minus"></i></button>
+                                    {{/if}}
+                                </a>
+                            </li>
                         {{/if}}
-                    </a>
-                </li>
-                {{/if}}
-            {{/each}}
-            </ul>
+                    {{/each}}
+                </ul>
             {{/if}}
-            </div>
         </div>
+    </div>
 </template>

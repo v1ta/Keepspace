@@ -1,93 +1,102 @@
 <template name="login">
-	<div id="loginButtons">
-	    <form>
-	        <input class="loginForm" id="username" type="username" name="loginEmail"
-	        placeholder="Username">
-	        <br>
-	        <input class="loginForm" id="password" type="password" name="loginPassword"
-	        placeholder="Password">
-	        <br>
-	        <input class="loginForm" id="passwordAgain" type="password" name="loginPasswordAgain" placeholder="Password (again)" style="display:none">
-	        <br>
-	        <input type="submit" id="signIn" value="Sign In">
-	    </form>
-	    <button id="createAccount">Create Account</button>
-	    <br>
-	    <div class="accounts-dialog">
+    <div id="loginButtons">
+        <form>
+            <input class="loginForm" id="username" type="username" name="loginEmail"
+                   placeholder="Username">
+            <br>
+            <input class="loginForm" id="password" type="password" name="loginPassword"
+                   placeholder="Password">
+            <br>
+            <input class="loginForm" id="passwordAgain" type="password" name="loginPasswordAgain"
+                   placeholder="Password (again)" style="display:none">
+            <br>
+            <input type="submit" id="signIn" value="Sign In">
+        </form>
+        <button id="createAccount">Create Account</button>
+        <br>
+
+        <div class="accounts-dialog">
 
 
-		    <div class="login-button single-login-button" id="login-buttons-facebook">
-		        <span class="text-besides-image sign-in-text-facebook">Sign in with Facebook</span>
-		  	</div>
-		</div>
+            <div class="login-button single-login-button" id="login-buttons-facebook">
+                <span class="text-besides-image sign-in-text-facebook">Sign in with Facebook</span>
+            </div>
+        </div>
 
-	</div>
+    </div>
 </template>
 
 <template name="loginPage">
-	<div class="splashContent">
-  		<img class="splashLogo" src="images/signup_bubble.png">
-  		<div class="singleLine">
-	     	<p class="splashTitle">Welcome to Keepspace</p>
-     	</div>
-     	<div class="splashButtons">
-	     	<form id="signupForm">
-		    	<div id="firstSignPage">
-			        <input class="loginForm" id="loginEmail" type="email" name="email"
-			        placeholder="e-mail">
-			        <br>
-			        <input class="loginForm" id="password" type="password" name="password"
-			        placeholder="password">
-			        <br>
-			        <input class="blueLoginButton" type="submit" id="createButton" value="Go">
-		        </div>
-		    </form>
-		    <div id="login-buttons-facebook">
-		        <input type="image" id="facebookButton" src="images/facebookLogin.png">
-		  	</div>
-	  	</div>
-	</div>
+    <div class="splashContent">
+        <img class="splashLogo" src="images/signup_bubble.png">
+
+        <div class="singleLine">
+            <p class="splashTitle">Welcome to Keepspace</p>
+        </div>
+        <div class="splashButtons">
+            <form id="signupForm">
+                <div id="firstSignPage">
+                    <input class="loginForm" id="loginEmail" type="email" name="email"
+                           placeholder="e-mail">
+                    <br>
+                    <input class="loginForm" id="password" type="password" name="password"
+                           placeholder="password">
+                    <br>
+                    <a class="center" href="{{pathFor 'recover-password'}}">Forgot Password?</a>
+                    <br>
+                    <input class="blueLoginButton" type="submit" id="createButton" value="Go">
+                </div>
+            </form>
+            <div id="login-buttons-facebook">
+                <input type="image" id="facebookButton" src="images/facebookLogin.png">
+            </div>
+        </div>
+    </div>
 </template>
 
 <template name="signupPage">
-	<div class="splashContent">
-  		<img class="splashLogo" src="images/signup_bubble.png">
-  		<div class="singleLine">
-	  		<img class="backButton" src="images/backButton.png" style="display:none">
-	     	<p class="splashTitle">Welcome to Keepspace</p>
-     	</div>
-      	<div class="splashButtons">
-		    <form id="signupForm">
-		    	<div id="firstSignPage">
-			        <input class="loginForm" id="username" type="username" name="userName"
-			        placeholder="name">
-			        <br>
-			        <input class="loginForm" id="dateOfBirth" type="username" name="dateOfBirth"
-			        placeholder="date of birth (mm/dd/yyyy)">
-			        <br>
-			        
-		        </div>
-		        <div id="secondSignPage" style="display:none">
-			        <input class="loginForm" id="signupEmail" type="email" name="userEmail"
-			        placeholder="e-mail">
-			        <br>
-			        <input class="loginForm" id="password" type="password" name="userPassword"
-			        placeholder="password">
-			        <br>
-			        <input class="loginForm" id="passwordAgain" type="password" name="userPasswordAgain" placeholder="password (again please!)">
-			        <br>
-			        <input class="blueLoginButton" type="submit" id="createButton" value="Create">
-		    	</div>
-	    	</form>
-		    <button class="blueLoginButton" id="nextLoginButton">next</button> 
-		    <br>
-		    <div id="login-buttons-facebook">
-		        <input type="image" id="facebookButton" src="images/facebookSignIn.png">
-		  	</div>
-		</div>
-	</div>
+    <div class="splashContent">
+        <img class="splashLogo" src="images/signup_bubble.png">
+
+        <div class="singleLine">
+            <img class="backButton" src="images/backButton.png" style="display:none">
+
+            <p class="splashTitle">Welcome to Keepspace</p>
+        </div>
+        <div class="splashButtons">
+            <form id="signupForm">
+                <div id="firstSignPage">
+                    <input class="loginForm" id="username" type="username" name="userName"
+                           placeholder="name">
+                    <br>
+                    <input class="loginForm" id="dateOfBirth" type="username" name="dateOfBirth"
+                           placeholder="date of birth (mm/dd/yyyy)">
+                    <br>
+
+                </div>
+                <div id="secondSignPage" style="display:none">
+                    <input class="loginForm" id="signupEmail" type="email" name="userEmail"
+                           placeholder="e-mail">
+                    <br>
+                    <input class="loginForm" id="password" type="password" name="userPassword"
+                           placeholder="password">
+                    <br>
+                    <input class="loginForm" id="passwordAgain" type="password" name="userPasswordAgain"
+                           placeholder="password (again please!)">
+                    <br>
+                    <input class="blueLoginButton" type="submit" id="createButton" value="Create">
+                </div>
+            </form>
+            <button class="blueLoginButton" id="nextLoginButton">next</button>
+            <br>
+
+            <div id="login-buttons-facebook">
+                <input type="image" id="facebookButton" src="images/facebookSignIn.png">
+            </div>
+        </div>
+    </div>
 </template>
 
 <template name="loggingIn">
-  Logging in...
+    Logging in...
 </template>

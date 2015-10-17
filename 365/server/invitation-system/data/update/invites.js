@@ -20,8 +20,8 @@ Meteor.methods({
         } else {
           return Email.send({
             to: invitee.email,
-            from: "The Meteor Chef <business@themeteorchef.com>",
-            subject: "Welcome to Urkelforce!",
+            from: "admin@thekeepspace.com",
+            subject: "Welcome to Keepspace!",
             html: Handlebars.templates['send-invite']({
               token: token,
               url: url,

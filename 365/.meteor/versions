@@ -60,6 +60,7 @@ jquery@1.11.3_2
 json@1.0.3
 juliancwirko:s-alert@3.0.0
 juliancwirko:s-alert-flip@3.0.0
+juliancwirko:s-alert-genie@3.0.0
 launch-screen@1.0.2
 less@1.0.14
 livedata@1.0.13
@@ -83,6 +84,7 @@ mizzao:bootstrap-3@3.3.1_1
 mobile-status-bar@1.0.3
 mongo@1.1.0
 mongo-livedata@1.0.8
+mrt:moment@2.8.1
 npm@0.0.0
 npm-bcrypt@0.7.8_2
 npm-container@1.1.0

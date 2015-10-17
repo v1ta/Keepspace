@@ -1,11 +1,14 @@
-// will moves these once it's fully functional
-Router.route('index', {
-  path: '/index',
-  template: 'index',
+Router.route('splash', {
+  path:'/',
   onBeforeAction: function() {
-    Session.set('currentRoute', 'index');
+    Session.set('currentRoute', 'splashBanner');
     return this.next();
+  },
+  action: function(){
+    this.layout('splashBanner');
+    this.render('carousel');
   }
+
 });
 
 Router.route('signup2', {
@@ -28,14 +31,6 @@ Router.route('signup2/:token', {
   }
 });
 
-Router.route('login2', {
-  path: '/login2',
-  template: 'login2',
-  onBeforeAction: function() {
-    Session.set('currentRoute', 'login2');
-    return this.next();
-  }
-});
 
 Router.route('recover-password', {
   path: '/recover-password',
@@ -53,5 +48,26 @@ Router.route('reset-password', {
     Session.set('currentRoute', 'reset-password');
     Session.set('resetPasswordToken', this.params.token);
     return this.next();
+  }
+});
+
+Router.route("mainAbout", function(){
+  this.layout("header");
+  this.render("aboutPage");
+});
+
+Router.route("mainTeam", function(){
+  this.layout("header");
+  this.render("teamPage");
+});
+
+Router.route('about', {
+  onBeforeAction: function() {
+    Session.set('currentRoute', 'about');
+    return this.next();
+  },
+  action: function(){
+    this.layout("splashBanner");
+    this.render('aboutPage');
   }
 });

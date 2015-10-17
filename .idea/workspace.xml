@@ -2,54 +2,74 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="976cffc7-f548-4df6-a63b-bf09632615fa" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/365/client/invitation-system/stylesheets/sass/globals/_bootstrap.scss" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/365/client/invitation-system/stylesheets/sass/globals/_extends.scss" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/365/client/invitation-system/stylesheets/sass/globals/_forms.scss" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/365/client/invitation-system/includes/_header2.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/365/client/invitation-system/stylesheets/sass/views/public/_index.scss" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/365/client/invitation-system/stylesheets/sass/views/public/_login.scss" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/365/client/invitation-system/stylesheets/sass/application.scss" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/365/server/invitation-system/data/read/beta-tokens.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/365/client/invitation-system/views/authenticated/closed-invitations.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/365/client/invitation-system/controllers/authenticated/closed-invitations.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/365/client/invitation-system/views/authenticated/dashboard.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/365/client/invitation-system/routes/filters.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/365/client/invitation-system/controllers/authenticated/header.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/365/client/invitation-system/helpers/helpers-ui.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/365/client/invitation-system/views/public/index.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/365/client/invitation-system/controllers/public/index.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/365/client/invitation-system/views/authenticated/invites.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/365/server/invitation-system/data/insert/invites.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/365/server/invitation-system/data/read/invites.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/365/server/invitation-system/data/update/invites.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/365/client/invitation-system/layouts/layout-default.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/365/client/invitation-system/controllers/public/login.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/365/client/invitation-system/views/public/login2.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/365/client/invitation-system/views/public/not-found.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/365/client/invitation-system/views/authenticated/open-invitations.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/365/client/invitation-system/controllers/authenticated/open-invitations.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/365/client/invitation-system/views/public/recover-password.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/365/client/invitation-system/controllers/public/recover-password.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/365/client/invitation-system/views/public/reset-password.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/365/client/invitation-system/controllers/public/reset-password.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/365/client/invitation-system/routes/routes-authenticated.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/365/client/invitation-system/routes/routes-global.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/365/client/invitation-system/routes/routes-public.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/365/client/invitation-system/views/public/signup-count.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/365/client/invitation-system/controllers/public/signup-count.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/365/client/invitation-system/controllers/public/signup.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/365/client/invitation-system/views/public/signup2.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/uiDesigner.xml" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/365/server/beta/collection/asyncupdate.js" afterPath="" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/365/server/beta/panel/startup.js" afterPath="$PROJECT_DIR$/365/server/invitation-system/admin/startup.js" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/365/server/beta/panel/templates/resetpw.js" afterPath="$PROJECT_DIR$/365/server/invitation-system/email/templates/reset-password.js" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/365/server/beta/panel/templates/send-invite.handlebars" afterPath="$PROJECT_DIR$/365/server/invitation-system/email/templates/send-invite.handlebars" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/365/server/beta/panel/templates/validation.js" afterPath="$PROJECT_DIR$/365/server/invitation-system/email/validation.js" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/365/server/beta/publications/publish.js" afterPath="$PROJECT_DIR$/365/server/invitation-system/publications.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/365/lib/routes/filters.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/365/client/invitation-system/controllers/authenticated/invites.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/365/lib/routes/router-mainApp.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/365/lib/routes/routes-authenticated.js" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/365/client/invitation-system/controllers/authenticated/header.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/365/client/invitation-system/controllers/public/index.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/365/client/invitation-system/controllers/public/login.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/365/client/invitation-system/controllers/public/signup-count.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/365/client/invitation-system/includes/_header2.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/365/client/invitation-system/layouts/layout-default.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/365/client/invitation-system/routes/filters.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/365/client/invitation-system/routes/routes-authenticated.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/365/client/invitation-system/routes/routes-global.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/365/client/invitation-system/views/authenticated/dashboard.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/365/client/invitation-system/views/public/index.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/365/client/invitation-system/views/public/login2.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/365/client/invitation-system/views/public/not-found.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/365/client/invitation-system/views/public/signup-count.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/365/router.js" afterPath="" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/365/client/invitation-system/routes/routes-public.js" afterPath="$PROJECT_DIR$/365/lib/routes/routes-public.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/365/lib/_namespace.js" afterPath="$PROJECT_DIR$/365/lib/_namespace.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/365/server/invitation-system/data/read/beta-tokens.js" afterPath="$PROJECT_DIR$/365/server/invitation-system/data/read/beta-tokens.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/365/client/lib/css/bootstrap.min.css" afterPath="$PROJECT_DIR$/365/client/lib/css/bootstrap.min.css" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/365/client/js/calendarClient.js" afterPath="$PROJECT_DIR$/365/client/js/calendarClient.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/365/client/js/client.js" afterPath="$PROJECT_DIR$/365/client/js/client.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/365/client/invitation-system/views/authenticated/closed-invitations.html" afterPath="$PROJECT_DIR$/365/client/invitation-system/views/authenticated/closed-invitations.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/365/client/invitation-system/controllers/authenticated/closed-invitations.js" afterPath="$PROJECT_DIR$/365/client/invitation-system/controllers/authenticated/closed-invitations.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/365/client/html/feed.html" afterPath="$PROJECT_DIR$/365/client/html/feed.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/365/client/html/friends.html" afterPath="$PROJECT_DIR$/365/client/html/friends.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/365/client/js/headerClient.js" afterPath="$PROJECT_DIR$/365/client/js/headerClient.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/365/client/invitation-system/helpers/helpers-ui.js" afterPath="$PROJECT_DIR$/365/client/invitation-system/helpers/helpers-ui.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/365/client/invitation-system/views/authenticated/invites.html" afterPath="$PROJECT_DIR$/365/client/invitation-system/views/authenticated/invites.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/365/server/invitation-system/data/insert/invites.js" afterPath="$PROJECT_DIR$/365/server/invitation-system/data/insert/invites.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/365/server/invitation-system/data/read/invites.js" afterPath="$PROJECT_DIR$/365/server/invitation-system/data/read/invites.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/365/server/invitation-system/data/update/invites.js" afterPath="$PROJECT_DIR$/365/server/invitation-system/data/update/invites.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/365/client/compatibility/jquery-dateFormat.min.js" afterPath="$PROJECT_DIR$/365/client/compatibility/jquery-dateFormat.min.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/365/client/compatibility/kinetic-v5.1.0.min.js" afterPath="$PROJECT_DIR$/365/client/compatibility/kinetic-v5.1.0.min.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/365/client/html/login.html" afterPath="$PROJECT_DIR$/365/client/html/login.html" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/365/lib/method.js" afterPath="$PROJECT_DIR$/365/lib/method.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/365/client/js/notifications.js" afterPath="$PROJECT_DIR$/365/client/js/notifications.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/365/client/invitation-system/controllers/authenticated/open-invitations.js" afterPath="$PROJECT_DIR$/365/client/invitation-system/controllers/authenticated/open-invitations.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/365/packages/npm-container/package.js" afterPath="$PROJECT_DIR$/365/packages/npm-container/package.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/365/packages.json" afterPath="$PROJECT_DIR$/365/packages.json" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/365/.meteor/packages" afterPath="$PROJECT_DIR$/365/.meteor/packages" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/365/router.js" afterPath="$PROJECT_DIR$/365/router.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/365/client/lib/js/parallax.min.js" afterPath="$PROJECT_DIR$/365/client/lib/js/parallax.min.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/365/client/css/profile.css" afterPath="$PROJECT_DIR$/365/client/css/profile.css" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/365/server/invitation-system/publications.js" afterPath="$PROJECT_DIR$/365/server/invitation-system/publications.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/365/client/invitation-system/views/public/recover-password.html" afterPath="$PROJECT_DIR$/365/client/invitation-system/views/public/recover-password.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/365/client/invitation-system/controllers/public/recover-password.js" afterPath="$PROJECT_DIR$/365/client/invitation-system/controllers/public/recover-password.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/365/client/js/renderFeed.js" afterPath="$PROJECT_DIR$/365/client/js/renderFeed.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/365/client/invitation-system/views/public/reset-password.html" afterPath="$PROJECT_DIR$/365/client/invitation-system/views/public/reset-password.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/365/client/invitation-system/controllers/public/reset-password.js" afterPath="$PROJECT_DIR$/365/client/invitation-system/controllers/public/reset-password.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/365/server/invitation-system/email/templates/reset-password.js" afterPath="$PROJECT_DIR$/365/server/invitation-system/email/templates/reset-password.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/365/client/css/search.css" afterPath="$PROJECT_DIR$/365/client/css/search.css" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/365/client/html/search.html" afterPath="$PROJECT_DIR$/365/client/html/search.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/365/server/invitation-system/email/templates/send-invite.handlebars" afterPath="$PROJECT_DIR$/365/server/invitation-system/email/templates/send-invite.handlebars" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/365/server/js/server.js" afterPath="$PROJECT_DIR$/365/server/js/server.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/365/settings.json" afterPath="$PROJECT_DIR$/365/settings.json" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/365/client/invitation-system/controllers/public/signup.js" afterPath="$PROJECT_DIR$/365/client/invitation-system/controllers/public/signup.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/365/client/invitation-system/views/public/signup2.html" afterPath="$PROJECT_DIR$/365/client/invitation-system/views/public/signup2.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/365/client/css/splash.css" afterPath="$PROJECT_DIR$/365/client/css/splash.css" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/365/client/html/splash.html" afterPath="$PROJECT_DIR$/365/client/html/splash.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/365/client/js/splashClient.js" afterPath="$PROJECT_DIR$/365/client/js/splashClient.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/365/server/invitation-system/admin/startup.js" afterPath="$PROJECT_DIR$/365/server/invitation-system/admin/startup.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/365/packages/npm/test.js" afterPath="$PROJECT_DIR$/365/packages/npm/test.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/365/server/invitation-system/email/validation.js" afterPath="$PROJECT_DIR$/365/server/invitation-system/email/validation.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/365/.meteor/versions" afterPath="$PROJECT_DIR$/365/.meteor/versions" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="Keepspace.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -72,94 +92,64 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="invites.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/365/server/invitation-system/data/update/invites.js">
+      <file leaf-file-name="calendarClient.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/365/client/js/calendarClient.js">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+              <caret line="138" column="17" selection-start-line="138" selection-start-column="17" selection-end-line="138" selection-end-column="17" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="send-invite.handlebars" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/365/server/invitation-system/email/templates/send-invite.handlebars">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-14.0">
-              <caret line="21" column="41" selection-start-line="21" selection-start-column="41" selection-end-line="21" selection-end-column="41" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="reset-password.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/365/server/invitation-system/email/templates/reset-password.js">
+      <file leaf-file-name="client.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/365/client/js/client.js">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="13" column="315" selection-start-line="13" selection-start-column="315" selection-end-line="13" selection-end-column="315" />
+              <caret line="34" column="22" selection-start-line="0" selection-start-column="0" selection-end-line="293" selection-end-column="0" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="publications.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/365/server/invitation-system/publications.js">
+      <file leaf-file-name="headerClient.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/365/client/js/headerClient.js">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="24" column="0" selection-start-line="24" selection-start-column="0" selection-end-line="24" selection-end-column="0" />
+              <caret line="36" column="46" selection-start-line="36" selection-start-column="46" selection-end-line="36" selection-end-column="46" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="validation.js" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/365/server/invitation-system/email/validation.js">
+      <file leaf-file-name="notifications.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/365/client/js/notifications.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.054380666">
-              <caret line="3" column="3" selection-start-line="3" selection-start-column="3" selection-end-line="4" selection-end-column="0" />
+            <state vertical-scroll-proportion="0.0">
+              <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="21" selection-end-column="1" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="search.js" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/365/client/js/search.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.9450369">
+              <caret line="64" column="52" selection-start-line="64" selection-start-column="52" selection-end-line="64" selection-end-column="52" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="renderFeed.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/365/client/js/renderFeed.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0">
+              <caret line="243" column="36" selection-start-line="243" selection-start-column="36" selection-end-line="243" selection-end-column="36" />
               <folding>
                 <element signature="n#!!doc" expanded="true" />
               </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="router.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/365/router.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="103" column="0" selection-start-line="103" selection-start-column="0" selection-end-line="103" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="routes-public.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/365/client/invitation-system/routes/routes-public.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-0.0">
-              <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="46" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="routes-global.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/365/client/invitation-system/routes/routes-global.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="0" column="46" selection-start-line="0" selection-start-column="46" selection-end-line="0" selection-end-column="46" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="routes-authenticated.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/365/client/invitation-system/routes/routes-authenticated.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="0" column="46" selection-start-line="0" selection-start-column="46" selection-end-line="0" selection-end-column="46" />
-              <folding />
             </state>
           </provider>
         </entry>
@@ -182,32 +172,8 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/365/client/html/365.html" />
-        <option value="$PROJECT_DIR$/.gitignore" />
-        <option value="$PROJECT_DIR$/365/client/html/login.html" />
-        <option value="$PROJECT_DIR$/365/invitation-system/controllers/authenticated/header.js" />
-        <option value="$PROJECT_DIR$/365/invitation-system/controllers/authenticated/closed-invitations.js" />
-        <option value="$PROJECT_DIR$/365/invitation-system/controllers/authenticated/open-invitations.js" />
-        <option value="$PROJECT_DIR$/365/invitation-system/controllers/public/login.js" />
-        <option value="$PROJECT_DIR$/365/invitation-system/controllers/public/recover-password.js" />
-        <option value="$PROJECT_DIR$/365/invitation-system/controllers/public/reset-password.js" />
-        <option value="$PROJECT_DIR$/365/invitation-system/controllers/public/signup.js" />
-        <option value="$PROJECT_DIR$/365/invitation-system/controllers/public/signup-count.js" />
-        <option value="$PROJECT_DIR$/365/invitation-system/helpers/helpers-ui.js" />
-        <option value="$PROJECT_DIR$/365/invitation-system/routes/routes-public.js" />
-        <option value="$PROJECT_DIR$/365/invitation-system/routes/routes-global.js" />
-        <option value="$PROJECT_DIR$/365/invitation-system/views/public/index.html" />
-        <option value="$PROJECT_DIR$/365/client/invitation-system/views/public/login.html" />
-        <option value="$PROJECT_DIR$/365/client/invitation-system/views/public/signup.html" />
-        <option value="$PROJECT_DIR$/365/client/invitation-system/includes/_header.html" />
-        <option value="$PROJECT_DIR$/365/client/invitation-system/controllers/public/index.js" />
-        <option value="$PROJECT_DIR$/365/lib/method.js" />
         <option value="$PROJECT_DIR$/365/client/invitation-system/controllers/public/login.js" />
-        <option value="$PROJECT_DIR$/365/client/invitation-system/controllers/public/recover-password.js" />
-        <option value="$PROJECT_DIR$/365/client/invitation-system/controllers/public/reset-password.js" />
-        <option value="$PROJECT_DIR$/365/client/invitation-system/controllers/public/signup.js" />
         <option value="$PROJECT_DIR$/365/client/invitation-system/controllers/public/signup-count.js" />
-        <option value="$PROJECT_DIR$/365/client/invitation-system/helpers/helpers-ui.js" />
         <option value="$PROJECT_DIR$/365/server/beta/data/insert/invites.js" />
         <option value="$PROJECT_DIR$/365/server/beta/data/read/invites.js" />
         <option value="$PROJECT_DIR$/365/server/beta/data/update/invites.js" />
@@ -218,18 +184,45 @@
         <option value="$PROJECT_DIR$/365/server/beta/admin/startup.js" />
         <option value="$PROJECT_DIR$/365/client/invitation-system/views/public/index.html" />
         <option value="$PROJECT_DIR$/365/client/invitation-system/views/public/login2.html" />
-        <option value="$PROJECT_DIR$/365/client/invitation-system/views/public/recover-password.html" />
-        <option value="$PROJECT_DIR$/365/client/invitation-system/views/public/signup2.html" />
-        <option value="$PROJECT_DIR$/365/client/invitation-system/views/public/reset-password.html" />
         <option value="$PROJECT_DIR$/365/client/invitation-system/controllers/authenticated/closed-invitations.js" />
-        <option value="$PROJECT_DIR$/365/client/invitation-system/controllers/authenticated/header.js" />
-        <option value="$PROJECT_DIR$/365/client/invitation-system/controllers/authenticated/open-invitations.js" />
-        <option value="$PROJECT_DIR$/365/server/invitation-system/data/read/beta-tokens.js" />
-        <option value="$PROJECT_DIR$/365/router.js" />
         <option value="$PROJECT_DIR$/365/client/invitation-system/routes/routes-public.js" />
         <option value="$PROJECT_DIR$/365/client/invitation-system/routes/routes-global.js" />
         <option value="$PROJECT_DIR$/365/client/invitation-system/routes/routes-authenticated.js" />
         <option value="$PROJECT_DIR$/365/client/invitation-system/routes/filters.js" />
+        <option value="$PROJECT_DIR$/365/lib/_namespace.js" />
+        <option value="$PROJECT_DIR$/365/router.js" />
+        <option value="$PROJECT_DIR$/365/server/js/server.js" />
+        <option value="$PROJECT_DIR$/365/lib/routes/filters.js" />
+        <option value="$PROJECT_DIR$/365/client/html/login.html" />
+        <option value="$PROJECT_DIR$/365/server/invitation-system/data/update/invites.js" />
+        <option value="$PROJECT_DIR$/365/client/invitation-system/views/public/recover-password.html" />
+        <option value="$PROJECT_DIR$/365/client/invitation-system/views/public/reset-password.html" />
+        <option value="$PROJECT_DIR$/365/client/invitation-system/views/authenticated/invites.html" />
+        <option value="$PROJECT_DIR$/365/client/invitation-system/controllers/authenticated/header.js" />
+        <option value="$PROJECT_DIR$/365/client/html/splash.html" />
+        <option value="$PROJECT_DIR$/365/client/invitation-system/views/public/signup2.html" />
+        <option value="$PROJECT_DIR$/365/lib/routes/routes-global.js" />
+        <option value="$PROJECT_DIR$/365/client/js/splashClient.js" />
+        <option value="$PROJECT_DIR$/365/client/invitation-system/controllers/authenticated/invites.js" />
+        <option value="$PROJECT_DIR$/365/client/invitation-system/controllers/authenticated/open-invitations.js" />
+        <option value="$PROJECT_DIR$/365/client/invitation-system/controllers/public/recover-password.js" />
+        <option value="$PROJECT_DIR$/365/client/invitation-system/controllers/public/reset-password.js" />
+        <option value="$PROJECT_DIR$/365/client/invitation-system/controllers/public/signup.js" />
+        <option value="$PROJECT_DIR$/365/client/invitation-system/helpers/helpers-ui.js" />
+        <option value="$PROJECT_DIR$/365/lib/routes/router.js" />
+        <option value="$PROJECT_DIR$/365/lib/routes/routes-public.js" />
+        <option value="$PROJECT_DIR$/365/lib/routes/router-mainApp.js" />
+        <option value="$PROJECT_DIR$/365/server/invitation-system/publications.js" />
+        <option value="$PROJECT_DIR$/365/server/invitation-system/email/validation.js" />
+        <option value="$PROJECT_DIR$/365/server/invitation-system/data/insert/invites.js" />
+        <option value="$PROJECT_DIR$/365/server/invitation-system/data/read/invites.js" />
+        <option value="$PROJECT_DIR$/365/server/invitation-system/admin/startup.js" />
+        <option value="$PROJECT_DIR$/365/server/invitation-system/data/read/beta-tokens.js" />
+        <option value="$PROJECT_DIR$/365/server/invitation-system/email/templates/reset-password.js" />
+        <option value="$PROJECT_DIR$/365/lib/method.js" />
+        <option value="$PROJECT_DIR$/365/lib/routes/routes-authenticated.js" />
+        <option value="$PROJECT_DIR$/365/client/js/calendarClient.js" />
+        <option value="$PROJECT_DIR$/365/client/js/headerClient.js" />
       </list>
     </option>
   </component>
@@ -242,7 +235,7 @@
   </component>
   <component name="ProjectFrameBounds">
     <option name="y" value="23" />
-    <option name="width" value="1860" />
+    <option name="width" value="1948" />
     <option name="height" value="1337" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true">
@@ -269,8 +262,6 @@
     </navigator>
     <panes>
       <pane id="Scratches" />
-      <pane id="Scope" />
-      <pane id="PackagesPane" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -335,24 +326,6 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="lib" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Keepspace" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Keepspace" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="365" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
               <option name="myItemId" value="db" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
@@ -393,38 +366,14 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="invitation-system" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Keepspace" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Keepspace" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="365" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="client" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="invitation-system" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="routes" />
+              <option name="myItemId" value="js" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
         </subPane>
       </pane>
+      <pane id="Scope" />
+      <pane id="PackagesPane" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -443,6 +392,8 @@
       <recent name="$PROJECT_DIR$/365/invitation-system" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/365/lib/routes" />
+      <recent name="$PROJECT_DIR$/365/lib" />
       <recent name="$PROJECT_DIR$/365/client" />
     </key>
   </component>
@@ -766,15 +717,18 @@
       <workItem from="1444442491964" duration="370000" />
       <workItem from="1444443218633" duration="97000" />
       <workItem from="1444444704802" duration="585000" />
-      <workItem from="1444789796704" duration="6095000" />
+      <workItem from="1444789796704" duration="6379000" />
+      <workItem from="1444837037411" duration="126000" />
+      <workItem from="1445060608671" duration="15541000" />
+      <workItem from="1445115801917" duration="217000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="7147000" />
+    <option name="totallyTimeSpent" value="23315000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="0" y="23" width="1860" height="1337" extended-state="0" />
+    <frame x="0" y="23" width="1948" height="1337" extended-state="0" />
     <editor active="true" />
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
@@ -783,24 +737,49 @@
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.17991967" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.17963111" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.19636963" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.17103882" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3287891" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
     </layout>
+    <layout-to-restore>
+      <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Palette&#9;" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
+      <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
+      <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.17963111" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
+      <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.17103882" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
+      <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3287891" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="4" side_tool="true" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+    </layout-to-restore>
   </component>
   <component name="Vcs.Log.UiProperties">
     <option name="RECENTLY_FILTERED_USER_GROUPS">
@@ -822,36 +801,17 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/365/client/html/login.html">
+    <entry file="file://$PROJECT_DIR$/365/client/css/splash.css">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-6.0">
-          <caret line="9" column="70" selection-start-line="9" selection-start-column="70" selection-end-line="9" selection-end-column="70" />
-          <folding>
-            <element signature="n#style#0;n#input#2;n#form#0;n#div#0;n#template#0;n#!!top" expanded="true" />
-          </folding>
+        <state vertical-scroll-proportion="-11.925926">
+          <caret line="97" column="13" selection-start-line="97" selection-start-column="13" selection-end-line="97" selection-end-column="13" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/365/client/invitation-system/stylesheets/sass/application.scss">
+    <entry file="file://$PROJECT_DIR$/365/client/html/user.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/365/client/js/search.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-31.11111">
-          <caret line="84" column="32" selection-start-line="84" selection-start-column="22" selection-end-line="84" selection-end-column="32" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/365/server/js/accounts.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        <state vertical-scroll-proportion="-4.6666665">
+          <caret line="7" column="11" selection-start-line="7" selection-start-column="11" selection-end-line="7" selection-end-column="11" />
           <folding />
         </state>
       </provider>
@@ -860,33 +820,72 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/365/server/js/server.js">
+    <entry file="file://$PROJECT_DIR$/365/server/invitation-system/data/update/invites.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-11.333333">
-          <caret line="17" column="22" selection-start-line="17" selection-start-column="16" selection-end-line="17" selection-end-column="22" />
-          <folding />
+        <state vertical-scroll-proportion="0.0">
+          <caret line="34" column="0" selection-start-line="34" selection-start-column="0" selection-end-line="34" selection-end-column="0" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/365/lib/method.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="166.22223">
-          <caret line="53" column="43" selection-start-line="53" selection-start-column="43" selection-end-line="53" selection-end-column="43" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/365/schema.txt">
-      <provider editor-type-id="com.intellij.database.editor.CsvTableFileEditorProvider">
-        <state />
-      </provider>
+    <entry file="file://$PROJECT_DIR$/365/client/css/profile.css">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/365/client/css/header.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/365/client/html/calendar.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/365/client/html/login.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-15.333333">
+          <caret line="23" column="10" selection-start-line="23" selection-start-column="10" selection-end-line="23" selection-end-column="10" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/365/client/html/365.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-30.0">
+          <caret line="77" column="12" selection-start-line="77" selection-start-column="12" selection-end-line="77" selection-end-column="12" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/365/client/html/splash.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-12.851851">
+          <caret line="175" column="63" selection-start-line="175" selection-start-column="5" selection-end-line="175" selection-end-column="63" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/365/lib/_namespace.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="111" column="17" selection-start-line="111" selection-start-column="17" selection-end-line="111" selection-end-column="17" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/365/client/js/splashClient.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.5738255">
+          <caret line="97" column="20" selection-start-line="97" selection-start-column="20" selection-end-line="97" selection-end-column="20" />
           <folding />
         </state>
       </provider>
@@ -895,31 +894,55 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/365/client/invitation-system/controllers/authenticated/closed-invitations.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="38" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/365/client/invitation-system/controllers/authenticated/invites.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.08859721">
+          <caret line="6" column="0" selection-start-line="6" selection-start-column="0" selection-end-line="6" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/365/client/invitation-system/controllers/authenticated/open-invitations.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.35438883">
+          <caret line="24" column="8" selection-start-line="24" selection-start-column="8" selection-end-line="24" selection-end-column="8" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/365/client/invitation-system/controllers/public/recover-password.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="33" column="2" selection-start-line="33" selection-start-column="2" selection-end-line="33" selection-end-column="2" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/365/client/invitation-system/controllers/public/reset-password.js">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="52" column="0" selection-start-line="52" selection-start-column="0" selection-end-line="52" selection-end-column="0" />
-          <folding />
+          <caret line="15" column="13" selection-start-line="15" selection-start-column="13" selection-end-line="15" selection-end-column="13" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/365/client/invitation-system/controllers/public/signup.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
+        <state vertical-scroll-proportion="0.28055784">
+          <caret line="19" column="8" selection-start-line="19" selection-start-column="8" selection-end-line="19" selection-end-column="8" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/365/client/invitation-system/controllers/public/signup-count.js">
+    <entry file="file://$PROJECT_DIR$/365/client/invitation-system/helpers/helpers-ui.js">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
+          <caret line="2" column="8" selection-start-line="2" selection-start-column="8" selection-end-line="2" selection-end-column="8" />
         </state>
       </provider>
     </entry>
@@ -927,7 +950,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -935,15 +957,13 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/365/client/invitation-system/stylesheets/sass/globals/_forms.scss">
+    <entry file="file://$PROJECT_DIR$/365/client/invitation-system/stylesheets/sass/application.scss">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -951,7 +971,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -959,7 +978,13 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/365/client/invitation-system/stylesheets/sass/globals/_forms.scss">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
         </state>
       </provider>
     </entry>
@@ -967,23 +992,13 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/365/client/invitation-system/views/authenticated/dashboard.html">
+    <entry file="file://$PROJECT_DIR$/365/client/invitation-system/views/public/recover-password.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/365/client/invitation-system/views/authenticated/invites.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
+        <state vertical-scroll-proportion="-3.3333333">
+          <caret line="5" column="0" selection-start-line="5" selection-start-column="0" selection-end-line="7" selection-end-column="16" />
         </state>
       </provider>
     </entry>
@@ -991,134 +1006,55 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/365/client/invitation-system/views/public/index.html">
+    <entry file="file://$PROJECT_DIR$/365/client/invitation-system/views/authenticated/invites.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-2.0">
-          <caret line="3" column="92" selection-start-line="3" selection-start-column="92" selection-end-line="3" selection-end-column="92" />
-          <folding />
+        <state vertical-scroll-proportion="0.060402684">
+          <caret line="4" column="12" selection-start-line="4" selection-start-column="12" selection-end-line="4" selection-end-column="12" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/365/client/invitation-system/views/public/reset-password.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-6.6666665">
-          <caret line="10" column="30" selection-start-line="10" selection-start-column="30" selection-end-line="10" selection-end-column="30" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/365/client/invitation-system/views/public/login2.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-5.3333335">
-          <caret line="8" column="14" selection-start-line="8" selection-start-column="14" selection-end-line="8" selection-end-column="14" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/365/client/invitation-system/views/public/signup-count.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/365/client/invitation-system/controllers/authenticated/closed-invitations.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/365/client/invitation-system/controllers/authenticated/open-invitations.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="56" column="0" selection-start-line="56" selection-start-column="0" selection-end-line="56" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/365/client/invitation-system/controllers/authenticated/header.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="17" column="0" selection-start-line="17" selection-start-column="0" selection-end-line="17" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/365/client/invitation-system/controllers/public/index.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="1" column="45" selection-start-line="1" selection-start-column="37" selection-end-line="1" selection-end-column="45" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/365/client/invitation-system/controllers/public/login.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="47" column="0" selection-start-line="47" selection-start-column="0" selection-end-line="47" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/365/client/invitation-system/controllers/public/recover-password.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="39" column="0" selection-start-line="39" selection-start-column="0" selection-end-line="39" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/365/client/invitation-system/helpers/helpers-ui.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/365/client/invitation-system/includes/_header2.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-6.6666665">
-          <caret line="10" column="70" selection-start-line="10" selection-start-column="70" selection-end-line="10" selection-end-column="70" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/365/client/invitation-system/layouts/layout-default.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/365/client/invitation-system/views/public/not-found.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/365/client/invitation-system/views/public/recover-password.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-6.0">
-          <caret line="9" column="14" selection-start-line="9" selection-start-column="14" selection-end-line="9" selection-end-column="14" />
-          <folding />
+        <state vertical-scroll-proportion="0.060402684">
+          <caret line="4" column="0" selection-start-line="4" selection-start-column="0" selection-end-line="7" selection-end-column="14" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/365/client/invitation-system/views/public/signup2.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-5.3333335">
-          <caret line="8" column="14" selection-start-line="8" selection-start-column="14" selection-end-line="8" selection-end-column="14" />
+        <state vertical-scroll-proportion="0.39261746">
+          <caret line="26" column="63" selection-start-line="26" selection-start-column="63" selection-end-line="26" selection-end-column="63" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/365/lib/routes/filters.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="52" column="0" selection-start-line="52" selection-start-column="0" selection-end-line="52" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/365/lib/routes/routes-public.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-42.814816">
+          <caret line="72" column="3" selection-start-line="72" selection-start-column="3" selection-end-line="72" selection-end-column="3" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/365/lib/routes/router-mainApp.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="87" column="0" selection-start-line="87" selection-start-column="0" selection-end-line="90" selection-end-column="3" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/365/server/invitation-system/data/insert/invites.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="25" column="9" selection-start-line="25" selection-start-column="9" selection-end-line="25" selection-end-column="9" />
           <folding />
         </state>
       </provider>
@@ -1126,23 +1062,25 @@
     <entry file="file://$PROJECT_DIR$/365/server/invitation-system/admin/startup.js">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="3" column="0" selection-start-line="3" selection-start-column="0" selection-end-line="3" selection-end-column="0" />
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="38" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/365/server/invitation-system/data/insert/invites.js">
+    <entry file="file://$PROJECT_DIR$/365/server/invitation-system/email/templates/send-invite.handlebars">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
+        <state vertical-scroll-proportion="-11.333333">
+          <caret line="23" column="31" selection-start-line="23" selection-start-column="31" selection-end-line="23" selection-end-column="31" />
+          <folding>
+            <element signature="n#style#0;n#tr#0;n#table#0;n#div#0;n#td#1;n#tr#0;n#table#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/365/server/invitation-system/data/read/beta-tokens.js">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="38" column="0" selection-start-line="38" selection-start-column="0" selection-end-line="38" selection-end-column="0" />
+          <caret line="26" column="39" selection-start-line="26" selection-start-column="39" selection-end-line="26" selection-end-column="39" />
           <folding />
         </state>
       </provider>
@@ -1150,90 +1088,100 @@
     <entry file="file://$PROJECT_DIR$/365/server/invitation-system/data/read/invites.js">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/365/server/invitation-system/data/update/invites.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/365/server/invitation-system/email/templates/send-invite.handlebars">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-14.0">
-          <caret line="21" column="41" selection-start-line="21" selection-start-column="41" selection-end-line="21" selection-end-column="41" />
+          <caret line="6" column="7" selection-start-line="6" selection-start-column="7" selection-end-line="6" selection-end-column="7" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/365/server/invitation-system/email/templates/reset-password.js">
       <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.20672682">
+          <caret line="14" column="0" selection-start-line="14" selection-start-column="0" selection-end-line="14" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/365/lib/routes/routes-authenticated.js">
+      <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="13" column="315" selection-start-line="13" selection-start-column="315" selection-end-line="13" selection-end-column="315" />
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="13" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/365/server/invitation-system/publications.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="24" column="0" selection-start-line="24" selection-start-column="0" selection-end-line="24" selection-end-column="0" />
+        <state vertical-scroll-proportion="0.25102544">
+          <caret line="17" column="42" selection-start-line="0" selection-start-column="0" selection-end-line="25" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/365/router.js">
+    <entry file="file://$PROJECT_DIR$/365/lib/method.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="103" column="0" selection-start-line="103" selection-start-column="0" selection-end-line="103" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/365/client/invitation-system/routes/routes-public.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-0.0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="46" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/365/client/invitation-system/routes/routes-global.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="0" column="46" selection-start-line="0" selection-start-column="46" selection-end-line="0" selection-end-column="46" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/365/client/invitation-system/routes/routes-authenticated.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="0" column="46" selection-start-line="0" selection-start-column="46" selection-end-line="0" selection-end-column="46" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/365/client/invitation-system/routes/filters.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.018126888">
-          <caret line="1" column="31" selection-start-line="1" selection-start-column="31" selection-end-line="1" selection-end-column="31" />
+        <state vertical-scroll-proportion="0.3798195">
+          <caret line="90" column="45" selection-start-line="90" selection-start-column="45" selection-end-line="90" selection-end-column="45" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/365/server/invitation-system/email/validation.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.054380666">
-          <caret line="3" column="3" selection-start-line="3" selection-start-column="3" selection-end-line="4" selection-end-column="0" />
+        <state vertical-scroll-proportion="0.25102544">
+          <caret line="17" column="31" selection-start-line="0" selection-start-column="0" selection-end-line="37" selection-end-column="0" />
           <folding>
             <element signature="n#!!doc" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/365/client/js/calendarClient.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="138" column="17" selection-start-line="138" selection-start-column="17" selection-end-line="138" selection-end-column="17" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/365/client/js/client.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="34" column="22" selection-start-line="0" selection-start-column="0" selection-end-line="293" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/365/client/js/headerClient.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="36" column="46" selection-start-line="36" selection-start-column="46" selection-end-line="36" selection-end-column="46" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/365/client/js/notifications.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="21" selection-end-column="1" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/365/client/js/renderFeed.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="243" column="36" selection-start-line="243" selection-start-column="36" selection-end-line="243" selection-end-column="36" />
+          <folding>
+            <element signature="n#!!doc" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/365/client/js/search.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.9450369">
+          <caret line="64" column="52" selection-start-line="64" selection-start-column="52" selection-end-line="64" selection-end-column="52" />
+          <folding />
         </state>
       </provider>
     </entry>

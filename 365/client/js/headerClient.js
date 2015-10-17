@@ -1,85 +1,85 @@
 //header functions
 Template.header.events({
     /*'click #postButton': function(e) {
-        if ($("#tempForm").css("display") === "none") {
-            $("#tempForm").show();
-        } else {
-            $("#tempForm").hide();
-        }
-    },*/
-    'click #date': function(event) {
+     if ($("#tempForm").css("display") === "none") {
+     $("#tempForm").show();
+     } else {
+     $("#tempForm").hide();
+     }
+     },*/
+    'click #date': function (event) {
         Router.go("calendar");
     },
-    'click #header': function(event){
+    'click #header': function (event) {
 
         $("#changePassword").hide();
     },
-    'click #homeButton': function(event) {
+    'click #homeButton': function (event) {
         // Router.go("mainPage");
         Router.go("calendar");
     },
-    'click #settingsButton': function(event){
+    'click #settingsButton': function (event) {
         console.log(Meteor.user());
         event.preventDefault();
         // console.log($("#settingDropDown").css("display"));
         // $("#settingDropDown").toggle();
-        if ($("#settingDropDown").css("display") == "none"){
+        if ($("#settingDropDown").css("display") == "none") {
             $("#settingDropDown").css("display", "inline-block");
         }
-        else{
+        else {
             $("#settingDropDown").css("display", none);
         }
     },
-    'click .logout': function(event){
+    'click .logout': function (event) {
         event.preventDefault();
         Meteor.logout(logoutFunction);
     },
-    'click .dropdownAbout': function(event){
+    'click .dropdownAbout': function (event) {
         Router.go("mainAbout");
     },
-    'click .dropdownTeam': function(event){
+    'click .dropdownTeam': function (event) {
         Router.go("mainTeam");
     },
-    'click #changePasswordButton': function(event){
+    'click #changePasswordButton': function (event) {
         event.preventDefault();
         event.stopPropagation();
         hideMainMenu();
         $("#changePassword").show();
     },
-    'click #changePassword': function(event){
+    'click #changePassword': function (event) {
         $("#changePassword").hide();
     },
-    'click #changePassForm': function(event){
+    'click #changePassForm': function (event) {
         event.stopPropagation();
     },
-    'submit #changePassForm': function(event){
+    'submit #changePassForm': function (event) {
         event.preventDefault();
         var oldPassword = event.target.oldPass.value;
         var newPassword = event.target.newPass.value;
         var newConfirm = event.target.newPassConfirm.value;
-        if (Session.get("isFB")){
+        if (Session.get("isFB")) {
             alert("You logged in with FB!");
             $("#changePassword").hide();
         }
-        else if (newPassword == newConfirm){
-            Accounts.changePassword(oldPassword, newPassword, function(err){
-            if (err){
-                alert(err.reason);
-                $("#changePassword").hide();
-            }
-            else{
-                console.log("success");
-                $("#changePassword").hide();
-            }
-        });
+        else if (newPassword == newConfirm) {
+            Accounts.changePassword(oldPassword, newPassword, function (err) {
+                if (err) {
+                    alert(err.reason);
+                    $("#changePassword").hide();
+                }
+                else {
+                    console.log("success");
+                    $("#changePassword").hide();
+                }
+            });
         }
-        else{
+        else {
             //TODO Send error to user
             alert("Passwords no not match");
             $("#changePassword").hide();
         }
     },
-    'click #dropdownDiv, click #main-menu, click .menu-dropdown': function(event) {
+    'click #dropdownDiv, click #main-menu, click .menu-dropdown': function (event) {
         event.stopPropagation();
         if ($("#main-menu").css("display") === "block") {
             hideMainMenu();
@@ -87,38 +87,38 @@ Template.header.events({
             showMainMenu();
         }
     },
-    'click #homeLogo': function(event){
+    'click #homeLogo': function (event) {
         Router.go("mainPage");
     },
-    'mouseenter #dropdownDiv': function(event) {
+    'mouseenter #dropdownDiv': function (event) {
         // $("#dropdownDiv").css("background-color", "#E0E0E0");
         // $("#homeLogo").css("background-color", "#f9f9f9");
     },
-    'mouseenter #homeLogo': function(event) {
+    'mouseenter #homeLogo': function (event) {
         // $("#dropdownDiv").css("background-color", "#f9f9f9");
         // $("#homeLogo").css("background-color", "#E0E0E0");
     },
-    'mouseleave #logo': function(event) {
+    'mouseleave #logo': function (event) {
         if ($("#main-menu").css("display") !== "block") {
             $("#dropdownDiv").css("background-color", "");
             $("#homeLogo").css("background-color", "");
         }
     },
-    'mouseenter .menu-item': function(event) {
+    'mouseenter .menu-item': function (event) {
         $(event.target).css("background-color", "#32c0d2");
     },
-    'mouseleave .menu-item': function(event) {
+    'mouseleave .menu-item': function (event) {
         $(event.target).css("background-color", "");
     },
-    'click #profile-picture': function(event) {
+    'click #profile-picture': function (event) {
         // TODO: encrypt userId
         Session.set('showProfile', Meteor.user());
         event.stopPropagation();
     },
-    'click #close-profile': function(event) {
+    'click #close-profile': function (event) {
         Session.set('showProfile', false);
     },
-    'mouseenter #profile-picture-large': function(event) {
+    'mouseenter #profile-picture-large': function (event) {
         if (Meteor.userId() === Session.get('showProfile')._id) {
             if (event.relatedTarget.id !== "change-picture")
                 $("#change-picture").show();
@@ -126,85 +126,87 @@ Template.header.events({
                 $("#change-picture").hide();
         }
     },
-    'mouseleave #change-picture': function(event) {
+    'mouseleave #change-picture': function (event) {
         if ($("#upload-picture").css("display") === "none") {
             $("#change-picture").hide();
         }
     },
-    'click [data-action=accept]': function() {
+    'click [data-action=accept]': function () {
         this.accept();
     },
-    'click [data-action=deny]': function() {
+    'click [data-action=deny]': function () {
         this.deny();
     },
     // user object methods
-    'click [data-action=unfriend]': function() {
+    'click [data-action=unfriend]': function () {
         //assumes context is a instance of a user
         this.unfriend();
     },
-    'click #closeFriends': function(){
+    'click #closeFriends': function () {
         $("#friendRequests").hide();
     },
-    'click #friendRequests':function(event){
+    'click #friendRequests': function (event) {
         event.stopPropagation();
     },
-    'click #profile': function(event){
+    'click #profile': function (event) {
         event.stopPropagation();
     },
-    'click #markAsRead': function(event){
+    'click #markAsRead': function (event) {
         Meteor.call("clearNotifications", Meteor.userId());
     }
 });
 
 Template.header.helpers({
-    username: function(){
+    username: function () {
         if (Meteor.user()) {
             return Meteor.user().username;
         }
     },
-    picture: function() {
+    picture: function () {
         if (Meteor.user()) {
             var picture = Meteor.user().profile.picture;
-            var customAvatar = Avatars.findOne({ _id: picture });
-            if (customAvatar) { 
+            var customAvatar = Avatars.findOne({_id: picture});
+            if (customAvatar) {
                 return customAvatar.url();
             }
         }
         return picture;
     },
-    showProfile: function() {
+    showProfile: function () {
         return Session.get('showProfile');
     },
-    requests: function() {
-        var results =  Meteor.requests.find({
+    requests: function () {
+        var results = Meteor.requests.find({
             $or: [
-                {userId:Meteor.userId()},
-                {requesterId:Meteor.userId()}
+                {userId: Meteor.userId()},
+                {requesterId: Meteor.userId()}
             ]
         });
         console.log(results.fetch());
         return results;
     },
-    isOutgoing: function(requesterId){
+    isOutgoing: function (requesterId) {
         var userId = Meteor.userId();
-        if (requesterId == userId){
+        if (requesterId == userId) {
             console.log("true");
             return true;
         }
-        else{
+        else {
             return false;
         }
     }
 });
 
-Template.header.onCreated(function(event) {
-    $(window).resize(function() { setMidPadding(); });
+Template.header.onCreated(function (event) {
+    $(window).resize(function () {
+        setMidPadding();
+    });
 });
-Template.header.onDestroyed(function(event) {
+Template.header.onDestroyed(function (event) {
     $(window).off('resize');
 });
 
-Template.header.onRendered(function(event) {
+Template.header.onRendered(function (event) {
     var today = new Date();
     $("#dayNum").text(today.getDOY());
     var currentDate = $.format.date(today, "MMMM D");
@@ -213,21 +215,22 @@ Template.header.onRendered(function(event) {
     setMidPadding();
     Session.set('showProfile', false);
     var loggedIn = localStorage.getItem("justLoggedIn");
-    if (loggedIn == "true"){
+    if (loggedIn == "true") {
         var rand = Math.random();
-        if (rand < 0.33){
+        if (rand < 0.33) {
             showOldPost();
         }
-	
+
         localStorage.setItem("justLoggedIn", "false");
-    };
-    $(document).mouseup(function (e){
+    }
+    ;
+    $(document).mouseup(function (e) {
         if (!$("#friendRequests").is(e.target) // if the target of the click isn't the container...
             && $("#friendRequests").has(e.target).length === 0) // ... nor a descendant of the container
         {
             $("#friendRequests").hide();
         }
-        if(!$("#profile").is(e.target) // if the target of the click isn't the container...
+        if (!$("#profile").is(e.target) // if the target of the click isn't the container...
             && $("#profile").has(e.target).length === 0) // ... nor a descendant of the container
         {
             Session.set('showProfile', false);
@@ -236,68 +239,68 @@ Template.header.onRendered(function(event) {
 });
 
 Template.profile.helpers({
-    username: function() {
+    username: function () {
         return Session.get('showProfile').username;
     },
-    picture: function() {
+    picture: function () {
         var picture = Session.get('showProfile').profile.picture;
-        var customAvatar = Avatars.findOne({ _id: picture });
-        if (customAvatar) { 
+        var customAvatar = Avatars.findOne({_id: picture});
+        if (customAvatar) {
             return customAvatar.url();
         } else {
             return picture;
         }
     },
-    joined: function() {
+    joined: function () {
         return $.format.date(Session.get('showProfile').createdAt, 'M/d/yyyy');
     },
-    collects: function(event) {
+    collects: function (event) {
         return Session.get('showProfile').profile.collects;
     },
-    notifications: function(){
+    notifications: function () {
         var notifications = Notifications.find().fetch();
         result = [];
-        notifications.forEach(function (notification) {    
-            console.log(notification);     
-            var user = Meteor.users.findOne({_id:notification.friendId});
+        notifications.forEach(function (notification) {
+            console.log(notification);
+            var user = Meteor.users.findOne({_id: notification.friendId});
             var element = {};
 
-            if (notification.type == "acceptRequest"){
+            if (notification.type == "acceptRequest") {
                 element.notification = user.username + " accepted your friend request!";
             }
-            else{
+            else {
                 element.notification = user.username + ' collected your thought!';
             }
             var date = new Date();
             var createdAt = new Date(notification.createdAt);
             var diffHours = (date - createdAt) / 36e5;
             var timeString;
-            if (diffHours < 1){
+            if (diffHours < 1) {
                 diffHours = diffHours * 60;
                 var numMinutes = Math.floor(diffHours);
-                if (numMinutes == 1){
+                if (numMinutes == 1) {
                     timeString = numMinutes.toString() + " min";
                 }
-                else{
+                else {
                     timeString = numMinutes.toString() + " mins";
                 }
             }
-            else if (diffHours > 24){
+            else if (diffHours > 24) {
                 diffHours = diffHours / 24;
                 var numDays = Math.floor(diffHours);
-                if (numDays == 1){
+                if (numDays == 1) {
                     timeString = numDays.toString() + " day";
                 }
-                else{
+                else {
                     timeString = numDays.toString() + " days";
                 }
             }
-            else{
+            else {
                 var numHours = Math.floor(diffHours);
-                if (numHours == 1){
+                if (numHours == 1) {
                     timeString = numHours.toString() + " hr";
                 }
-                else{
+                else {
                     timeString = numHours.toString() + " hrs";
                 }
             }
@@ -318,41 +321,42 @@ Template.profile.helpers({
 });
 
 Template.profile.events({
-    'change #new-picture': function(event, template) {
-        FS.Utility.eachFile(event, function(file) {
-          Avatars.insert(file, function (err, fileObj) {
-            // Inserted new doc with ID fileObj._id, and kicked off the data upload using HTTP
-            if (err) {
-                console.log(err);
-            } else {
-                $('#upload-picture').modal('hide');
-                $('#change-picture').hide();
-                var avatarUrl = {
-                    'profile.picture' : fileObj._id
+    'change #new-picture': function (event, template) {
+        FS.Utility.eachFile(event, function (file) {
+            Avatars.insert(file, function (err, fileObj) {
+                // Inserted new doc with ID fileObj._id, and kicked off the data upload using HTTP
+                if (err) {
+                    console.log(err);
+                } else {
+                    $('#upload-picture').modal('hide');
+                    $('#change-picture').hide();
+                    var avatarUrl = {
+                        'profile.picture': fileObj._id
+                    }
+                    Meteor.users.update(Meteor.userId(), {$set: avatarUrl});
+                    Session.set('showProfile', Meteor.user());
                 }
-                Meteor.users.update(Meteor.userId(), {$set: avatarUrl});
-                Session.set('showProfile', Meteor.user());
-            }
-          });
+            });
         });
     },
 
 })
 
-logoutFunction = function(){
-    Router.go("mainPage");
+logoutFunction = function () {
+    Router.go("splash");
+    //logic to log user out = ?
 }
 
 function setMidPadding() {
-    var padding = parseInt($(".mid").css("width")) - ( parseInt($("#homeButton").css("width"))+parseInt($("#date").css("width"))-parseInt($("#date").css("padding-left")) );
-    $(".mid").css("padding-left", padding/2);
+    var padding = parseInt($(".mid").css("width")) - ( parseInt($("#homeButton").css("width")) + parseInt($("#date").css("width")) - parseInt($("#date").css("padding-left")) );
+    $(".mid").css("padding-left", padding / 2);
 }
 
-function showOldPost(){
+function showOldPost() {
     rand = Math.floor(Math.random() * 100000000) + 1;
-    result = Thoughts.findOne( { userId:Meteor.userId(), randomIndex : { $gte : rand } } );
-    if ( result == null ) {
-        result = Thoughts.findOne( { userId:Meteor.userId(), randomIndex : { $lte : rand } } );
+    result = Thoughts.findOne({userId: Meteor.userId(), randomIndex: {$gte: rand}});
+    if (result == null) {
+        result = Thoughts.findOne({userId: Meteor.userId(), randomIndex: {$lte: rand}});
     }
     var time = result.createdAt;
     var newDate = new Date(time);
@@ -367,7 +371,7 @@ function showOldPost(){
     $(".oldPostText").text(text);
     $("#mainAlert").show();
 
-    $(".alertBubble").click(function(event){
+    $(".alertBubble").click(function (event) {
         event.stopPropagation();
     });
     $(".alertDiv").click(closeAlert);
@@ -375,7 +379,7 @@ function showOldPost(){
 }
 
 // Handlers for showing and hiding main menu
-showMainMenu = function(event) {
+showMainMenu = function (event) {
     // $("#logo").css({"border-bottom-right-radius": "0",
     //                 "border-bottom-left-radius" : "0",
     //                 "background-color": "#f9f9f9"});
@@ -383,10 +387,10 @@ showMainMenu = function(event) {
     // $("#homeLogo").css("background-color", "#f9f9f9");
     $("#main-menu").slideDown('fast');
 }
-hideMainMenu = function(event) {
-    $("#main-menu").slideUp('fast', function() {
-        $("#logo").css({"border-radius": "5px", "background-color": ""}); 
-        $("#homeLogo").css({"background-color": ""}); 
+hideMainMenu = function (event) {
+    $("#main-menu").slideUp('fast', function () {
+        $("#logo").css({"border-radius": "5px", "background-color": ""});
+        $("#homeLogo").css({"background-color": ""});
         // $("#dropdownDiv").css({"background-color": ""}); 
     });
 }

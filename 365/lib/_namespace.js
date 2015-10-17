@@ -10,7 +10,7 @@ Schemas.FriendEdge = new SimpleSchema({
     friendList: {
         type: [String],
         label: "friendList",
-        max:1000 //1000 friends cap
+        max: 1000 //1000 friends cap
     }
 });
 
@@ -46,7 +46,7 @@ Schemas.Notifications = new SimpleSchema({
         label: "seen",
         optional: true
     }
-    
+
 });
 
 
@@ -71,7 +71,7 @@ Schemas.Thought = new SimpleSchema({
         type: Date,
         label: "createdAt"
     },
-    rank :{
+    rank: {
         type: Number,
         label: "rank",
         max: 1000,
@@ -106,14 +106,18 @@ Schemas.Thought = new SimpleSchema({
 
 searchUsers = function (searchString) {
     var filter = new RegExp('^' + searchString, 'i');
-    
+    try {
+        check(searchString, filter);
+    } catch (e) {
+        //nothing
+    }
     var cursor = Meteor.users.find(
         {username: filter},
-        {sort: {username: 1}, limit:20}
+        {sort: {username: 1}, limit: 20}
     );
     return cursor;
 }
 
-friendUsers = function(){
-    return Meteor.friends.find({userId:Meteor.userId()},{_id:0,userId:0,friendId:1});
+friendUsers = function () {
+    return Meteor.friends.find({userId: Meteor.userId()}, {_id: 0, userId: 0, friendId: 1});
 }

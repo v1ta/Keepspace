@@ -1,67 +1,72 @@
 <template name="splashBanner">
-	<div class="alertDiv" id="betaAlert">
-		<div class="alertBubble" id="alertText">
-			<p class="alertTextTitle"></p>
-			<p class="alertTextDetail"></p>
-		</div>
-		<p class="alertBubble closeAlert">X</p>
-	</div>
-	<div id="splashBannerHeader">
-		<img id="splashBannerLogo" src="images/keepspace-logo-blue.png">
-		<div id="centerDiv">
-		{{>verifyemail}}
-    	</div>
-    	<div id="linkDiv">
-	        <p id="aboutLink" class="splashBannerP">ABOUT</p>
-	        <p id="teamLink" class="splashBannerP">TEAM</p>
-	        <p id="loginLink" class="splashBannerP">LOG IN</p>
-    	</div>
-	</div>
-	
-	{{> yield}}
+    <div class="alertDiv" id="betaAlert">
+        <div class="alertBubble" id="alertText">
+            <p class="alertTextTitle"></p>
+
+            <p class="alertTextDetail"></p>
+        </div>
+        <p class="alertBubble closeAlert">X</p>
+    </div>
+    <div id="splashBannerHeader">
+        <img id="splashBannerLogo" src="images/keepspace-logo-blue.png">
+
+        <div id="centerDiv">
+            {{>verifyemail}}
+        </div>
+        <div id="linkDiv">
+            <p id="aboutLink" class="splashBannerP">ABOUT</p>
+
+            <p id="teamLink" class="splashBannerP">TEAM</p>
+
+            <p id="loginLink" class="splashBannerP">LOG IN</p>
+        </div>
+    </div>
+
+    {{> yield}}
 </template>
 
 <template name="carousel">
-  <div id="carousel" class="carousel slide" data-ride="carousel" data-wrap="false">
-    <!-- Indicators -->
-    <ol class="carousel-indicators">
-      <li data-target="#carousel" data-slide-to="0" class="active"></li>
-      <li data-target="#carousel" data-slide-to="1"></li>
-      <li data-target="#carousel" data-slide-to="2"></li>
-      <li data-target="#carousel" data-slide-to="3"></li>
-    </ol>
-    <!-- Slides -->
-    <div class="carousel-inner" role="listbox">
-    	
-		<div class="item active">
-        	<img class="fullScreen" src="/images/homepage/Disappear.png" alt="Live in the moment."/>
-      	</div>
-		<div class="item">
-			<img class="fullScreen" src="/images/homepage/Remember.png" alt="Remember today."/>
-		</div>
-        <div class="item">
-        	<img class="fullScreen" src="/images/homepage/DailyGrind.png" alt="Break out of your daily grind."/>
+
+    <div id="carousel" class="carousel slide" data-ride="carousel" data-wrap="false">
+        <!-- Indicators -->
+        <ol class="carousel-indicators">
+            <li data-target="#carousel" data-slide-to="0" class="active"></li>
+            <li data-target="#carousel" data-slide-to="1"></li>
+            <li data-target="#carousel" data-slide-to="2"></li>
+            <li data-target="#carousel" data-slide-to="3"></li>
+        </ol>
+        <!-- Slides -->
+        <div class="carousel-inner" role="listbox">
+
+            <div class="item active">
+                <img class="fullScreen" src="/images/homepage/Disappear.png" alt="Live in the moment."/>
+            </div>
+            <div class="item">
+                <img class="fullScreen" src="/images/homepage/Remember.png" alt="Remember today."/>
+            </div>
+            <div class="item">
+                <img class="fullScreen" src="/images/homepage/DailyGrind.png" alt="Break out of your daily grind."/>
+            </div>
+
+            <!-- Log in form -->
+            <div id="loginSlide" class="item">
+                <div class="row">
+                    <!-- <div class="col-xs-9"> -->
+                    {{> loginPage}}
+                    <!-- </div> -->
+                </div>
+            </div>
         </div>
 
-      <!-- Log in form -->
-      <div id="loginSlide" class="item">
-        <div class="row">
-          <!-- <div class="col-xs-9"> -->
-            {{> loginPage}}
-          <!-- </div> -->
-        </div>
-      </div>
+        <a class="left carousel-control" href="#carousel" role="button" data-slide="prev">
+            <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+            <span class="sr-only">Previous</span>
+        </a>
+        <a class="right carousel-control" href="#carousel" role="button" data-slide="next">
+            <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+            <span class="sr-only">Next</span>
+        </a>
     </div>
-
-    <a class="left carousel-control" href="#carousel" role="button" data-slide="prev">
-      <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
-      <span class="sr-only">Previous</span>
-    </a>
-    <a class="right carousel-control" href="#carousel" role="button" data-slide="next">
-      <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
-      <span class="sr-only">Next</span>
-    </a>
-  </div>
 </template>
 
 <template name="register">
@@ -73,136 +78,190 @@
 </template>
 
 <template name="aboutPage">
-	<!-- <div class="parallax-window">
-	</div>
-	<div class="aboutSlide">
-			<p class="aboutSlideText">Current social media is overwhelming; it has become a long laundry list of advertisements, mind-numbing statuses, and links to overlooked articles and quizzes—all of which are easily forgotten. With our lives passing us by quicker than ever, the noise leaves our days feeling empty and mundane. </p>
-		</div> -->
-	<!-- <div class="parallax-window" data-parallax="scroll" data-image-src="images/keepspace_seamlessbg.png"> -->
-	<!-- <div class="parallax-window">
+    <!-- <div class="parallax-window">
+    </div>
+    <div class="aboutSlide">
+            <p class="aboutSlideText">Current social media is overwhelming; it has become a long laundry list of advertisements, mind-numbing statuses, and links to overlooked articles and quizzes—all of which are easily forgotten. With our lives passing us by quicker than ever, the noise leaves our days feeling empty and mundane. </p>
+        </div> -->
+    <!-- <div class="parallax-window" data-parallax="scroll" data-image-src="images/keepspace_seamlessbg.png"> -->
+    <!-- <div class="parallax-window">
 
-	</div> -->
-	<div class="aboutSlide">
-		<p class="aboutTitle">Don't let today disappear</p>
-		<p class="aboutSlideText">Current social media is <b>overwhelming</b>; it has become a long laundry list of advertisements, mind-numbing statuses, and links to overlooked articles and quizzes—all of which are easily forgotten. With our lives passing us by quicker than ever, the noise leaves our days feeling <b>empty</b> and <b>mundane.</b> </p>
-		<p class="aboutSlideText">We don’t intend on being the “next” of any current popular social media out there. We are offering a solution —a place for people to share the most <b>valuable</b> thing about their day, whether it be a thought, a moment, or anything. </p>
-		<p class="aboutSlideText">We believe that every day is unique, special, and more importantly, <b>worth remembering.</b> We believe that your social network should make your day feel more memorable, because your day is important not only for what you did, but also for the novel experiences your friends had too. </p>
-		<p class="aboutSlideText">Now imagine a news feed containing only the single most novel thing—the finer things—about an individual person’s day. Wouldn’t that be something? </p>
-		<p class="aboutSlideText">Yes, it really would.</p>
-		<p class="aboutSlideText">This is <b>KeepSpace</b></p>
-	</div>	
-	<!-- <div class="parallax-window">
-	</div> -->
-	<!-- <div class="aboutSlide">
-			<p class="aboutSlideText">We believe that every day is unique, special, and more importantly, worth remembering. We believe that your social network should make your day feel more memorable, because your day is important not only for what you did, but also for the novel experiences your friends had too. </p>
-		</div>
-	<div class="parallax-window">
-	</div>
-	<div class="aboutSlide">
-			<p class="aboutSlideText">Now imagine a news feed containing only the single most novel thing—the finer things—about an individual person’s day. Wouldn’t that be something? </p>
-		</div> -->
+    </div> -->
+    <div class="aboutSlide">
+        <p class="aboutTitle">Don't let today disappear</p>
+
+        <p class="aboutSlideText">Current social media is <b>overwhelming</b>; it has become a long laundry list of
+            advertisements, mind-numbing statuses, and links to overlooked articles and quizzes—all of which are easily
+            forgotten. With our lives passing us by quicker than ever, the noise leaves our days feeling <b>empty</b>
+            and <b>mundane.</b></p>
+
+        <p class="aboutSlideText">We don’t intend on being the “next” of any current popular social media out there. We
+            are offering a solution —a place for people to share the most <b>valuable</b> thing about their day, whether
+            it be a thought, a moment, or anything. </p>
+
+        <p class="aboutSlideText">We believe that every day is unique, special, and more importantly, <b>worth
+            remembering.</b> We believe that your social network should make your day feel more memorable, because your
+            day is important not only for what you did, but also for the novel experiences your friends had too. </p>
+
+        <p class="aboutSlideText">Now imagine a news feed containing only the single most novel thing—the finer
+            things—about an individual person’s day. Wouldn’t that be something? </p>
+
+        <p class="aboutSlideText">Yes, it really would.</p>
+
+        <p class="aboutSlideText">This is <b>KeepSpace</b></p>
+    </div>
+    <!-- <div class="parallax-window">
+    </div> -->
+    <!-- <div class="aboutSlide">
+            <p class="aboutSlideText">We believe that every day is unique, special, and more importantly, worth remembering. We believe that your social network should make your day feel more memorable, because your day is important not only for what you did, but also for the novel experiences your friends had too. </p>
+        </div>
+    <div class="parallax-window">
+    </div>
+    <div class="aboutSlide">
+            <p class="aboutSlideText">Now imagine a news feed containing only the single most novel thing—the finer things—about an individual person’s day. Wouldn’t that be something? </p>
+        </div> -->
 </template>
 
 <template name="teamPage">
-	<div class="splashContent" id="repeatingSeamlessBackground">
-		<p id="teamHeader"> The team.</p>
-		<div id="teamCarousel" class="carousel slide" data-interval="false" data-ride="carousel" data-wrap="true">
-		    <!-- Slides -->
-		    <div class="carousel-inner" role="listbox">
-		    	<div class="item active">
-		        <div class="teamPageSlide">
-		        	<img class="headShot" src="images/Rashad.png">
-		        	<div class="bioDiv">
-		        		<p class="nameP">RASHAD HOSSAIN</p>
-		        		<p class="schoolP">HARVARD '16</p>
-		        		<p class="bioP">Rashad came up with the idea for Keepspace in early 2015 while sitting on his dorm room couch. Since then, he’s privileged to have been joined on this venture by some of the most brilliant people in the universe. Rashad now works on creating Business Development and Marketing opportunities for the company. </p>
-		        	</div>
-		        </div>
-		      </div>
-		      <div class="item">
-		        <div class="teamPageSlide">
-		        	<img class="headShot" src="images/Aman.png">
-		        	<div class="bioDiv">
-		        		<p class="nameP">AMANPREET KANDOLA</p>
-		        		<p class="schoolP">HARVARD '17</p>
-		        		<p class="bioP">Aman fell in love with Keepspace the second he first heard about it and has loved every moment of it since. He currently works on a little bit of everything. Outside of work, Aman enjoys playing basketball and soccer, though he’s terrible at both, and writing. </p>
-		        	</div>
-		        </div>
-		      </div>
-		      <div class="item">
-		        <div class="teamPageSlide">
-		        	<img class="headShot" src="images/Joe.png">
-		        	<div class="bioDiv">
-		        		<p class="nameP">JOSEPH DEVITA</p>
-		        		<p class="schoolP">RUTGERS '16</p>
-		        		<p class="bioP">Joe is a coding wizard who has created Keepspace’s entire back-end system. Since joining the team in June of 2015, Joe has been bestowing his vast knowledge of app development, UX design, and useless HR departments on the team. When he isn’t grinding away on Keepspace, you can find Joe critiquing other apps or hitting the bars in Manhattan’s lower east side. </p>
-		        	</div>
-		        </div>
-		      </div>
-		      <div class="item">
-		        <div class="teamPageSlide">
-		        	<img class="headShot" src="images/Andy.png">
-		        	<div class="bioDiv">
-		        		<p class="nameP">ANDY YOON</p>
-		        		<p class="schoolP">UCLA '15</p>
-		        		<p class="bioP">A recent Computer Science graduate, Andy handles front end development of the Keepspace web app. He feels blessed to work with such a dedicated and challenging team. Andy balances his work with his busy schedule of playing video games and electric guitar. </p>
-		        	</div>
-		        </div>
-		      </div>
-		      <div class="item">
-		        <div class="teamPageSlide">
-		        	<img class="headShot" src="images/Samantha.png">
-		        	<div class="bioDiv">
-		        		<p class="nameP">SAMANTHA LEE</p>
-		        		<p class="schoolP">BARUCH '14</p>
-		        		<p class="bioP">Though her degree is in Computer Information Systems, Samantha has chosen to feed her desire to continuously give life to her imagination with (often unusual) colors, shapes, and typefaces. She surrounds herself with hard workers and ambitious minds—which is what drew her in to Keepspace. Her other hobbies include drawing, street photography, and hand lettering. </p>
-		        	</div>
-		        </div>
-		      </div>
-		    </div>
-	    	
-	    	<img class="right carouselButton" src="images/right-arrow.png" href="#teamCarousel" role="button" data-slide="next">
-	    	<img class="left carouselButton" src="images/left-arrow.png" href="#teamCarousel" role="button" data-slide="prev" style="z-index:20">
-		</div>
-	</div>
+    <div class="splashContent" id="repeatingSeamlessBackground">
+        <p id="teamHeader"> The team.</p>
+
+        <div id="teamCarousel" class="carousel slide" data-interval="false" data-ride="carousel" data-wrap="true">
+            <!-- Slides -->
+            <div class="carousel-inner" role="listbox">
+                <div class="item active">
+                    <div class="teamPageSlide">
+                        <img class="headShot" src="images/Rashad.png">
+
+                        <div class="bioDiv">
+                            <p class="nameP">RASHAD HOSSAIN</p>
+
+                            <p class="schoolP">HARVARD '16</p>
+
+                            <p class="bioP">Rashad came up with the idea for Keepspace in early 2015 while sitting on
+                                his dorm room couch. Since then, he’s privileged to have been joined on this venture by
+                                some of the most brilliant people in the universe. Rashad now works on creating Business
+                                Development and Marketing opportunities for the company. </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="item">
+                    <div class="teamPageSlide">
+                        <img class="headShot" src="images/Aman.png">
+
+                        <div class="bioDiv">
+                            <p class="nameP">AMANPREET KANDOLA</p>
+
+                            <p class="schoolP">HARVARD '17</p>
+
+                            <p class="bioP">Aman fell in love with Keepspace the second he first heard about it and has
+                                loved every moment of it since. He currently works on a little bit of everything.
+                                Outside of work, Aman enjoys playing basketball and soccer, though he’s terrible at
+                                both, and writing. </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="item">
+                    <div class="teamPageSlide">
+                        <img class="headShot" src="images/Joe.png">
+
+                        <div class="bioDiv">
+                            <p class="nameP">JOSEPH DEVITA</p>
+
+                            <p class="schoolP">RUTGERS '16</p>
+
+                            <p class="bioP">Joe is a coding wizard who has created Keepspace’s entire back-end system.
+                                Since joining the team in June of 2015, Joe has been bestowing his vast knowledge of app
+                                development, UX design, and useless HR departments on the team. When he isn’t grinding
+                                away on Keepspace, you can find Joe critiquing other apps or hitting the bars in
+                                Manhattan’s lower east side. </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="item">
+                    <div class="teamPageSlide">
+                        <img class="headShot" src="images/Andy.png">
+
+                        <div class="bioDiv">
+                            <p class="nameP">ANDY YOON</p>
+
+                            <p class="schoolP">UCLA '15</p>
+
+                            <p class="bioP">A recent Computer Science graduate, Andy handles front end development of
+                                the Keepspace web app. He feels blessed to work with such a dedicated and challenging
+                                team. Andy balances his work with his busy schedule of playing video games and electric
+                                guitar. </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="item">
+                    <div class="teamPageSlide">
+                        <img class="headShot" src="images/Samantha.png">
+
+                        <div class="bioDiv">
+                            <p class="nameP">SAMANTHA LEE</p>
+
+                            <p class="schoolP">BARUCH '14</p>
+
+                            <p class="bioP">Though her degree is in Computer Information Systems, Samantha has chosen to
+                                feed her desire to continuously give life to her imagination with (often unusual)
+                                colors, shapes, and typefaces. She surrounds herself with hard workers and ambitious
+                                minds—which is what drew her in to Keepspace. Her other hobbies include drawing, street
+                                photography, and hand lettering. </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <img class="right carouselButton" src="images/right-arrow.png" href="#teamCarousel" role="button"
+                 data-slide="next">
+            <img class="left carouselButton" src="images/left-arrow.png" href="#teamCarousel" role="button"
+                 data-slide="prev" style="z-index:20">
+        </div>
+    </div>
 </template>
 
 <template name="verifyemail">
-  <form role="form" class="splashForm">
-     <div class="form-group">
-      <input type="text" class="headerEmail" id="headeremail" placeholder="signupforbeta@youremailhere.com" />
-      <input type="button" class="btn btn-primary btn-lg" id="verify" value="✓" />
-     </div>
-  </form>
+    {{> sAlert}}
+    <form role="form" class="splashForm" id="verify">
+        <div class="form-group">
+            <input type="email" name="emailAddress" class="headerEmail" id="headeremail"
+                   placeholder="sign-up-for-beta@email-address.com" style="width: 300px"/>
+            <input type="button" class="btn btn-primary" value="✓"/>
+        </div>
+    </form>
 </template>
 
 <template name="checkemail">
- <h1>Please check your email</h1>
- <p>Once you verify you can do amazing things!</p>
+    <h1>Please check your email</h1>
+
+    <p>Once you verify you can do amazing things!</p>
 
 </template>
 
 <template name="verified">
- <h1>Thank you for verifying your email address!</h1>
- <p> Welcome to Keepspace</p>
+    <h1>Thank you for verifying your email address!</h1>
+
+    <p> Welcome to Keepspace</p>
 
 </template>
 
 <template name="changeEmail">
- <h1>Please check your email</h1>
- <p> You should have received a temporary url to change your password</p>
+    <h1>Please check your email</h1>
+
+    <p> You should have received a temporary url to change your password</p>
 
 </template>
 
 <template name="ResetPassword">
 
     {{#if resetPassword}}
-    <form action="/reset-password"  id="resetPasswordForm" method="post">
-        <input id="resetPasswordPassword" name="password" placeholder="New Password" type="password" >
-        <input id="resetPasswordPasswordConfirm" name="password-confirm" placeholder="Confirm" type="password" >
-        <input class="btn-submit" type="submit" value="Reset">
-    </form>
-    <!-- end #reset-password-form -->
+        <form action="/reset-password" id="resetPasswordForm" method="post">
+            <input id="resetPasswordPassword" name="password" placeholder="New Password" type="password">
+            <input id="resetPasswordPasswordConfirm" name="password-confirm" placeholder="Confirm" type="password">
+            <input class="btn-submit" type="submit" value="Reset">
+        </form>
+        <!-- end #reset-password-form -->
     {{/if}}
 
 </template>

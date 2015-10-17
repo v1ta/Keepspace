@@ -1,17 +1,17 @@
 var count = Counts.get('Notifications-Counter');
-Session.set('count',count);
+Session.set('count', count);
 //Meteor.subscribe("Notifications");
 
-Tracker.autorun(function() {
+Tracker.autorun(function () {
     Session.get('count');
     getNotifications();
 });
 
-function getNotifications(){
-    if (Counts.get('Notifications-Counter') > 0){
-        var notfications = Notifications.find({seen:false}).fetch();
-        notfications.forEach(function (notification) {            
-            var user = Meteor.users.findOne({_id:notification.friendId});
+function getNotifications() {
+    if (Counts.get('Notifications-Counter') > 0) {
+        var notfications = Notifications.find({seen: false}).fetch();
+        notfications.forEach(function (notification) {
+            var user = Meteor.users.findOne({_id: notification.friendId});
             if (notification.type == "acceptRequest")
                 sAlert.success(user.username + ' accepted your friend request!', {position: 'bottom'});
             else
