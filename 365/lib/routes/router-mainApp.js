@@ -89,6 +89,7 @@ Router.route('changeEmail', {
     path: '/changeEmail',
     template: 'changeEmail'
 });
+/*
 
 Router.route('/users/:username', {
   name: 'userPage',
@@ -99,7 +100,7 @@ Router.route('/users/:username', {
     return Meteor.users.findOne({username: this.params.username })
   }
 });
-
+*/
 
 AccountController = RouteController.extend({
     verifyEmail: function () {

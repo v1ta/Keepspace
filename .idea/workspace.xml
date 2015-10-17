@@ -2,12 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="976cffc7-f548-4df6-a63b-bf09632615fa" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/365/client/html/365.html" afterPath="$PROJECT_DIR$/365/client/html/365.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/365/lib/_namespace.js" afterPath="$PROJECT_DIR$/365/lib/_namespace.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/365/client/js/client.js" afterPath="$PROJECT_DIR$/365/client/js/client.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/365/client/css/friends.css" afterPath="$PROJECT_DIR$/365/client/css/friends.css" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/365/client/html/friends.html" afterPath="$PROJECT_DIR$/365/client/html/friends.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/365/client/js/headerClient.js" afterPath="$PROJECT_DIR$/365/client/js/headerClient.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/365/.meteor/packages" afterPath="$PROJECT_DIR$/365/.meteor/packages" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/365/lib/routes/router-mainApp.js" afterPath="$PROJECT_DIR$/365/lib/routes/router-mainApp.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/365/server/js/server.js" afterPath="$PROJECT_DIR$/365/server/js/server.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
@@ -33,26 +28,6 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="client.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/365/client/js/client.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-14.703704">
-              <caret line="161" column="19" selection-start-line="161" selection-start-column="14" selection-end-line="161" selection-end-column="19" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="365.css" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/365/client/css/365.css">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="46" column="18" selection-start-line="46" selection-start-column="18" selection-end-line="46" selection-end-column="18" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="calendar.html" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/365/client/html/calendar.html">
           <provider selected="true" editor-type-id="text-editor">
@@ -63,51 +38,71 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="friends.css" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/365/client/css/friends.css">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="94" column="1" selection-start-line="94" selection-start-column="1" selection-end-line="94" selection-end-column="1" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="routes-public.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/365/lib/routes/routes-public.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="72" column="3" selection-start-line="72" selection-start-column="3" selection-end-line="72" selection-end-column="3" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="router-mainApp.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/365/lib/routes/router-mainApp.js">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="28" column="23" selection-start-line="28" selection-start-column="23" selection-end-line="28" selection-end-column="23" />
+              <caret line="102" column="2" selection-start-line="102" selection-start-column="2" selection-end-line="102" selection-end-column="2" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="calendar.css" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/365/client/css/calendar.css">
+      <file leaf-file-name="packages" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/365/.meteor/packages">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="-0.0">
+              <caret line="1" column="0" selection-start-line="1" selection-start-column="0" selection-end-line="1" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="search.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/365/client/js/search.js">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+              <caret line="46" column="21" selection-start-line="46" selection-start-column="19" selection-end-line="46" selection-end-column="21" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="headerClient.js" pinned="false" current-in-tab="true">
+      <file leaf-file-name="_namespace.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/365/lib/_namespace.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0">
+              <caret line="108" column="4" selection-start-line="108" selection-start-column="4" selection-end-line="108" selection-end-column="4" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="server.js" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/365/server/js/server.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.45302013">
+              <caret line="30" column="25" selection-start-line="30" selection-start-column="25" selection-end-line="30" selection-end-column="25" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="headerClient.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/365/client/js/headerClient.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.97046757">
+            <state vertical-scroll-proportion="0.0">
               <caret line="373" column="3" selection-start-line="373" selection-start-column="3" selection-end-line="373" selection-end-column="3" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="mup.json" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/365/mup.json">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="-25.333334">
+              <caret line="38" column="27" selection-start-line="38" selection-start-column="27" selection-end-line="38" selection-end-column="27" />
               <folding />
             </state>
           </provider>
@@ -151,8 +146,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/365/server/beta/data/update/invites.js" />
-        <option value="$PROJECT_DIR$/365/server/beta/email/templates/reset-password.js" />
         <option value="$PROJECT_DIR$/365/server/beta/email/templates/send-invite.handlebars" />
         <option value="$PROJECT_DIR$/365/server/beta/email/validation.js" />
         <option value="$PROJECT_DIR$/365/server/beta/publications.js" />
@@ -195,13 +188,15 @@
         <option value="$PROJECT_DIR$/365/lib/routes/routes-authenticated.js" />
         <option value="$PROJECT_DIR$/365/client/js/calendarClient.js" />
         <option value="$PROJECT_DIR$/365/client/js/client.js" />
-        <option value="$PROJECT_DIR$/365/lib/_namespace.js" />
-        <option value="$PROJECT_DIR$/365/server/js/server.js" />
         <option value="$PROJECT_DIR$/365/client/html/365.html" />
         <option value="$PROJECT_DIR$/365/client/css/friends.css" />
-        <option value="$PROJECT_DIR$/365/lib/routes/router-mainApp.js" />
         <option value="$PROJECT_DIR$/365/client/html/friends.html" />
         <option value="$PROJECT_DIR$/365/client/js/headerClient.js" />
+        <option value="$PROJECT_DIR$/365/mup.json" />
+        <option value="$PROJECT_DIR$/365/lib/routes/router-mainApp.js" />
+        <option value="$PROJECT_DIR$/365/.meteor/packages" />
+        <option value="$PROJECT_DIR$/365/lib/_namespace.js" />
+        <option value="$PROJECT_DIR$/365/server/js/server.js" />
       </list>
     </option>
   </component>
@@ -465,6 +460,28 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
+              <option name="myItemId" value="invitation-system" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Keepspace" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Keepspace" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="365" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="client" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
               <option name="myItemId" value="html" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
@@ -488,6 +505,24 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="css" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Keepspace" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Keepspace" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="365" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value=".meteor" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -841,12 +876,12 @@
       <workItem from="1444789796704" duration="6379000" />
       <workItem from="1444837037411" duration="126000" />
       <workItem from="1445060608671" duration="15541000" />
-      <workItem from="1445115801917" duration="3134000" />
+      <workItem from="1445115801917" duration="3889000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="26232000" />
+    <option name="totallyTimeSpent" value="26987000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="23" width="1948" height="1337" extended-state="0" />
@@ -922,21 +957,6 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/365/client/js/splashClient.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.5738255">
-          <caret line="97" column="20" selection-start-line="97" selection-start-column="20" selection-end-line="97" selection-end-column="20" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/365/client/js/startup.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/365/client/invitation-system/controllers/authenticated/closed-invitations.js">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
@@ -1201,22 +1221,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/365/client/js/search.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-14.703704">
-          <caret line="46" column="21" selection-start-line="46" selection-start-column="19" selection-end-line="46" selection-end-column="21" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/365/lib/_namespace.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="108" column="26" selection-start-line="108" selection-start-column="26" selection-end-line="108" selection-end-column="26" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/365/server/js/accounts.js">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
@@ -1229,14 +1233,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/365/server/js/server.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="46" column="61" selection-start-line="46" selection-start-column="61" selection-end-line="46" selection-end-column="61" />
           <folding />
         </state>
       </provider>
@@ -1261,14 +1257,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="72" column="3" selection-start-line="72" selection-start-column="3" selection-end-line="72" selection-end-column="3" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/365/lib/routes/router-mainApp.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="28" column="23" selection-start-line="28" selection-start-column="23" selection-end-line="28" selection-end-column="23" />
           <folding />
         </state>
       </provider>
@@ -1315,8 +1303,56 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/365/client/js/headerClient.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.97046757">
+        <state vertical-scroll-proportion="0.0">
           <caret line="373" column="3" selection-start-line="373" selection-start-column="3" selection-end-line="373" selection-end-column="3" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/365/mup.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-25.333334">
+          <caret line="38" column="27" selection-start-line="38" selection-start-column="27" selection-end-line="38" selection-end-column="27" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/365/lib/routes/router-mainApp.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="102" column="2" selection-start-line="102" selection-start-column="2" selection-end-line="102" selection-end-column="2" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/365/.meteor/packages">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-0.0">
+          <caret line="1" column="0" selection-start-line="1" selection-start-column="0" selection-end-line="1" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/365/client/js/search.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="46" column="21" selection-start-line="46" selection-start-column="19" selection-end-line="46" selection-end-column="21" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/365/lib/_namespace.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="108" column="4" selection-start-line="108" selection-start-column="4" selection-end-line="108" selection-end-column="4" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/365/server/js/server.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.45302013">
+          <caret line="30" column="25" selection-start-line="30" selection-start-column="25" selection-end-line="30" selection-end-column="25" />
           <folding />
         </state>
       </provider>

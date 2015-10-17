@@ -15,10 +15,7 @@ Meteor.publish("users", function() {
 });
 
 
-Meteor.publish("SearchUsers", function(searchUsers){
-    check(searchUsers,Object || String);
-    return searchUsers;
-});
+Meteor.publish("SearchUsers", searchUsers);
 
 Meteor.publish("Notifications", function() {
     var cursor = Notifications.find({userId: this.userId});
