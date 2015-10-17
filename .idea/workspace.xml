@@ -2,10 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="976cffc7-f548-4df6-a63b-bf09632615fa" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/365/.meteor/packages" afterPath="$PROJECT_DIR$/365/.meteor/packages" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/365/lib/routes/router-mainApp.js" afterPath="$PROJECT_DIR$/365/lib/routes/router-mainApp.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/365/server/js/server.js" afterPath="$PROJECT_DIR$/365/server/js/server.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/365/client/js/headerClient.js" afterPath="$PROJECT_DIR$/365/client/js/headerClient.js" />
     </list>
     <ignored path="Keepspace.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -28,16 +25,6 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="calendar.html" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/365/client/html/calendar.html">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-0.0">
-              <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="router-mainApp.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/365/lib/routes/router-mainApp.js">
           <provider selected="true" editor-type-id="text-editor">
@@ -78,21 +65,31 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="server.js" pinned="false" current-in-tab="true">
+      <file leaf-file-name="server.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/365/server/js/server.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.45302013">
-              <caret line="30" column="25" selection-start-line="30" selection-start-column="25" selection-end-line="30" selection-end-column="25" />
+            <state vertical-scroll-proportion="-34.0">
+              <caret line="51" column="0" selection-start-line="51" selection-start-column="0" selection-end-line="51" selection-end-column="0" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="headerClient.js" pinned="false" current-in-tab="false">
+      <file leaf-file-name="headerClient.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/365/client/js/headerClient.js">
           <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.48728466">
+              <caret line="33" column="31" selection-start-line="33" selection-start-column="31" selection-end-line="33" selection-end-column="31" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="splashClient.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/365/client/js/splashClient.js">
+          <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="373" column="3" selection-start-line="373" selection-start-column="3" selection-end-line="373" selection-end-column="3" />
+              <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -191,12 +188,12 @@
         <option value="$PROJECT_DIR$/365/client/html/365.html" />
         <option value="$PROJECT_DIR$/365/client/css/friends.css" />
         <option value="$PROJECT_DIR$/365/client/html/friends.html" />
-        <option value="$PROJECT_DIR$/365/client/js/headerClient.js" />
         <option value="$PROJECT_DIR$/365/mup.json" />
         <option value="$PROJECT_DIR$/365/lib/routes/router-mainApp.js" />
         <option value="$PROJECT_DIR$/365/.meteor/packages" />
         <option value="$PROJECT_DIR$/365/lib/_namespace.js" />
         <option value="$PROJECT_DIR$/365/server/js/server.js" />
+        <option value="$PROJECT_DIR$/365/client/js/headerClient.js" />
       </list>
     </option>
   </component>
@@ -876,12 +873,12 @@
       <workItem from="1444789796704" duration="6379000" />
       <workItem from="1444837037411" duration="126000" />
       <workItem from="1445060608671" duration="15541000" />
-      <workItem from="1445115801917" duration="3889000" />
+      <workItem from="1445115801917" duration="4091000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="26987000" />
+    <option name="totallyTimeSpent" value="27189000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="23" width="1948" height="1337" extended-state="0" />
@@ -957,13 +954,6 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/365/client/invitation-system/controllers/authenticated/closed-invitations.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="38" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/365/client/invitation-system/controllers/authenticated/invites.js">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.08859721">
@@ -982,6 +972,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="33" column="2" selection-start-line="33" selection-start-column="2" selection-end-line="33" selection-end-column="2" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -996,6 +987,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.28055784">
           <caret line="19" column="8" selection-start-line="19" selection-start-column="8" selection-end-line="19" selection-end-column="8" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -1301,14 +1293,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/365/client/js/headerClient.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="373" column="3" selection-start-line="373" selection-start-column="3" selection-end-line="373" selection-end-column="3" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/365/mup.json">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-25.333334">
@@ -1351,8 +1335,24 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/365/server/js/server.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.45302013">
-          <caret line="30" column="25" selection-start-line="30" selection-start-column="25" selection-end-line="30" selection-end-column="25" />
+        <state vertical-scroll-proportion="-34.0">
+          <caret line="51" column="0" selection-start-line="51" selection-start-column="0" selection-end-line="51" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/365/client/js/splashClient.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/365/client/js/headerClient.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.48728466">
+          <caret line="33" column="31" selection-start-line="33" selection-start-column="31" selection-end-line="33" selection-end-column="31" />
           <folding />
         </state>
       </provider>
