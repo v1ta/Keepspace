@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="976cffc7-f548-4df6-a63b-bf09632615fa" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/365/client/js/headerClient.js" afterPath="$PROJECT_DIR$/365/client/js/headerClient.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/365/client/html/365.html" afterPath="$PROJECT_DIR$/365/client/html/365.html" />
     </list>
     <ignored path="Keepspace.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -75,11 +75,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="headerClient.js" pinned="false" current-in-tab="true">
+      <file leaf-file-name="headerClient.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/365/client/js/headerClient.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.48728466">
-              <caret line="33" column="31" selection-start-line="33" selection-start-column="31" selection-end-line="33" selection-end-column="31" />
+            <state vertical-scroll-proportion="0.0">
+              <caret line="49" column="45" selection-start-line="49" selection-start-column="45" selection-end-line="49" selection-end-column="45" />
               <folding />
             </state>
           </provider>
@@ -105,11 +105,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="365.html" pinned="false" current-in-tab="false">
+      <file leaf-file-name="365.html" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/365/client/html/365.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-9.333333">
-              <caret line="14" column="106" selection-start-line="14" selection-start-column="95" selection-end-line="14" selection-end-column="106" />
+            <state vertical-scroll-proportion="0.7097315">
+              <caret line="47" column="34" selection-start-line="47" selection-start-column="34" selection-end-line="47" selection-end-column="34" />
               <folding />
             </state>
           </provider>
@@ -185,7 +185,6 @@
         <option value="$PROJECT_DIR$/365/lib/routes/routes-authenticated.js" />
         <option value="$PROJECT_DIR$/365/client/js/calendarClient.js" />
         <option value="$PROJECT_DIR$/365/client/js/client.js" />
-        <option value="$PROJECT_DIR$/365/client/html/365.html" />
         <option value="$PROJECT_DIR$/365/client/css/friends.css" />
         <option value="$PROJECT_DIR$/365/client/html/friends.html" />
         <option value="$PROJECT_DIR$/365/mup.json" />
@@ -194,6 +193,7 @@
         <option value="$PROJECT_DIR$/365/lib/_namespace.js" />
         <option value="$PROJECT_DIR$/365/server/js/server.js" />
         <option value="$PROJECT_DIR$/365/client/js/headerClient.js" />
+        <option value="$PROJECT_DIR$/365/client/html/365.html" />
       </list>
     </option>
   </component>
@@ -873,12 +873,12 @@
       <workItem from="1444789796704" duration="6379000" />
       <workItem from="1444837037411" duration="126000" />
       <workItem from="1445060608671" duration="15541000" />
-      <workItem from="1445115801917" duration="4091000" />
+      <workItem from="1445115801917" duration="4363000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="27189000" />
+    <option name="totallyTimeSpent" value="27461000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="23" width="1948" height="1337" extended-state="0" />
@@ -1277,14 +1277,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/365/client/html/365.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-9.333333">
-          <caret line="14" column="106" selection-start-line="14" selection-start-column="95" selection-end-line="14" selection-end-column="106" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/365/client/html/friends.html">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-37.333332">
@@ -1351,8 +1343,16 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/365/client/js/headerClient.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.48728466">
-          <caret line="33" column="31" selection-start-line="33" selection-start-column="31" selection-end-line="33" selection-end-column="31" />
+        <state vertical-scroll-proportion="0.0">
+          <caret line="49" column="45" selection-start-line="49" selection-start-column="45" selection-end-line="49" selection-end-column="45" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/365/client/html/365.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.7097315">
+          <caret line="47" column="34" selection-start-line="47" selection-start-column="34" selection-end-line="47" selection-end-column="34" />
           <folding />
         </state>
       </provider>
