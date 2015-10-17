@@ -12,7 +12,7 @@
   ],
 
   // Install MongoDB in the server, does not destroy local MongoDB on future setup
-  "setupMongo": false,
+  "setupMongo": true,
 
   // WARNING: Node.js is required! Only skip if you already have Node.js installed on server.
   "setupNode": true,
@@ -28,7 +28,7 @@
   "enableUploadProgressBar": true,
 
   // Application name (No spaces)
-  "appName": "mykeepspace",
+  "appName": "thekeepspace",
 
   // Location of app (local directory)
   "app": "/home/development/365/365",
@@ -36,8 +36,7 @@
   // Configure environment
   "env": {
     "PORT": 3000,
-    "ROOT_URL": "http://mykeepspace.com",
-    "MONGO_URL": "mongodb://veet:password@dogen.mongohq.com:10052/bow-ties-are-hard-to-tie",
+    "ROOT_URL": "http://thekeepspace.com",
     "UPSTART_UID": "veet",
     "MAIL_URL": "smtp://localhost:25"
   },
