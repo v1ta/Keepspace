@@ -1,175 +1,179 @@
-
 <head>
     <title>My Keepspace</title>
     <link rel="icon" sizes="16x16 32x32" href="/favicon.ico?v=2">
 </head>
 
 <body>
-  <!-- {{#if currentUser}}
-    {{> header}}
-    {{else}}
-      {{>splashBanner}}
-  {{/if}} -->
 </body>
 
 <template name="mainPage">
-          {{> sAlert}}
-  <div id="main-feed" class="container-fluid full-height">
-    <div class="row feed-wrapper">
-      <div id="fullFeed-canvas"></div>
-      <div id="friendFeed" class="feed col-xs-4">
-         {{>friendList}}
-          {{>friendSearch}}
-        <div class="feed-name">Friends</div>
-        <div id="friendFeed-container"></div>
-      </div>
-      <div id="myFeed" class="feed col-xs-4">
-        <div id="tempForm">
-          <form class="new-thought" autocomplete="off">
-            <textarea id="newThoughtBox" class="form-control" name="text" placeholder="How will you remember today?"></textarea>
-            <button id="submit-new-thought" class="btn">Keep</button>
-          </form>
-          <button id="btn-import-facebook" class="btn btn-primary"><i class="fa fa-facebook fa-fw"></i></button>
-          <p id="time">...</p>
-        </div>
-        <div class="feed-name">{{username}}</div>
-        <div id="myFeed-canvas"></div>
-        <div id="expandedThoughtContent"></div>
-      </div>
+    {{> sAlert}}
+    <div id="main-feed" class="container-fluid full-height unselectable">
+        <div class="row feed-wrapper">
+            <div id="fullFeed-canvas"></div>
+            <div id="friendFeed" class="feed col-xs-4">
+                <i class="fa fa-users feed-user-icon"><div class="badge success">{{currentUser.numRequests}}</div></i>
+                {{>friendSearch}}
+                <div class="feed-name unselectable">Friends</div>
+                <div id="friendFeed-container"></div>
+            </div>
+            <div id="myFeed" class="feed col-xs-4 unselectable">
+                <div id="tempForm">
+                    <form class="new-thought" autocomplete="off">
+                        <textarea id="newThoughtBox" class="form-control" name="text" placeholder="How will you remember today?"></textarea>
+                        <button id="submit-new-thought" class="btn">Keep</button>
+                    </form>
+                    <button id="btn-import-facebook" class="btn btn-primary"><i class="fa fa-facebook fa-fw"></i></button>
+                    <p id="time">...</p>
+                </div>
+                <div class="feed-name unselectable">{{username}}</div>
+                <div id="myFeed-canvas"></div>
+                <div id="expandedThoughtContent"></div>
+            </div>
 
-      <div id="worldFeed" class="feed col-xs-4">
-        <i class="fa fa-search feed-search-icon"></i>
-        <form class="search">
-          <input type="text" name="search" class="form-control" placeholder="find a thought" />
-        </form>
-        <!--
-        <i class="fa fa-caret-down fa-lg world-dropdown"></i>
-        <ul id="worldButtons">
-          <li>Popular</li>
-          <li>Random</li>
-        </ul>
-        -->
-        <div class="feed-name">World</div>
-        <div id="worldFeed-canvas"></div>
-      </div>
+            <div id="worldFeed" class="feed col-xs-4 unselectable">
+                <i class="fa fa-search feed-search-icon"></i>
+                <form class="search">
+                    <input type="text" name="search" class="form-control" placeholder="find a thought" />
+                </form>
+                <!--
+                <i class="fa fa-caret-down fa-lg world-dropdown"></i>
+                <ul id="worldButtons">
+                  <li>Popular</li>
+                  <li>Random</li>
+                </ul>
+                -->
+                <div class="feed-name unselectable">World</div>
+                <div id="worldFeed-canvas"></div>
+            </div>
+        </div>
     </div>
-  </div>
 </template>
 
 <template name="header">
-  <div id="header" class="container-fluid">
-    <div class="row">
-      <div class="left col-xs-4">
-        <div id="logo">
-          <img id="homeLogo" src="/images/keepspace_home_button.png">
-          <div id="dropdownDiv">
-            <i class="menu-dropdown fa fa-caret-down fa-lg"></i>
-          </div>
+    <div id="header" class="container-fluid">
+        <div class="row">
+            <div class="left col-xs-4 unselectable">
+                <div id="logo">
+                    <img class="unselectable" id="homeLogo" src="/images/keepspace_home_button.png">
+                    <div class="unselectable" id="dropdownDiv">
+                        <i class="menu-dropdown fa fa-caret-down fa-lg"></i>
+                    </div>
+                </div>
+                <div id="main-menu">
+                    <!-- <i class="fa fa-caret-up fa-2x" id="menuCarat"></i> -->
+                    <!-- <i class="fa fa-caret-up fa-lg" id="menuBack"></i> -->
+                    <ul>
+                        <li class="menu-item" id="changePasswordButton">Change Password</li>
+                        <li class="menu-item dropdownAbout">About</li>
+                        <li class="menu-item dropdownTeam">Team</li>
+                        <li class="menu-item">Help</li>
+                        <li class="menu-item logout">Log Out</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="mid col-xs-4 unselectable">
+                <div id="homeButton" class="header-circle">
+                    DAY <span id="dayNum">0</span>
+                </div>
+                <div id="date">00/00/00</div>
+            </div>
+
+            <div class="right col-xs-4">
+                <img id="profile-picture" class="header-circle unselectable" alt="{{username}}" src="{{picture}}" />
+                <span class="username vertical-center unselectable">{{username}}</span>
+            </div>
         </div>
-        <div id="main-menu">
-          <ul>
-            <li class="menu-item" id="changePasswordButton">Change Password</li>
-            <li class="menu-item dropdownAbout">About</li>
-            <li class="menu-item dropdownTeam">Team</li>
-            <li class="menu-item">Help</li>
-            <li class="menu-item logout">Log Out</li>
-          </ul>
+    </div>
+
+    <div class="alertDiv" id="mainAlert">
+        <div class="alertBubble" id="alertText">
+            <p class="oldPostDay"></p>
+            <p class="oldPostTime"></p>
+            <p class="oldPostText"></p>
         </div>
-      </div>
+        <p class="alertBubble closeAlert">X</p>
+    </div>
 
-      <div class="mid col-xs-4">
-        <div id="homeButton" class="header-circle">
-          DAY <span id="dayNum">0</span>
+    {{#with showChangePassword}}
+        {{> changePass}}
+    {{/with}}
+    {{#with showProfile}}
+        {{> profile}}
+    {{/with}}
+    {{#with showFriendPage}}
+        {{> friendRequestPage}}
+    {{/with}}
+
+    {{> yield}}
+</template>
+
+<template name="changePass">
+    <div class="alertDiv" id="changePassword">
+        <div id="fyouupdiv">
+            <form id="changePassForm">
+                <input class="loginForm" id="changeOld" type="password" name="oldPass"
+                       placeholder="old password">
+                <br>
+                <input class="loginForm" id="changeNew" type="password" name="newPass"
+                       placeholder="new password">
+                <br>
+                <input class="loginForm" id="changeConfirm" type="password" name="newPassConfirm"
+                       placeholder="new password (again)">
+                <br>
+                <input type="submit" class="blueLoginButton" id="changePasswordSubmit" value="Confirm">
+            </form>
         </div>
-        <div id="date">00/00/00</div>
-      </div>
-
-      <div class="right col-xs-4">
-        <img id="profile-picture" class="header-circle" alt="{{username}}" src="{{picture}}" />
-        <span class="username vertical-center">{{username}}</span>
-      </div>
     </div>
-  </div>
-  <div class="alertDiv" id="changePassword">
-    <div id="fyouupdiv">
-      <form id="changePassForm">
-        <input class="loginForm" id="changeOld" type="email" name="oldPass"
-        placeholder="old password">
-        <br>
-        <input class="loginForm" id="changeNew" type="password" name="newPass"
-        placeholder="new password">
-        <br>
-        <input class="loginForm" id="changeConfirm" type="password" name="newPassConfirm"
-        placeholder="new password (again)">
-        <br>
-        <input type="submit" class="blueLoginButton" id="changePasswordSubmit" value="Confirm">
-      </form>
-    </div>
-  </div>
-
-  <div class="alertDiv" id="mainAlert">
-    <div class="alertBubble" id="alertText">
-      <p class="oldPostDay"></p>
-      <p class="oldPostTime"></p>
-      <p class="oldPostText"></p>
-    </div>
-    <p class="alertBubble closeAlert">X</p>
-  </div>
-  {{friendList2}}
-
-  {{#with showProfile}}
-    {{>profile}}
-  {{/with}}
-
-  {{> yield}}
 </template>
 
 <template name="profile">
-  <div id="upload-picture" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="uploadLabel">
-    <div class="modal-dialog modal-sm" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
-          <h4 id="uploadLabel" class="modal-title">Upload New Profile Picture</h4>
-        </div>
-        <div class="modal-body">
-          <form>
-            <div class="form-group">
-              <input type="file" id="new-picture">
-              <p class="help-block">Use a square photo for best results.</p>
+    <div id="upload-picture" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="uploadLabel">
+        <div class="modal-dialog modal-sm" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    <h4 id="uploadLabel" class="modal-title">Upload New Profile Picture</h4>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <div class="form-group">
+                            <input type="file" id="new-picture">
+                            <p class="help-block">Use a square photo for best results.</p>
+                        </div>
+                    </form>
+                </div>
             </div>
-          </form>
         </div>
-      </div>
     </div>
-  </div>
 
-  <div id="profile" class="full-height">
-    <img id="profile-picture-large" class="profile-circle-large" alt="{{username}}" src="{{picture}}" />
-    <div id="change-picture" class="profile-circle-large" data-toggle="modal" data-target="#upload-picture"><p class="vertical-center">Edit Picture</p></div>
-    <div id="username" class="profile-circle"><p class="vertical-center">{{username}}</p></div>
-    <div id="collects" class="profile-circle"><p class="vertical-center">Memories Collected: {{collects}}</p></div>
-    <div id="joined" class="profile-circle"><p class="vertical-center">Joined: {{joined}}</p></div>
-    <i id="close-profile" class="fa fa-times-circle-o fa-2x"></i>
-    <div id="notifications">
-      <p id="notificationHeader">Notifications</p>
-      <p id="markAsRead">Mark all as read</p>
-      <div id="notificationTable">
-        {{#each notifications}}
-          <div class="notificationRow"> 
-            <p class="notificationText">{{notification}}</p>
-            <p class="notificationTime">{{timeString}}</p>
-          </div>
-        {{else}}
-          <p id="noNotifications">No Notifications</p>
-        {{/each}}
-      </div>
+    <div id="profile" class="full-height">
+        <img id="profile-picture-large" class="profile-circle-large" alt="{{username}}" src="{{picture}}" />
+        <div id="change-picture" class="profile-circle-large" data-toggle="modal" data-target="#upload-picture"><p class="vertical-center">Edit Picture</p></div>
+        <div id="username" class="profile-circle"><p class="vertical-center">{{username}}</p></div>
+        <div id="collects" class="profile-circle"><p class="vertical-center">Memories Collected: {{collects}}</p></div>
+        <div id="joined" class="profile-circle"><p class="vertical-center">Joined: {{joined}}</p></div>
+        <i id="close-profile" class="fa fa-times-circle-o fa-2x"></i>
+        <div id="notifications">
+            <p id="notificationHeader">Notifications</p>
+            <p id="markAsRead">Mark all as read</p>
+            <div id="notificationTable">
+                {{#each notifications}}
+                    <div class="notificationRow">
+                        <p class="notificationText">{{notification}}</p>
+                        <p class="notificationTime">{{timeString}}</p>
+                    </div>
+                {{else}}
+                    <p id="noNotifications">No Notifications</p>
+                {{/each}}
+            </div>
+        </div>
     </div>
-  </div>
 </template>
 
 <template name="loading">
-  Loading...
+    Loading...
 </template>

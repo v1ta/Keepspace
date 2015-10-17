@@ -142,16 +142,17 @@ Template.header.events({
         //assumes context is a instance of a user
         this.unfriend();
     },
-    'click #closeFriends': function () {
-        $("#friendRequests").hide();
+    'click #closeFriends': function(){
+        Session.set("showFriendPage", false);
+        // $("#friendRequests").hide();
     },
-    'click #friendRequests': function (event) {
+    'click #friendRequests':function(event){
         event.stopPropagation();
     },
-    'click #profile': function (event) {
+    'click #profile': function(event){
         event.stopPropagation();
     },
-    'click #markAsRead': function (event) {
+    'click #markAsRead': function(event){
         Meteor.call("clearNotifications", Meteor.userId());
     }
 });
@@ -174,6 +175,9 @@ Template.header.helpers({
     },
     showProfile: function () {
         return Session.get('showProfile');
+    },
+    showFriendPage: function(){
+        return Session.get("showFriendPage");
     },
     requests: function () {
         var results = Meteor.requests.find({
@@ -214,6 +218,7 @@ Template.header.onRendered(function (event) {
     localStorage.setItem("selectedDate", $.format.date(today, "M d yyyy"));
     setMidPadding();
     Session.set('showProfile', false);
+    Session.set('showFriendPage', false);
     var loggedIn = localStorage.getItem("justLoggedIn");
     if (loggedIn == "true") {
         var rand = Math.random();
@@ -222,22 +227,21 @@ Template.header.onRendered(function (event) {
         }
 
         localStorage.setItem("justLoggedIn", "false");
-    }
-    ;
-    $(document).mouseup(function (e) {
+    };
+    $(document).mouseup(function (e){
         if (!$("#friendRequests").is(e.target) // if the target of the click isn't the container...
             && $("#friendRequests").has(e.target).length === 0) // ... nor a descendant of the container
         {
-            $("#friendRequests").hide();
+            // $("#friendRequests").hide();
+            Session.set("showFriendPage", false);
         }
-        if (!$("#profile").is(e.target) // if the target of the click isn't the container...
+        if(!$("#profile").is(e.target) // if the target of the click isn't the container...
             && $("#profile").has(e.target).length === 0) // ... nor a descendant of the container
         {
             Session.set('showProfile', false);
         }
     });
 });
-
 Template.profile.helpers({
     username: function () {
         return Session.get('showProfile').username;
@@ -320,6 +324,54 @@ Template.profile.helpers({
     }
 });
 
+Template.friendRequestPage.events({
+    'click [data-action=accept]': function() {
+        this.accept();
+    },
+    'click [data-action=deny]': function() {
+        var result = confirm("Are you sure you don't want to be friends?");
+        if (result){
+            this.deny();
+        }
+        else{
+
+        }
+    },
+    // user object methods
+    'click [data-action=unfriend]': function() {
+        //assumes context is a instance of a user
+        var result = confirm("Are you sure you want to end your friendship?");
+        if (result){
+            this.unfriend();
+        }
+        else{
+
+        }
+    },
+})
+
+Template.friendRequestPage.helpers({
+    friendRequests: function() {
+        var results =  Meteor.requests.find({
+            $or: [
+                {userId:Meteor.userId()},
+                {requesterId:Meteor.userId()}
+            ]
+        });
+        console.log(results.fetch());
+        return results;
+    },
+    isOutgoing: function(requesterId){
+        var userId = Meteor.userId();
+        if (requesterId == userId){
+            console.log("true");
+            return true;
+        }
+        else{
+            return false;
+        }
+    }
+});
 Template.profile.events({
     'change #new-picture': function (event, template) {
         FS.Utility.eachFile(event, function (file) {

@@ -106,11 +106,7 @@ Schemas.Thought = new SimpleSchema({
 
 searchUsers = function (searchString) {
     var filter = new RegExp('^' + searchString, 'i');
-    try {
-        check(searchString, filter);
-    } catch (e) {
-        //nothing
-    }
+    check(filter, RegExp);
     var cursor = Meteor.users.find(
         {username: filter},
         {sort: {username: 1}, limit: 20}

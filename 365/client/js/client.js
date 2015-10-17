@@ -189,9 +189,10 @@ Template.mainPage.events({
     'click .friend-search-icon': function (event) {
         $(event.target.nextElementSibling).animate({width: "toggle"}, 'fast');
     },
-    'click .feed-user-icon': function (e) {
-        // $(event.target.nextElementSibling).animate({width: "toggle"}, 'fast');
-        $("#friendRequests").show();
+    'click .feed-user-icon': function (event) {
+        event.stopPropagation();
+        // $("#friendRequests").show();
+        Session.set("showFriendPage", true);
     },
     'click .fa-caret-down, click .fa-caret-up': function (event) {
         $("#worldButtons").slideToggle('fast');
