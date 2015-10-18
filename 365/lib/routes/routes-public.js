@@ -11,21 +11,21 @@ Router.route('splash', {
 
 });
 
-Router.route('signup2', {
-  path: '/signup2',
-  template: 'signup2',
+Router.route('signup', {
+  path: '/signup',
+  template: 'signup',
   onBeforeAction: function() {
-    Session.set('currentRoute', 'signup2');
+    Session.set('currentRoute', 'signup');
     Session.set('betaToken', '');
     return this.next();
   }
 });
 
-Router.route('signup2/:token', {
+Router.route('signup/:token', {
   path: '/signup/:token',
   template: 'signup',
   onBeforeAction: function() {
-    Session.set('currentRoute', 'signup2');
+    Session.set('currentRoute', 'signup');
     Session.set('betaToken', this.params.token);
     return this.next();
   }

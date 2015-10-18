@@ -1,4 +1,4 @@
-Template.signup2.rendered = function () {
+Template.signup.rendered = function () {
     return $('#application-signup').validate({
         rules: {
             emailAddress: {
@@ -50,13 +50,13 @@ Template.signup2.rendered = function () {
     });
 };
 
-Template.signup2.helpers({
+Template.signup.helpers({
     betaToken: function () {
         return Session.get('betaToken');
     }
 });
 
-Template.signup2.events({
+Template.signup.events({
     'submit form': function (e) {
         return e.preventDefault();
     },

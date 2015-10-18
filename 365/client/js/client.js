@@ -261,34 +261,3 @@ function setTime() {
     var result = (hours < 10 ? "0" + hours : hours) + ":" + (minutes < 10 ? "0" + minutes : minutes) + ":" + (seconds < 10 ? "0" + seconds : seconds);
     $("#time").text(result);
 }
-
-
-Template.friendList.helpers({
-    "numRequests": function (event) {
-        var numRequests = 0;
-        var string = "Requests";
-        if (numRequests == 0) {
-            return string;
-        }
-        else {
-            return string + " (" + numRequests + ")";
-        }
-    },
-    requests: function (event) {
-        return Meteor.friendRequest.find({userId: Meteor.userId()});
-    }
-})
-
-Template.friendList.events({
-    'click #acceptRequest': function (event) {
-        this.accept();
-    },
-    'click #denyRequest': function (event) {
-        this.deny();
-    },
-    'click #removeFriend': function (event) {
-        this.unfriend();
-    },
-
-})
-
