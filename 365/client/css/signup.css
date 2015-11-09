@@ -1,7 +1,6 @@
 #signupForm{
 	margin:0px;
 }
-
 .backButton{
 	display:inline-block;
 	position:relative;
@@ -12,12 +11,10 @@
 #nextLoginButton{
 	width:90px;
 }
-
 #createButton{
 	margin-top:15px;
 	width:90px;
 }
-
 #verify{
 	margin-top:-7px;
 	position:relative;
@@ -25,4 +22,26 @@
 #headeremail{
 	position:relative;
 	top:-2px;
+}
+
+/*new stuff*/
+#signHereOption{
+	padding-top:20px;
+}
+.signOptions{
+	width:100%;
+	background:rgba(255,255,255,0.9);
+	border-radius:10px;
+	text-align:center;
+}
+.signOptions p{
+	color:black;
+}
+#signupEmail{
+	margin-top:20px;
+	background:none;
+}
+#checkEmailOption{
+	padding-top:30px;
+	padding-bottom:30px;
 }

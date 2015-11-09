@@ -19,13 +19,16 @@
 	text-align:center;
 }
 .loginForm{
-	border: 2px solid #AEAEAE !important;
-    border-radius: 15px !important;
-    height: 30px !important;
-    padding-left: 10px;
-    background: #EAE8E8 !important;
-    margin-bottom:15px;
-    width:185px;
+    background: none;
+    border: none;
+    border-bottom: 2px solid gray;
+    padding-bottom: 10px;
+    color: gray;
+    width:200px;
+}
+.loginForm:focus{
+  /*border:none !important;*/
+  /*background:red !important;*/
 }
 #login-buttons-facebook{
 	text-align:center;

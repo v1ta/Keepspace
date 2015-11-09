@@ -3,8 +3,40 @@ Template.splashBanner.events({
 		Router.go("loginPage");
 	},
 	'click #aboutLink': function() { Router.go('about'); },
-  	'click #teamLink': function() { Router.go('team'); },
-  	'click #splashBannerLogo': function(){ Router.go('splash');}
+	'click #teamLink': function() { Router.go('team'); },
+	'click #splashBannerLogo': function(){ Router.go('splash');},
+  'click #facebookSignButton': function(){
+    Meteor.loginWithFacebook(
+      {requestPermissions: ['email', 'user_friends', 'user_location', 'user_status',
+      'user_posts','publish_actions']}, 
+      function(err){
+          if (!err){
+          Session.set("isFB", true);
+          localStorage.setItem("justLoggedIn", "true");
+          resetAllFeeds();
+          Router.go("mainPage");
+            // $("#changePassword").hide();
+          }
+          else{
+            console.log(err);
+          }
+      }
+    )
+  },
+  'click #topSlide':function(event){
+    $(".signOptions").hide();
+    $("#mainSlide").show();
+  },
+  'click #goSignupButton': function(event){
+    event.stopPropagation();
+    $("#mainSlide").hide();
+    $("#signupOptionsSlide").show();
+    $("#signHereOption").show();
+  },
+  'click .signOptions': function(event){
+    event.stopPropagation();
+  },
+
   	/*
   	'click #betaLink': function(){
   		betaSignup();
@@ -36,3 +68,5 @@ Template.carousel.onRendered(function() {
 	else
     	$('#carousel').carousel(0);
 });
+
+
