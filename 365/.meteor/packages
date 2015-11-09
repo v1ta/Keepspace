@@ -36,3 +36,16 @@ tmeasday:publish-with-relations
 socialize:friendships
 meteorhacks:kadira-profiler
 tmeasday:publish-counts
+<<<<<<< HEAD
+=======
+mizzao:bootstrap-3
+particle4dev:sass@0.3.0
+cmather:handlebars-server
+alanning:roles
+themeteorchef:jquery-validation
+http
+random
+juliancwirko:s-alert-genie
+mrt:moment
+check
+>>>>>>> betaSignup
