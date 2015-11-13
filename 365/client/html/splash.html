@@ -67,9 +67,9 @@
         </div>
         <div class="collapse navbar-collapse navbar-ex1-collapse">
           <ul class="nav navbar-nav">
-            <li><a onclick="$('header').animatescroll({padding:71});">Team</a></li>
-            <li><a onclick="$('.detail').animatescroll({padding:71});">Login</a></li>
-            <li><a onclick="$('.features').animatescroll({padding:71});">Signup</a></li>
+            <li id="teamLink"><a onclick="//$('header').animatescroll({padding:71});">Team</a></li>
+            <li id="loginLink"><a onclick="//$('.detail').animatescroll({padding:71});">Login</a></li>
+            <li id="signupLink"><a onclick="//$('.features').animatescroll({padding:71});">Signup</a></li>
             <!-- <li><a onclick="$('.social').animatescroll({padding:71});">Social </a></li> -->
           </ul>
         </div>
@@ -79,7 +79,7 @@
         <div class="row">
           <div class="col-md-12">
             <h1>Don't let today disappear</h1>
-            <img src="images/signupfbbutton.png" class="landingButton" id="facebookSignButton">
+            <img src="images/signupwithfbbutton.png" class="landingButton" id="facebookSignButton">
             <!-- <img src="images/signupbutton.png" id="facebookSignButton"> -->
             <p> or </p>
             <img src="images/signupherebutton.png" class="landingButton" id="goSignupButton">
@@ -102,22 +102,22 @@
               <p>Congrats!<br>Check your e-mail for Account Info.</p>
             </div>
 
-            <div class="signOptions" id="navSignOption" style="display:none">
-              <input class="loginForm" id="signupEmail" type="username" name="userName"
+            <div class="signOptions" id="navSignupOption" style="display:none">
+              <input class="loginForm" id="navSignupEmail" type="username" name="userName"
               placeholder="your e-mail">
               <img src="images/signupbutton.png" id="signupButton">
               <p>or</p>
-              <img src="images/signupbutton.png" id="facebookSignButton">
+              <img src="images/signupwithfbbutton.png" id="facebookSignButton">
             </div>
 
-            <div class="signOptions" id="navSignOption" style="display:none">
+            <div class="signOptions" id="navLoginOption" style="display:none">
               <input class="loginForm" id="loginEmail" type="username" name="email"
               placeholder="your e-mail">
               <input class="loginForm" id="loginPassword" type="password" name="password"
               placeholder="password">
-              <img src="images/signupbutton.png" id="signupButton">
+              <img src="images/gobutton.png" id="goButton">
               <p>or</p>
-              <img src="images/signupbutton.png" id="facebookSignButton">
+              <img src="images/loginwithfbbutton.png" id="facebookSignButton">
               <p id="forgotPass">Forgot Password?</p>
             </div>
 

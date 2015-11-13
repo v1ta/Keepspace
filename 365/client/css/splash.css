@@ -63,3 +63,12 @@ header h1{
 .landingButton{
 	cursor:pointer;
 }
+#facebookSignButton{
+	height:40px;
+}
+#goSignupButton{
+	height:40px;
+}
+#signupButton{
+	cursor:pointer;
+}
