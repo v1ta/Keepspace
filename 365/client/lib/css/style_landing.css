@@ -118,7 +118,7 @@ nav.navbar.fixed-to-top{
 	border: none;
 	border-bottom: 1px solid #eee;
 	background: #fff;
-	opacity: 0.95;
+	/*opacity: 0.95;*/
 	display: none;
 }
 
@@ -166,7 +166,7 @@ header h1{
 	font-weight: 700;
 	font-weight: 300;
 	font-size: 100px;
-	font-family: 'Roboto Condensed', sans-serif;
+	font-family: 'GothamHTF-Book', sans-serif;
 	
 }
 

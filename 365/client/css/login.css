@@ -47,4 +47,17 @@
 #forgotPass{
 	font-size:10px;
 	cursor: pointer;
+  margin-bottom: 10px;
+}
+#goButton{
+    height: 25px;
+    margin-top: 3%;
+    float: right;
+    margin-right: 22%;
+}
+#loginEmail{
+  margin-top:7%;
+}
+#loginPassword{
+  margin-top:5%;
 }

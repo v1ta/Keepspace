@@ -1,6 +1,7 @@
 @font-face {font-family: Roboto; src: url('fonts/roboto/Roboto-Medium.ttf') format('truetype');}
 @font-face {font-family: Roboto-Italic; src: url('fonts/roboto/Roboto-MediumItalic.ttf') format('truetype');}
 @font-face {font-family: Gotham; src: url('fonts/GothamHTF-Medium.otf');}
+@font-face {font-family: Gotham-Book; src: url('fonts/GothamHTF-Book.otf');}
 
 body, html {
   height: 100%;
