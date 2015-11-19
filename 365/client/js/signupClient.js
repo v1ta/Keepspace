@@ -1,35 +1,59 @@
-Template.verifyemail.events({
-  'click #verify': function (event) {
-    event.preventDefault(); // prevent refreshing the page
-
-    var email = $('#headeremail').val(),
-    //password = makeTempPassword(); // generate temporary password 
-    password = "password";
-    email = trimInput(email);
-
-    if (validateEmail(email)){ 
-
-      Accounts.createUser({email: email, password : password}, function(err){
-        if (err) {
-          // Inform the user that account creation failed
-            alert("We weren't able to register your email :/")
-          if(err.reason === "Email already exists."){
-            alert("The email is already in use")
-          }
-        } else {
-          var userId = Meteor.userId();
-          Meteor.call('serverVerifyEmail', email, userId, function(){
-            Router.go('/checkemail');
-            setInterval(function(){
-              Router.go('/splash');
-            },2000);
-          });   
+Template.verifyemail.rendered = function() {
+    return $('#verify').validate({
+        rules: {
+            emailAddress: {
+                email: true,
+                required: true
+            }
+        },
+        messages: {
+            emailAddress: {
+                email: "Please use a valid email address.",
+                required: "An email address is required to get your invite."
+            }
+        },
+        submitHandler: function () {
+            var invitee;
+            invitee = {
+                email: $('[name="emailAddress"]').val().toLowerCase(),
+                invited: false,
+                requested: (new Date()).getTime()
+            };
+            return Meteor.call('validateEmailAddress', invitee.email, function (error, response) {
+                if (error) {
+                    return alert(error.reason);
+                } else {
+                    if (response.error) {
+                        return alert(response.error);
+                    } else {
+                        return Meteor.call('addToInvitesList', invitee, function (error, response) {
+                            if (error) {
+                                sAlert.error(error.reason, {effect: 'genie', position: 'top', offset: '91px'});
+                            } else {
+                                sAlert.info("Invite requested. We'll be in touch soon. Thanks for your interest in Keepspace!", {
+                                    effect: 'genie',
+                                    position: 'top',
+                                    offset: '91px'
+                                });
+                            }
+                        });
+                    }
+                }
+            });
         }
+    });
+}
 
-      });   
+Template.verifyemail.events({
+    'submit form': function (event) {
+        event.preventDefault();
+    },
+    'click #verifyButton': function (event){
+        event.preventDefault();
+        $('#verify').submit();
     }
-  }
 });
+
 
 //custom login/register functionas
 Template.signupPage.events({

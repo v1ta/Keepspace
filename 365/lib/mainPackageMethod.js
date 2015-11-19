@@ -4,6 +4,22 @@ RankRecord = new Mongo.Collection("RankRecord");
 SavedPosts = new Mongo.Collection("SavedPosts");
 Notifications = new Mongo.Collection("Notifications");
 
+Invites = new Meteor.Collection('invites');
+
+Invites.allow({
+    insert: function () {
+        return false;
+    },
+    update: function () {
+        return false;
+    },
+    remove: function () {
+        return false;
+    }
+});
+
+
+
 Thoughts.attachSchema(Schemas.Thought);
 Notifications.attachSchema(Schemas.Notifications);
 

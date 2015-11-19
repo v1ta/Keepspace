@@ -26,8 +26,11 @@ Template.loginPage.events({
 				Session.set("isFB", false);
 				localStorage.setItem("justLoggedIn", "true");
 				resetAllFeeds();
-				Router.go("mainPage");
-			  // $("#changePassword").show();
+				if(emailVar === "admin@thekeepspace.com")
+					Router.go('invites');
+				else
+					Router.go("mainPage");
+				// $("#changePassword").show();
 			}
 			else{
 				alert(err);
@@ -40,21 +43,21 @@ Template.loginPage.events({
 			alert("Please enter your email address.");
 		}
 		else{
-			
+
 			Accounts.forgotPassword({email: email}, function(err) {
-		        if (err) {
-		          	if (err.message === 'User not found [403]') {
-		            	console.log('This email does not exist.');
-		          	} else {
-		            	console.log('We are sorry but something went wrong.');
-		          	}
-		        } else {
+				if (err) {
+					if (err.message === 'User not found [403]') {
+						console.log('This email does not exist.');
+					} else {
+						console.log('We are sorry but something went wrong.');
+					}
+				} else {
 					Router.go('/changeEmail');
 					setInterval(function(){
-					Router.go('/loginPage');
+						Router.go('/loginPage');
 					},5000);
-		        }
-	      	});
+				}
+			});
 		}
 	}
 });

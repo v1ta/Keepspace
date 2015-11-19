@@ -38,12 +38,14 @@
 </template>
 
 <template name="verifyemail">
-  <form role="form" class="splashForm">
-     <div class="form-group">
-      <input type="text" class="headerEmail" id="headeremail" placeholder="signupforbeta@youremailhere.com" />
-      <input type="button" class="btn btn-primary btn-lg" id="verify" value="✓" />
-     </div>
-  </form>
+    {{> sAlert}}
+    <form role="form" class="splashForm" id="verify">
+        <div class="form-group">
+            <input type="email" name="emailAddress" class="headerEmail" id="headeremail"
+                   placeholder="sign-up-for-beta@email-address.com" style="width: 300px"/>
+            <input type="button" class="btn btn-primary" value="✓" id="verifyButton"/>
+        </div>
+    </form>
 </template>
 
 <template name="checkemail">

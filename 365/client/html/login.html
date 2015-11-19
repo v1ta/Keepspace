@@ -4,24 +4,25 @@
   		<div class="singleLine">
 	     	<p class="splashTitle">Welcome to Keepspace</p>
      	</div>
-     	<div class="splashButtons">
-	     	<form id="signupForm">
-		    	<div id="firstSignPage">
-			        <input class="loginForm" id="loginEmail" type="email" name="email"
-			        placeholder="e-mail">
-			        <br>
-			        <input class="loginForm" id="password" type="password" name="password"
-			        placeholder="password">
-			        <br>
-			        <input class="blueLoginButton" type="submit" id="createButton" value="Go">
-		        </div>
-		    </form>
-		    <div id="login-buttons-facebook">
-		        <input type="image" id="facebookButton" src="images/facebookLogin.png">
-		  	</div>
-	  	</div>
-	  	<p id="forgotPass">Forgot Password?</p>
-	</div>
+        <div class="splashButtons">
+            <form id="signupForm">
+                <div id="firstSignPage">
+                    <input class="loginForm" id="loginEmail" type="email" name="email"
+                           placeholder="e-mail">
+                    <br>
+                    <input class="loginForm" id="password" type="password" name="password"
+                           placeholder="password">
+                    <br>
+                    <a class="center" href="{{pathFor 'recover-password'}}">Forgot Password?</a>
+                    <br>
+                    <input class="blueLoginButton" type="submit" id="createButton" value="Go">
+                </div>
+            </form>
+            <div id="login-buttons-facebook">
+                <input type="image" id="facebookButton" src="images/facebookLogin.png">
+            </div>
+        </div>
+    </div>
 </template>
 
 <template name="changeEmail">

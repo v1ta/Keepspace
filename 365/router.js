@@ -1,4 +1,4 @@
-Router.route("mainPage", {
+/*Router.route("mainPage", {
   path:"/",
   onBeforeAction: function(){
     if (!Meteor.user()){
@@ -109,4 +109,4 @@ AccountController = RouteController.extend({
         });
     }
 });
-
+*/
