@@ -12,8 +12,8 @@ _/_/_/_/    _/_/_/  _/    _/    _/_/_/    _/_/_/
 											   V 1.0                                  
                                   													 
                                   													 */
-@import "iconfont.css";
-@import "animate.min.css";
+@import "iconfont_landing.css";
+@import "animate_landing.min.css";
 
 /*-----------------------------------------------------------------------------------*/
 /* GENERAL
@@ -103,6 +103,7 @@ nav.navbar{
 	width: 100%;
 	border-radius: 0px;
 	transition: all 0.2s;
+	display:block;
 }
 
 .navbar-nav{
@@ -117,7 +118,7 @@ nav.navbar.fixed-to-top{
 	border: none;
 	border-bottom: 1px solid #eee;
 	background: #fff;
-	opacity: 0.95;
+	/*opacity: 0.95;*/
 	display: none;
 }
 
@@ -151,7 +152,8 @@ nav.navbar.fixed-to-top{
 
 header{
 	padding: 150px 0px 0px 0px;
-	height: 960px;
+	/*height: 960px;*/
+	height:100vh;
 	background: url('../img/nepal.jpg');
 	background-color: white!important;
 	background-size: cover;
@@ -164,7 +166,7 @@ header h1{
 	font-weight: 700;
 	font-weight: 300;
 	font-size: 100px;
-	font-family: 'Roboto Condensed', sans-serif;
+	font-family: 'GothamHTF-Book', sans-serif;
 	
 }
 

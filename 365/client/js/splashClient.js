@@ -3,8 +3,133 @@ Template.splashBanner.events({
 		Router.go("loginPage");
 	},
 	'click #aboutLink': function() { Router.go('about'); },
-  	'click #teamLink': function() { Router.go('team'); },
-  	'click #splashBannerLogo': function(){ Router.go('splash');}
+	'click #teamLink': function() { Router.go('team'); },
+	'click #splashBannerLogo': function(){ Router.go('splash');},
+  'click #facebookSignButton': function(){
+    Meteor.loginWithFacebook(
+      {requestPermissions: ['email', 'user_friends', 'user_location', 'user_status',
+      'user_posts','publish_actions']}, 
+      function(err){
+          if (!err){
+          Session.set("isFB", true);
+          localStorage.setItem("justLoggedIn", "true");
+          resetAllFeeds();
+          Router.go("mainPage");
+            // $("#changePassword").hide();
+          }
+          else{
+            console.log(err);
+          }
+      }
+    )
+  },
+  'click #topSlide':function(event){
+    $(".signOptions").hide();
+    $("#mainSlide").show();
+  },
+  'click #goSignupButton': function(event){
+    event.stopPropagation();
+    $("#mainSlide").hide();
+    $("#signupOptionsSlide").show();
+    $("#signHereOption").show();
+  },
+  'click .signOptions': function(event){
+    event.stopPropagation();
+  },
+  'click #loginLink': function(event){
+    event.stopPropagation();
+    $(".signOptions").hide();
+    $("#mainSlide").hide();
+    $("#navLoginOption").show();
+  },
+  'click #signupLink': function(event){
+    event.stopPropagation();
+    $(".signOptions").hide();
+    $("#mainSlide").hide();
+    $("#navSignupOption").show();
+  },
+  'click #signupButton': function (event) {
+    event.preventDefault(); // prevent refreshing the page
+
+    var email = "";
+    if ($("#navSignupOption").css("display") == "none"){
+      var email = $('#signupEmail').val();
+    }
+    else{
+      var email = $('#navSignupEmail').val();
+    }
+    //password = makeTempPassword(); // generate temporary password 
+    password = "password";
+    email = trimInput(email);
+
+    if (validateEmail(email)){ 
+
+      Accounts.createUser({email: email, password : password}, function(err){
+        if (err) {
+          // Inform the user that account creation failed
+            alert("We weren't able to register your email :/")
+          if(err.reason === "Email already exists."){
+            alert("The email is already in use")
+          }
+        } else {
+          var userId = Meteor.userId();
+          Meteor.call('serverVerifyEmail', email, userId, function(){
+            $(".signOptions").hide();
+            $("#checkEmailOption").show();
+            // //Router.go('/checkemail');
+            // setInterval(function(){
+            //   Router.go('/splash');
+            // },2000);
+          });   
+        }
+
+      });   
+    }
+    else{
+      alert("Please enter a vaild e-mail address!");
+    }
+  },
+  'click #goButton': function(event){
+    event.preventDefault();
+    var emailVar = $("#loginEmail").val();
+    var passwordVar = $("#loginPassword").val();
+    Meteor.loginWithPassword({email: emailVar}, passwordVar, function(err){
+      if (!err){
+        Session.set("isFB", false);
+        localStorage.setItem("justLoggedIn", "true");
+        resetAllFeeds();
+        Router.go("mainPage");
+        // $("#changePassword").show();
+      }
+      else{
+        alert(err);
+      }
+    });
+  },
+  'click #forgotPass': function(){
+    var email = $("#loginEmail").val();
+    if (email == ""){
+      alert("Please enter your email address.");
+    }
+    else{
+      
+      Accounts.forgotPassword({email: email}, function(err) {
+            if (err) {
+                if (err.message === 'User not found [403]') {
+                  console.log('This email does not exist.');
+                } else {
+                  console.log('We are sorry but something went wrong.');
+                }
+            } else {
+          Router.go('/changeEmail');
+          setInterval(function(){
+          Router.go('/loginPage');
+          },5000);
+            }
+          });
+    }
+  }
+
   	/*
   	'click #betaLink': function(){
   		betaSignup();
@@ -15,6 +140,7 @@ Template.splashBanner.events({
   	}
   	*/
 });
+
 
 Template.splashBanner.onRendered(function(){
 	$(".alertDiv").click(closeAlert);
@@ -36,3 +162,11 @@ Template.carousel.onRendered(function() {
 	else
     	$('#carousel').carousel(0);
 });
+
+var trimInput = function(val) {
+  return val.replace(/^\s*|\s*$/g, "");
+};
+function validateEmail(email) {
+    var re = /^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/i;
+    return re.test(email);
+}
