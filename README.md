@@ -49,12 +49,12 @@
 
 
 ##Configuring facebook for localhost:
-```
-add {{>loginButtons}} in splash .html 
-hit sign in
-hit configure facebook
-put in the appid and secret 
-```
+
+> add {{>loginButtons}} in splash .html 
+> hit sign in
+> hit configure facebook
+> put in the appid and secret 
+
 
 ##Deploying w/Meteor up a.k.a mup:
 
