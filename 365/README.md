@@ -1,9 +1,9 @@
-#Keepspace
+![Keepspace](http://i.imgur.com/sYK8xa8.png)
 
 
 ##Packages
 | Package                         | Version | Description |
-|---------------------------------|:-------:|----------------------------------------------------------------------------------------------:|
+|---------------------------------|:-------:|:----------------------------------------------------------------------------------------------|
 |accounts-facebook                |1.0.4    |Login service for Facebook accounts|
 |accounts-password                |1.1.1    |Password support for accounts|
 |accounts-ui                      |1.1.5    |Simple templates to add login widgets to an app|
@@ -49,18 +49,26 @@
 
 
 ##Configuring facebook for localhost:
+```
+add {{>loginButtons}} in splash .html 
+hit sign in
+hit configure facebook
+put in the appid and secret 
+```
 
-> |add {{>loginButtons}} in splash .html 
-> |hit sign in
-> |hit configure facebook
-> |put in the appid and secret 
-
-
-##Deploying w/Meteor up:
+##Deploying w/Meteor up a.k.a mup:
 
 ###First time setup: 
 
 ```
 $ mup setup
+$ mup deploy
+```
+
+###Update from Repository
+
+```
+$ git pull 
+$ mup stop
 $ mup deploy
 ```
