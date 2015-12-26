@@ -98,7 +98,13 @@ Template.splashBanner.events({
         Session.set("isFB", false);
         localStorage.setItem("justLoggedIn", "true");
         resetAllFeeds();
-        Router.go("mainPage");
+          if (emailVar === "admin@thekeepspace.com") {
+              console.log("I'm bad at debugging");
+              Router.go('invites');
+          } else {
+              console.log("not as bad as me!");
+              Router.go("mainPage");
+          }
         // $("#changePassword").show();
       }
       else{

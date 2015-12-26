@@ -1,3 +1,6 @@
+/*
+	This functionality is currently implemented in splashClient.js, should
+ */
 Template.loginPage.events({
 	'click #facebookButton': function(){
 	  	Meteor.loginWithFacebook(
@@ -26,10 +29,13 @@ Template.loginPage.events({
 				Session.set("isFB", false);
 				localStorage.setItem("justLoggedIn", "true");
 				resetAllFeeds();
-				if(emailVar === "admin@thekeepspace.com")
+				if (emailVar === "admin@thekeepspace.com") {
+					console.log("I'm bad at debugging");
 					Router.go('invites');
-				else
+				} else {
+					console.log("not as bad as me!");
 					Router.go("mainPage");
+				}
 				// $("#changePassword").show();
 			}
 			else{

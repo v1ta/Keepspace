@@ -1,7 +1,7 @@
 ![Keepspace](http://i.imgur.com/sYK8xa8.png)
 
 
-##Packages
+##Meteor Packages
 | Package                         | Version | Description |
 |---------------------------------|:-------:|:----------------------------------------------------------------------------------------------|
 |accounts-facebook                |1.0.4    |Login service for Facebook accounts|
@@ -49,24 +49,22 @@
 
 
 ##Configuring facebook for localhost:
-
-> add {{>loginButtons}} in splash .html 
-> hit sign in
-> hit configure facebook
-> put in the appid and secret 
-
+```
+add {{>loginButtons}} in splash .html 
+hit sign in
+hit configure facebook
+put in the appid and secret 
+```
 
 ##Deploying w/Meteor up a.k.a mup:
 
 ###First time setup: 
-
 ```
 $ mup setup
 $ mup deploy
 ```
 
 ###Update from Repository
-
 ```
 $ git pull 
 $ mup stop
