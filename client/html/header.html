@@ -1,52 +1,52 @@
 <template name="header">
-  <div id="header" class="container-fluid">
-    <div class="row">
-      <div class="left col-xs-4 unselectable">
-        <div id="logo">
-          <img class="unselectable" id="homeLogo" src="/images/keepspace_home_button.png">
-          <div class="unselectable" id="dropdownDiv">
-            <i class="menu-dropdown fa fa-caret-down fa-lg"></i>
-          </div>
-        </div>
-        <div id="main-menu">
-          <!-- <i class="fa fa-caret-up fa-2x" id="menuCarat"></i> -->
-          <!-- <i class="fa fa-caret-up fa-lg" id="menuBack"></i> -->
-          <ul>
-            <li class="menu-item" id="changePasswordButton">Change Password</li>
-            <li class="menu-item dropdownAbout">About</li>
-            <li class="menu-item dropdownTeam">Team</li>
-            <li class="menu-item">Help</li>
-            <li class="menu-item logout">Log Out</li>
-          </ul>
-        </div>
-      </div>
+    <div id="header" class="container-fluid">
+        <div class="row">
+            <div class="left col-xs-4 unselectable">
+                <div id="logo">
+                    <img class="unselectable" id="homeLogo" src="/images/keepspace_home_button.png">
+                    <div class="unselectable" id="dropdownDiv">
+                        <i class="menu-dropdown fa fa-caret-down fa-lg"></i>
+                    </div>
+                </div>
+                <div id="main-menu">
+                    <!-- <i class="fa fa-caret-up fa-2x" id="menuCarat"></i> -->
+                    <!-- <i class="fa fa-caret-up fa-lg" id="menuBack"></i> -->
+                    <ul>
+                        <li class="menu-item" id="changePasswordButton">Change Password</li>
+                        <li class="menu-item dropdownAbout">About</li>
+                        <li class="menu-item dropdownTeam">Team</li>
+                        <li class="menu-item">Help</li>
+                        <li class="menu-item logout">Log Out</li>
+                    </ul>
+                </div>
+            </div>
 
-      <div class="mid col-xs-4 unselectable">
-        <div id="homeButton" class="header-circle">
-          DAY <span id="dayNum">0</span>
-        </div>
-        <div id="date">00/00/00</div>
-      </div>
+            <div class="mid col-xs-4 unselectable">
+                <div id="homeButton" class="header-circle">
+                    DAY <span id="dayNum">0</span>
+                </div>
+                <div id="date">00/00/00</div>
+            </div>
 
-      <div class="right col-xs-4">
-        <img id="profile-picture" class="header-circle unselectable" alt="{{username}}" src="{{picture}}" />
-        <span class="username vertical-center unselectable">{{username}}</span>
-      </div>
+            <div class="right col-xs-4">
+                <img id="profile-picture" class="header-circle unselectable" alt="{{username}}" src="{{picture}}" />
+                <span class="username vertical-center unselectable">{{username}}</span>
+            </div>
+        </div>
     </div>
-  </div>
-  
-  {{#with showRandomReminder}}
-    {{> randomReminder}}
-  {{/with}}
-  {{#with showChangePassword}}
-    {{> changePass}}
-  {{/with}}
-  {{#with showProfile}}
-    {{> profile}}
-  {{/with}}
-  {{#with showFriendPage}}
-    {{> friendRequestPage}}
-  {{/with}}
 
-  {{> yield}}
+    {{#with showRandomReminder}}
+        {{> randomReminder}}
+    {{/with}}
+    {{#with showChangePassword}}
+        {{> changePass}}
+    {{/with}}
+    {{#with showProfile}}
+        {{> profile}}
+    {{/with}}
+    {{#with showFriendPage}}
+        {{> friendRequestPage}}
+    {{/with}}
+
+    {{> yield}}
 </template>

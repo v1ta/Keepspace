@@ -1,43 +1,134 @@
-<template name="mainPage">
-          {{> sAlert}}
-  <div id="main-feed" class="container-fluid full-height unselectable">
-    <div class="row feed-wrapper">
-      <div id="fullFeed-canvas"></div>
-      <div id="friendFeed" class="feed col-xs-4">
-          <i class="fa fa-users feed-user-icon"><div class="badge success">{{currentUser.numRequests}}</div></i>
-          {{>friendSearch}}
-        <div class="feed-name unselectable">Friends</div>
-        <div id="friendFeed-container"></div>
-      </div>
-      <div id="myFeed" class="feed col-xs-4 unselectable">
-        <div id="tempForm">
-          <form class="new-thought" autocomplete="off">
-            <textarea id="newThoughtBox" class="form-control" name="text" placeholder="How will you remember today?"></textarea>
-            <button id="submit-new-thought" class="btn">Keep</button>
-          </form>
-          <button id="btn-import-facebook" class="btn btn-primary"><i class="fa fa-facebook fa-fw"></i></button>
-          <p id="time">...</p>
-        </div>
-        <div class="feed-name unselectable">{{username}}</div>
-        <div id="myFeed-canvas"></div>
-        <div id="expandedThoughtContent"></div>
-      </div>
+<head>
+    <title>My Keepspace</title>
+    <link rel="icon" sizes="16x16 32x32" href="/favicon.ico?v=2">
+</head>
 
-      <div id="worldFeed" class="feed col-xs-4 unselectable">
-        <i class="fa fa-search feed-search-icon"></i>
-        <form class="search">
-          <input type="text" name="search" class="form-control" placeholder="find a thought" />
-        </form>
-        <!--
-        <i class="fa fa-caret-down fa-lg world-dropdown"></i>
-        <ul id="worldButtons">
-          <li>Popular</li>
-          <li>Random</li>
-        </ul>
-        -->
-        <div class="feed-name unselectable">World</div>
-        <div id="worldFeed-canvas"></div>
-      </div>
+<body>
+</body>
+
+<template name="mainPage">
+    {{> sAlert}}
+    <div id="main-feed" class="container-fluid full-height unselectable">
+        <div class="row feed-wrapper">
+            <!-- <div id="fullFeed-canvas"></div> -->
+            {{#with showFriendFeed}}
+                <div id="friendFeed" class="feed col-xs-6">
+                    <i class="fa fa-users feed-user-icon"><div class="badge success">{{currentUser.numRequests}}</div></i>
+                    {{>friendSearch}}
+                    <button class="btn toggleFriendFeed">Friends</button>
+                    <button class="btn toggleWorldFeed">World</button>
+                    <div class="feed-name unselectable">Friends</div>
+                    {{> friendFeed}}
+                </div>
+            {{/with}}
+
+            {{#unless showFriendFeed}}
+                <div id="worldFeed" class="feed col-xs-6 unselectable">
+                    <button class="btn toggleFriendFeed">Friends</button>
+                    <button class="btn toggleWorldFeed">World</button>
+                    <i class="fa fa-search feed-search-icon"></i>
+                    <form class="search">
+                        <input type="text" name="search" class="form-control" placeholder="find a thought" />
+                    </form>
+                    <!--
+                    <i class="fa fa-caret-down fa-lg world-dropdown"></i>
+                    <ul id="worldButtons">
+                      <li>Popular</li>
+                      <li>Random</li>
+                    </ul>
+                    -->
+                    <div class="feed-name unselectable">World</div>
+                    {{> worldFeed}}
+                </div>
+            {{/unless}}
+
+            <div id="myFeed" class="feed col-xs-6 unselectable">
+                <div id="tempForm">
+                    <form class="new-thought form-horizontal" autocomplete="off">
+                        <div class="form-group">
+                            <div id="time-container" class="col-xs-4">
+                                <p id="time">...</p>
+                            </div>
+                            <div class="col-xs-8">
+                                <textarea id="newThoughtBox" class="form-control" name="text" rows="1" placeholder="How will you remember today?"></textarea>
+                                <button id="submit-new-thought" class="btn">Keep</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="feed-name unselectable">{{username}}</div>
+                <div id="expandedThoughtContent"></div>
+                {{> myFeed}}
+            </div>
+        </div>
     </div>
-  </div>
+</template>
+
+<template name="changePass">
+    <div class="alertDiv" id="changePassword">
+        <div id="fyouupdiv">
+            <form id="changePassForm">
+                <input class="loginForm" id="changeOld" type="password" name="oldPass"
+                       placeholder="old password">
+                <br>
+                <input class="loginForm" id="changeNew" type="password" name="newPass"
+                       placeholder="new password">
+                <br>
+                <input class="loginForm" id="changeConfirm" type="password" name="newPassConfirm"
+                       placeholder="new password (again)">
+                <br>
+                <input type="submit" class="blueLoginButton" id="changePasswordSubmit" value="Confirm">
+            </form>
+        </div>
+    </div>
+</template>
+
+<template name="profile">
+    <div id="upload-picture" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="uploadLabel">
+        <div class="modal-dialog modal-sm" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    <h4 id="uploadLabel" class="modal-title">Upload New Profile Picture</h4>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <div class="form-group">
+                            <input type="file" id="new-picture">
+                            <p class="help-block">Use a square photo for best results.</p>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="profile" class="full-height">
+        <img id="profile-picture-large" class="profile-circle-large" alt="{{username}}" src="{{picture}}" />
+        <div id="change-picture" class="profile-circle-large" data-toggle="modal" data-target="#upload-picture"><p class="vertical-center">Edit Picture</p></div>
+        <div id="username" class="profile-circle"><p class="vertical-center">{{username}}</p></div>
+        <div id="collects" class="profile-circle"><p class="vertical-center">Memories Collected: {{collects}}</p></div>
+        <div id="joined" class="profile-circle"><p class="vertical-center">Joined: {{joined}}</p></div>
+        <i id="close-profile" class="fa fa-times-circle-o fa-2x"></i>
+        <div id="notifications">
+            <p id="notificationHeader">Notifications</p>
+            <p id="markAsRead">Mark all as read</p>
+            <div id="notificationTable">
+                {{#each notifications}}
+                    <div class="notificationRow">
+                        <p class="notificationText">{{notification}}</p>
+                        <p class="notificationTime">{{timeString}}</p>
+                    </div>
+                {{else}}
+                    <p id="noNotifications">No Notifications</p>
+                {{/each}}
+            </div>
+        </div>
+    </div>
+</template>
+
+<template name="loading">
+    Loading...
 </template>

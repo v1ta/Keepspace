@@ -1,75 +1,41 @@
 <template name="myFeed">
-  <div id="myFeed" class="feed col-xs-4">
-    <div class="feed-name">{{username}}</div>
-    <div id="myFeed-container"></div>
-  </div>
+    {{#if currentUser}}
+        {{#each thoughts}}
+            {{> thought}}
+        {{/each}}
+    {{/if}}
 </template>
 
 <template name="worldFeed">
-    <br>
-  <div class="container">
-    <ul>
-      {{#each worldPosts}}
-        {{> worldPost}}
-      {{/each}}
-    </ul>
-  </div>
+    {{#if currentUser}}
+        {{#each worldPosts}}
+            {{> worldPost}}
+        {{/each}}
+    {{/if}}
 </template>
 
 <template name="friendFeed">
-  <div id="friendFeed" class="feed col-xs-4">
-      <div class="friendFeed">FRIEND</div>
-      <div id="friendFeed-container"></div>
-  </div>
+    {{#if currentUser}}
+        {{#each friendPosts}}
+            {{> worldPost}}
+        {{/each}}
+    {{/if}}
+</template>
+
+<template name="thought">
+    <!-- TODO encrypt _id or use alternate id -->
+    <div id="{{_id}}" class="thought condensed">
+        <!-- <button class="delete">X</button> -->
+        <span class="text">{{text}}</span>
+    </div>
 </template>
 
 <!-- replace the existing task template with this code -->
 <template name="worldPost">
-  <li class="{{#if checked}}checked{{/if}}">
-  <button class="delete">&times;</button>
+    <button class="delete">&times;</button>
+    <span class="text"><strong>{{username}}</strong> - {{text}}</span>
 
-    <!-- add right below the code for the checkbox in the task template -->
-  {{#if isOwner}}
-    <button class="toggle-private">
-      {{#if private}}
-        Private
-      {{else}}
-        Public
-      {{/if}}
-    </button>
-    {{else}}
-    <button class="addToCollection">Add To Collection</button>
-  {{/if}}
-
-<!-- modify the li tag to have the private class if the item is private -->
-  <li class="{{#if checked}}checked{{/if}} {{#if private}}private{{/if}}">
-      <span class="text"><strong>{{username}}</strong> - {{text}}</span>
-    </li>
-  </li> 
-</template>
-
-<!-- replace the existing task template with this code -->
-<template name="thought">
-  <div class="thought">
-    <li class="{{#if checked}}checked{{/if}}">
-    <button class="delete">X</button>
-
-      <!-- add right below the code for the checkbox in the task template -->
-    {{#if isOwner}}
-      <button class="toggle-private">
-        {{#if private}}
-          Private
-        {{else}}
-          Public
-        {{/if}}
-      </button>
-    {{/if}}
-
-  <!-- modify the li tag to have the private class if the item is private -->
-    <li class="{{#if checked}}checked{{/if}} {{#if private}}private{{/if}}">
-
-        <span class="text"><strong>{{username}}</strong> - {{text}}</span>
-      </li>
-    </li>
-  </div>
+    {{#unless isOwner}}
+        <button class="addToCollection">Add To Collection</button>
+    {{/unless}}
 </template>

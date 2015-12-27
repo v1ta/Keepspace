@@ -1,4 +1,5 @@
 // Website has loaded
+/*
 window.onload = function(event){
     //close dropdowns on outside click
     $(document).mouseup(function (event){
@@ -79,3 +80,4 @@ Template.mainPage.events({
         Session.set("showFriendPage", true);
     },
 });
+    */

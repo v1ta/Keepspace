@@ -1,48 +1,60 @@
-Template.mainPage.events({
-	'click .fa-caret-down, click .fa-caret-up': function(event) {
-        $("#worldButtons").slideToggle('fast');
-        $(event.target).toggleClass("fa-caret-down fa-caret-up");
-    }
-});
+Template.thought.onRendered(function() {
+    thought = this.data;
+    node = $('#' + thought._id);
+    radius = 75 * (thought.rank+1);
+    node.css({
+        'height' : radius*2 + 'px',
+        'width'  : radius*2 + 'px',
+        'border-radius' : radius + 'px',
+        'line-height' : radius*2 + 'px'
+    });
 
-Template.myFeed.helpers({
-    thoughts: function () {
-        // Show all thoughts
-        var thoughts = Thoughts.find({userId:Meteor.userId()}, {sort: {createdAt: -1}});
-        // console.log(thoughts.fetch());
-        // console.log(Meteor.user().username);
-        return thoughts
-    }
-});
 
-Template.worldFeed.helpers({
-    worldPosts: function () {
-        // Show all thoughts
-        var thoughts = Thoughts.find({userId:{$ne: Meteor.userId()}}, {sort: {createdAt: -1}});
-        // var thoughts = Thoughts.find({userId:Meteor.userId()}, {sort: {createdAt: -1}});
-        console.log(thoughts.fetch());
-        // console.log(Meteor.user().username);
-        return thoughts
-    }
-});
+    $('.thought').draggable({
+        revert: 'invalid',
+        stack: '.thought',
+        helper: 'clone',
+        appendTo: 'body',
+        start: function() {
+            $(this).hide(); //hide original when showing clone
+        },
+        stop: function() {
+            $(this).show(); //show original when hiding clone
+        }
+    });
 
-Template.worldFeed.events({
-    "click .addToCollection": function(){
-        Meteor.call("addToMyCollection", this._id);
-    }
+    // TODO - just a placeholder to test droppables
+    $( "#friendFeed" ).droppable({ //set container droppable
+        drop: function( event, ui ) { //on drop
+            ui.draggable.css({ // set absolute position of dropped object
+                position: 'absolute',
+                top: ui.position.top - 95, //subtract height of header
+                left: ui.position.left
+            }).appendTo('#friendFeed'); //append to container
+        }
+    });
 });
 
 Template.thought.events({
-    "click .delete": function (event) {
-        Meteor.call("deleteThought", this._id);
+    'click .condensed': function(event) {
+        console.log('click');
+        var bubble = $(event.currentTarget);
+        var container = $(event.currentTarget.parentNode);
+        var radius = Math.min( parseInt(container.css('width')), parseInt(container.css('height')) - 65 );
+        bubble.animate({
+            width: radius,
+            height: radius,
+            borderRadius: radius
+        });
+        bubble.toggleClass('condensed expanded');
     },
-    "click .toggle-private": function (event) {
-        Meteor.call("setPrivate", this._id, ! this.private);
-    },
-});
-
-Template.thought.helpers({
-    isuserId: function (event) {
-        return this.userId === Meteor.userId();
+    'click .expanded': function(event) {
+        console.log('condese it');
+        var bubble = $(event.currentTarget);
+        bubble.animate({
+            width: 150,
+            height: 150
+        });
+        bubble.toggleClass('condensed expanded');
     }
 });

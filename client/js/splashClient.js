@@ -29,9 +29,9 @@ Template.splashBanner.events({
   },
   'click #goSignupButton': function(event){
     event.stopPropagation();
-    $("#mainSlide").hide();
-    $("#signupOptionsSlide").show();
-    $("#signHereOption").show();
+      $("#mainSlide").hide();
+      $("#navSignupOption").show();
+      $("#signupOptionsSlide").show();
   },
   'click .signOptions': function(event){
     event.stopPropagation();

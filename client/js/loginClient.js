@@ -1,5 +1,5 @@
 /*
-	This functionality is currently implemented in splashClient.js, should
+	This functionality is currently implemented in splashClient.js
  */
 Template.loginPage.events({
 	'click #facebookButton': function(){

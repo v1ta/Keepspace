@@ -1,0 +1,364 @@
+/* CSS declarations go here */
+
+@font-face {font-family: Roboto; src: url('fonts/roboto/Roboto-Medium.ttf') format('truetype');}
+@font-face {font-family: Roboto-Italic; src: url('fonts/roboto/Roboto-MediumItalic.ttf') format('truetype');}
+@font-face {font-family: Gotham; src: url('fonts/GothamHTF-Medium.otf');}
+
+#acceptRequest{
+    text-decoration: none;
+    text-rendering: optimizeLegibility;
+}
+
+#denyRequest{
+    text-decoration: none;
+    text-rendering: optimizeLegibility;
+}
+
+#removeFriend{
+    text-decoration: none;
+    text-rendering: optimizeLegibility;
+}
+
+.friendsList{
+    font-family: Gotham;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    font-size:160%
+}
+.friendListHeader{
+    font-family: Roboto;
+    font-size:260%
+}
+
+body, html {
+    height: 100%;
+    /* TODO: band-aid for header */
+    font-family: Roboto;
+    min-width: 1200px;
+}
+
+/* Header */
+#header{
+    font-family: Roboto;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    background-color:rgba(50,192,208,0.2);
+}
+#header .row > * {
+    height: 75px;
+}
+#header .right > * {
+    float: right;
+}
+#header .right span {
+    margin: 0 10px;
+}
+#header .right i {
+    margin: 5px;
+}
+#logo {
+    width: 325px;
+    border-radius: 5px;
+    cursor: pointer;
+    padding-right:0px;
+}
+
+#homeLogo{
+    height: 75px;
+    display:inline-block;
+}
+#homeDrop{
+    display:inline-block;
+}
+#logo img {
+    /*height: 75px;*/
+    padding: 10px;
+    padding-right:0px;
+}
+#header .username {
+    font-size: 22px;
+    cursor: pointer;
+}
+#homeButton {
+    background-color: #32c0d2;
+    color: #ffffff;
+    text-align: center;
+    padding-top: 10px;
+    position: relative;
+    z-index: 2;
+    display: inline-block;
+    cursor: pointer;
+}
+#dayNum {
+    font-size: 32px;
+    position: relative;
+    font-family:Roboto;
+    top:-7px;
+}
+#date {
+    background-color: #ffffff;
+    color: #000000;
+    font-size: 26px;
+    border-radius: 5px;
+    padding-left: 25px;
+    padding-right:10px;
+    margin-left: -15px;
+    position: relative;
+    z-index: 1;
+    top: -13px;
+    display: inline-block;
+    /*font-family:Roboto;*/
+    cursor: pointer;
+}
+#time-container {
+    height: 65px;
+}
+#time{
+    color:#ED1C24;
+    font-size: 24px;
+    text-align: center;
+    cursor: default;
+    position: relative;
+    top: 50%;
+    -webkit-transform: translateY(-50%);
+    -ms-transform: translateY(-50%);
+    transform: translateY(-50%);
+}
+#main-menu {
+    display: none;
+    position: absolute;
+    z-index: 2;
+    top:75px;
+    left:80px;
+    width:200px;
+    box-shadow: 10px 10px 5px #888888;
+}
+#main-menu ul {
+    list-style: none;
+    background: #f9f9f9;
+    margin-left: 0;
+    border-radius: 0 0 5px 5px;
+    width: 100%;
+    overflow: visible;
+}
+#main-menu li {
+    padding: 5px 5px;
+
+}
+#main-menu li:last-child {
+    border-radius: 0 0 5px 5px;
+}
+#worldHeader{
+    margin-bottom:0px;
+}
+.vertical-center {
+    position: relative;
+    top: 50%;
+    -webkit-transform: translateY(-50%);
+    -ms-transform: translateY(-50%);
+    transform: translateY(-50%);
+}
+.header-circle {
+    height: 75px;
+    width: 75px;
+    border-radius: 37.5px;
+}
+
+/* Main Feed */
+#main-feed {
+    font-family: Roboto;
+}
+.full-height {
+    /* 100% of page minus total height of header */
+    height: 100%; /* fallback */
+    height: -webkit-calc(100% - 95px);
+    height: -moz-calc(100% - 95px);
+    height: calc(100% - 95px);
+}
+.feed-wrapper {
+    height: 100%;
+}
+.feed {
+    height: 100%;
+    height: -webkit-calc(100% - 20px);
+    height: -moz-calc(100% - 20px);
+    height: calc(100% - 20px);
+    margin: 10px 0;
+    overflow: scroll;
+    z-index: 0;
+    position: relative;
+}
+.feed .fa {
+    cursor: pointer;
+}
+.feed > * {
+    position: relative;
+    z-index: 0;
+}
+.feed-name {
+    position: absolute;
+    top: 50%;
+    top: -webkit-calc(50% - 50px);
+    top: -moz-calc(50% - 50px);
+    top: calc(50% - 50px);
+    /* Full width minus some Bootstrap padding */
+    width: 100%;
+    width: -webkit-calc(100% - 30px);
+    width: -moz-calc(100% - 30px);
+    width: calc(100% - 30px);
+    text-align: center;
+    font-size: 50px;
+    color:rgba(50, 192, 210, 0.5);
+    cursor:default;
+}
+.feed-search-icon {
+    position: absolute;
+    right: 15px;
+    z-index: 1;
+}
+
+.friend-search-icon {
+    position: absolute;
+    right: 15px;
+    z-index: 1;
+}
+.feed-user-icon {
+    position: absolute;
+    left: 15px;
+    z-index: 1;
+}
+.search {
+    position: absolute;
+    right: 35px;
+    z-index: 1;
+    display: none;
+}
+#friendList{
+    position: absolute;
+    top: 15px;
+    display:none;
+    z-index: 1;
+    float: bottom;
+}
+.world-dropdown {
+    position: absolute;
+    left: 15px;
+    z-index: 1;
+}
+#myFeed{
+    border-left: 1px solid #97D8F9;
+    border-right: 1px solid #97D8F9;
+}
+#worldButtons {
+    position: absolute;
+    top: 15px;
+    z-index: 1;
+    display: none;
+    list-style: none;
+}
+#worldButtons li {
+    padding: 5px 15px;
+    background-color: #32c0d2;
+    display: inline-block;
+    border-radius: 5px;
+}
+#expandedThoughtContent {
+    position: absolute;
+    z-index: 2;
+    display: none;
+    padding: 5px;
+    color: #ffffff;
+    overflow: auto;
+    font-family: 'Roboto'
+}
+
+/* New post */
+#tempForm {
+    width: 100%;
+    position: relative;
+    z-index: 1;
+}
+#tempForm button {
+    padding: 1px 5px;
+}
+#submit-new-thought {
+    position: absolute;
+    right: 15px;
+}
+#btn-import-facebook {
+    position: absolute;
+    left: 1px;
+    /*bottom: -22px;*/
+    /*display:none;*/
+}
+
+.hidden{
+    display:none;
+}
+
+.unhidden{
+    display:block;
+}
+ul
+{
+    list-style-type: none;
+    padding:0;
+    margin:0;
+}
+.selected{
+    width:90%;
+}
+
+.searchUser {
+    width:90%;
+    background-color: #f9f9f9;
+}
+
+/* Bubbles */
+.thought {
+    background-color: rgba(241, 95, 90, 0.75); /*#f15f5a*/
+    z-index: 10;
+}
+span.text {
+    display: inline-block;
+    vertical-align: middle;
+    line-height: normal;
+    padding: 5px;
+}
+/*.kineticjs-content {
+  border: 1px dotted #000000;
+}*/
+input.button-add {
+    background-image: url(/images/add_user.png);
+    background-color: transparent;
+    background-repeat: no-repeat;
+    background-position: 0px 0px;
+    background-position: right 20px top;
+    border: none;
+    cursor: pointer;
+    height: 22px;
+    color: transparent;
+    padding-left: 22px;
+    vertical-align: middle;
+}
+#fullFeed-canvas {
+    position: absolute;
+    z-index: 1;
+}
+
+.fa-facebook{
+    display:none;
+}
+
+*.unselectable {
+    -moz-user-select: -moz-none;
+    -khtml-user-select: none;
+    -webkit-user-select: none;
+
+    /*
+      Introduced in IE 10.
+      See http://ie.microsoft.com/testdrive/HTML5/msUserSelect/
+    */
+    -ms-user-select: none;
+    user-select: none;
+}

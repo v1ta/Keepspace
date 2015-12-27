@@ -1,4 +1,4 @@
-Template.verifyemail.rendered = function() {
+Template.beta_email_invite.rendered = function() {
     return $('#verify').validate({
         rules: {
             emailAddress: {
@@ -44,11 +44,11 @@ Template.verifyemail.rendered = function() {
     });
 }
 
-Template.verifyemail.events({
+Template.beta_email_invite.events({
     'submit form': function (event) {
         event.preventDefault();
     },
-    'click #verifyButton': function (event){
+    'click #signupButton': function (event){
         event.preventDefault();
         $('#verify').submit();
     }

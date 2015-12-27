@@ -57,3 +57,20 @@
  <h1>Thank you for verifying your email address!</h1>
  <p> Welcome to Keepspace</p>
 </template>
+
+
+<template name="beta_email_invite">
+    <div class="signOptions" id="navSignupOption" style="display:none">
+        {{> sAlert}}
+        <form id="verify" role="form">
+           <div class="form-group">
+                <input class="loginForm" id="navSignupEmail" type="email" name="emailAddress"
+                       placeholder="your e-mail">
+                <br>
+                <img style="margin-top:5%; margin-bottom:5%;" src="images/signupbutton.png" id="signupButton">
+                <p style="color: rgba(0, 0, 0, 0.5);">or</p>
+            </div>
+        </form>
+        <img style="margin-bottom:2%;" src="images/signupwithfbbutton.png" class="landingButton" id="facebookSignButton">
+    </div>
+</template>

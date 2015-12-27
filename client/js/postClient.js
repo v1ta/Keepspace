@@ -1,3 +1,4 @@
+/*
 Template.mainPage.events({
 	"submit .new-thought": function (event) {
         console.log("here");
@@ -29,3 +30,5 @@ Template.mainPage.events({
         return false;
     },
 });
+*/
+

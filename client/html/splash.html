@@ -98,18 +98,7 @@
               <img src="images/signupbutton.png" id="signupButton">
             </div>
 
-            <div class="signOptions" id="checkEmailOption" style="display:none">
-              <p>Congrats!<br>Check your e-mail for Account Info.</p>
-            </div>
-
-            <div class="signOptions" id="navSignupOption" style="display:none">
-              <input class="loginForm" id="navSignupEmail" type="username" name="userName"
-              placeholder="your e-mail">
-              <br>
-              <img style="margin-top:5%; margin-bottom:5%;" src="images/signupbutton.png" id="signupButton">
-              <p style="color: rgba(0, 0, 0, 0.5);">or</p>
-              <img src="images/signupwithfbbutton.png" id="facebookSignButton">
-            </div>
+            {{>beta_email_invite}}
 
             <div class="signOptions" id="navLoginOption" style="display:none">
               <input class="loginForm" id="loginEmail" type="username" name="email"
@@ -120,7 +109,7 @@
               <img src="images/gobutton.png" id="goButton">
               <br>
               <p style="margin-top:10%; color: rgba(0, 0, 0, 0.5);">or</p>
-              <img src="images/loginwithfbbutton.png" id="facebookSignButton">
+                <img style="margin-bottom:2%;" src="images/signupwithfbbutton.png" class="landingButton" id="facebookSignButton">
               <!--<p id="forgotPass">Forgot Password?</p> -->
                 <br>
                 <a class="center" href="{{pathFor 'recover-password'}}">Forgot Password?</a>
