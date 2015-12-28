@@ -94,7 +94,7 @@ Template.header.events({
         }
     },
     'click #homeLogo': function(event){
-        Router.go("mainPage");
+        Router.go("home");
     },
     'mouseenter #dropdownDiv': function(event) {
         // $("#dropdownDiv").css("background-color", "#E0E0E0");
@@ -377,7 +377,7 @@ Template.profile.events({
 })
 
 logoutFunction = function(){
-    Router.go("mainPage");
+    Router.go("home");
 }
 
 function setMidPadding() {

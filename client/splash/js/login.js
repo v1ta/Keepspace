@@ -11,7 +11,7 @@ Template.loginPage.events({
 					Session.set("isFB", true);
 					localStorage.setItem("justLoggedIn", "true");
 					resetAllFeeds();
-					Router.go("mainPage");
+					Router.go("home");
 			      // $("#changePassword").hide();
 			    }
 			    else{
@@ -34,7 +34,7 @@ Template.loginPage.events({
 					Router.go('invites');
 				} else {
 					console.log("not as bad as me!");
-					Router.go("mainPage");
+					Router.go("home");
 				}
 				// $("#changePassword").show();
 			}

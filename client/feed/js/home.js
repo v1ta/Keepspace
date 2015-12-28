@@ -126,23 +126,9 @@ Template.worldFeed.events({
     }
 });
 
-Template.thought.events({
-    "click .delete": function (event) {
-        Meteor.call("deleteThought", this._id);
-    },
-    "click .toggle-private": function (event) {
-        Meteor.call("setPrivate", this._id, ! this.private);
-    },
-});
-
-Template.thought.helpers({
-    isuserId: function (event) {
-        return this.userId === Meteor.userId();
-    }
-});
 
 //put in username
-Template.mainPage.helpers({
+Template.home.helpers({
     username: function(event){
         if (Meteor.user()) {
             var username = Meteor.user().username;
@@ -161,7 +147,7 @@ Template.mainPage.helpers({
     }
 });
 
-Template.mainPage.onRendered(function(){
+Template.home.onRendered(function(){
     if (Session.get('showFriendFeed') === undefined) {
         Session.set('showFriendFeed', true);
         console.log('set showFriendFeed');
@@ -178,7 +164,7 @@ Template.mainPage.onRendered(function(){
 })
 
 //request facebook data
-Template.mainPage.events({
+Template.home.events({
     "submit .new-thought": function (event) {
         console.log("here");
         event.preventDefault();

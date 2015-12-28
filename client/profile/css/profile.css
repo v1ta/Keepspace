@@ -1,4 +1,5 @@
-
+@font-face {font-family: Roboto; src: url('/public/fonts/roboto/Roboto-Medium.ttf') format('truetype');}
+@font-face {font-family: Roboto-Italic; src: url('/public/fonts/roboto/Roboto-MediumItalic.ttf') format('truetype');}
 /* Profile view */
 #profile {
   font-family: Roboto;

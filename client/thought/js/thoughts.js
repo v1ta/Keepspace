@@ -56,5 +56,19 @@ Template.thought.events({
             height: 150
         });
         bubble.toggleClass('condensed expanded');
+    },
+    "click .delete": function (event) {
+        Meteor.call("deleteThought", this._id);
+    },
+    "click .toggle-private": function (event) {
+        Meteor.call("setPrivate", this._id, ! this.private);
+    }
+});
+
+// Added after merge
+
+Template.thought.helpers({
+    isuserId: function (event) {
+        return this.userId === Meteor.userId();
     }
 });

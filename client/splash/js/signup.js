@@ -67,7 +67,7 @@ Template.signupPage.events({
                     Session.set("isFB", true);
                     localStorage.setItem("justLoggedIn", "true");
                     resetAllFeeds();
-                    Router.go("mainPage");
+                    Router.go("home");
                   // $("#changePassword").hide();
                 }
                 else{
@@ -109,7 +109,7 @@ Template.signupPage.events({
                     else{
                         localStorage.setItem("justLoggedIn", "true");
                         resetAllFeeds();
-                        Router.go("mainPage");
+                        Router.go("home");
                     }
                 }
             );

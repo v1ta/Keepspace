@@ -32,7 +32,7 @@ Template.resetPassword.rendered = function() {
         if (error) {
           return alert(error.reason);
         } else {
-          Router.go("mainPage");
+          Router.go("home");
           return Session.set('resetPasswordToken', null);
         }
       });
