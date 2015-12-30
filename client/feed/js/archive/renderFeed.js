@@ -1,11 +1,6 @@
 /* Global var for the feeds */
-feedStage = {};
-KSColors = {
-    'blue': '#32c0d2',
-    'red': '#f15f5a',
-    'orange': '#faa43a'
-}
 
+/*
 resetAllFeeds = function () {
     // Reset Session variables for feeds
     delete Session.keys['leftfeed'];
@@ -37,23 +32,6 @@ Template.home.onDestroyed(function () {
     feedStage.destroyChildren();
     feedStage.destroy();
 })
-
-function getFriendsAsUsers() {
-    var friends = Meteor.friends.find();
-    var friendsAsUsers = [];
-    friends.forEach(function (friend) {
-        friendsAsUsers.push(friend.user());
-    });
-    return friendsAsUsers;
-}
-function getFriendIds() {
-    var friends = getFriendsAsUsers();
-    var friendIds = [];
-    for (var i = 0; i < friends.length; i++) {
-        friendIds.push(friends[i]._id);
-    }
-    return friendIds;
-}
 
 function resetFeed(feed) {
     // Only find posts made after 00:00 of today
@@ -233,35 +211,10 @@ function initStage(containerDiv, canvas, numCols) {
     feedStage = stage;
     return feedStage;
 }
+*/
 
-renderFeed = function (containerDiv, canvas, colName, thoughts) {
-    //console.log(thoughts);
-    if (containerDiv === '#calFeed') {
-        if (thoughts.length === 0) {
-            $('#noPostText').show();
-        }
-        else {
-            $('#noPostText').hide();
-        }
-    }
 
-    var numCols = colName === 'single' ? 1 : 3;
-    var stage = $.isEmptyObject(feedStage) ? initStage(containerDiv, canvas, numCols) : feedStage;
-    var column = stage.cols[colName];
-
-    addThoughtsToStage(thoughts, colName);
-
-    /* debug: col stats
-     var colDebug = new Kinetic.Layer();
-     colDebug.add(new Kinetic.Text({
-     fill: '#333333',
-     text: 'colWidth: '+column.colWidth+', colHeight: '+column.colHeight+', left: '+column.left+', top: '+column.top,
-     x: column.left,
-     y: column.top
-     }));
-     stage.add(colDebug);*/
-}
-
+/*
 addThoughtsToStage = function (thoughts, colName) {
     var x = 0, y = 0, radius = 0, padding = 5, layer, anim, col = feedStage.cols[colName];
     var bubbles = feedStage.get('.bubble' + colName), positions = [];
@@ -312,7 +265,8 @@ addThoughtsToStage = function (thoughts, colName) {
     }
     Session.set(colName + 'queue', queue);
 }
-
+*/
+/*
 function placeNextBubble(xmin, xmax, ymin, ymax, radius, positions) {
     var newx, newy, currTop, currBot, bLeft, bRight, bTop, bBot, bubbles, retry;
     // Max 50 tries
@@ -365,8 +319,9 @@ function findBubblesInXInt(positions, xmin, xmax) {
         }
     });
 }
-
+*/
 // Returns a new layer with bubble and text members
+/*
 function createBubble(thought, colName, x, y, radius, padding, fill) {
     var layer = new Kinetic.Layer({
         name: 'bubble' + colName,
@@ -413,7 +368,8 @@ function createBubble(thought, colName, x, y, radius, padding, fill) {
 
     return layer;
 }
-
+*/
+/*
 function animateBubble(layer, colName, thought, duration) {
     // Floating animation
     var amplitude = 3,
@@ -491,7 +447,8 @@ function animateBubble(layer, colName, thought, duration) {
     });
     return anim;
 }
-
+*/
+/*
 function relocateBubble(layer, src, dest, thought, duration) {
     // Users can only post 1 thought per day
     var start = new Date();
@@ -549,7 +506,9 @@ function relocateBubble(layer, src, dest, thought, duration) {
     addClickHandler(layer, dest, thought, duration, anim);
     return true;
 }
+*/
 
+/*
 function removeFromSession(thought, colName) {
     // Deletes from calendar page affect personal feed on main page
     if (colName === 'single') colName = 'center';
@@ -898,3 +857,4 @@ function describeArc(x, y, radius, startAngle, endAngle) {
 
     return d;
 }
+    */
