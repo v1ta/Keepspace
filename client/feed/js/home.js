@@ -85,7 +85,12 @@ Template.myFeed.helpers({
             ]}, { sort: {createdAt: -1} });
         */
 
-        var thoughts = Thoughts.find({privacy: "private"});
+        var thoughts = Thoughts.find({
+            $and: [
+                {userId: Meteor.userId()},
+                {privacy: "private"}
+            ]
+        });
         return thoughts;
     }
 });
@@ -118,7 +123,13 @@ Template.worldFeed.helpers({
                 ]},
             { sort: {createdAt: -1} }).fetch());
         */
-        var worldThoughts = Thoughts.find({privacy: "public"});
+        var worldThoughts = Thoughts.find({
+            $and: [
+                {userId: Meteor.userId()},
+                {privacy: "public"}
+            ]
+        });
+
 
         return worldThoughts;
     }
