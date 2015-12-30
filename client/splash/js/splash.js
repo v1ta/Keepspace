@@ -76,10 +76,6 @@ Template.splashBanner.events({
           Meteor.call('serverVerifyEmail', email, userId, function(){
             $(".signOptions").hide();
             $("#checkEmailOption").show();
-            // //Router.go('/checkemail');
-            // setInterval(function(){
-            //   Router.go('/splash');
-            // },2000);
           });   
         }
 
@@ -118,7 +114,7 @@ Template.splashBanner.events({
       alert("Please enter your email address.");
     }
     else{
-      
+
       Accounts.forgotPassword({email: email}, function(err) {
             if (err) {
                 if (err.message === 'User not found [403]') {
@@ -135,24 +131,17 @@ Template.splashBanner.events({
           });
     }
   }
-
-  	/*
-  	'click #betaLink': function(){
-  		betaSignup();
-  	},
-  	"submit form": function(){
-  		event.preventDefault();
-  		betaSignup();
-  	}
-  	*/
 });
-
 
 Template.splashBanner.onRendered(function(){
 	$(".alertDiv").click(closeAlert);
 	$(".closeAlert").click(closeAlert);
 });
+
+//TODO throws undefined(.carousel) error when loaded
+/*
 Template.carousel.onRendered(function() {
+    /
 	$('#carousel').on('slide.bs.carousel', function (event) {
   		if (event.relatedTarget.id == "loginSlide"){
   			$(".right.carousel-control").hide();
@@ -161,17 +150,22 @@ Template.carousel.onRendered(function() {
   			$(".right.carousel-control").show();
   		}
 	})
+    //TODO this variable is never initialized
   	if (Session.get('c_login')) {
     	$('#carousel').carousel(3);
     	$('#carousel').carousel('pause');
   	}
 	else
     	$('#carousel').carousel(0);
+
+    $('#carousel').carousel(0);
 });
+*/
 
 var trimInput = function(val) {
   return val.replace(/^\s*|\s*$/g, "");
 };
+
 function validateEmail(email) {
     var re = /^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/i;
     return re.test(email);

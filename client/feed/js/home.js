@@ -3,6 +3,8 @@ Meteor.subscribe("avatars");
 Meteor.subscribe("outgoingFriendRequests");
 Meteor.subscribe('ignoredFriendRequests');
 
+var thoughtsList = [];
+
 // Website has loaded
 window.onload = function(event){
     //close dropdowns on outside click
@@ -29,23 +31,6 @@ window.onload = function(event){
     Meteor.setInterval(setTime, 1000);
 }
 
-function getFriendsAsUsers() {
-    var friends = Meteor.friends.find();
-    var friendsAsUsers = [];
-    friends.forEach(function (friend) {
-        friendsAsUsers.push(friend.user());
-    });
-    return friendsAsUsers;
-}
-function getFriendIds() {
-    var friends = getFriendsAsUsers();
-    var friendIds = [];
-    for (var i = 0; i < friends.length; i++) {
-        friendIds.push(friends[i]._id);
-    }
-    return friendIds;
-}
-
 Template.friendFeed.helpers({
     friendPosts: function() {
         // Only find posts made after 00:00 of today
@@ -53,6 +38,7 @@ Template.friendFeed.helpers({
         start.setHours(0,0,0,0);
         // TODO: Do better than O(n)?
         var friends = getFriendsAsUsers();
+        /*
         var thought, thoughts = [];
         // Get user's last shared thought from today, if it exists
         if (Meteor.user().profile.lastShared.date >= start) {
@@ -67,7 +53,16 @@ Template.friendFeed.helpers({
                 thoughts.push(thought);
             };
         }
-        return thoughts;
+
+        /* get thoughts you've shared to friends */
+        var sharedThoughts = Thoughts.find({
+            $and: [
+                {userId: Meteor.userId()},
+                {privacy: "friends"}
+            ]
+        }, {sort: {createdAt: -1} });
+        //return thoughts;
+        return sharedThoughts;
     }
 });
 
@@ -77,16 +72,20 @@ Template.myFeed.helpers({
         var start = new Date();
         start.setHours(0,0,0,0);
         // Get user's posts and collected posts, but not the one they shared
+        /*
         thoughts = Thoughts.find({
             $and: [
                 {_id: {$not: Meteor.user().profile.lastShared.thoughtId}},
+                {privacy: {$not: "friends"}},
                 {createdAt: {$gte:start}},
                 {$or: [
                     {userId: Meteor.userId()},
                     {collectedBy: Meteor.userId()}
                 ]}
             ]}, { sort: {createdAt: -1} });
-        console.log(thoughts.fetch());
+        */
+
+        var thoughts = Thoughts.find({privacy: "private"});
         return thoughts;
     }
 });
@@ -96,8 +95,10 @@ Template.worldFeed.helpers({
         // Only find posts made after 00:00 of today
         var start = new Date();
         start.setHours(0,0,0,0);
-        var thought, thoughts = [];
+
         // Get user's last shared thought from today, if it exists
+        //var thought, thoughts = [];
+        /*
         if (Meteor.user().profile.lastShared.date >= start) {
             thought = Thoughts.findOne(Meteor.user().profile.lastShared.thoughtId);
             if (thought && thought.privacy === 'public') {
@@ -116,7 +117,10 @@ Template.worldFeed.helpers({
                     ]}
                 ]},
             { sort: {createdAt: -1} }).fetch());
-        return thoughts;
+        */
+        var worldThoughts = Thoughts.find({privacy: "public"});
+
+        return worldThoughts;
     }
 });
 
@@ -148,10 +152,10 @@ Template.home.helpers({
 });
 
 Template.home.onRendered(function(){
-    if (Session.get('showFriendFeed') === undefined) {
-        Session.set('showFriendFeed', true);
-        console.log('set showFriendFeed');
-    }
+    Session.setDefault('showFriendFeed', true);
+    Session.setDefault('centerfeed', thoughtsList)
+    Session.set('showFriendFeed', true);
+    console.log('set showFriendFeed');
 
     $("#newThoughtBox").keypress(function(e) {
         var code = (e.keyCode ? e.keyCode : e.which);
@@ -166,7 +170,6 @@ Template.home.onRendered(function(){
 //request facebook data
 Template.home.events({
     "submit .new-thought": function (event) {
-        console.log("here");
         event.preventDefault();
         // This function is called when the new thought form is submitted
         var text = $("#newThoughtBox").val();
@@ -177,14 +180,12 @@ Template.home.events({
                 if (err){
                     console.log(err);
                 }
-                console.log(data)
                 var thought = Thoughts.findOne({_id:data});
-                console.log(thought);
                 // Add a new bubble
-                var thoughtsList = Session.get('centerfeed');
+                //var thoughtsList = Session.get('centerfeed');
                 thoughtsList.push(thought);
-                Session.set('centerfeed', thoughtsList);
-                addThoughtsToStage([thought], 'center');
+                //Session.set('centerfeed', thoughtsList);
+                //addThoughtsToStage([thought], 'center');
             });
 
         // Clear form
@@ -312,5 +313,31 @@ function setTime(){
     $("#time").text(result);
 }
 
+/* from old renderFeed source file */
+resetAllFeeds = function () {
+    // Reset Session variables for feeds
+    delete Session.keys['leftfeed'];
+    delete Session.keys['centerfeed'];
+    delete Session.keys['rightfeed'];
+    delete Session.keys['leftqueue'];
+    delete Session.keys['centerqueue'];
+    delete Session.keys['rightqueue'];
+}
 
+getFriendsAsUsers = function() {
+    var friends = Meteor.friends.find();
+    var friendsAsUsers = [];
+    friends.forEach(function (friend) {
+        friendsAsUsers.push(friend.user());
+    });
+    return friendsAsUsers;
+}
 
+getFriendIds = function() {
+    var friends = getFriendsAsUsers();
+    var friendIds = [];
+    for (var i = 0; i < friends.length; i++) {
+        friendIds.push(friends[i]._id);
+    }
+    return friendIds;
+}

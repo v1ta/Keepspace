@@ -1,15 +1,7 @@
 /* Global var for the feeds */
 
 /*
-resetAllFeeds = function () {
-    // Reset Session variables for feeds
-    delete Session.keys['leftfeed'];
-    delete Session.keys['centerfeed'];
-    delete Session.keys['rightfeed'];
-    delete Session.keys['leftqueue'];
-    delete Session.keys['centerqueue'];
-    delete Session.keys['rightqueue'];
-}
+
 
 Template.home.onRendered(function () {
     feedStage = {};
@@ -102,6 +94,44 @@ function resetFeed(feed) {
         Session.set('rightqueue', []);
     }
 }
+
+ /* in v0.2? */
+/*
+ feedStage = {};
+ KSColors = {
+ 'blue': '#32c0d2',
+ 'red': '#f15f5a',
+ 'orange': '#faa43a'
+ }
+
+ renderFeed = function (containerDiv, canvas, colName, thoughts) {
+ //console.log(thoughts);
+ if (containerDiv === '#calFeed') {
+ if (thoughts.length === 0) {
+ $('#noPostText').show();
+ }
+ else {
+ $('#noPostText').hide();
+ }
+ }
+
+ var numCols = colName === 'single' ? 1 : 3;
+ var stage = $.isEmptyObject(feedStage) ? initStage(containerDiv, canvas, numCols) : feedStage;
+ var column = stage.cols[colName];
+
+ addThoughtsToStage(thoughts, colName);
+
+ /* debug: col stats
+ var colDebug = new Kinetic.Layer();
+ colDebug.add(new Kinetic.Text({
+ fill: '#333333',
+ text: 'colWidth: '+column.colWidth+', colHeight: '+column.colHeight+', left: '+column.left+', top: '+column.top,
+ x: column.left,
+ y: column.top
+ }));
+ stage.add(colDebug);*/
+/*}
+
 
 function initStage(containerDiv, canvas, numCols) {
     var container = $(containerDiv);

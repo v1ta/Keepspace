@@ -1,12 +1,13 @@
 <template name="thought">
     <!-- TODO encrypt _id or use alternate id -->
     <div id="{{_id}}" class="thought condensed">
-        <!-- <button class="delete">X</button> -->
+        <button class="delete">X</button>
         <span class="text">{{text}}</span>
     </div>
 </template>
 
 <!-- replace the existing task template with this code -->
+
 <template name="worldPost">
     <button class="delete">&times;</button>
     <span class="text"><strong>{{username}}</strong> - {{text}}</span>
@@ -14,6 +15,14 @@
     {{#unless isOwner}}
         <button class="addToCollection">Add To Collection</button>
     {{/unless}}
+</template>
+
+<template name="friendThought">
+    <!-- TODO encrypt _id or use alternate id -->
+    <div id="{{_id}}" class="thought condensed">
+        <button class="delete">X</button>
+        <span class="text">{{text}}</span>
+    </div>
 </template>
 
 <template name="myFeed">
@@ -27,7 +36,7 @@
 <template name="worldFeed">
     {{#if currentUser}}
         {{#each worldPosts}}
-            {{> worldPost}}
+            {{> thought}}
         {{/each}}
     {{/if}}
 </template>
@@ -35,7 +44,7 @@
 <template name="friendFeed">
     {{#if currentUser}}
         {{#each friendPosts}}
-            {{> worldPost}}
+            {{> thought}}
         {{/each}}
     {{/if}}
 </template>
