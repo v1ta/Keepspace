@@ -184,7 +184,6 @@ Template.home.events({
         event.preventDefault();
         // This function is called when the new thought form is submitted
         var text = $("#newThoughtBox").val();
-        console.log(text);
 
         var thoughtId = Meteor.call("addThought", text, null,
             function(err, data) {

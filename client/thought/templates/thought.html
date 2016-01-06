@@ -1,8 +1,10 @@
 <template name="thought">
     <!-- TODO encrypt _id or use alternate id -->
     <div id="{{_id}}" class="thought condensed">
-        <button class="delete">X</button>
+        <p class="author">{{author}}</p>
         <span class="text">{{text}}</span>
+        <br>
+        <button class="delete">X</button>
     </div>
 </template>
 

@@ -6,21 +6,41 @@
     background-color: #F38286;
 }
 
-span.text {
+.text {
+    color: white;
     display: inline-block;
+    width: calc(100% - 2%);
+    height: calc(100% - 65%);
     vertical-align: middle;
     line-height: normal;
-    padding: 5px;
+    overflow-x: hidden;
+    overflow-y: hidden;
+    word-wrap: break-word;
 }
-#expandedThoughtContent {
-    position: absolute;
-    z-index: 2;
-    display: none;
-    padding: 5px;
-    color: #ffffff;
-    overflow: auto;
-    font-family: 'Roboto'
+
+.text-expanded {
+    display: block;
+    color: white;
+    margin-top: 0px;
+    display: inline-block;
+    width: calc(100% - 33%);
+    height: calc(100% - 33%);
+    text-align: left;
+    vertical-align: middle;
+    line-height: normal;
+    overflow-x: auto;
+    overflow-y: auto;
+    word-wrap: break-word;
 }
+
+.author {
+    display:none;
+    height: 20px;
+    text-align: center;
+    color: white;
+    font-size: 16px;
+}
+
 input.button-add {
     background-image: url(/images/add_user.png);
     background-color: transparent;
@@ -37,4 +57,15 @@ input.button-add {
 #fullFeed-canvas {
     position: absolute;
     z-index: 1;
+}
+
+.delete {
+    margin-top: 0px;
+    visibility: hidden;
+    vertical-align: top;
+    font: 'Roboto';
+    color: white;
+    border: 2px solid white;
+    background-color: Transparent;
+    background-repeat: no-repeat;
 }

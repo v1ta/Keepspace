@@ -109,30 +109,61 @@ Template.worldFeed.onRendered(function() {
 
 Template.thought.events({
     /*
-        Condenses a thought
+        Expand a thought
      */
     'click .condensed': function(event) {
         var bubble = $(event.currentTarget);
+        var span = bubble.children('span');
+        var del = bubble.children('button')
+        var p = bubble.children('p');
         var container = $(event.currentTarget.parentNode);
         var radius = Math.min( parseInt(container.css('width')), parseInt(container.css('height')) - 65 );
+
         bubble.animate({
             width: radius,
             height: radius,
             borderRadius: radius
         });
         bubble.toggleClass('condensed expanded');
+
+        span.removeClass('text');
+        span.addClass('text-expanded');
+        span.css({'margin-top': radius * 0.10 + 'px'});
+        span.fadeOut(function(){
+            span.fadeIn();
+        });
+
+        p.css({'display': 'block'});
+
+        del.css({'visibility': 'visible'})
+        del.css({'margin-top':'20px'})
     },
 
     /*
-        Expands a thought
+        Condense a thought
      */
     'click .expanded': function(event) {
         var bubble = $(event.currentTarget);
+        var span = bubble.children('span');
+        var del = bubble.children('button')
+        var p = bubble.children('p');
         bubble.animate({
             width: 150,
             height: 150
         });
         bubble.toggleClass('condensed expanded');
+        span.hide();
+        span.removeClass('text-expanded');
+        span.css({'margin-top':'0px'})
+        span.addClass('text');
+        span.fadeIn(1000);
+
+        del.css({'visibility': 'hidden'})
+        del.css({'margin-top': '0' + 'px'})
+
+        p.css({'display': 'none'});
+
+
     },
 
     /*
@@ -152,7 +183,9 @@ Template.thought.events({
 
 // Added after merge
 Template.thought.helpers({
-    isuserId: function (event) {
-        return this.userId === Meteor.userId();
+    author: function (event) {
+        if (Meteor.user()) {
+            return Meteor.user().username;
+        }
     }
 });
