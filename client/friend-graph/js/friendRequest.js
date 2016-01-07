@@ -49,9 +49,7 @@ Template.friendRequestPage.helpers({
                 {requesterId:Meteor.userId()}
             ]
         });
-        console.log(results.fetch());
-        console.log(results.fetch()[0].requester)
-        console.log(Meteor.users.findOne("M3EaWLmSDBCPuZ2w8"))
+        // console.log(Meteor.users.findOne("M3EaWLmSDBCPuZ2w8"))
         return results;
     },
     isOutgoing: function(requesterId){
@@ -63,5 +61,34 @@ Template.friendRequestPage.helpers({
         else{
             return false;
         }
+    },
+    mutualFriends: function(requesterId){
+        var myFriends =  getFriendIds();
+        theirFriendsAsUsers = Meteor.users.findOne("M3EaWLmSDBCPuZ2w8").friendsAsUsers().fetch();
+
+        var theirFriends = [];
+        for (var i = 0; i < theirFriendsAsUsers.length; i++) {
+            theirFriends.push(friends[i]._id);
+        }
+
+        myFriends.sort();
+        theirFriends.sort();
+        numMutualFriends = 0;
+        myIndex = 0;
+        theirIndex = 0;
+        while (myIndex < myFriends.length && theirIndex < theirFriends.length){
+            if (myFriends[myIndex] == theirFriends[theirIndex]){
+                numMutualFriends += 1;
+                myIndex += 1;
+                theirIndex += 1;
+            }
+            else if (myFriends[myIndex] < theirFriends[theirIndex]){
+                myIndex += 1;
+            }
+            else{
+                theirIndex += 1;
+            }
+        }
+        return numMutualFriends.toString() + " mutual friends";
     }
 });

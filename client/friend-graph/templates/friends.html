@@ -56,7 +56,7 @@
 							<img class="friendPageFriendImage" src="{{requester.profile.picture}}">
 							<div class="friendTextContainer">
 								<p class="friendName">{{requester.username}}</p>
-								<p class="numFriends">200 friends</p>
+								<p class="numFriends">{{mutualFriends requesterId}}</p>
 							</div>
 							<p class="requestOption" id="deleteRequest" data-action="deny">Delete Request</p>
 							<p class="requestOption" id="acceptRequest" data-action="accept">Accept</p>
