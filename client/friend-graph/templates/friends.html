@@ -1,57 +1,84 @@
 <template name="friendRequestPage">
 	<div id="friendRequests" class="full-height" style="">
-	    <i id="closeFriends" class="fa fa-times-circle-o fa-2x"></i>
-	    <p id="friendTitle"> You have friends </p>
-	    <div id="friendHeaders">
-			<p id="friendHeader">Friends</p>
-			<p id="requestHeader">Requests</p>
-	    </div>
-	    <div class="friendsCircle" id="friendContainer">
-	      <div class="frList">
-	        <!-- <div class="friendLine">
-	          <p class="friendName">Amanpreet Kandola</p>
-	          <img class="friendButton" src="/images/deleteButton.png" data-action="unfriend">
-	        </div> -->
-
-	        {{#each currentUser.friendsAsUsers}}
-	        <div class="friendLine">
-	          <p class="friendName">{{username}}</p>
-	          <img class="friendButton" src="/images/deleteButton.png" data-action="unfriend">
-	        </div>
-	        {{else}}
-	        <p class="noFriends">No friends :(</p>
-	        {{/each}}
-
-	      </div>
-	    </div>
-    	<div class="friendsCircle" id="requestContainer">
-	      <div class="frList">
-	        <!-- <div class="friendLine">
-	          <p class="friendName">Amanpreet Kandola</p>
-	          <img class="friendButton" src="/images/deleteButton.png">
-	          <img class="friendButton" src="/images/acceptButton.png">
-	        </div>
-	        <div class="friendLine">
-	          <p class="friendName">Amanpreet Kandola</p>
-	          <p class="requestPending">pending.</p>
-	        </div> -->
-	          {{#each friendRequests}}
-	            {{#if isOutgoing requesterId}}
-	              <div class="friendLine">
-	                <p class="friendName">{{username}}</p>
-	                <p class="requestPending">pending.</p>
-	              </div> 
-	            {{else}}
-	            <div class="friendLine">
-	              <p class="friendName">{{requester.username}}</p>
-	              <img class="friendButton" src="/images/deleteButton.png" data-action="deny">
-	              <img class="friendButton" src="/images/acceptButton.png" data-action="accept">
-	            </div>
-	            {{/if}}
-	          {{else}}
-	            <p class="noFriends">No pending requests</p>
-	          {{/each}}
-	      </div>
+		<div class="friendPageTab" id="friendsTab">
+			<div class="friendTabHeader" id="friendHead">
+				<p id="friendTitle"> Your Friends </p>
+			</div>
+			<div class="friendContainer" id="friendsList">
+				<div class="friendRow">
+					<div class="singleFriend">
+						<img class="friendPageFriendImage" src="http://graph.facebook.com/1121221677891219/picture/?height=200&amp;width=200">
+						<div class="friendTextContainer">
+							<p class="friendName">Amar Hansen</p>
+							<p class="numFriends">200 friends</p>
+						</div>
+					</div>
+					<div class="singleFriend">
+						<img class="friendPageFriendImage" src="http://graph.facebook.com/1121221677891219/picture/?height=200&amp;width=200">
+						<div class="friendTextContainer">
+							<p class="friendName">Amar Hansen</p>
+							<p class="numFriends">200 friends</p>
+						</div>
+					</div>
+				</div>
+				<div class="friendRow">
+					<div class="singleFriend">
+						<img class="friendPageFriendImage" src="http://graph.facebook.com/1121221677891219/picture/?height=200&amp;width=200">
+						<div class="friendTextContainer">
+							<p class="friendName">Amar Hansen</p>
+							<p class="numFriends">200 friends</p>
+						</div>
+					</div>
+					<div class="singleFriend">
+						<img class="friendPageFriendImage" src="http://graph.facebook.com/1121221677891219/picture/?height=200&amp;width=200">
+						<div class="friendTextContainer">
+							<p class="friendName">Amar Hansen</p>
+							<p class="numFriends">200 friends</p>
+						</div>
+					</div>
+				</div>
+			</div>
 		</div>
-  	</div>
+		<div class="friendPageTab" id="requestsTab">
+			<div class="friendTabHeader" id="requestHead">
+				<p id="requestTitle"> Respond to your Friend Requests </p>
+			</div>
+			<div class="friendContainer" id="requestsList">
+				{{#each friendRequests}}
+		            {{#if isOutgoing requesterId}}
+		              <div class="friendLine">
+		                <p class="friendName">{{username}}</p>
+		                <p class="requestPending">pending.</p>
+		              </div> 
+		            {{else}}
+		            <div class="friendLine">
+		              <p class="friendName">{{requester}}</p>
+		              <img class="friendButton" src="/images/deleteButton.png" data-action="deny">
+		              <img class="friendButton" src="/images/acceptButton.png" data-action="accept">
+		            </div>
+		            {{/if}}
+		          {{else}}
+		            <p class="noFriends">No pending requests</p>
+	          	{{/each}}
+				<div class="singleRequest">
+					<img class="friendPageFriendImage" src="http://graph.facebook.com/1121221677891219/picture/?height=200&amp;width=200">
+					<div class="friendTextContainer">
+						<p class="friendName">Amar Hansen</p>
+						<p class="numFriends">200 friends</p>
+					</div>
+					<p class="requestOption" id="deleteRequest" data-action="deny">Delete Request</p>
+					<p class="requestOption" id="acceptRequest" data-action="accept">Accept</p>
+				</div>
+				<div class="singleRequest">
+					<img class="friendPageFriendImage" src="http://graph.facebook.com/1121221677891219/picture/?height=200&amp;width=200">
+					<div class="friendTextContainer">
+						<p class="friendName">Amar Hansen</p>
+						<p class="numFriends">200 friends</p>
+					</div>
+					<p class="requestOption" id="deleteRequest">Delete Request</p>
+					<p class="requestOption" id="acceptRequest">Accept</p>
+				</div>
+			</div>
+		</div>
+	</div>
 </template>
