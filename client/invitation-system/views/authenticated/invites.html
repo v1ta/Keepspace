@@ -1,4 +1,6 @@
 <template name="invites">
+    <script type="text/javascript" src="assets/twitterbootstrap/js/bootstrap-tab.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
     <h3 class="page-header">
         <div id="logo">
             <img id="homeLogo" src="/images/keepspace_home_button.png">
@@ -7,14 +9,14 @@
         Beta Invite Control Panel
     </h3>
     <ul class="nav nav-tabs" role="tablist">
-        <li role="presentation" class="active"><a href="#open-invitations" role="tab" data-toggle="tab">Open</a></li>
-        <li role="presentation"><a href="#closed-invitations" role="tab" data-toggle="tab">Invited</a></li>
+        <li role="presentation" class="active"><a href="#open-invitations" role="tab" data-toggle="tab" style="color:black;">Open</a></li>
+        <li role="presentation"><a href="#closed-invitations" role="tab" data-toggle="tab" style="color:black;">Invited</a></li>
     </ul>
     <div class="tab-content">
-        <div role="tabpanel" class="tab-pane active" id="open-invitations">
+        <div class="tab-pane active" id="open-invitations">
             {{>openInvitations}}
         </div>
-        <div role="tabpanel" class="tab-pane" id="closed-invitations">
+        <div class="tab-pane" id="closed-invitations">
             {{>closedInvitations}}
         </div>
     </div>
