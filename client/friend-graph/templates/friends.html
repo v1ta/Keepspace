@@ -44,41 +44,47 @@
 				<p id="requestTitle"> Respond to your Friend Requests </p>
 			</div>
 			<div class="friendContainer" id="requestsList">
+
 				{{#each friendRequests}}
 		            {{#if isOutgoing requesterId}}
-		              <div class="friendLine">
+		              <!-- <div class="friendLine">
 		                <p class="friendName">{{username}}</p>
 		                <p class="requestPending">pending.</p>
-		              </div> 
+		              </div>  -->
 		            {{else}}
-		            <div class="friendLine">
-		              <p class="friendName">{{requester}}</p>
-		              <img class="friendButton" src="/images/deleteButton.png" data-action="deny">
-		              <img class="friendButton" src="/images/acceptButton.png" data-action="accept">
-		            </div>
+		            	<div class="singleRequest">
+							<img class="friendPageFriendImage" src="{{requester.profile.picture}}">
+							<div class="friendTextContainer">
+								<p class="friendName">{{requester.username}}</p>
+								<p class="numFriends">200 friends</p>
+							</div>
+							<p class="requestOption" id="deleteRequest" data-action="deny">Delete Request</p>
+							<p class="requestOption" id="acceptRequest" data-action="accept">Accept</p>
+						</div>
 		            {{/if}}
-		          {{else}}
-		            <p class="noFriends">No pending requests</p>
+	          		{{else}}
+		            	<p class="noFriends">No pending requests</p>
 	          	{{/each}}
-				<div class="singleRequest">
-					<img class="friendPageFriendImage" src="http://graph.facebook.com/1121221677891219/picture/?height=200&amp;width=200">
-					<div class="friendTextContainer">
-						<p class="friendName">Amar Hansen</p>
-						<p class="numFriends">200 friends</p>
-					</div>
-					<p class="requestOption" id="deleteRequest" data-action="deny">Delete Request</p>
-					<p class="requestOption" id="acceptRequest" data-action="accept">Accept</p>
-				</div>
-				<div class="singleRequest">
-					<img class="friendPageFriendImage" src="http://graph.facebook.com/1121221677891219/picture/?height=200&amp;width=200">
-					<div class="friendTextContainer">
-						<p class="friendName">Amar Hansen</p>
-						<p class="numFriends">200 friends</p>
-					</div>
-					<p class="requestOption" id="deleteRequest">Delete Request</p>
-					<p class="requestOption" id="acceptRequest">Accept</p>
-				</div>
 			</div>
 		</div>
 	</div>
 </template>
+
+<!-- <div class="singleRequest">
+	<img class="friendPageFriendImage" src="http://graph.facebook.com/1121221677891219/picture/?height=200&amp;width=200">
+	<div class="friendTextContainer">
+		<p class="friendName">Amar Hansen</p>
+		<p class="numFriends">200 friends</p>
+	</div>
+	<p class="requestOption" id="deleteRequest" data-action="deny">Delete Request</p>
+	<p class="requestOption" id="acceptRequest" data-action="accept">Accept</p>
+</div>
+<div class="singleRequest">
+	<img class="friendPageFriendImage" src="http://graph.facebook.com/1121221677891219/picture/?height=200&amp;width=200">
+	<div class="friendTextContainer">
+		<p class="friendName">Amar Hansen</p>
+		<p class="numFriends">200 friends</p>
+	</div>
+	<p class="requestOption" id="deleteRequest">Delete Request</p>
+	<p class="requestOption" id="acceptRequest">Accept</p>
+</div> -->

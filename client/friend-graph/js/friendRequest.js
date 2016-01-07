@@ -50,6 +50,8 @@ Template.friendRequestPage.helpers({
             ]
         });
         console.log(results.fetch());
+        console.log(results.fetch()[0].requester)
+        console.log(Meteor.users.findOne("M3EaWLmSDBCPuZ2w8"))
         return results;
     },
     isOutgoing: function(requesterId){
