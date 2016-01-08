@@ -3,6 +3,7 @@
 @font-face {font-family: Gotham; src: url('/public/fonts/GothamHTF-Medium.otf');}
 @font-face {font-family: Gotham-Book; src: url('/public/fonts/GothamHTF-Book.ttf');}
 
+
 body, html {
   height: 100%;
   /* TODO: band-aid for header */

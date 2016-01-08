@@ -32,3 +32,7 @@ Meteor.publish("avatars", function() {
     return Avatars.find();
 });
 
+Meteor.publish("friends", function(){
+    return Meteor.friends.find({});
+});
+

@@ -49,7 +49,7 @@ Template.friendRequestPage.helpers({
                 {requesterId:Meteor.userId()}
             ]
         });
-        // console.log(Meteor.users.findOne("M3EaWLmSDBCPuZ2w8"))
+        console.log(Meteor.users.findOne("M3EaWLmSDBCPuZ2w8"))
         return results;
     },
     isOutgoing: function(requesterId){
@@ -90,5 +90,14 @@ Template.friendRequestPage.helpers({
             }
         }
         return numMutualFriends.toString() + " mutual friends";
+    },
+    numFriends: function(friendId){
+        //console.log(Meteor.users.findOne({_id:"M3EaWLmSDBCPuZ2w8"}));
+        theirFriendsAsUsers = Meteor.users.findOne({_id:friendId}).friendsAsUsers().fetch();
+        console.log(Meteor.users.findOne({_id:friendId}));
+        console.log(Meteor.users.findOne({_id:friendId}).friendsAsUsers());
+        console.log(theirFriendsAsUsers);
+        theirFriends = Meteor.friends.find();
+        console.log(theirFriends.fetch());
     }
 });

@@ -3,40 +3,32 @@
 		<div class="friendPageTab" id="friendsTab">
 			<div class="friendTabHeader" id="friendHead">
 				<p id="friendTitle"> Your Friends </p>
+				<div class="box">
+				  	<div class="container-1">
+				  		<input type="search" id="friendSearch" placeholder="Search for your friends" />
+				      	<i id="friendSearchIcon" class="material-icons">search</i>
+				  	</div>
+				</div>
 			</div>
 			<div class="friendContainer" id="friendsList">
-				<div class="friendRow">
+
+				{{#each currentUser.friendsAsUsers}}
+
 					<div class="singleFriend">
-						<img class="friendPageFriendImage" src="http://graph.facebook.com/1121221677891219/picture/?height=200&amp;width=200">
+						<img class="friendPageFriendImage" src="{{profile.picture}}">
 						<div class="friendTextContainer">
-							<p class="friendName">Amar Hansen</p>
-							<p class="numFriends">200 friends</p>
+							<p class="friendName">{{username}}</p>
+							<p class="numFriends">{{numFriends _id}} friends</p>
 						</div>
 					</div>
-					<div class="singleFriend">
-						<img class="friendPageFriendImage" src="http://graph.facebook.com/1121221677891219/picture/?height=200&amp;width=200">
-						<div class="friendTextContainer">
-							<p class="friendName">Amar Hansen</p>
-							<p class="numFriends">200 friends</p>
-						</div>
-					</div>
-				</div>
-				<div class="friendRow">
-					<div class="singleFriend">
-						<img class="friendPageFriendImage" src="http://graph.facebook.com/1121221677891219/picture/?height=200&amp;width=200">
-						<div class="friendTextContainer">
-							<p class="friendName">Amar Hansen</p>
-							<p class="numFriends">200 friends</p>
-						</div>
-					</div>
-					<div class="singleFriend">
-						<img class="friendPageFriendImage" src="http://graph.facebook.com/1121221677891219/picture/?height=200&amp;width=200">
-						<div class="friendTextContainer">
-							<p class="friendName">Amar Hansen</p>
-							<p class="numFriends">200 friends</p>
-						</div>
-					</div>
-				</div>
+
+<!-- 	        		<div class="friendLine">
+         		 		<p class="friendName">{{username}}</p>
+          				<img class="friendButton" src="/images/deleteButton.png" data-action="unfriend">
+	        		</div> -->
+	        	{{else}}
+	        		<p class="noFriends">No friends :(</p>
+	        	{{/each}}
 			</div>
 		</div>
 		<div class="friendPageTab" id="requestsTab">
@@ -69,6 +61,14 @@
 		</div>
 	</div>
 </template>
+
+<!-- <div class="singleFriend">
+						<img class="friendPageFriendImage" src="http://graph.facebook.com/1121221677891219/picture/?height=200&amp;width=200">
+						<div class="friendTextContainer">
+							<p class="friendName">Amar Hansen</p>
+							<p class="numFriends">200 friends</p>
+						</div>
+					</div> -->
 
 <!-- <div class="singleRequest">
 	<img class="friendPageFriendImage" src="http://graph.facebook.com/1121221677891219/picture/?height=200&amp;width=200">
