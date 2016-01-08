@@ -1,5 +1,6 @@
 Template.header.onRendered(function(event) {
     Session.set('showFriendPage', false);
+    Session.set("friendSearchString", false);
     $(document).mouseup(function (e){
         if (!$("#friendRequests").is(e.target) // if the target of the click isn't the container...
             && $("#friendRequests").has(e.target).length === 0) // ... nor a descendant of the container
@@ -91,7 +92,8 @@ Template.friendRequestPage.helpers({
             if (err)
                 console.log(err);
             else{
-                Session.set(friendId, data[1]);
+                console.log(data);
+                Session.set(friendId, data);
             }
         };
         numFriends = Meteor.call('numFriends',friendId, callback);
