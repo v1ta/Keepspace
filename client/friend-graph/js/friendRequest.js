@@ -8,6 +8,11 @@ Template.header.onRendered(function(event) {
             Session.set("showFriendPage", false);
         }
     });
+    // $(document).keyup(function (e) {
+    //     if ($("#friendSearch:focus") && (e.keyCode === 13)) {
+    //        Session.set("friendSearchString", $("#friendSearch").val());
+    //     }
+    //  });
 });
 
 Template.header.helpers({
@@ -40,6 +45,14 @@ Template.friendRequestPage.events({
             
         }
     },
+    "keyup #friendSearch": _.throttle(function(ev) {
+        var searchString = $('#friendSearch').val();
+            Session.set('friendSearchString', searchString);
+      }, 1500),
+    'click #friendSearchIcon': _.throttle(function(ev) {
+        var searchString = $('#friendSearch').val();
+            Session.set('friendSearchString', searchString);
+      }, 1500),
 })
 Template.friendRequestPage.helpers({
     friendRequests: function() {
@@ -49,7 +62,7 @@ Template.friendRequestPage.helpers({
                 {requesterId:Meteor.userId()}
             ]
         });
-        console.log(Meteor.users.findOne("M3EaWLmSDBCPuZ2w8"))
+        //console.log(Meteor.users.findOne("M3EaWLmSDBCPuZ2w8"))
         return results;
     },
     isOutgoing: function(requesterId){
@@ -80,12 +93,50 @@ Template.friendRequestPage.helpers({
             else{
                 Session.set(friendId, data[1]);
             }
-            //console.log(data);
-            //Session.set('q', data);
         };
         numFriends = Meteor.call('numFriends',friendId, callback);
         return Session.get(friendId);
-        //console.log(numFriends);
-        //return numFriends;
+    },
+    searchFriendInput: function(){
+        // console.log("searchFriendInput");
+        var searchString = Session.get('friendSearchString');
+        if (searchString && searchString.length > 0)
+            return true;
+        else
+            return false;
+    },
+    friendSearchResult: function(){
+        // console.log("friendSearchResult");
+        users = searchUsers(Session.get("searchString")).fetch();
+        friends = getFriendIds();
+        // console.log(users);
+        // console.log(friends);
+
+        topResults = [];
+        theRest = [];
+
+        for (var i = 0; i < users.length; i++){
+            user = users[i];
+            if (user._id != Meteor.userId()){
+                var isFriend = false;
+                for(var j = 0; j < friends.length; j++){
+                    if (friends[j] == user._id){
+                        topResults.push(user);
+                        friends.splice(j);
+                        isFriend = true;
+                        break
+                    }
+                }
+                if (!isFriend){
+                    theRest.push(user);
+                }
+            }
+        }
+        return $.merge(topResults, theRest);
     }
+});
+
+
+Tracker.autorun(function() {
+    Meteor.subscribe('SearchUsers', Session.get('friendSearchString'));
 });

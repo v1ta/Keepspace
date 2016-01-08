@@ -5,30 +5,42 @@
 				<p id="friendTitle"> Your Friends </p>
 				<div class="box">
 				  	<div class="container-1">
-				  		<input type="search" id="friendSearch" placeholder="Search for your friends" />
-				      	<i id="friendSearchIcon" class="material-icons">search</i>
+					  		<input type="text" id="friendSearch" placeholder="Search for your friends" />
+					      	<i id="friendSearchIcon" class="material-icons">search</i>
 				  	</div>
 				</div>
 			</div>
 			<div class="friendContainer" id="friendsList">
 
-				{{#each currentUser.friendsAsUsers}}
-
-					<div class="singleFriend">
-						<img class="friendPageFriendImage" src="{{profile.picture}}">
-						<div class="friendTextContainer">
-							<p class="friendName">{{username}}</p>
-							<p class="numFriends">{{numFriends _id}} friends</p>
+				{{#if searchFriendInput}}
+					{{#each friendSearchResult}}
+						<div class="singleFriend">
+							<img class="friendPageFriendImage" src="{{profile.picture}}">
+							<div class="friendTextContainer">
+								<p class="friendName">{{username}}</p>
+								<p class="numFriends">{{numFriends _id}} friends</p>
+							</div>
 						</div>
-					</div>
+					{{/each}}
+				{{else}}
+					{{#each currentUser.friendsAsUsers}}
 
-<!-- 	        		<div class="friendLine">
-         		 		<p class="friendName">{{username}}</p>
-          				<img class="friendButton" src="/images/deleteButton.png" data-action="unfriend">
-	        		</div> -->
-	        	{{else}}
-	        		<p class="noFriends">No friends :(</p>
-	        	{{/each}}
+						<div class="singleFriend">
+							<img class="friendPageFriendImage" src="{{profile.picture}}">
+							<div class="friendTextContainer">
+								<p class="friendName">{{username}}</p>
+								<p class="numFriends">{{numFriends _id}} friends</p>
+							</div>
+						</div>
+
+	<!-- 	        		<div class="friendLine">
+	         		 		<p class="friendName">{{username}}</p>
+	          				<img class="friendButton" src="/images/deleteButton.png" data-action="unfriend">
+		        		</div> -->
+		        	{{else}}
+		        		<p class="noFriends">No friends :(</p>
+		        	{{/each}}
+		        {{/if}}
 			</div>
 		</div>
 		<div class="friendPageTab" id="requestsTab">
