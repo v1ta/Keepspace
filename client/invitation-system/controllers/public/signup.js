@@ -41,7 +41,7 @@ Template.signup.rendered = function () {
                         if (error) {
                             return alert(error.reason);
                         } else {
-                            return Router.go('/mainPage');
+                            return Router.go('/');
                         }
                     });
                 }
@@ -57,8 +57,12 @@ Template.signup.helpers({
 });
 
 Template.signup.events({
-    'submit form': function (e) {
-        return e.preventDefault();
+    'submit form': function (event) {
+        console.log("debugging3");
+        return event.preventDefault();
+    },
+    'click #signupButton': function(event) {
+        return event.preventDefault();
     },
     'click #homeLogo': function (event) {
         Router.go("splash");

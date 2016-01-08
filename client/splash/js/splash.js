@@ -48,6 +48,7 @@ Template.splashBanner.events({
     $("#mainSlide").hide();
     $("#navSignupOption").show();
   },
+    /*
   'click #signupButton': function (event) {
     event.preventDefault(); // prevent refreshing the page
 
@@ -73,10 +74,12 @@ Template.splashBanner.events({
           }
         } else {
           var userId = Meteor.userId();
+            /*
           Meteor.call('serverVerifyEmail', email, userId, function(){
             $(".signOptions").hide();
             $("#checkEmailOption").show();
-          });   
+          });
+
         }
 
       });   
@@ -85,7 +88,9 @@ Template.splashBanner.events({
       alert("Please enter a vaild e-mail address!");
     }
   },
+  */
   'click #goButton': function(event){
+      console.log("hi");
     event.preventDefault();
     var emailVar = $("#loginEmail").val();
     var passwordVar = $("#loginPassword").val();
@@ -108,6 +113,31 @@ Template.splashBanner.events({
       }
     });
   },
+    'submit .myform': function(event){
+        console.log("hi");
+        event.preventDefault();
+        var emailVar = $("#loginEmail").val();
+        var passwordVar = $("#loginPassword").val();
+        Meteor.loginWithPassword({email: emailVar}, passwordVar, function (err) {
+            if (!err) {
+                Session.set("isFB", false);
+                localStorage.setItem("justLoggedIn", "true");
+                resetAllFeeds();
+                if (emailVar === "admin@thekeepspace.com") {
+                    console.log("I'm bad at debugging");
+                    Router.go('invites');
+                } else {
+                    console.log("not as bad as me!");
+                    Router.go("home");
+                }
+                // $("#changePassword").show();
+            }
+            else {
+                alert(err);
+            }
+        });
+
+    },
   'click #forgotPass': function(){
     var email = $("#loginEmail").val();
     if (email == ""){

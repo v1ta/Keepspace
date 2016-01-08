@@ -30,6 +30,7 @@ Template.beta_email_invite.rendered = function() {
                             if (error) {
                                 sAlert.error(error.reason, {effect: 'genie', position: 'top', offset: '91px'});
                             } else {
+                                $('#navSignupEmail').val("");
                                 sAlert.info("Invite requested. We'll be in touch soon. Thanks for your interest in Keepspace!", {
                                     effect: 'genie',
                                     position: 'top',
@@ -47,10 +48,13 @@ Template.beta_email_invite.rendered = function() {
 Template.beta_email_invite.events({
     'submit form': function (event) {
         event.preventDefault();
+
     },
     'click #signupButton': function (event){
         event.preventDefault();
         $('#verify').submit();
+        $('#navSignupEmail').val("");
+
     }
 });
 
@@ -58,6 +62,7 @@ Template.beta_email_invite.events({
 //custom login/register functionas
 Template.signupPage.events({
     //login with facebook
+
     'click #login-buttons-facebook': function(){
         Meteor.loginWithFacebook(
             {requestPermissions: ['email', 'user_friends', 'user_location', 'user_status',
