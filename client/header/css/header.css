@@ -6,7 +6,7 @@
   background-color:rgba(50,192,208,0.2);
 }
 #header .row > * {
-  height: 75px;
+  height: 45px;
 }
 #header .right > * {
   float: right;
@@ -22,10 +22,13 @@
   border-radius: 5px;
   cursor: pointer;
   padding-right:0px;
+  text-align:left;
+  padding-left:15px;
+  padding-top:5px;
 }
 
 #homeLogo{
-  height: 75px;
+  height: 40px;
   display:inline-block;
 }
 #homeDrop{
@@ -33,8 +36,8 @@
 }
 #logo img {
   /*height: 75px;*/
-  padding: 10px;
-  padding-right:0px;
+  /*padding: 10px;
+  padding-right:0px;*/
 }
 #header .username {
   font-size: 22px;
@@ -44,11 +47,12 @@
   background-color: #32c0d2;
   color: #ffffff;
   text-align: center;
-  padding-top: 10px;
+  padding-top: 11px;
   position: relative;
   z-index: 2;
   display: inline-block;
   cursor: pointer;
+  right:23px;
 }
 #dayNum {
   font-size: 32px;
@@ -56,20 +60,34 @@
   font-family:Roboto;
   top:-7px;
 }
+#dayNums {
+  font-size: 28px;
+  position: relative;
+  font-family:Roboto;
+  top:-7px;
+}
+#dayLabel{
+  float:left;
+  display:inline-block;
+  position:relative;
+  top:18px;
+  left:15px;
+}
 #date {
-  background-color: #ffffff;
   color: #000000;
-  font-size: 26px;
+  font-size: 1.2em;
   border-radius: 5px;
-  padding-left: 25px;
-  padding-right:10px;
-  margin-left: -15px;
   position: relative;
   z-index: 1;
-  top: -13px;
+  top: -14px;
   display: inline-block;
   /*font-family:Roboto;*/
   cursor: pointer;
+}
+#profile-picture{
+  height: 40px;
+  width: 40px;
+  border-radius: 20px;
 }
 #time{
   color:#ED1C24;
@@ -118,9 +136,9 @@
   transform: translateY(-50%);
 }
 .header-circle {
-  height: 75px;
-  width: 75px;
-  border-radius: 37.5px;
+  height: 50px;
+  width: 50px;
+  border-radius: 25px;
 }
 
 #settingDropDown{
