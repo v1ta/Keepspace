@@ -40,7 +40,7 @@
   padding-right:0px;*/
 }
 #header .username {
-  font-size: 22px;
+  font-size: 1.2em;
   cursor: pointer;
 }
 #homeButton {
@@ -87,6 +87,8 @@
 #profile-picture{
   height: 40px;
   width: 40px;
+  position:relative;
+  top:4px;
   border-radius: 20px;
 }
 #time{
