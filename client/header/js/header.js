@@ -18,6 +18,12 @@ Template.header.events({
         // Router.go("mainPage");
         Router.go("calendar");
     },
+    'click .icon-friends': function(){
+        Router.go("friends");
+    },
+    'click .icon-notifications': function(){
+
+    },
     'click #settingsButton': function(event){
         console.log(Meteor.user());
         event.preventDefault();
@@ -85,7 +91,7 @@ Template.header.events({
             // $("#changePassword").hide();
         }
     },
-    'click #dropdownDiv, click #main-menu, click .menu-dropdown': function(event) {
+    'click .icon-more': function(event) {
         event.stopPropagation();
         if ($("#main-menu").css("display") === "block") {
             hideMainMenu();

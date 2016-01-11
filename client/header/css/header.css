@@ -71,7 +71,7 @@
   display:inline-block;
   position:relative;
   top:18px;
-  left:15px;
+  right: 15px;
 }
 #date {
   color: #000000;
@@ -83,6 +83,7 @@
   display: inline-block;
   /*font-family:Roboto;*/
   cursor: pointer;
+  margin-right:29px;
 }
 #profile-picture{
   height: 40px;
@@ -90,6 +91,13 @@
   position:relative;
   top:4px;
   border-radius: 20px;
+}
+.headerIcon{
+  color:#43C1D1;
+  font-size:1.7em;
+  cursor: pointer;
+  margin-right: 15px;
+  margin-top: 9px;
 }
 #time{
   color:#ED1C24;
@@ -108,7 +116,7 @@
   position: absolute;
   z-index: 2;
   top:75px;
-  left:80px;
+  right:0px;
   width:200px;
   box-shadow: 10px 10px 5px #888888;
 }
