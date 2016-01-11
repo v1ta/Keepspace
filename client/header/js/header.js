@@ -22,7 +22,7 @@ Template.header.events({
         Router.go("friends");
     },
     'click .icon-notifications': function(){
-
+        Router.go("notifications");
     },
     'click #settingsButton': function(event){
         console.log(Meteor.user());

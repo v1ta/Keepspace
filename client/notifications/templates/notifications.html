@@ -1,0 +1,25 @@
+<template name="notifications">
+	<div id="notificationsContainer">
+		<p id="notificationHeader">Your Notifications</p>
+		<!-- <p id="markAsRead">Mark all as read</p> -->
+      	<div id="notificationTable">
+
+      		<div class="notificationRow">
+      			<img id="notificationProPic" class="" alt="" src="http://graph.facebook.com/1121221677891219/picture/?height=200&amp;width=200">
+      			<p class="notificationText">Amar Hansen collected your post: "Every little thing will be ok."</p>
+      			<img class="notificationPic" src="/images/bubbleonly.png">
+      			<p class="notificationTime"> 2 min ago </p>
+      		</div>
+
+
+        	{{#each notifications}}
+	          	<div class="notificationRow"> 
+	            	<p class="notificationText">{{notification}}</p>
+	            	<p class="notificationTime">{{timeString}}</p>
+	          	</div>
+        	{{else}}
+          		<!-- i<p id="noNotifications">No Notifications</p> -->
+        	{{/each}}
+      	</div>
+    </div>
+</template>
