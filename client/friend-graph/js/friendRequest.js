@@ -63,7 +63,8 @@ Template.friendRequestPage.helpers({
                 {requesterId:Meteor.userId()}
             ]
         });
-        //console.log(Meteor.users.findOne("M3EaWLmSDBCPuZ2w8"))
+        // console.log(Meteor.users.findOne("M3EaWLmSDBCPuZ2w8"))
+        // console.log(results);
         return results;
     },
     isOutgoing: function(requesterId){
@@ -94,6 +95,7 @@ Template.friendRequestPage.helpers({
             else{
                 console.log(data);
                 Session.set(friendId, data);
+                console.log(Session.get(friendId));
             }
         };
         numFriends = Meteor.call('numFriends',friendId, callback);
@@ -112,7 +114,7 @@ Template.friendRequestPage.helpers({
         users = searchUsers(Session.get("searchString")).fetch();
         friends = getFriendIds();
         // console.log(users);
-        // console.log(friends);
+        console.log(friends);
 
         topResults = [];
         theRest = [];
@@ -134,6 +136,7 @@ Template.friendRequestPage.helpers({
                 }
             }
         }
+        console.log(Meteor.users.find().fetch());
         return $.merge(topResults, theRest);
     }
 });
