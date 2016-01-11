@@ -27,11 +27,14 @@
   height:200px;
   border-top: 1px solid black;
   width:100%;
-  padding-top:3%;
+  /*padding-top:3%;*/
 }
 
 .notificationRow{
   border-bottom: 2px solid #32c0d2;
+  padding-top:1%;
+  padding-left:1%;
+  padding-left:2%;
 }
 .notificationRow p{
   margin-bottom: 0px;
@@ -52,37 +55,25 @@
   width:45px;
   color: #8B8B8C;
 }
-#noNotfications{
-  font-size:14px;
-}
-#notifications p{
-  font-weight: normal;
-}
-#markAsRead{
-  margin-bottom:0px;
-  font-size:12px;
-  cursor:pointer;
-  margin-left:120px;
-  color:#3B589F;
-}
-#notificationTable{
-  overflow-y:scroll;
-  height:200px;
-  border-top: 1px solid black;
-  width:100%;
-}
 
 .notificationRow{
   border-bottom: 1px solid lightgray;
+}
+.evenRow{
+  background-color:#E6F5F8;
 }
 .notificationRow p{
   margin-bottom: 0px;
   font-weight:normal;
 }
-#notificationProPic{
+.notificationProPic{
   height: 60px;
   width: 60px;
   border-radius: 30px;
+  float:left;
+}
+.notificationPic{
+  color:#2FC1D2;
 }
 .notificationText{
   display:inline-block;

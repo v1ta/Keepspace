@@ -190,53 +190,6 @@ Template.header.helpers({
     },
 });
 
-Template.friendRequestPage.events({
-    'click [data-action=accept]': function() {
-        this.accept();
-    },
-    'click [data-action=deny]': function() {
-        var result = confirm("Are you sure you don't want to be friends?");
-        if (result){
-            this.deny();
-        }
-        else{
-
-        }
-    },
-    // user object methods
-    'click [data-action=unfriend]': function() {
-        //assumes context is a instance of a user
-        var result = confirm("Are you sure you want to end your friendship?");
-        if (result){
-            this.unfriend();
-        }
-        else{
-
-        }
-    },
-})
-Template.friendRequestPage.helpers({
-    friendRequests: function() {
-        var results =  Meteor.requests.find({
-            $or: [
-                {userId:Meteor.userId()},
-                {requesterId:Meteor.userId()}
-            ]
-        });
-        console.log(results.fetch());
-        return results;
-    },
-    isOutgoing: function(requesterId){
-        var userId = Meteor.userId();
-        if (requesterId == userId){
-            console.log("true");
-            return true;
-        }
-        else{
-            return false;
-        }
-    }
-});
 Template.header.onCreated(function(event) {
     $(window).resize(function() { setMidPadding(); });
 });
