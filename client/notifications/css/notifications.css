@@ -83,3 +83,18 @@
   font-size:1.2em;
   float:left;
 }
+.notificationStatus{
+    width: 6px;
+    height: 6px;
+    border: 1px solid #2AC0D4;
+    border-radius: 3px;
+    float: right;
+    position: relative;
+    right: 5px;
+}
+.read{
+  
+}
+.unread{
+  background: #2AC0D4;
+}

@@ -9,8 +9,8 @@ Template.notifications.helpers({
         
         var counter = 0;
         notifications.forEach(function (notification) {  
-        	// console.log("single");  
-         //    console.log(notification);     
+        	console.log("single");  
+            console.log(notification);     
             counter += 1;
 
             var user = Meteor.users.findOne({_id:notification.friendId});
@@ -39,6 +39,12 @@ Template.notifications.helpers({
             }
             else{
             	element.classNames = "notificationRow";
+            }
+            if (notification.seen){
+            	element.statusName = "notificationStatus read";
+            }
+            else{
+            	element.statusName = "notificationStatus unread";
             }
             result.push(element);
             // if (notification.type == "acceptRequest")
