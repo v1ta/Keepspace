@@ -21,25 +21,31 @@
 								<p class="numFriends">{{numFriends _id}} friends</p>
 							</div>
 						</div>
+						{{else}}
+							<p style="color:black">No results </p>
 					{{/each}}
 				{{else}}
-					{{#each currentUser.friendsAsUsers}}
+					{{#with friends}}
+						{{#if ready}}
+							{{#each data}}
 
-						<div class="singleFriend">
-							<img class="friendPageFriendImage" src="{{profile.picture}}">
-							<div class="friendTextContainer">
-								<p class="friendName">{{username}}</p>
-								<p class="numFriends">{{numFriends _id}} friends</p>
-							</div>
-						</div>
+								<div class="singleFriend">
+									<img class="friendPageFriendImage" src="{{profile.picture}}">
+									<div class="friendTextContainer">
+										<p class="friendName">{{username}}</p>
+										<p class="numFriends">{{numFriends _id}} friends</p>
+									</div>
+								</div>
 
-	<!-- 	        		<div class="friendLine">
-	         		 		<p class="friendName">{{username}}</p>
-	          				<img class="friendButton" src="/images/deleteButton.png" data-action="unfriend">
-		        		</div> -->
-		        	{{else}}
-		        		<p class="noFriends">No friends :(</p>
-		        	{{/each}}
+			<!-- 	        		<div class="friendLine">
+			         		 		<p class="friendName">{{username}}</p>
+			          				<img class="friendButton" src="/images/deleteButton.png" data-action="unfriend">
+				        		</div> -->
+				        	<!-- {{else}}
+				        		<p class="noFriends">No friends :(</p> -->
+				        	{{/each}}
+				        {{/if}}
+			        {{/with}}
 		        {{/if}}
 			</div>
 		</div>
@@ -49,26 +55,30 @@
 			</div>
 			<div class="friendContainer" id="requestsList">
 
-				{{#each friendRequests}}
-		            {{#if isOutgoing requesterId}}
-		              <!-- <div class="friendLine">
-		                <p class="friendName">{{username}}</p>
-		                <p class="requestPending">pending.</p>
-		              </div>  -->
-		            {{else}}
-		            	<div class="singleRequest">
-							<img class="friendPageFriendImage" src="{{requester.profile.picture}}">
-							<div class="friendTextContainer">
-								<p class="friendName">{{requester.username}}</p>
-								<p class="numFriends">{{mutualFriends requesterId}}</p>
-							</div>
-							<p class="requestOption" id="deleteRequest" data-action="deny">Delete Request</p>
-							<p class="requestOption" id="acceptRequest" data-action="accept">Accept</p>
-						</div>
-		            {{/if}}
-	          		{{else}}
-		            	<p class="noFriends">No pending requests</p>
-	          	{{/each}}
+				{{#with friendRequests}}
+					{{#if ready}}
+						{{#each data}}
+				            {{#if isOutgoing requesterId}}
+				              <!-- <div class="friendLine">
+				                <p class="friendName">{{username}}</p>
+				                <p class="requestPending">pending.</p>
+				              </div>  -->
+				            {{else}}
+				            	<div class="singleRequest">
+									<img class="friendPageFriendImage" src="{{requester.profile.picture}}">
+									<div class="friendTextContainer">
+										<p class="friendName">{{requester.username}}</p>
+										<p class="numFriends">{{mutualFriends requesterId}}</p>
+									</div>
+									<p class="requestOption" id="deleteRequest" data-action="deny">Delete Request</p>
+									<p class="requestOption" id="acceptRequest" data-action="accept">Accept</p>
+								</div>
+				            {{/if}}
+		          		{{else}}
+			            	<p class="noFriends">No pending requests</p>
+			            {{/each}}
+				    {{/if}}
+	          	{{/with}}
 			</div>
 		</div>
 	</div>

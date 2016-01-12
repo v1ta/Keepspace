@@ -7,7 +7,7 @@
       		<div class="notificationRow">
       			<img class="notificationProPic" alt="" src="http://graph.facebook.com/1121221677891219/picture/?height=200&amp;width=200">
             <div class="notificationDetails">
-        			<p class="notificationText">Amar Hansen collected your post: "Every little thing will be ok."</p>
+        			<p class="notificationText"><strong>Amar Hansen</strong> collected your post: "Every little thing will be ok."</p>
         			<img class="notificationPic" src="/images/bubbleonly.png">
         			<p class="notificationTime"> 2 min ago </p>
             </div>
@@ -16,21 +16,33 @@
           <div class="notificationRow evenRow">
             <img class="notificationProPic" alt="" src="http://graph.facebook.com/1121221677891219/picture/?height=200&amp;width=200">
             <div class="notificationDetails">
-              <p class="notificationText">Rachel Smith is now your friend.</p>
+              <p class="notificationText"><strong>Amar Hansen</strong> is now your friend.</p>
               <div class="icon-friends notificationPic"></div>
               <p class="notificationTime"> 2 min ago </p>
             </div>
           </div>
 
+          <div class="notificationRow">
+            <img class="notificationProPic" alt="" src="http://graph.facebook.com/1121221677891219/picture/?height=200&amp;width=200">
+            <div class="notificationDetails">
+              <p class="notificationText"><strong>Amar Hansen</strong> collected your post: "Every little thing will be ok."</p>
+              <img class="notificationPic" src="/images/bubbleonly.png">
+              <p class="notificationTime"> 2 min ago </p>
+            </div>
+          </div>
 
-        	{{#each notifications}}
-	          	<div class="notificationRow"> 
-	            	<p class="notificationText">{{notification}}</p>
-	            	<p class="notificationTime">{{timeString}}</p>
-	          	</div>
-        	{{else}}
-          		<!-- i<p id="noNotifications">No Notifications</p> -->
-        	{{/each}}
+          {{#with notifications}}
+            {{#if ready}}
+            	{{#each data}}
+    	          	<div class="notificationRow"> 
+    	            	<p class="notificationText">{{notification}}</p>
+    	            	<p class="notificationTime">{{timeString}}</p>
+    	          	</div>
+            	{{else}}
+              		<!-- i<p id="noNotifications">No Notifications</p> -->
+            	{{/each}}
+            {{/if}}
+          {{/with}}
       	</div>
     </div>
 </template>

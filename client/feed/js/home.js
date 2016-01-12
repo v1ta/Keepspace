@@ -340,7 +340,7 @@ getFriendsAsUsers = function() {
     friends.forEach(function (friend) {
         friendsAsUsers.push(friend.user());
     });
-    console.log(friendsAsUsers);
+    // console.log(friendsAsUsers);
     return friendsAsUsers;
 }
 

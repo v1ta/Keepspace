@@ -31,40 +31,44 @@
 }
 
 .notificationRow{
-  border-bottom: 2px solid #32c0d2;
-  padding-top:1%;
-  padding-left:1%;
-  padding-left:2%;
-}
-.notificationRow p{
-  margin-bottom: 0px;
-  font-weight:normal;
-}
-.notificationText{
-  display:inline-block;
-  text-align:left;
-  width:180px;
-  padding:bottom:5px;
-  margin-left:10px;
-  font-size:16px;
-}
-.notificationTime{
-  display:inline-block;
-  font-size:14px;
-  text-align:left;
-  width:45px;
-  color: #8B8B8C;
-}
-
-.notificationRow{
   border-bottom: 1px solid lightgray;
+  padding-top:1%;
+  padding-left:2%;
+  padding-bottom:1%;
+  display:inline-block;
+  width:100%;
+  margin-bottom:-5px;
 }
 .evenRow{
   background-color:#E6F5F8;
 }
 .notificationRow p{
-  margin-bottom: 0px;
+  /*margin-bottom: 0px;*/
   font-weight:normal;
+}
+.notificationText{
+  display:inline-block;
+  text-align:left;
+  width:100%;
+  font-size:`1.4em;
+  margin-bottom:5px;
+}
+.notificationTime{
+  display:inline-block;
+  font-size:0.8em;
+  text-align:left;
+  width:100px;
+  color: #8B8B8C;
+  float:left;
+  position:relative;
+  left:5px;
+  top:5px;
+}
+.notificationDetails{
+  width:90%;
+  float:left;
+  position:relative;
+  left:25px;
 }
 .notificationProPic{
   height: 60px;
@@ -74,19 +78,8 @@
 }
 .notificationPic{
   color:#2FC1D2;
-}
-.notificationText{
-  display:inline-block;
-  text-align:left;
-  width:180px;
-  padding:bottom:5px;
-  margin-left:10px;
-  font-size:16px;
-}
-.notificationTime{
-  display:inline-block;
-  font-size:14px;
-  text-align:left;
-  width:45px;
-  color: #8B8B8C;
+  width:20px;
+  height:20px;
+  font-size:1.2em;
+  float:left;
 }

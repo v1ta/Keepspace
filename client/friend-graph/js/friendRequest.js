@@ -1,12 +1,12 @@
 Template.header.onRendered(function(event) {
-    Session.set('showFriendPage', false);
+    // Session.set('showFriendPage', false);
     Session.set("friendSearchString", false);
     $(document).mouseup(function (e){
         if (!$("#friendRequests").is(e.target) // if the target of the click isn't the container...
             && $("#friendRequests").has(e.target).length === 0) // ... nor a descendant of the container
         {
             // $("#friendRequests").hide();
-            Session.set("showFriendPage", false);
+            // Session.set("showFriendPage", false);
         }
     });
     // $(document).keyup(function (e) {
@@ -17,9 +17,9 @@ Template.header.onRendered(function(event) {
 });
 
 Template.header.helpers({
-    showFriendPage: function(){
-        return Session.get("showFriendPage");
-    },
+    // showFriendPage: function(){
+    //     return Session.get("showFriendPage");
+    // },
 });
 
 Template.friendRequestPage.events({
@@ -64,13 +64,28 @@ Template.friendRequestPage.helpers({
             ]
         });
         // console.log(Meteor.users.findOne("M3EaWLmSDBCPuZ2w8"))
-        // console.log(results);
-        return results;
+        // console.log("friend request results:");
+        // console.log(results.fetch());
+        // return results;
+        var ready = Meteor.subscribe('friendRequests').ready();
+        // console.log(ready);
+        return {
+              data: results,
+              ready: ready
+          };
+    },
+    friends: function(){
+        var ready = Meteor.subscribe('friends').ready();
+        var data = getFriendsAsUsers();
+        return{
+            data: data,
+            ready: ready
+        };
     },
     isOutgoing: function(requesterId){
         var userId = Meteor.userId();
         if (requesterId == userId){
-            console.log("true");
+            // console.log("true");
             return true;
         }
         else{
@@ -80,6 +95,9 @@ Template.friendRequestPage.helpers({
     mutualFriends: function(requesterId){
         // var myFriends =  getFriendIds();
         // theirFriendsAsUsers = Meteor.users.findOne("M3EaWLmSDBCPuZ2w8").friendsAsUsers().fetch();
+        // console.log("mutual friends:");
+        // console.log(getFriendIds());
+        // console.log(requesterId);
         Meteor.call("commonFriends", requesterId, function(returnValue){
             if (err)
                 console.log(err);
@@ -93,9 +111,11 @@ Template.friendRequestPage.helpers({
             if (err)
                 console.log(err);
             else{
-                console.log(data);
+                // console.log("num friends:");
+                // console.log(data);
+                // console.log(friendId);
                 Session.set(friendId, data);
-                console.log(Session.get(friendId));
+                // console.log(Session.get(friendId));
             }
         };
         numFriends = Meteor.call('numFriends',friendId, callback);
@@ -114,7 +134,7 @@ Template.friendRequestPage.helpers({
         users = searchUsers(Session.get("searchString")).fetch();
         friends = getFriendIds();
         // console.log(users);
-        console.log(friends);
+        // console.log(friends);
 
         topResults = [];
         theRest = [];
@@ -136,7 +156,7 @@ Template.friendRequestPage.helpers({
                 }
             }
         }
-        console.log(Meteor.users.find().fetch());
+        // console.log(Meteor.users.find().fetch());
         return $.merge(topResults, theRest);
     }
 });
