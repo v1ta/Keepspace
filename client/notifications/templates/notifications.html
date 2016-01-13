@@ -4,7 +4,7 @@
 		<!-- <p id="markAsRead">Mark all as read</p> -->
       	<div id="notificationTable">
 
-      		<div class="notificationRow">
+      		<!-- <div class="notificationRow">
       			<img class="notificationProPic" alt="" src="http://graph.facebook.com/1121221677891219/picture/?height=200&amp;width=200">
             <div class="notificationDetails">
         			<p class="notificationText"><strong>Amar Hansen</strong> collected your post: "Every little thing will be ok."</p>
@@ -31,12 +31,12 @@
               <img class="notificationPic" src="/images/bubbleonly.png">
               <p class="notificationTime"> 2 min ago </p>
             </div>
-          </div>
+          </div> -->
 
           {{#with notifications}}
             {{#if ready}}
             	{{#each data}}
-                  <div class="{{classNames}}">
+                  <div class="{{classNames}}" data-action="read">
                     <img class="notificationProPic" alt="" src="{{picture}}">
                     <div class="notificationDetails">
                       <p class="notificationText"><strong>{{username}}</strong>{{notification}}</p>

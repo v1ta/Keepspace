@@ -9,7 +9,7 @@ Template.notifications.helpers({
         
         var counter = 0;
         notifications.forEach(function (notification) {  
-        	console.log("single");  
+        	// console.log("single");  
             console.log(notification);     
             counter += 1;
 
@@ -34,19 +34,20 @@ Template.notifications.helpers({
             element.timeString = timeString;
             element.username = user.username;
             element.type = notification.type;
+            element._id = notification._id;
             if (counter % 2 == 0){
             	element.classNames = "notificationRow evenRow";
             }
             else{
             	element.classNames = "notificationRow";
             }
-            if (notification.seen){
+            if (notification.read){
             	element.statusName = "notificationStatus read";
             }
             else{
             	element.statusName = "notificationStatus unread";
             }
-            result.push(element);
+            result.unshift(element);
             // if (notification.type == "acceptRequest")
             //     sAlert.success(user.username + ' accepted your friend request!', {position: 'bottom'});
             // else
@@ -94,3 +95,12 @@ function getTimeString(diffHours){
     }
     return timeString;
 }
+
+Template.notifications.events({
+	'click [data-action=read]': function() {
+		Meteor.call("readNotification", this._id);
+    },
+});
+
+
+
