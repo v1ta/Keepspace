@@ -6,12 +6,8 @@ Meteor.publish("friends", function (options) {
     if(!this.userId){
         return this.ready();
     }
-
     options = options || {};
-
-    //only allow the limit and skip options
     options = _.pick(options, "limit", "skip", "sort");
-
     Meteor.publishWithRelations({
         handle: this,
         collection: Meteor.friends,
@@ -29,12 +25,8 @@ Meteor.publish('friendRequests', function(options){
     if(!this.userId){
         return this.ready();
     }
-
     options = options || {};
-
-    //only allow the limit and skip options
     options = _.pick(options, "limit", "skip", "sort");
-
     Meteor.publishWithRelations({
         handle: this,
         collection: Meteor.requests,
@@ -53,12 +45,8 @@ Meteor.publish('ignoredFriendRequests', function(options){
     if(!this.userId){
         return this.ready();
     }
-
     options = options || {};
-
-    //only allow the limit and skip options
     options = _.pick(options, "limit", "skip", "sort");
-
     Meteor.publishWithRelations({
         handle: this,
         collection: Meteor.requests,
@@ -77,12 +65,8 @@ Meteor.publish('outgoingFriendRequests', function(options){
     if(!this.userId){
         return this.ready();
     }
-
     options = options || {};
-
-    //only allow the limit and skip options
-    options = _.pick(options, "limit", "skip", "sort");
-
+    options = _.pick(options, "limit", "skip", "sort"); //only allow the limit and skip options
     Meteor.publishWithRelations({
         handle: this,
         collection: Meteor.requests,

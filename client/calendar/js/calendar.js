@@ -1,5 +1,4 @@
-//calendar loading
-Template.calendar.onRendered(function () {
+Template.calendar.onRendered(function () { //calendar loading
     if (!this._rendered) {
         this._rendered = true;
         var date = new Date();
@@ -14,8 +13,7 @@ Template.calendar.onRendered(function () {
 });
 
 Template.calendar.onDestroyed(function () {
-    // Cleanup canvas
-    feedStage.destroyChildren();
+    feedStage.destroyChildren(); // Cleanup canvas
     feedStage.destroy();
 })
 
@@ -50,29 +48,23 @@ Template.calendar.events({
     }
 });
 
-//load the calendar
-function loadCalendar(date, shouldSelect) {
+function loadCalendar(date, shouldSelect) { //load the calendar
     var tbody = $(".datepicker-body");
     tbody.empty();
     var day = 01;
-    //if this is true, want to highlight the current date
-    if (shouldSelect) {
+    if (shouldSelect) { //if this is true, want to highlight the current date
         day = date.getDate();
     }
     var month = date.getMonth(); // read the current month
     var year = date.getFullYear(); // read the current year
     var dt = new Date(year, month, 01);//Year , month,date format
-
     var first_day = dt.getDay(); //, first day of present month
-
     dt.setMonth(month + 1, 0); // Set to next month and one day backward.
     var last_date = dt.getDate(); // Last date of present month
-
     var dy = 1; // day variable for adjustment of starting date.
     var string = "";
     var numAdded = 0; //count actual days added. 
     var selectedDay = 0;
-
     if (!shouldSelect) {
         var selectedDate = new Date(localStorage.getItem("selectedDate"));
         console.log(selectedDate);
@@ -80,7 +72,6 @@ function loadCalendar(date, shouldSelect) {
         var selectedYear = selectedDate.getFullYear();
         var curMonth = dt.getMonth();
         var curYear = dt.getFullYear();
-
         if (selectedMonth == curMonth && selectedYear == curYear) {
             selectedDay = selectedDate.getDate();
         }
@@ -106,7 +97,7 @@ function loadCalendar(date, shouldSelect) {
         else {
             string = string.concat("<td class=empty> </td>");
         } // Blank dates.
-    } // end of for loop
+    }
 
     string.concat("</tr>")
     tbody.append(string);
@@ -114,9 +105,8 @@ function loadCalendar(date, shouldSelect) {
     dt.setDate(day);
     setCalText(dt, true, shouldSelect);
 }
-//show posts for a given day
-function getCalFeed(date) {
 
+function getCalFeed(date) { //show posts for a given day
     var startDate = new Date(date);
     startDate.setSeconds(0);
     startDate.setHours(0);
@@ -125,7 +115,6 @@ function getCalFeed(date) {
     dateMidnight.setHours(23);
     dateMidnight.setMinutes(59);
     dateMidnight.setSeconds(59);
-
     feedStage = {};
     renderFeed('#calFeed', 'calFeed-container', 'single',
         Thoughts.find({
@@ -145,10 +134,9 @@ function getCalFeed(date) {
             ]
         }, {sort: {createdAt: -1}}).fetch()
     );
-
 }
-//set calendar feed header + calendar month/year
-function setCalText(date, setCal, setHead) {
+
+function setCalText(date, setCal, setHead) { //set calendar feed header + calendar month/year
     var monthNames = ["January", "February", "March", "April", "May", "June",
         "July", "August", "September", "October", "November", "December"];
     var year = date.getFullYear().toString();
@@ -158,8 +146,9 @@ function setCalText(date, setCal, setHead) {
         $("#monthTitle").text(month);
         $("#yearTitle").text(year);
     }
-    if (setHead)
+    if (setHead) {
         $("#calFeedHead").text("Day " + (date.getDOY()));
+    }
 }
 //get date for previous or next month
 //val is number of days to change by
@@ -173,15 +162,12 @@ function getDate(val, string) {
     var newDate = new Date(1970, 0, 1);
     newDate.setSeconds(calendarDate / 1000);
     if (val) {
-        //this means set year
-        if (Math.abs(val) == 100) {
+        if (Math.abs(val) == 100) { //this means set year
             newDate.setYear(newDate.getYear() + val / 100 + 1900);
-        }
-        else {
+        } else {
             newDate.setDate(newDate.getDate() + val);
         }
-    }
-    else {
+    } else {
         newDate.setDate(newDate.getDate());
     }
     localStorage.setItem("displayDate", $.format.date(newDate, "M d yyyy"));

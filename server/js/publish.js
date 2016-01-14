@@ -3,9 +3,7 @@ Meteor.startup(function () {
   Accounts.emailTemplates.siteName = 'mykeepspace';
 });
 
-// Only publish thoughts that are public or belong to the current user
-Meteor.publish("thoughts", function () {
-
+Meteor.publish("thoughts", function () { // Only publish thoughts that are public or belong to the current user
     return Thoughts.find({
         $or: [
             { private: {$ne: true} },
@@ -16,7 +14,6 @@ Meteor.publish("thoughts", function () {
 
 Meteor.publish("users", function() {
     return Meteor.users.find({});
-
 });
 
 Meteor.publish("SearchUsers", searchUsers);

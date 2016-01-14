@@ -2,13 +2,10 @@ Meteor.subscribe("users");
 Meteor.subscribe("avatars");
 Meteor.subscribe("outgoingFriendRequests");
 Meteor.subscribe('ignoredFriendRequests');
-
 var thoughtsList = [];
 
-// Website has loaded
-window.onload = function(event){
-    //close dropdowns on outside click
-    $(document).mouseup(function (event){
+window.onload = function(event){ // Website has loaded
+    $(document).mouseup(function (event){ //close dropdowns on outside click
         var container = $(".dropdown-menu");
         // if the target of the click isn't the container... nor a descendant of the container
         if (!container.is(event.target) && container.has(event.target).length === 0){
@@ -25,14 +22,11 @@ window.onload = function(event){
     if (!configuration){
         getLocation()
     }
-
-    // Set countdown timer
-    setTime();
+    setTime(); // Set countdown timer
     Meteor.setInterval(setTime, 1000);
 }
 
 Template.friendFeed.helpers({
-
     friendPosts: function() {
         var start = new Date();
         var friends = getFriends();// TODO: Make this a session variable
@@ -56,7 +50,6 @@ Template.friendFeed.helpers({
         }
         return thoughts;
     },
-
     sharedPosts: function() {
          /* get thoughts you've shared to friends */
         var sharedThoughts = Thoughts.find({
@@ -67,7 +60,6 @@ Template.friendFeed.helpers({
         }, {sort: {createdAt: -1} });
         return sharedThoughts;
     }
-
 });
 
 Template.myFeed.helpers({
@@ -75,19 +67,6 @@ Template.myFeed.helpers({
         // Only find posts made after 00:00 of today
         var start = new Date();
         start.setHours(0,0,0,0);
-        // Get user's posts and collected posts, but not the one they shared
-        /*
-        thoughts = Thoughts.find({
-            $and: [
-                {_id: {$not: Meteor.user().profile.lastShared.thoughtId}},
-                {privacy: {$not: "friends"}},
-                {createdAt: {$gte:start}},
-                {$or: [
-                    {userId: Meteor.userId()},
-                    {collectedBy: Meteor.userId()}
-                ]}
-            ]}, { sort: {createdAt: -1} });
-        */
         var thoughts = Thoughts.find({
             $or: [
                 {$and: [
@@ -97,7 +76,6 @@ Template.myFeed.helpers({
                 {collectedBy: Meteor.userId()}
             ]
         });
-
         return thoughts;
     }
 });
@@ -106,18 +84,15 @@ Template.worldFeed.helpers({
     worldPosts: function () {
         // Only find posts made after 00:00 of today
         var start = new Date();
-        start.setHours(0,0,0,0);
-
-        // Get user's last shared thought from today, if it exists
         var thought, thoughts = [];
-
-        if (Meteor.user().profile.lastShared.date >= start) {
+        var friendIds = getFriends();
+        start.setHours(0,0,0,0);
+        if (Meteor.user().profile.lastShared.date >= start) {// Get user's last shared thought from today, if it exists
             thought = Thoughts.findOne(Meteor.user().profile.lastShared.thoughtId);
             if (thought && thought.privacy === 'public') {
                 thoughts.push(thought);
             }
         }
-        var friendIds = getFriends();
         thoughts = thoughts.concat(Thoughts.find({
                 $and: [
                     {createdAt: {$gte:start}},
@@ -129,8 +104,6 @@ Template.worldFeed.helpers({
                     ]}
                 ]},
             { sort: {createdAt: -1} }).fetch());
-
-
         return thoughts;
     },
     sharedPosts: function() {
@@ -163,9 +136,6 @@ Template.home.helpers({
     },
     posts: function(event){
         var thoughts = Thoughts.find({}, {sort: {createdAt: -1}});
-        console.log(thoughts.fetch());
-        console.log(Meteor.user().username);
-        console.log("zooddady");
         return thoughts
     },
     showFriendFeed: function() {
@@ -177,7 +147,6 @@ Template.home.onRendered(function(){
     Session.setDefault('showFriendFeed', true);
     Session.setDefault('centerfeed', thoughtsList)
     Session.set('showFriendFeed', true);
-    console.log('set showFriendFeed');
 
     $("#newThoughtBox").keypress(function(e) {
         var code = (e.keyCode ? e.keyCode : e.which);
@@ -202,18 +171,11 @@ Template.home.events({
                     console.log(err);
                 }
                 var thought = Thoughts.findOne({_id:data});
-                // Add a new bubble
-                //var thoughtsList = Session.get('centerfeed');
                 thoughtsList.push(thought);
-                //Session.set('centerfeed', thoughtsList);
-                //addThoughtsToStage([thought], 'center');
             });
 
         // Clear form
         $("#newThoughtBox").val("");
-
-        // Prevent default form submit
-
         return false;
     },
     'click #btn-user-data': function(event) {
@@ -235,17 +197,6 @@ Template.home.events({
             }
             else{
                 var posts = data["data"];
-                console.log(data);
-
-
-
-                // var thoughtId = Meteor.call("addPost", posts[0],function(err, data) {
-                //     if (err){
-                //         console.log(err);
-                //     }
-                //     console.log(data)
-                // });
-                // getLocationThought(thoughtId)
                 return false;
             }
         });
@@ -282,8 +233,6 @@ Template.home.events({
     }
 });
 
-// Accounts
-//
 Accounts.ui.config({
     passwordSignupFields: "USERNAME_ONLY",
     requestPermissions: {
@@ -292,8 +241,6 @@ Accounts.ui.config({
     }
 });
 
-// Helper Functions
-//
 function getLocation(event) {
     if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(function(position){
@@ -303,6 +250,7 @@ function getLocation(event) {
         console.log("Geolocation is not supported by this browser.");
     }
 }
+
 function showLocationError(error) {
     switch(error.code) {
         case error.PERMISSION_DENIED:
@@ -320,9 +268,7 @@ function showLocationError(error) {
     }
 }
 
-
-//set time in header
-function setTime(){
+function setTime(){ //set time in header
     var actualTime = new Date(Date.now());
     var endOfDay = new Date(actualTime.getFullYear(), actualTime.getMonth(), actualTime.getDate() + 1, 0, 0, 0);
     var totalSec = Math.floor((endOfDay.getTime() - actualTime.getTime())/1000);
@@ -348,21 +294,3 @@ resetAllFeeds = function () {
 getFriends = function() {
     return Meteor.friends.find({userId:Meteor.userId()}).fetch();
 }
-/*
-getFriendsAsUsers = function() {
-    var friends = Meteor.friends.find();
-    var friendsAsUsers = [];
-    friends.forEach(function (friend) {
-        friendsAsUsers.push(friend.user());
-    });
-    return friendsAsUsers;
-}
-
-getFriendIds = function() {
-    var friends = getFriendsAsUsers();
-    var friendIds = [];
-    for (var i = 0; i < friends.length; i++) {
-        friendIds.push(friends[i]._id);
-    }
-    return friendIds;
-}*/

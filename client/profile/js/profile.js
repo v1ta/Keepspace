@@ -42,11 +42,9 @@ Template.profile.helpers({
             console.log(notification);     
             var user = Meteor.users.findOne({_id:notification.friendId});
             var element = {};
-
             if (notification.type == "acceptRequest"){
                 element.notification = user.username + " accepted your friend request!";
-            }
-            else{
+            } else {
                 element.notification = user.username + ' collected your thought!';
             }
             var date = new Date();
@@ -58,31 +56,25 @@ Template.profile.helpers({
                 var numMinutes = Math.floor(diffHours);
                 if (numMinutes == 1){
                     timeString = numMinutes.toString() + " min";
-                }
-                else{
+                } else {
                     timeString = numMinutes.toString() + " mins";
                 }
-            }
-            else if (diffHours > 24){
+            } else if (diffHours > 24){
                 diffHours = diffHours / 24;
                 var numDays = Math.floor(diffHours);
                 if (numDays == 1){
                     timeString = numDays.toString() + " day";
-                }
-                else{
+                } else {
                     timeString = numDays.toString() + " days";
                 }
-            }
-            else{
+            } else {
                 var numHours = Math.floor(diffHours);
                 if (numHours == 1){
                     timeString = numHours.toString() + " hr";
-                }
-                else{
+                } else {
                     timeString = numHours.toString() + " hrs";
                 }
             }
-
             element.timeString = timeString;
             element.username = user.username;
             element["type"] = notification.type;

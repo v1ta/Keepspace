@@ -1,3 +1,11 @@
+var count = Counts.get('Notifications-Counter');
+Session.set('count', count);
+
+Tracker.autorun(function () {
+    Session.get('count');
+    getNotifications();
+});
+
 Meteor.startup(function () {
 
     sAlert.config({
@@ -10,15 +18,6 @@ Meteor.startup(function () {
         offset: 0
     });
 
-});
-
-var count = Counts.get('Notifications-Counter');
-Session.set('count', count);
-//Meteor.subscribe("Notifications");
-
-Tracker.autorun(function () {
-    Session.get('count');
-    getNotifications();
 });
 
 function getNotifications() {

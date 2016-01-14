@@ -13,26 +13,24 @@ Meteor.methods({
 })
 
 Accounts.onCreateUser(function(options, user){
-    
     if (options.profile){
         user.profile = options.profile; 
         user.username = ( user.username || options.profile.name );
-        if (user.services.facebook)
+        if (user.services.facebook) {
             options.profile.picture = "http://graph.facebook.com/" + user.services.facebook.id + "/picture/?height=200&width=200";
-        else
+        } else {
             options.profile.picture = "/avatars/default.png";
+        }
         user.profile = options.profile;
     } else {
         user.profile = {};
         user.profile.picture = "/avatars/default.png";
         user.username = ( user.username || user.emails[0].address);
     }
-
     user.profile.collects = 0;
     user.profile.lastShared = {
         date: 0,
         thoughtId: 0
     };
-
     return user;
 });

@@ -22,25 +22,19 @@ Template.friendRequestPage.events({
     },
     'click [data-action=deny]': function() {
         var result = confirm("Are you sure you don't want to be friends?");
-        if (result){
+        if (result) {
             this.deny();
         }
-        else{
-            
-        }
     },
-    // user object methods
-    'click [data-action=unfriend]': function() {
-        //assumes context is a instance of a user
-        var result = confirm("Are you sure you want to end your friendship?");
+    'click [data-action=unfriend]': function() { // user object methods
+
+        var result = confirm("Are you sure you want to end your friendship?"); //assumes context is a instance of a user
         if (result){
             this.unfriend();
         }
-        else{
-            
-        }
     },
 })
+
 Template.friendRequestPage.helpers({
     friendRequests: function() {
         var results =  Meteor.requests.find({
@@ -55,8 +49,7 @@ Template.friendRequestPage.helpers({
         var userId = Meteor.userId();
         if (requesterId == userId){
             return true;
-        }
-        else{
+        } else {
             return false;
         }
     }

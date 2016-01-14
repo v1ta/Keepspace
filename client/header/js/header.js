@@ -1,4 +1,3 @@
-//header functions
 Template.header.events({
     /*'click #postButton': function(e) {
      if ($("#tempForm").css("display") === "none") {
@@ -21,7 +20,6 @@ Template.header.events({
     'click #settingsButton': function(event){
         console.log(Meteor.user());
         event.preventDefault();
-        // console.log($("#settingDropDown").css("display"));
         // $("#settingDropDown").toggle();
         if ($("#settingDropDown").css("display") == "none"){
             $("#settingDropDown").css("display", "inline-block");
@@ -72,15 +70,13 @@ Template.header.events({
                     // $("#changePassword").hide();
                 }
                 else{
-                    console.log("success");
                     Session.set("showChangePassword", false);
                     // $("#changePassword").hide();
                 }
             });
         }
         else{
-            //TODO Send error to user
-            alert("Passwords no not match");
+            alert("Passwords no not match"); //TODO Send error to user
             Session.set("showChangePassword", false);
             // $("#changePassword").hide();
         }
@@ -183,9 +179,11 @@ Template.header.helpers({
         return Session.get("showChangePassword");
     }
 });
+
 Template.header.onCreated(function(event) {
     $(window).resize(function() { setMidPadding(); });
 });
+
 Template.header.onDestroyed(function(event) {
     $(window).off('resize');
 });
@@ -203,10 +201,9 @@ Template.header.onRendered(function(event) {
     var loggedIn = localStorage.getItem("justLoggedIn");
     if (loggedIn == "true"){
         var rand = Math.random();
-        if (rand < 0.33){
+        if (rand < 0.33) {
             showOldPost();
         }
-
         localStorage.setItem("justLoggedIn", "false");
     };
     $(document).mouseup(function (e){
@@ -250,11 +247,9 @@ Template.profile.helpers({
             console.log(notification);
             var user = Meteor.users.findOne({_id:notification.friendId});
             var element = {};
-
             if (notification.type == "acceptRequest"){
                 element.notification = user.username + " accepted your friend request!";
-            }
-            else{
+            } else {
                 element.notification = user.username + ' collected your thought!';
             }
             var date = new Date();
@@ -266,8 +261,7 @@ Template.profile.helpers({
                 var numMinutes = Math.floor(diffHours);
                 if (numMinutes == 1){
                     timeString = numMinutes.toString() + " min";
-                }
-                else{
+                } else {
                     timeString = numMinutes.toString() + " mins";
                 }
             }
@@ -276,21 +270,17 @@ Template.profile.helpers({
                 var numDays = Math.floor(diffHours);
                 if (numDays == 1){
                     timeString = numDays.toString() + " day";
-                }
-                else{
+                } else {
                     timeString = numDays.toString() + " days";
                 }
-            }
-            else{
+            } else {
                 var numHours = Math.floor(diffHours);
                 if (numHours == 1){
                     timeString = numHours.toString() + " hr";
-                }
-                else{
+                } else {
                     timeString = numHours.toString() + " hrs";
                 }
             }
-
             element.timeString = timeString;
             element.username = user.username;
             element["type"] = notification.type;
@@ -310,8 +300,7 @@ Template.profile.events({
     'change #new-picture': function(event, template) {
         FS.Utility.eachFile(event, function(file) {
             Avatars.insert(file, function (err, fileObj) {
-                // Inserted new doc with ID fileObj._id, and kicked off the data upload using HTTP
-                if (err) {
+                if (err) { // Inserted new doc with ID fileObj._id, and kicked off the data upload using HTTP
                     console.log(err);
                 } else {
                     $('#upload-picture').modal('hide');
@@ -340,7 +329,7 @@ function setMidPadding() {
 function showOldPost(){
     rand = Math.floor(Math.random() * 100000000) + 1;
     result = Thoughts.findOne( { userId:Meteor.userId(), randomIndex : { $gte : rand } } );
-    if ( result == null ) {
+    if (result == null) {
         result = Thoughts.findOne( { userId:Meteor.userId(), randomIndex : { $lte : rand } } );
     }
     var time = result.createdAt;
@@ -355,7 +344,6 @@ function showOldPost(){
     $(".oldPostTime").text(time);
     $(".oldPostText").text(text);
     $("#mainAlert").show();
-
     $(".alertBubble").click(function(event){
         event.stopPropagation();
     });
@@ -363,7 +351,6 @@ function showOldPost(){
     $(".closeAlert").click(closeAlert);
 }
 
-// Handlers for showing and hiding main menu
 showMainMenu = function(event) {
     // $("#logo").css({"border-bottom-right-radius": "0",
     //                 "border-bottom-left-radius" : "0",
@@ -372,6 +359,7 @@ showMainMenu = function(event) {
     // $("#homeLogo").css("background-color", "#f9f9f9");
     $("#main-menu").slideDown('fast');
 }
+
 hideMainMenu = function(event) {
     $("#main-menu").slideUp('fast', function() {
         $("#logo").css({"border-radius": "5px", "background-color": ""});

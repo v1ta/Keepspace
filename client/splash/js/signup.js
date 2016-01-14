@@ -48,24 +48,17 @@ Template.beta_email_invite.rendered = function() {
 Template.beta_email_invite.events({
     'submit form': function (event) {
         event.preventDefault();
-
     },
     'click #signupButton': function (event){
         event.preventDefault();
         $('#verify').submit();
         $('#navSignupEmail').val("");
-
     }
 });
 
-
-//custom login/register functionas
-Template.signupPage.events({
-    //login with facebook
-
-    'click #login-buttons-facebook': function(){
-        Meteor.loginWithFacebook(
-            {requestPermissions: ['email', 'user_friends', 'user_location', 'user_status',
+Template.signupPage.events({//custom login/register functions
+    'click #login-buttons-facebook': function() { //login with facebook
+        Meteor.loginWithFacebook({requestPermissions: ['email', 'user_friends', 'user_location', 'user_status',
                 'user_posts','publish_actions']}, 
             function(err){
                 if (!err){
@@ -74,8 +67,7 @@ Template.signupPage.events({
                     resetAllFeeds();
                     Router.go("home");
                   // $("#changePassword").hide();
-                }
-                else{
+                } else {
                   console.log(err);
                 }
             }
@@ -88,30 +80,25 @@ Template.signupPage.events({
         var repeat = $("#passwordAgain").val();
         var emailValidate = validateEmail(userEmail);
         var validate = true;
-        if (passwordVar != repeat){
+        if (passwordVar != repeat) {
             //passwords don't match
             alert("Passwords don't match!");
             validate = false;
-        }
-        else if (!emailValidate){
+        } else if (!emailValidate) {
             alert("Please enter a valid email.");
             validate = false;
-        }
-        else{
-            Accounts.createUser(
-                {
+        } else {
+            Accounts.createUser({
                     username: userName,
                     email: userEmail,
                     password: passwordVar,
                     profile: {
                         dateOfBirth: DOB
                     }
-                }, 
-                function(err){
+                }, function(err) {
                     if (err){
                         alert(err);
-                    }
-                    else{
+                    } else {
                         localStorage.setItem("justLoggedIn", "true");
                         resetAllFeeds();
                         Router.go("home");
@@ -141,50 +128,33 @@ Template.signupPage.events({
         $(".backButton").hide();
         $("#splashTitle").css("margin-right", "0px");
     },
-    
 });
 
-
-// Validates that the input string is a valid date formatted as "mm/dd/yyyy"
-function isValidDate(dateString)
-{
-    // First check for the pattern
-    if(!/^\d{1,2}\/\d{1,2}\/\d{4}$/.test(dateString)){
+function isValidDate(dateString) { // Validates that the input string is a valid date formatted as "mm/dd/yyyy"
+    if (!/^\d{1,2}\/\d{1,2}\/\d{4}$/.test(dateString)) { // First check for the pattern
     	alert("Please enter a valid date of birth");
         return false;
     }
-
-    // Parse the date parts to integers
-    var parts = dateString.split("/");
+    var parts = dateString.split("/"); // Parse the date parts to integers
     var day = parseInt(parts[1], 10);
     var month = parseInt(parts[0], 10);
     var year = parseInt(parts[2], 10);
-
     var monthLength = [ 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 ];
-
-    // Adjust for leap years
-    if(year % 400 == 0 || (year % 100 != 0 && year % 4 == 0))
+    if(year % 400 == 0 || (year % 100 != 0 && year % 4 == 0)) { // Adjust for leap years
         monthLength[1] = 29;
-
+    }
     var now = new Date();
     var entered = new Date(year, month - 1, day);
-
-    // Check the ranges of month and year
-    if(year < 1000 || year > 3000 || month == 0 || month > 12){
+    if (year < 1000 || year > 3000 || month == 0 || month > 12) { // Check the ranges of month and year
     	alert("Please enter a valid date of birth");
         return false;
-    }
-    // Check the range of the day
-    else if(!(day > 0 && day <= monthLength[month - 1])) {
+    } else if (!(day > 0 && day <= monthLength[month - 1])) { // Check the range of the day
     	alert("Please enter a valid date of birth");
         return false;
-    }
-    //check if the day has already happened
-    else if (entered > now){
+    } else if (entered > now) { //check if the day has already happened
     	alert("Please enter a valid date of birth");
     	return false;
-    }
-    else{
+    } else {
     	return true;
     }
 };

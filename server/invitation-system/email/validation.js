@@ -4,9 +4,7 @@
  */
 (function () {
     var Future;
-
     Future = Npm.require('fibers/future');
-
     Meteor.methods({
         validateEmailAddress: function (address) {
             var validateEmail;
@@ -33,5 +31,4 @@
             return validateEmail.wait();
         }
     });
-
 }).call(this);

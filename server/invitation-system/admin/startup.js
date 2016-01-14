@@ -1,10 +1,7 @@
 Meteor.startup(function () {
-
     Accounts.emailTemplates.from = 'admin@thekeepspace.com';
     Accounts.emailTemplates.siteName = 'thekeepspace';
-
     var checkUser, i, id, len, results, user, users;
-
     users = [
         {
             name: "Keepspace  Administrator",
