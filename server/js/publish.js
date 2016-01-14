@@ -19,7 +19,6 @@ Meteor.publish("users", function() {
 
 });
 
-
 Meteor.publish("SearchUsers", searchUsers);
 
 Meteor.publish("Notifications", function() {

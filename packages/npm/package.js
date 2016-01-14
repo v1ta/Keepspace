@@ -24,9 +24,9 @@ Package.on_use(function (api, where) {
 
   var packagesFile = './.meteor/packages';
   if(fs.existsSync(packagesFile) && isNewerMeteor) {
-    api.add_files(['index.js', '../../packages.json'], 'server');
+    api.addAssets(['index.js', '../../packages.json'], 'server');
   } else {
-    api.add_files(['index.js'], 'server');
+    api.addAssets(['index.js'], 'server');
   }
 
   function isNewerMeteor() {

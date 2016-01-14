@@ -49,13 +49,11 @@ Template.friendRequestPage.helpers({
                 {requesterId:Meteor.userId()}
             ]
         });
-        console.log(results.fetch());
         return results;
     },
     isOutgoing: function(requesterId){
         var userId = Meteor.userId();
         if (requesterId == userId){
-            console.log("true");
             return true;
         }
         else{

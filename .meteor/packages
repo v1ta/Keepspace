@@ -4,7 +4,6 @@
 # 'meteor add' and 'meteor remove' will edit this file for you,
 # but you can also edit it by hand.
 
- meteor-platform                               
  accounts-facebook
  accounts-password
  accounts-ui
@@ -14,7 +13,6 @@
  insecure
  meteorhacks:search-source
  meteorhacks:kadira
- npm-container
  matb33:collection-hooks
  underscore
 jquery
@@ -46,3 +44,16 @@ random
 juliancwirko:s-alert-genie
 mrt:moment
 check
+standard-minifiers
+meteor-base
+mobile-experience
+blaze-html-templates
+session
+tracker
+logging
+reload
+ejson
+spacebars
+
+
+npm-container

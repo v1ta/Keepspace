@@ -32,38 +32,42 @@ window.onload = function(event){
 }
 
 Template.friendFeed.helpers({
+
     friendPosts: function() {
-        // Only find posts made after 00:00 of today
         var start = new Date();
-        start.setHours(0,0,0,0);
-        // TODO: Do better than O(n)?
-        var friends = getFriendsAsUsers();
-        /*
-        var thought, thoughts = [];
-        // Get user's last shared thought from today, if it exists
-        if (Meteor.user().profile.lastShared.date >= start) {
-            thought = Thoughts.findOne(Meteor.user().profile.lastShared.thoughtId);
-            if (thought && thought.privacy === 'friends') {
-                thoughts.push(thought);
+        var friends = getFriends();// TODO: Make this a session variable
+        var thought = [], thoughts = [];
+        start.setHours(0,0,0,0);// Only find posts made after 00:00 of today
+        /* return: thoughts shared by friends - thoughts you've already collected from them. */
+        for (var i = 0; i < friends.length; i++) {
+            thought = Thoughts.find({
+                $and: [
+                    {userId: friends[i].friendId,privacy: "friends"},
+                    {userId:
+                        {$ne: Meteor.userId()}
+                    }
+                ]
+            }).fetch();
+            for(var j = 0; j < thought.length; j += 1) {
+                if (thought[j] && thought[j].collectedBy.indexOf(Meteor.userId()) === -1) {
+                    thoughts.push(thought[j]);
+                }
             }
         }
-        for (var i = 0; i < friends.length; i++) {
-            thought = Thoughts.findOne(friends[i].profile.lastShared.thoughtId);
-            if (thought && thought.collectedBy.indexOf(Meteor.userId()) === -1) {
-                thoughts.push(thought);
-            };
-        }
+        return thoughts;
+    },
 
-        /* get thoughts you've shared to friends */
+    sharedPosts: function() {
+         /* get thoughts you've shared to friends */
         var sharedThoughts = Thoughts.find({
             $and: [
                 {userId: Meteor.userId()},
                 {privacy: "friends"}
             ]
         }, {sort: {createdAt: -1} });
-        //return thoughts;
         return sharedThoughts;
     }
+
 });
 
 Template.myFeed.helpers({
@@ -84,13 +88,16 @@ Template.myFeed.helpers({
                 ]}
             ]}, { sort: {createdAt: -1} });
         */
-
         var thoughts = Thoughts.find({
-            $and: [
-                {userId: Meteor.userId()},
-                {privacy: "private"}
+            $or: [
+                {$and: [
+                    {userId: Meteor.userId()},
+                    {privacy: "private"}
+                ]},
+                {collectedBy: Meteor.userId()}
             ]
         });
+
         return thoughts;
     }
 });
@@ -102,15 +109,15 @@ Template.worldFeed.helpers({
         start.setHours(0,0,0,0);
 
         // Get user's last shared thought from today, if it exists
-        //var thought, thoughts = [];
-        /*
+        var thought, thoughts = [];
+
         if (Meteor.user().profile.lastShared.date >= start) {
             thought = Thoughts.findOne(Meteor.user().profile.lastShared.thoughtId);
             if (thought && thought.privacy === 'public') {
                 thoughts.push(thought);
             }
         }
-        var friendIds = getFriendIds();
+        var friendIds = getFriends();
         thoughts = thoughts.concat(Thoughts.find({
                 $and: [
                     {createdAt: {$gte:start}},
@@ -122,16 +129,20 @@ Template.worldFeed.helpers({
                     ]}
                 ]},
             { sort: {createdAt: -1} }).fetch());
-        */
-        var worldThoughts = Thoughts.find({
+
+
+        return thoughts;
+    },
+    sharedPosts: function() {
+        /* get thoughts you've shared to friends */
+        var sharedThoughts = Thoughts.find({
             $and: [
                 {userId: Meteor.userId()},
                 {privacy: "public"}
             ]
-        });
+        }, {sort: {createdAt: -1} });
 
-
-        return worldThoughts;
+        return sharedThoughts;
     }
 });
 
@@ -334,6 +345,10 @@ resetAllFeeds = function () {
     delete Session.keys['rightqueue'];
 }
 
+getFriends = function() {
+    return Meteor.friends.find({userId:Meteor.userId()}).fetch();
+}
+/*
 getFriendsAsUsers = function() {
     var friends = Meteor.friends.find();
     var friendsAsUsers = [];
@@ -350,4 +365,4 @@ getFriendIds = function() {
         friendIds.push(friends[i]._id);
     }
     return friendIds;
-}
+}*/

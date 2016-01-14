@@ -23,13 +23,16 @@ Tracker.autorun(function () {
 
 function getNotifications() {
     if (Counts.get('Notifications-Counter') > 0) {
-        var notfications = Notifications.find({seen: false}).fetch();
+        var notfications = Notifications.find({userId: Meteor.userId(),seen: false}).fetch();
         notfications.forEach(function (notification) {
             var user = Meteor.users.findOne({_id: notification.friendId});
-            if (notification.type == "acceptRequest")
+            console.log(Meteor.userId());
+            console.log(notification);
+            if (notification.type == "acceptRequest") {
                 sAlert.success(user.username + ' accepted your friend request!', {position: 'bottom'});
-            else
+            } else if (notification.friendId != Meteor.userId()) {
                 sAlert.success(user.username + ' collected your thought!', {position: 'bottom'});
+            }
         });
         Meteor.call("seeNotifications", Meteor.userId());
     }

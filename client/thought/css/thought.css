@@ -59,7 +59,7 @@ input.button-add {
     z-index: 1;
 }
 
-.delete {
+.thought-action {
     margin-top: 0px;
     visibility: hidden;
     vertical-align: top;
@@ -68,4 +68,20 @@ input.button-add {
     border: 2px solid white;
     background-color: Transparent;
     background-repeat: no-repeat;
+}
+
+.delete-thought {
+
+}
+
+.collect-thought {
+
+}
+
+.hide-thought {
+
+}
+
+.unshare-thought {
+
 }
