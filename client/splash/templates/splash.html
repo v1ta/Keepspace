@@ -2,7 +2,7 @@
   <head>
     <title>Landy - Parallax App Landing Page</title>
     <meta charset="utf-8" />
-    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=yes" name="viewport">
     <!-- CSS 
         ================================================== -->
     <!-- Bootstrap 3-->
@@ -20,37 +20,38 @@
 
     <!-- permanent navbar -->
     <nav class="navbar navbar-default" role="navigation">
-      <div class="container">
-        <div class="navbar-header">
-          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
-            <span class="sr-only">Toggle navigation</span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </button>
-          
-          <!--Replace text with your app name or logo image-->
-          <!-- <div id="logo" href="#"> -->
-            <img class="unselectable" id="splashLogo" src="/images/keepspaceLogoWhiteText.png">
-          <!-- </div> -->
-          
-        </div>
-        <div class="collapse navbar-collapse navbar-ex1-collapse">
-          <ul class="nav navbar-nav">
-            <li class="fixedHeadLi"><a onclick="$('header').animatescroll({padding:71});">TEAM</a></li>
-            <li class="fixedHeadLi"><a onclick="$('.detail').animatescroll({padding:71});">LOGIN</a></li>
-            <li class="fixedHeadLi"><a onclick="$('.features').animatescroll({padding:71});">SIGN UP</a></li>
-            <!-- <li><a onclick="$('.social').animatescroll({padding:71});">Social </a></li> -->
-          </ul>
-        </div>
-      </div>
+        <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+
+              <!--Replace text with your app name or logo image-->
+              <!-- <div id="logo" href="#"> -->
+                <img class="unselectable" id="splashLogo" src="/images/keepspaceLogoWhiteText.png">
+              <!-- </div> -->
+
+            </div>
+            <div class="collapse navbar-collapse navbar-ex1-collapse">
+              <ul class="nav navbar-nav">
+                <li class="fixedHeadLi"><a onclick="$('header').animatescroll({padding:71});">TEAM</a></li>
+                <li class="fixedHeadLi"><a onclick="$('.detail').animatescroll({padding:71});">LOGIN</a></li>
+                <li class="fixedHeadLi"><a onclick="$('.features').animatescroll({padding:71});">SIGN UP</a></li>
+                <!-- <li><a onclick="$('.social').animatescroll({padding:71});">Social </a></li> -->
+              </ul>
+            </div>
+          </div>
     </nav>
+
+
     
     
      <!-- HEADER
      ================================================== -->   
-    <header id="topSlide">
-      <div class="container" id="inslideHeader">
+    <header id="topSlide" style="width: 100%; padding: 15px;">
         <div class="navbar-header">
           <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
             <span class="sr-only">Toggle navigation</span>
@@ -65,24 +66,25 @@
           <!-- </div> -->
           
         </div>
-        <div class="collapse navbar-collapse navbar-ex1-collapse">
+        <div class="collapse navbar-collapse navbar-ex1-collapse" style="margin-bottom: 150px">
           <ul class="nav navbar-nav">
             <li id="teamLink"><a onclick="//$('header').animatescroll({padding:71});">TEAM</a></li>
             <li id="loginLink"><a onclick="//$('.detail').animatescroll({padding:71});">LOGIN</a></li>
             <li id="signupLink"><a onclick="//$('.features').animatescroll({padding:71});">SIGN UP</a></li>
             <!-- <li><a onclick="$('.social').animatescroll({padding:71});">Social </a></li> -->
           </ul>
-        </div>
       </div>
 
       <div class="container" id="mainSlide" style="">
         <div class="row">
           <div class="col-md-12">
             <h1>Don't let today disappear</h1>
-            <img style="margin-bottom:2%;" src="images/signupwithfbbutton.png" class="landingButton" id="facebookSignButton">
+            <!--<img style="margin-bottom:2%;" src="images/signupwithfbbutton.png" class="landingButton" id="facebookSignButton">-->
             <!-- <img src="images/signupbutton.png" id="facebookSignButton"> -->
-            <p> or </p>
-            <img src="images/signupherebutton.png" class="landingButton" id="goSignupButton">
+              <a class="waves-effect waves-light btn facebook-button"><i id="facebookSignButton"></i></a>
+              <p style="margin-top: 15px;"> or </p>
+              <a class="waves-effect waves-light btn signup-button" id="goSignupButton"><i></i></a>
+            <!--<img src="images/signupherebutton.png" class="landingButton" id="goSignupButton">-->
           </div>    
         </div>    
       </div>
@@ -102,7 +104,7 @@
 
             <div class="signOptions" id="navLoginOption" style="display:none">
                 <form class="myform">
-              <input class="loginForm" id="loginEmail" type="username" name="email"
+              <input class="loginForm" id="loginEmail" type="email" name="email"
               placeholder="your e-mail">
                 </form>
                 <form class="myform">
@@ -111,10 +113,14 @@
                 </form>
 
               <br>
-              <img src="images/gobutton.png" id="goButton">
+              <a class="waves-effect waves-light btn"
+                 style="float: right; margin-right: 12%; background-color: #32C0D2;" id="goButton">
+                  <i style="font-style: normal;">GO</i></a>
               <br>
-              <p style="margin-top:10%; color: rgba(0, 0, 0, 0.5);">or</p>
-                <img style="margin-bottom:2%;" src="images/signupwithfbbutton.png" class="landingButton" id="facebookSignButton">
+              <p style="margin-top:3%; margin-left: 28%; color: rgba(0, 0, 0, 0.5); display: inline-block; text-align: center">or</p>
+                <br>
+                <a class="waves-effect waves-light btn facebook-button" id="facebookSignButton"><i></i></a>
+                <!--<img style="margin-bottom:2%;" src="images/signupwithfbbutton.png" class="landingButton" id="facebookSignButton">-->
               <!--<p id="forgotPass">Forgot Password?</p> -->
                 <br>
                 <a class="center" href="{{pathFor 'recover-password'}}">Forgot Password?</a>

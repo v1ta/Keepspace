@@ -56,8 +56,14 @@
     margin-right: 22%;
 }
 #loginEmail{
+  font-size: 2rem;
   margin-top:7%;
 }
 #loginPassword{
   margin-top:5%;
+  font-size: 2rem;
+}
+.myform {
+    width: 80%;
+    display: inline-block;
 }

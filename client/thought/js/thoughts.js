@@ -5,7 +5,7 @@ Template.thought.onRendered(function() {
     var thought = this.data;
     var node = $('#' + thought._id);
     var radius = 75 * (thought.rank+1);
-    var container = this.firstNode.parentNode.id;
+    var container = this.firstNode.parentNode.classList[0];
     /* set css & available buttons based off starting feed */
     node.css({
         'height' : radius*2 + 'px',
@@ -19,11 +19,11 @@ Template.thought.onRendered(function() {
         node.children().get(4).className += " delete-thought";
     } else if ((container == "friendFeed" && thought.userId != Meteor.userId())
         || thought.collectedBy.includes(Meteor.userId()) && thought.privacy != "public") {
-        node.css({'background-color' : "#87CEFA"});
+        node.css({'background-color' : "#32C0D2"});
         node.children().get(4).className += " collect-thought";
         node.children().get(4).className += " hide-thought";
     } else {
-        node.css({'background-color' : "#FFA500"});
+        node.css({'background-color' : "#FAA43A"});
         node.children().get(4).className += " collect-thought";
         node.children().get(4).className += " hide-thought";
     }
@@ -86,7 +86,7 @@ Template.friendFeed.onRendered(function() {
      feed differs from the origin feed, update the privacy settings and append
      the thought to the new feed, else do nothing.
      */
-    $( "#friendFeed" ).droppable({
+    $( ".friendFeed" ).droppable({
         drop: function(event, ui) {
             if (event.target.id != feed && Thoughts.findOne({_id: thought_id}).userId == Meteor.userId()) {
                 Meteor.call("updatePrivacy", thought_id, "friends", Meteor.userId());
@@ -94,7 +94,7 @@ Template.friendFeed.onRendered(function() {
                     position: 'absolute',
                     top: ui.position.top - 95, //subtract height of header
                     left: ui.position.left
-                }).appendTo('#friendFeed'); //append to container
+                }).appendTo('.friendFeed'); //append to container
             }
         }
     });
@@ -106,7 +106,7 @@ Template.worldFeed.onRendered(function() {
      feed differs from the origin feed, update the privacy settings and append
      the thought to the new feed, else do nothing.
      */
-    $( "#worldFeed" ).droppable({ //set container droppable
+    $( ".worldFeed" ).droppable({ //set container droppable
         drop: function(event, ui) { //on drop
             if (event.target.id != feed && Thoughts.findOne({_id: thought_id}).userId == Meteor.userId()) {
                 Meteor.call("updatePrivacy", thought_id, "public", Meteor.userId());
@@ -114,7 +114,7 @@ Template.worldFeed.onRendered(function() {
                         position: 'absolute',
                         top: ui.position.top - 95, //subtract height of header
                         left: ui.position.left
-                    }).appendTo('#worldFeed'); //append to container
+                    }).appendTo('.worldFeed'); //append to container
             }
         }
     });

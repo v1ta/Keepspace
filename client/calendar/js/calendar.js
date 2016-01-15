@@ -98,14 +98,12 @@ function loadCalendar(date, shouldSelect) { //load the calendar
             string = string.concat("<td class=empty> </td>");
         } // Blank dates.
     }
-
     string.concat("</tr>")
     tbody.append(string);
     $(".selectedDate").addClass("datepicker-td");
     dt.setDate(day);
     setCalText(dt, true, shouldSelect);
 }
-
 function getCalFeed(date) { //show posts for a given day
     var startDate = new Date(date);
     startDate.setSeconds(0);

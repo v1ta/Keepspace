@@ -11,38 +11,42 @@
     {{> sAlert}}
     <div id="main-feed" class="container-fluid full-height unselectable">
         <div class="row feed-wrapper">
-            <!-- <div id="fullFeed-canvas"></div> -->
-            {{#with showFriendFeed}}
-                <div id="friendFeed" class="feed col-xs-6">
-                    <i class="fa fa-users feed-user-icon"><div class="badge success">{{currentUser.numRequests}}</div></i>
-                    {{>friendSearch}}
-                    <button class="btn toggleFriendFeed">Friends</button>
-                    <button class="btn toggleWorldFeed">World</button>
-                    <div class="feed-name unselectable">Friends</div>
-                    {{> friendFeed}}
-                </div>
-            {{/with}}
+            <div class="flip-container col-xs-6">
+                <div class="flipper" id="flipper">
+                {{#with showFriendFeed}}
+                    <div id="front" class="friendFeed feed front">
+                        <i class="fa fa-users feed-user-icon"><div class="badge success">{{currentUser.numRequests}}</div></i>
+                        {{>friendSearch}}
+                        <a class="waves-effect waves-light toggleFriendFeed"></a>
+                        <a class="waves-effect waves-light toggleWorldFeed"></a>
+                        <!-- <button class="btn toggleWorldFeed">World</button> -->
+                        <div class="feed-name unselectable">Friends</div>
+                        {{> friendFeed}}
+                    </div>
+                {{/with}}
 
-            {{#unless showFriendFeed}}
-                <div id="worldFeed" class="feed col-xs-6">
-                    <button class="btn toggleFriendFeed">Friends</button>
-                    <button class="btn toggleWorldFeed">World</button>
-                    <i class="fa fa-search feed-search-icon"></i>
-                    <form class="search">
-                        <input type="text" name="search" class="form-control" placeholder="find a thought" />
-                    </form>
-                    <!--
-                    <i class="fa fa-caret-down fa-lg world-dropdown"></i>
-                    <ul id="worldButtons">
-                      <li>Popular</li>
-                      <li>Random</li>
-                    </ul>
-                    -->
-                    <div class="feed-name unselectable">World</div>
-                    {{> worldFeed}}
-                </div>
+                {{#unless showFriendFeed}}
+                    <div id="back" class="worldFeed feed back">
+                        <a class="toggleFriendFeed waves-effect waves-light"></a>
+                        <a class="waves-effect waves-light toggleWorldFeed"></a>
+                        <!--<button class="btn toggleWorldFeed">World</button>-->
+                        <i class="fa fa-search feed-search-icon"></i>
+                        <form class="search">
+                            <input type="text" name="search" class="form-control" placeholder="find a thought" />
+                        </form>
+                        <!--
+                        <i class="fa fa-caret-down fa-lg world-dropdown"></i>
+                        <ul id="worldButtons">
+                          <li>Popular</li>
+                          <li>Random</li>
+                        </ul>
+                        -->
+                        <div class="feed-name unselectable">World</div>
+                        {{> worldFeed}}
+                    </div>
             {{/unless}}
-
+            </div>
+            </div>
             <!-- <div id="myFeed" class="feed col-xs-6 unselectable"> -->
                 <div id="myFeed" class="feed col-xs-6">
                 <div id="tempForm">
@@ -53,7 +57,7 @@
                             </div>
                             <div class="col-xs-8">
                                 <textarea id="newThoughtBox" class="form-control" name="text" rows="1" placeholder="How will you remember today?"></textarea>
-                                <button id="submit-new-thought" class="btn">Keep</button>
+                                <a id="submit-new-thought" class="btn-floating waves-light waves-effect">Keep</a>
                             </div>
                         </div>
                     </form>
@@ -62,7 +66,7 @@
                 <div id="expandedThoughtContent"></div>
                 {{> myFeed}}
             </div>
-        </div>
+            </div>
     </div>
 </template>
 

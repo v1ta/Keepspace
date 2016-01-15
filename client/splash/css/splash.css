@@ -52,6 +52,7 @@ header h1{
 }
 nav.navbar.fixed-to-top{
 	z-index:10;
+	height: 8%;
 }
 .navbar-default .navbar-nav>li>a{
 	margin-right:30px;
@@ -96,9 +97,14 @@ nav.navbar.fixed-to-top{
 	margin-bottom:5%;
 }
 #goSignupButton{
-	height:28px;
 	margin-top:1%;
 }
+
+#goButton {
+	text-decoration: none;
+	height: 35px;
+}
+
 #signupButton{
 	cursor:pointer;
 	height: 25px;
@@ -107,4 +113,41 @@ nav.navbar.fixed-to-top{
 }
 #navSignupEmail{
 	margin-top: 10%;
+	font-size: 2rem;
+}
+#navSignupEmail-error {
+	font-size: 2rem;
+}
+
+.facebook-button{
+	background-image: url("images/signupwithfbbutton.png");
+	background-repeat: no-repeat;
+	background-position: 100%;
+	background-color: #f9f9f9;
+	background-size: 192px auto;
+	height: 27px;
+	width: 192px;
+	border: none;
+}
+
+.signup-button {
+	background-image: url("images/signupherebutton.png");
+	background-repeat: no-repeat;
+	background-position: 100%;
+	background-color: #f9f9f9;
+	background-size: 140px auto;
+	height: 26px;
+	width: 140px;
+	border: none;
+}
+
+.signup-button-2 {
+	background-image: url("images/signupbutton.png");
+	background-repeat: no-repeat;
+	background-position: 100%;
+	background-color: transparent;
+	background-size: 81px auto;
+	height: 25px;
+	width: 81px;
+	border: none;
 }

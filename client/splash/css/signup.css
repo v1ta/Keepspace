@@ -18,6 +18,8 @@
 #verify{
 	margin-top:-7px;
 	position:relative;
+	display: inline-block;
+	width:80%;
 }
 #headeremail{
 	position:relative;
@@ -45,3 +47,4 @@
 	padding-top:30px;
 	padding-bottom:30px;
 }
+
