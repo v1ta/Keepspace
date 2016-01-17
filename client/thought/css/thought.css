@@ -3,10 +3,13 @@
 @font-face {font-family: Gotham; src: url('fonts/GothamHTF-Medium.otf');}
 /* Bubbles */
 .thought {
+    display: inline-block;
     width: 100px;
     height: 100px;
     border-radius: 50px;
     background-color: #F38286;
+    /*animation: float 20s infinite;*/
+    margin: 75px;
 }
 
 .text {
@@ -71,6 +74,27 @@ input.button-add {
     border: 2px solid white;
     background-color: Transparent;
     background-repeat: no-repeat;
+}
+
+@keyframes float {
+    0% {
+        transform: translatex(0px) translatey(0px);
+    }
+    12.5% {
+        transform: translatex(-50px) translatey(37.5px);
+    }
+    37.5% {
+        transform: translatex(37.5px) translatey(50px);
+    }
+    62.5% {
+        transform: translatex(50px) translatey(-37.5px);
+    }
+    87.5% {
+        transform: translatex(-37.5px) translatey(-50px);
+    }
+    100% {
+        transform: translatex(0px) translatey(0px);
+    }
 }
 
 .delete-thought {

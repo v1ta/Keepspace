@@ -17,8 +17,10 @@
                     <div id="front" class="friendFeed feed front">
                         <i class="fa fa-users feed-user-icon"><div class="badge success">{{currentUser.numRequests}}</div></i>
                         {{>friendSearch}}
-                        <a class="waves-effect waves-light toggleFriendFeed"></a>
-                        <a class="waves-effect waves-light toggleWorldFeed"></a>
+                        <div style="display: block">
+                            <a class="waves-effect waves-light toggleFriendFeed"></a>
+                            <a class="waves-effect waves-light toggleWorldFeed"></a>
+                        </div>
                         <!-- <button class="btn toggleWorldFeed">World</button> -->
                         <div class="feed-name unselectable">Friends</div>
                         {{> friendFeed}}
@@ -27,8 +29,10 @@
 
                 {{#unless showFriendFeed}}
                     <div id="back" class="worldFeed feed back">
-                        <a class="toggleFriendFeed waves-effect waves-light"></a>
-                        <a class="waves-effect waves-light toggleWorldFeed"></a>
+                        <div style="display: block">
+                            <a class="waves-effect waves-light toggleFriendFeed"></a>
+                            <a class="waves-effect waves-light toggleWorldFeed"></a>
+                        </div>
                         <!--<button class="btn toggleWorldFeed">World</button>-->
                         <i class="fa fa-search feed-search-icon"></i>
                         <form class="search">

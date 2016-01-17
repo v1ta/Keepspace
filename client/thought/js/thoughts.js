@@ -1,5 +1,14 @@
 var feed;
 var thought_id;
+var direction = 1;
+
+function randDir() {
+    return (Math.random() < 0.5 ? -1 : 1);
+}
+
+function getRandom(min, max) {
+    return Math.random() * (max - min) + min;
+}
 
 Template.thought.onRendered(function() {
     var thought = this.data;
@@ -7,6 +16,28 @@ Template.thought.onRendered(function() {
     var radius = 75 * (thought.rank+1);
     var container = this.firstNode.parentNode.classList[0];
     /* set css & available buttons based off starting feed */
+    var animationName = 'float' + thought._id;
+    $.keyframe.define([{
+        name: animationName,
+        '0%': {
+            'transform': 'translatex(0px) translatey(0px)'
+        },
+        '12.5%': {
+            'transform': 'translatex(' + (randDir() * (getRandom(10,37))) +'px) translatey(' + (randDir() * (getRandom(10,37))) + 'px)'
+        },
+        '37.5%': {
+            'transform': 'translatex(' + (randDir() * (getRandom(10,37))) + 'px) translatey(' + (randDir() * (getRandom(10,37))) + 'px)'
+        },
+        '62.5%': {
+            'transform': 'translatex(' + (randDir() * (getRandom(10,37))) + 'px) translatey(' + (randDir() * (getRandom(10,37))) + 'px)'
+        },
+        '87.5%': {
+            'transform': 'translatex(' + (randDir() * (getRandom(10,37))) + 'px) translatey(' + (randDir() * (getRandom(10,37))) + 'px)'
+        },
+        '100%': {
+            'transform': 'translatex(0px) translatey(0px)'
+        }
+    }]);
     node.css({
         'height' : radius*2 + 'px',
         'width'  : radius*2 + 'px',
@@ -55,7 +86,15 @@ Template.thought.onRendered(function() {
             }
         }
     });
+    $('#' + thought._id).playKeyframe({
+        name: animationName, // name of the keyframe you want to bind to the selected element
+        duration: '17s', // [optional, default: 0, in ms] how long you want it to last in milliseconds
+        delay:  getRandom(0,1)+'s', //[optional, default: 0s]  how long you want to wait before the animation starts
+        iterationCount: 'infinite' //[optional, default:1]  how many times you want the animation to repeat
+    });
 });
+
+
 
 Template.myFeed.onRendered(function() {
     /*
