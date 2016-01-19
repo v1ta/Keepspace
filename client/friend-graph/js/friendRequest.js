@@ -68,11 +68,15 @@ Template.friendRequestPage.helpers({
         // console.log(results.fetch());
         // return results;
         var ready = Meteor.subscribe('friendRequests').ready();
+        Session.set("numRequests", results.fetch().length)
         // console.log(ready);
         return {
               data: results,
               ready: ready
           };
+    },
+    numRequests: function(){
+        return Session.get("numRequests");
     },
     friends: function(){
         var ready = Meteor.subscribe('friends').ready();

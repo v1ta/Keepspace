@@ -35,17 +35,13 @@ Template.notifications.helpers({
             element.username = user.username;
             element.type = notification.type;
             element._id = notification._id;
-            if (counter % 2 == 0){
-            	element.classNames = "notificationRow evenRow";
-            }
-            else{
-            	element.classNames = "notificationRow";
-            }
             if (notification.read){
             	element.statusName = "notificationStatus read";
+                element.classNames = "notificationRow";
             }
             else{
             	element.statusName = "notificationStatus unread";
+            	element.classNames = "notificationRow unreadRow";
             }
             result.unshift(element);
             // if (notification.type == "acceptRequest")

@@ -25,7 +25,20 @@
 	padding-right:5%;
 	margin-bottom:7px;
 }
-
+#requestTitle{
+	float:left;
+	margin-right: 20px;
+}
+#numRequests{
+    background: #48BFD4;
+    width: 25px;
+    margin: 0px;
+    float: left;
+    padding-left: 8px;
+    border-radius: 20px;
+    font-weight: normal;
+    color: white;
+}
 .friendTabHeader{
 	width:100%;
 	border-bottom: 2px solid lightgray;
@@ -130,8 +143,9 @@
 	padding:5px;
 	font-size:0.6em;
 	margin-right:10px;
-	margin-top:15px;
+	/*margin-top:15px;*/
 	border-radius:2px;
+	cursor:pointer;
 }
 #acceptRequest{
 	background:#46BED2;

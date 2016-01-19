@@ -200,7 +200,7 @@ Template.header.onDestroyed(function(event) {
 Template.header.onRendered(function(event) {
     var today = new Date();
     $("#dayNum").text(today.getDOY());
-    var currentDate = $.format.date(today, "MMMM D");
+    var currentDate = $.format.date(today, "MMM D");
     $("#date").text(currentDate);
     localStorage.setItem("selectedDate", $.format.date(today, "M d yyyy"));
     setMidPadding();
