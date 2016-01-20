@@ -1,8 +1,8 @@
 /* Header */
 #header{
   font-family: Roboto;
-  padding-top: 10px;
-  padding-bottom: 10px;
+  padding-top: 5px;
+  padding-bottom: 5px;
   background-color:rgba(50,192,208,0.2);
 }
 #header .row > * {
