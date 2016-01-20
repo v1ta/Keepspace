@@ -102,12 +102,16 @@ Template.friendRequestPage.helpers({
         // console.log("mutual friends:");
         // console.log(getFriendIds());
         // console.log(requesterId);
-        Meteor.call("commonFriends", requesterId, function(returnValue){
+        callback = function(err, data){
+            console.log(data);
             if (err)
                 console.log(err);
-            else
-                Session.set(requesterId, returnValue);
-        });
+            else{
+                Session.set(requesterId, data);
+                // console.log(Session.get(requesterId))
+            }
+        }
+        Meteor.call("commonFriends", requesterId, callback);
         return Session.get(requesterId);
     },
     numFriends: function(friendId){
