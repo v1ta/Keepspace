@@ -1,7 +1,7 @@
-@font-face {font-family: Roboto; src: url('/public/fonts/roboto/Roboto-Medium.ttf') format('truetype');}
-@font-face {font-family: Roboto-Italic; src: url('/public/fonts/roboto/Roboto-MediumItalic.ttf') format('truetype');}
-@font-face {font-family: Gotham; src: url('/public/fonts/GothamHTF-Medium.otf');}
-@font-face {font-family: Gotham-Book; src: url('/public/fonts/GothamHTF-Book.ttf');}
+@font-face {font-family: Roboto; src: url('/fonts/roboto/Roboto-Medium.ttf') format('truetype');}
+@font-face {font-family: Roboto-Italic; src: url('/fonts/roboto/Roboto-MediumItalic.ttf') format('truetype');}
+@font-face {font-family: Gotham; src: url('/fonts/GothamHTF-Medium.otf');}
+@font-face {font-family: Gotham-Book; src: url('/fonts/GothamHTF-Book.ttf');}
 
 
 body, html {

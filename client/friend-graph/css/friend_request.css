@@ -124,6 +124,7 @@
 .friendName{
 	color: #48BED1;
 	font-size:1em;
+	width:150px;
 }
 .numFriends{
 	color: #8C8D8F;
@@ -154,7 +155,10 @@
 	background:#E6E7E8;
 	color:black;
 }
-
+.icon-addfriend{
+	float:right;
+	width:40px;
+}
 
 
 

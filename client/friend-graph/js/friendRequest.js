@@ -46,6 +46,15 @@ Template.friendRequestPage.events({
             
         }
     },
+    "click .icon-addfriend": function(event){   
+        var sendTo = Meteor.users.findOne({_id:this._id});
+        if (sendTo != undefined){
+            sendTo.requestFriendship();
+            sAlert.success('Friend Request Sent', {position: 'bottom'});
+        }else{
+            sAlert.error('Could Not Send Request', {position: 'bottom'});
+        }
+    },
     "keyup #friendSearch": _.throttle(function(ev) {
         var searchString = $('#friendSearch').val();
             Session.set('friendSearchString', searchString);
@@ -120,7 +129,7 @@ Template.friendRequestPage.helpers({
                 console.log(err);
             else{
                 // console.log("num friends:");
-                // console.log(data);
+                console.log(data);
                 // console.log(friendId);
                 Session.set(friendId, data);
                 // console.log(Session.get(friendId));
@@ -155,17 +164,21 @@ Template.friendRequestPage.helpers({
                     if (friends[j] == user._id){
                         topResults.push(user);
                         friends.splice(j);
+                        user.isFriend = true;
                         isFriend = true;
                         break
                     }
                 }
                 if (!isFriend){
+                    user.isFriend = false;
                     theRest.push(user);
                 }
             }
         }
         // console.log(Meteor.users.find().fetch());
+        // console.log(friends);
         return $.merge(topResults, theRest);
+        // return Meteor.users.find().fetch();
     }
 });
 

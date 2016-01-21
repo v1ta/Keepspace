@@ -18,10 +18,10 @@ Template.header.events({
         // Router.go("mainPage");
         Router.go("calendar");
     },
-    'click .icon-friends': function(){
+    'click .icon-friendsiconnavbar': function(){
         Router.go("friends");
     },
-    'click .icon-notifications': function(){
+    'click .icon-bellnavbar': function(){
         Router.go("notifications");
     },
     'click #settingsButton': function(event){
@@ -91,7 +91,7 @@ Template.header.events({
             // $("#changePassword").hide();
         }
     },
-    'click .icon-more': function(event) {
+    'click .icon-moreiconnavbar': function(event) {
         event.stopPropagation();
         if ($("#main-menu").css("display") === "block") {
             hideMainMenu();

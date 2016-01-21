@@ -1,6 +1,6 @@
 /* Header */
 #header{
-  font-family: Roboto;
+  font-family: Gotham-Book;
   padding-top: 5px;
   padding-bottom: 5px;
   background-color:rgba(50,192,208,0.2);
@@ -42,6 +42,7 @@
 #header .username {
   font-size: 1.2em;
   cursor: pointer;
+  font-family:Roboto;
 }
 #homeButton {
   background-color: #32c0d2;
