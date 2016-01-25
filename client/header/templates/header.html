@@ -4,13 +4,26 @@
             <div class="left col-xs-4 unselectable">
                 <div id="logo">
                     <img class="unselectable" id="homeLogo" src="/images/keepspace_home_button.png">
-                    <div class="unselectable" id="dropdownDiv">
-                        <i class="menu-dropdown fa fa-caret-down fa-lg"></i>
-                    </div>
                 </div>
-                <div id="main-menu">
-                    <!-- <i class="fa fa-caret-up fa-2x" id="menuCarat"></i> -->
-                    <!-- <i class="fa fa-caret-up fa-lg" id="menuBack"></i> -->
+            </div>
+
+            <div class="mid col-xs-4 unselectable">
+                <div id="dayLabel">DAY</div>
+                <div id="homeButton" class="header-circle">
+                    <span id="dayNum">0</span>
+                </div>
+                <div id="date">00/00/00</div>
+            </div>
+
+            <div class="right col-xs-4">
+                <div class="icon-moreiconnavbar headerIcon"></div>
+                <div class="icon-bellnavbar headerIcon"></div>
+                <div class="icon-friendsiconnavbar headerIcon"></div>
+                <span class="username vertical-center unselectable">{{username}}</span>
+                <img id="profile-picture" class="header-circle unselectable" alt="{{username}}" src="{{picture}}" />
+            </div>
+
+            <div id="main-menu">
                     <ul>
                         <li class="menu-item" id="changePasswordButton">Change Password</li>
                         <li class="menu-item dropdownAbout">About</li>
@@ -18,6 +31,14 @@
                         <li class="menu-item">Help</li>
                         <li class="menu-item logout">Log Out</li>
                     </ul>
+                </div>
+
+            <!-- <div class="left col-xs-4 unselectable">
+                <div id="logo">
+                    <img class="unselectable" id="homeLogo" src="/images/keepspace_home_button.png">
+                    <div class="unselectable" id="dropdownDiv">
+                        <i class="menu-dropdown fa fa-caret-down fa-lg"></i>
+                    </div>
                 </div>
             </div>
 
@@ -30,8 +51,9 @@
 
             <div class="right col-xs-4">
                 <img id="profile-picture" class="header-circle unselectable" alt="{{username}}" src="{{picture}}" />
+                <p class="tempClick">Temp</p>
                 <span class="username vertical-center unselectable">{{username}}</span>
-            </div>
+            </div> -->
         </div>
     </div>
 
@@ -44,9 +66,9 @@
     {{#with showProfile}}
         {{> profile}}
     {{/with}}
-    {{#with showFriendPage}}
+    <!-- {{#with showFriendPage}}
         {{> friendRequestPage}}
-    {{/with}}
+    {{/with}} -->
 
     {{> yield}}
 </template>

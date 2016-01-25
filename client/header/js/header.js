@@ -17,6 +17,12 @@ Template.header.events({
         // Router.go("mainPage");
         Router.go("calendar");
     },
+    'click .icon-friendsiconnavbar': function(){
+        Router.go("friends");
+    },
+    'click .icon-bellnavbar': function(){
+        Router.go("notifications");
+    },
     'click #settingsButton': function(event){
         console.log(Meteor.user());
         event.preventDefault();
@@ -81,7 +87,7 @@ Template.header.events({
             // $("#changePassword").hide();
         }
     },
-    'click #dropdownDiv, click #main-menu, click .menu-dropdown': function(event) {
+    'click .icon-moreiconnavbar': function(event) {
         event.stopPropagation();
         if ($("#main-menu").css("display") === "block") {
             hideMainMenu();
@@ -177,7 +183,7 @@ Template.header.helpers({
     },
     showChangePassword: function(){
         return Session.get("showChangePassword");
-    }
+    },
 });
 
 Template.header.onCreated(function(event) {
@@ -191,7 +197,7 @@ Template.header.onDestroyed(function(event) {
 Template.header.onRendered(function(event) {
     var today = new Date();
     $("#dayNum").text(today.getDOY());
-    var currentDate = $.format.date(today, "MMMM D");
+    var currentDate = $.format.date(today, "MMM D");
     $("#date").text(currentDate);
     localStorage.setItem("selectedDate", $.format.date(today, "M d yyyy"));
     setMidPadding();

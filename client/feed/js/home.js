@@ -266,3 +266,21 @@ getFriends = function() {
         return d.friendId});
     return _.pluck(distinctArr, 'friendId');
 }
+getFriendsAsUsers = function() {
+    var friends = Meteor.friends.find();
+    var friendsAsUsers = [];
+    friends.forEach(function (friend) {
+        friendsAsUsers.push(friend.user());
+    });
+    // console.log(friendsAsUsers);
+    return friendsAsUsers;
+}
+
+getFriendIds = function() {
+    var friends = getFriendsAsUsers();
+    var friendIds = [];
+    for (var i = 0; i < friends.length; i++) {
+        friendIds.push(friends[i]._id);
+    }
+    return friendIds;
+}
