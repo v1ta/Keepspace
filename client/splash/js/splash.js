@@ -30,8 +30,9 @@ Template.splashBanner.events({
   'click #goSignupButton': function(event){
     event.stopPropagation();
       $("#mainSlide").hide();
-      $("#navSignupOption").show();
-      $("#signupOptionsSlide").show();
+      // $("#navSignupOption").show();
+      // $("#signupOptionsSlide").show();
+      $("#signHereOption").show();
   },
   'click .signOptions': function(event){
     event.stopPropagation();

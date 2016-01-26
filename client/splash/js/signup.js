@@ -19,13 +19,16 @@ Template.beta_email_invite.rendered = function() {
                 invited: false,
                 requested: (new Date()).getTime()
             };
+            console.log(invitee);
             return Meteor.call('validateEmailAddress', invitee.email, function (error, response) {
                 if (error) {
+                    console.log(error);
                     return alert(error.reason);
                 } else {
                     if (response.error) {
                         return alert(response.error);
                     } else {
+                        console.log("should work");
                         return Meteor.call('addToInvitesList', invitee, function (error, response) {
                             if (error) {
                                 sAlert.error(error.reason, {effect: 'genie', position: 'top', offset: '91px'});
@@ -51,6 +54,7 @@ Template.beta_email_invite.events({
     },
     'click #signupButton': function (event){
         event.preventDefault();
+        console.log("a");
         $('#verify').submit();
         $('#navSignupEmail').val("");
     }

@@ -75,7 +75,8 @@
 }
 .bioP{
 	width: 425px;
-	margin:0px;
+	margin: 0px;
+	color:black;
 	/* roboto regular */
 }
 .left.carouselButton{
@@ -98,4 +99,11 @@
 }
 #teamHeader{
 	font-size:40px;
+	color:black;
+}
+.carousel-inner .item{
+	width:100%;
+}
+.carousel-inner .active{
+	width:100%;
 }

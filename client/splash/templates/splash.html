@@ -66,7 +66,7 @@
           <!-- </div> -->
           
         </div>
-        <div class="collapse navbar-collapse navbar-ex1-collapse" style="margin-bottom: 150px">
+        <div class="collapse navbar-collapse navbar-ex1-collapse" style="margin-bottom: 30px">
           <ul class="nav navbar-nav">
             <li id="teamLink"><a onclick="//$('header').animatescroll({padding:71});">TEAM</a></li>
             <li id="loginLink"><a onclick="//$('.detail').animatescroll({padding:71});">LOGIN</a></li>
@@ -81,24 +81,29 @@
             <h1>Don't let today disappear</h1>
             <!--<img style="margin-bottom:2%;" src="images/signupwithfbbutton.png" class="landingButton" id="facebookSignButton">-->
             <!-- <img src="images/signupbutton.png" id="facebookSignButton"> -->
+            <div id="buttonContainer">
               <a class="waves-effect waves-light btn facebook-button" id="facebookSignButton"><i></i></a>
-              <p style="margin-bottom: 40px;"> or </p>
+              <p style="margin-bottom: 20px; margin-top:5px; color:black;"> or </p>
               <a class="waves-effect waves-light btn signup-button" id="goSignupButton"><i></i></a>
+            </div>
             <!--<img src="images/signupherebutton.png" class="landingButton" id="goSignupButton">-->
           </div>    
         </div>    
       </div>
       <div class="container" id="signupOptionsSlide">
         <div class="row">
-          <div class="col-md-4" style="text-align:center"></div>
           <div class="col-md-4" style="text-align:center">
-            <div class="signOptions" id="signHereOption" style="display:none">
+            <!-- <div class="signOptions" id="signHereOption" style="display:none">
               <p style="margin-top: 5%;">Get Started. It's so easy.</p>
-              <input class="loginForm" id="signupEmail" type="username" name="userName"
-              placeholder="your e-mail">
+              <div class="group">      
+                <input type="text" required>
+                <span class="highlight"></span>
+                 <span class="bar"></span> 
+                <label>Email</label>
+            </div>
               <br>
               <img src="images/signupbutton.png" id="signupButton">
-            </div>
+            </div> -->
 
             {{>beta_email_invite}}
 
@@ -125,6 +130,9 @@
                 <br>
                 <a class="center" href="{{pathFor 'recover-password'}}">Forgot Password?</a>
             </div>
+          </div>
+          <div class="col-md-4" style="text-align:center">
+            
 
           </div>  
           <div class="col-md-4" style="text-align:center"></div>  
@@ -150,9 +158,78 @@
     
     <!-- PAYOFF 
         ================================================== -->
-    <section class="landingSection" id="secondSlide">
-      <h1>Every Day is Unique</h1>
+    <section class="landingSection" id="secondSlide" style="/*position:absolute*/">
+      <h1>Create your mindful masterpiece</h1>
       <div class="container">
+        <div class="row cultivateRow">
+          <div class="col-md-2"></div>
+          <div class="col-md-8">
+            <div class="cultivateElement">
+              <div class="col-md-3">
+                <img class="cultivateIcon" src="/images/PAUSE.png">
+              </div>
+              <div class="cultivateTextContainer col-md-8">
+                <p class="title">PAUSE</p>
+                <p class="cultivateText">and think about the moments<br>that made today unique</p>
+              </div>
+            </div>
+            <div class="cultivateElement">
+              <div class="col-md-3">
+                <img class="cultivateIcon" src="/images/WRITE.png">
+              </div>
+              <div class="cultivateTextContainer col-md-8">
+                <p class="title">WRITE</p>
+                <p class="cultivateText">them down here. They're safe,<br>we promise.</p>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-2"></div>
+        </div>
+
+        <div class="row cultivateRow">
+          <div class="col-md-2"></div>
+          <div class="col-md-8">
+            <div class="cultivateElement">
+              <div class="col-md-3">
+                <img class="cultivateIcon" src="/images/SHARE.png">
+              </div>
+              <div class="cultivateTextContainer col-md-8">
+                <p class="title">SHARE</p>
+                <p class="cultivateText">your most valuable thought<br>of the day</p>
+              </div>
+            </div>
+            <div class="cultivateElement">
+              <div class="col-md-3">
+                <img class="cultivateIcon" src="/images/COLLECT.png">
+              </div>
+              <div class="cultivateTextContainer col-md-8">
+                <p class="title">COLLECT</p>
+                <p class="cultivateText">your favorite posts from your friends<br>and from around the world.</p>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-2"></div>
+        </div>
+
+        <div class="row cultivateRow">
+          <div class="col-md-2"></div>
+          <div class="col-md-8">
+            <div class="cultivateElement">
+              <div class="col-md-3">
+                <img class="cultivateIcon" id="keepIcon" src="/images/KEEP.png">
+              </div>
+              <div class="cultivateTextContainer col-md-8">
+                <p class="title">KEEP</p>
+                <p class="cultivateText">these moments forever.</p>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-2"></div>
+        </div>
+
+      </div>
+
+      <!-- <div class="container">
         <div class="row">
           <div class="col-md-12">
             <img class="landingSlideIcon" src="/images/microscope.png">
@@ -187,40 +264,13 @@
             </p>
           </div>
         </div>
-      </div>    
+      </div>   -->  
     </section>
     
     
-    <section class="landingSection" id="cultivateSlide">
+    <section class="landingSection" id="teamSlide">
+      {{>teamPage}}
       
-      <div class="container">
-        <div class="row">
-          <div class="col-md-12">
-            <img class="landingSlideIcon" src="/images/microscope.png">
-            <img class="landingSlideIcon" src="/images/binoculars.png">
-            <img class="landingSlideIcon" src="/images/astronaut.svg">
-            <img class="landingSlideIcon" src="/images/tiltedKey.svg">
-            <img class="landingSlideIcon" src="/images/diamond.svg">
-          </div>
-        </div>
-      </div>
-      <h1>Cultivate Mindfulness</h1>
-      <div class="container">
-        <div class="row" id="uniqueSlideText">
-          <div class="col-md-12">
-            <p>Keepspace is a place for you to notice and remember
-              <br>
-             the little things that make your day unique
-              <br>
-              We want you to record as many of these small moments as possible
-              <br>
-              and every day choose only the single most valuable moment 
-              <br>
-              to share with your friends. 
-            </p>
-          </div>
-        </div>
-      </div>    
     </section>
     
   

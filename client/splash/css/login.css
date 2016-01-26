@@ -26,6 +26,9 @@
     color: gray;
     width:200px;
 }
+.loginForm:placeholder-shown{
+  color:red;
+}
 .loginForm:focus{
   /*border:none !important;*/
   /*background:red !important;*/

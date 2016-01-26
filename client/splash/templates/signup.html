@@ -60,7 +60,7 @@
 
 
 <template name="beta_email_invite">
-    <div class="signOptions" id="navSignupOption" style="display:none">
+     <div class="signOptions" id="navSignupOption" style="display:none">
         {{> sAlert}}
         <form id="verify" role="form">
            <div class="form-group">
@@ -68,12 +68,27 @@
                        placeholder="your e-mail">
                 <br>
                <a class="waves-effect waves-light btn signup-button-2" id="signupButton"><i></i></a>
-                <!--<img style="margin-top:5%; margin-bottom:5%;" src="images/signupbutton.png" id="signupButton">-->
+                <!-- <img style="margin-top:5%; margin-bottom:5%;" src="images/signupbutton.png" id="signupButton"> -->
                <br>
                 <p style="color: rgba(0, 0, 0, 0.5); display: inline-block;">or</p>
             </div>
         </form>
         <a class="waves-effect waves-light btn facebook-button" id="facebookSignButton" style="margin-bottom: 10px;"><i></i></a>
-        <!--<img style="margin-bottom:2%;" src="images/signupwithfbbutton.png" class="landingButton" id="facebookSignButton">-->
-    </div>
+        <!-- <img style="margin-bottom:2%;" src="images/signupwithfbbutton.png" class="landingButton" id="facebookSignButton"> -->
+    </div> 
+    <div class="signOptions" id="signHereOption" style="display:none">
+      	<p style="margin-top: 5%;">Get Started. It's so easy.</p>
+      	<!-- <input class="loginForm" id="signupEmail" type="username" name="userName"
+      	placeholder="your e-mail"> -->
+      	<form id="verify" role="form">
+	      	<div class="group">      
+		      	<input name="emailAddress" class="signupEmail" type="text" required>
+		      	<span class="highlight"></span>
+		      	<!-- <span class="bar"></span> -->
+		      	<label>Email</label>
+		    </div>
+		</form>
+      	<br>
+      	<img src="images/signupbutton.png" id="signupButton">
+    </div>	
 </template>
