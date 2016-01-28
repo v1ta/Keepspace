@@ -35,15 +35,19 @@ Template.notifications.helpers({
             element.username = user.username;
             element.type = notification.type;
             element._id = notification._id;
+            var numUnread = 0;
             if (notification.read){
             	element.statusName = "notificationStatus read";
                 element.classNames = "notificationRow";
             }
             else{
+                numUnread += 1;
             	element.statusName = "notificationStatus unread";
             	element.classNames = "notificationRow unreadRow";
             }
             result.unshift(element);
+            Session.set("loadedNotifications", true);
+            Session.set("numUnread", numUnread);
             // if (notification.type == "acceptRequest")
             //     sAlert.success(user.username + ' accepted your friend request!', {position: 'bottom'});
             // else
@@ -55,6 +59,14 @@ Template.notifications.helpers({
             data: result,
             ready: ready
         };
+    },
+    numNotifications: function(){
+        var ready = Session.get("loadedNotifications");
+        return{
+            data: Session.get("numUnread"),
+            ready: ready
+        }
+        
     }
 });
 

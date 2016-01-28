@@ -29,7 +29,7 @@
 	float:left;
 	margin-right: 20px;
 }
-#numRequests{
+.numRequests{
     background: #48BFD4;
     width: 25px;
     margin: 0px;
@@ -37,7 +37,10 @@
     padding-left: 8px;
     border-radius: 20px;
     font-weight: normal;
-    color: white;
+    color: white !important;
+    margin-left:20px;
+    font-size: 18px;
+    font-weight:bold;
 }
 .friendTabHeader{
 	width:100%;
@@ -86,6 +89,7 @@
 	position: relative;
     top: 2px;
     cursor: pointer;
+    right:5px;
 }
 .friendContainer{
 	margin-top:5px;

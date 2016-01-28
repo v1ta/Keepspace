@@ -17,6 +17,9 @@
 #header .right i {
   margin: 5px;
 }
+#header{
+  height:60px;
+}
 #logo {
   width: 325px;
   border-radius: 5px;
@@ -53,13 +56,14 @@
   z-index: 2;
   display: inline-block;
   cursor: pointer;
-  right:23px;
+  right:12%;
 }
 #dayNum {
-  font-size: 32px;
+  font-size: 26px;
   position: relative;
   font-family:Roboto;
-  top:-7px;
+  top:-4px;
+  right:1px;
 }
 #dayNums {
   font-size: 28px;
@@ -72,7 +76,7 @@
   display:inline-block;
   position:relative;
   top:18px;
-  right: 15px;
+  right:23px;
 }
 #date {
   color: #000000;
@@ -80,11 +84,12 @@
   border-radius: 5px;
   position: relative;
   z-index: 1;
-  top: -14px;
+  top: -6px;
   display: inline-block;
   /*font-family:Roboto;*/
   cursor: pointer;
   margin-right:29px;
+  right:15px;
 }
 #profile-picture{
   height: 40px;
@@ -190,11 +195,13 @@
     top: -10px;
     z-index:2;
 }
-
+.menu-item{
+  cursor:pointer;
+}
 #menuBack{
   color: #888888;
-    position: absolute;
-    right: 14px;
-    top: -10px;
-    z-index:1;
+  position: absolute;
+  right: 14px;
+  top: -10px;
+  z-index:1;
 }

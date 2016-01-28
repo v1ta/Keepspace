@@ -23,7 +23,9 @@
   height:100vh;
   background:white;
 }
-
+#dayHead{
+  border-bottom:0px;
+}
 #calendarHeader{
   width:100%;
   margin:0px;

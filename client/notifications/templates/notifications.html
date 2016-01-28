@@ -1,6 +1,12 @@
 <template name="notifications">
 	<div id="notificationsContainer">
-		<p id="notificationHeader">Your Notifications</p>
+    {{#with numNotifications}}
+      {{#if ready}}
+		    <p id="notificationHeader">Your Notifications</p> <p class="numRequests" id="numNotifications"> {{data}} </p>
+      {{else}}
+        <p id="notificationHeader">Your Notifications</p> <p class="numRequests" id="numNotifications"> </p>
+      {{/if}}
+    {{/with}}
 		<!-- <p id="markAsRead">Mark all as read</p> -->
       	<div id="notificationTable">
 

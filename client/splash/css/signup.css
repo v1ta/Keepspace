@@ -25,7 +25,12 @@
 	position:relative;
 	top:-2px;
 }
-
+.getStarted{
+	font-family:"Gotham-Book";
+}
+.signupLabel{
+	color:red;
+}
 /*new stuff*/
 #signHereOption{
 	padding-top:20px;
@@ -61,7 +66,7 @@
   display:block;
   /*width:300px;*/
   width:185px;
-  margin-left:55px;
+  margin-left:75px;
   border:none;
   color:black;
   border-bottom:1px solid #757575;
@@ -80,7 +85,7 @@ label 				 {
   transition:0.2s ease all; 
   -moz-transition:0.2s ease all; 
   -webkit-transition:0.2s ease all;
-  margin-left:55px;
+  margin-left:75px;
 }
 
 /* active state */
@@ -91,7 +96,7 @@ input:focus ~ label, input:valid ~ label 		{
 }
 
 /* BOTTOM BARS ================================= */
-.bar 	{ position:relative; display:block; width:185px; margin-left:55px;}
+.bar 	{ position:relative; display:block; width:185px; margin-left:75px;}
 .bar:before, .bar:after 	{
   content:'';
   height:2px; 
@@ -124,7 +129,7 @@ input:focus ~ .bar:before, input:focus ~ .bar:after {
   left:0;
   pointer-events:none;
   opacity:0.5;
-  margin-left:55px;
+  margin-left:75px;
 }
 
 /* active state */

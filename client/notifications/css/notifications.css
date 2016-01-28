@@ -14,6 +14,7 @@
   text-align:left;
   font-weight:bold;
   font-size:1.4em;
+  float:left;
 }
 #markAsRead{
   margin-bottom:0px;
@@ -29,7 +30,9 @@
   width:100%;
   /*padding-top:3%;*/
 }
-
+#numNotifications{
+  padding-left:2px;
+}
 .notificationRow{
   border-bottom: 1px solid lightgray;
   padding-top:1%;

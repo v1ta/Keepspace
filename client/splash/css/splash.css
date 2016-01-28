@@ -26,6 +26,7 @@ header h1{
 }
 .navbar-nav{
 	width:25%;
+	/*height:5.3em;*/
 }
 .nav>li{
 	margin-right:10%;
@@ -52,14 +53,14 @@ header h1{
 }
 nav.navbar.fixed-to-top{
 	z-index:10;
-	height: 8%;
+	height:5.3em;
 }
 .navbar-default .navbar-nav>li>a{
 	margin-right:30px;
 	color:white;
 }
 .navbar-default{
-    background-color: rgba(69,119,179,1.0);
+    background-color: #4cc4e0
 }
 .landingSection{
 	overflow: hidden;
@@ -72,9 +73,13 @@ nav.navbar.fixed-to-top{
 .landingSection h1{
 	/*text-transform: uppercase;*/
 	font-weight: 300;
-	font-family: 'Roboto', sans-serif;
+	/*font-family: 'Roboto', sans-serif;*/
+	font-family: "Gotham-Book";
 	font-size: 2.8em;
 	color:white;
+}
+.landingSection p{
+	font-family: "Gotham-Book";
 }
 #buttonContainer{
     float: left;
@@ -164,7 +169,7 @@ nav.navbar.fixed-to-top{
 }
 
 .cultivateIcon{
-    height: 55px;
+    height: 49px;
     float: left;
     margin-top: 10px;
 }
@@ -185,6 +190,7 @@ nav.navbar.fixed-to-top{
 	color: black;
     font-size: 1em;
     text-align: left;
+    width:260px;
 }
 .cultivateTextContainer{
 	padding-left:0px;
@@ -193,5 +199,9 @@ nav.navbar.fixed-to-top{
 	margin-bottom:5%;
 }
 .cultivateRow{
-	margin-bottom:25px;
+	margin-bottom:4%;
+}
+#shareIcon{
+	position:relative;
+	left:10px;
 }

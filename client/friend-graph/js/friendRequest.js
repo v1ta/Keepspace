@@ -122,8 +122,13 @@ Template.friendRequestPage.helpers({
             else{
                 // console.log("num friends:");
                 console.log(data);
+                result = " friends";
+                if (data == 1){
+                    result = " friend"
+                }
+
                 // console.log(friendId);
-                Session.set(friendId, data);
+                Session.set(friendId, data.toString() + result);
                 // console.log(Session.get(friendId));
             }
         };
