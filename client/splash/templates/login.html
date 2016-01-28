@@ -7,8 +7,16 @@
         <div class="splashButtons">
             <form id="signupForm">
                 <div id="firstSignPage">
-                    <input class="loginForm" id="loginEmail" type="email" name="email"
-                           placeholder="e-mail">
+
+                    <div class="group">      
+                        <input name="email" id="loginEmail" type="email" required>
+                        <span class="highlight"></span>
+                        <!-- <span class="bar"></span> -->
+                        <label class="signupLabel">Email</label>
+                    </div>
+
+                    <!-- <input class="loginForm" id="loginEmail" type="email" name="email"
+                           placeholder="e-mail"> -->
                     <br>
                     <input class="loginForm" id="password" type="password" name="password"
                            placeholder="password">

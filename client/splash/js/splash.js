@@ -25,6 +25,7 @@ Template.splashBanner.events({
   },
   'click #topSlide':function(event){
     $(".signOptions").hide();
+    // $(".signupEmail").val("");
     $("#mainSlide").show();
   },
   'click #goSignupButton': function(event){
@@ -40,6 +41,7 @@ Template.splashBanner.events({
   'click #loginLink': function(event){
     event.stopPropagation();
     $(".signOptions").hide();
+    // $(".signupEmail").val("");
     $("#mainSlide").hide();
     $("#navLoginOption").show();
   },
@@ -50,7 +52,7 @@ Template.splashBanner.events({
     $("#navSignupOption").show();
   },
   'click #goButton': function(event){
-      console.log("hi");
+      // console.log("hi");
     event.preventDefault();
     var emailVar = $("#loginEmail").val();
     var passwordVar = $("#loginPassword").val();

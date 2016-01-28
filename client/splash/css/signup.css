@@ -28,8 +28,14 @@
 .getStarted{
 	font-family:"Gotham-Book";
 }
-.signupLabel{
+#signupLabel{
 	color:red;
+  /*position:relative;*/
+  margin-top:10px;
+  margin-left:75px;
+}
+#signupButton{
+  /*margin-top:14%;*/
 }
 /*new stuff*/
 #signHereOption{
@@ -62,14 +68,18 @@
 }
 .group input 				{
   font-size:18px;
-  padding:20px 10px 10px 0px;
+  padding:20px 10px 0px 0px;
   display:block;
   /*width:300px;*/
-  width:185px;
-  margin-left:75px;
+  
   border:none;
   color:black;
   border-bottom:1px solid #757575;
+}
+#splashSignInput{
+  width:185px;
+  margin-left:75px;
+  /*margin-bottom:0px;*/
 }
 input:focus 		{ outline:none; }
 
@@ -85,18 +95,22 @@ label 				 {
   transition:0.2s ease all; 
   -moz-transition:0.2s ease all; 
   -webkit-transition:0.2s ease all;
-  margin-left:75px;
 }
 
 /* active state */
 input:focus ~ label, input:valid ~ label 		{
-  top:-1px;
+  margin-top:0px;
+  top:-6px;
   font-size:14px;
-  color:#5264AE;
+  color:#5264AE !important;
 }
 
 /* BOTTOM BARS ================================= */
-.bar 	{ position:relative; display:block; width:185px; margin-left:75px;}
+.bar 	{ position:relative; display:block; bottom:15px;}
+#splashSignBar{
+  width:195px; 
+  margin-left:75px;
+}
 .bar:before, .bar:after 	{
   content:'';
   height:2px; 
@@ -151,5 +165,23 @@ input:focus ~ .highlight {
 @keyframes inputHighlighter {
 	from { background:#5264AE; }
   to 	{ width:0; background:transparent; }
+}
+
+
+/**/
+input:not([type]):focus:not([readonly]),
+input[type=text]:focus:not([readonly]),
+input[type=password]:focus:not([readonly]),
+input[type=email]:focus:not([readonly]),
+input[type=url]:focus:not([readonly]),
+input[type=time]:focus:not([readonly]),
+input[type=date]:focus:not([readonly]),
+input[type=datetime-local]:focus:not([readonly]),
+input[type=tel]:focus:not([readonly]),
+input[type=number]:focus:not([readonly]),
+input[type=search]:focus:not([readonly]),
+textarea.materialize-textarea:focus:not([readonly]) {
+  border-bottom: 1px solid black !important;
+  box-shadow: 0 0px 0 0 #26a69a !important;
 }
 
