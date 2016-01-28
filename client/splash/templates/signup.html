@@ -67,7 +67,7 @@
                 <input class="loginForm" id="navSignupEmail" type="email" name="emailAddress"
                        placeholder="your e-mail">
                 <br>
-               <a class="waves-effect waves-light btn signup-button-2" class="signupButtons" id="signupButton"><i></i></a>
+               <a class="waves-effect waves-light btn signup-button-2 signupButtons" id="signupButton"><i></i></a>
                 <!-- <img style="margin-top:5%; margin-bottom:5%;" src="images/signupbutton.png" id="signupButton"> -->
                <br>
                 <p style="color: rgba(0, 0, 0, 0.5); display: inline-block;">or</p>
@@ -77,18 +77,20 @@
         <!-- <img style="margin-bottom:2%;" src="images/signupwithfbbutton.png" class="landingButton" id="facebookSignButton"> -->
     </div> 
     <div class="signOptions" id="signHereOption" style="display:none">
+    	{{> sAlert}}
       	<p style="margin-top: 5%;">Get Started. It's so easy.</p>
       	<!-- <input class="loginForm" id="signupEmail" type="username" name="userName"
       	placeholder="your e-mail"> -->
       	<form id="verifySignup" role="form">
 	      	<div class="group">      
-		      	<input name="emailAddress" class="signupEmail" type="text" required>
+		      	<input name="emailAddress" class="signupEmail" type="email" required>
 		      	<span class="highlight"></span>
 		      	<!-- <span class="bar"></span> -->
 		      	<label>Email</label>
 		    </div>
+		    <a class="waves-effect waves-light btn signup-button-2 signupButtons" id="signupButton"><i></i></a>
 		</form>
       	<br>
-      	<img src="images/signupbutton.png" class="signupButtons" id="homeSignupButton">
+      	<!-- <img src="images/signupbutton.png" class="signupButtons" id="homeSignupButton"> -->
     </div>	
 </template>

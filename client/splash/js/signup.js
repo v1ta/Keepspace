@@ -19,6 +19,9 @@ Template.beta_email_invite.rendered = function() {
                 invited: false,
                 requested: (new Date()).getTime()
             };
+            if (invitee.email == ""){
+                invitee.email = $(".signupEmail").val().toLowerCase();
+            }
             console.log(invitee);
             return Meteor.call('validateEmailAddress', invitee.email, function (error, response) {
                 if (error) {
@@ -34,6 +37,7 @@ Template.beta_email_invite.rendered = function() {
                                 sAlert.error(error.reason, {effect: 'genie', position: 'top', offset: '91px'});
                             } else {
                                 $('#navSignupEmail').val("");
+                                $(".signupEmail").val("");
                                 sAlert.info("Invite requested. We'll be in touch soon. Thanks for your interest in Keepspace!", {
                                     effect: 'genie',
                                     position: 'top',
