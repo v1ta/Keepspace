@@ -8,11 +8,13 @@ Template.beta_email_invite.rendered = function() {
         },
         messages: {
             emailAddress: {
-                email: "Please use a valid email address.",
-                required: "An email address is required to get your invite."
+                // email: "Please use a valid email address.",
+                // required: "An email address is required to get your invite."
             }
         },
         submitHandler: function () {
+            console.log(messages);
+            console.log(rules);
             var invitee;
             invitee = {
                 email: $('[name="emailAddress"]').val().toLowerCase(),
@@ -58,7 +60,7 @@ Template.beta_email_invite.events({
     },
     'click #signupButton': function (event){
         event.preventDefault();
-        console.log("a");
+        // console.log("a");
         $('#verify').submit();
         $('#navSignupEmail').val("");
     }

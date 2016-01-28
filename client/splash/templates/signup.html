@@ -1,4 +1,4 @@
-<template name="signupPage">
+<!-- <template name="signupPage">
 	<div class="splashContent">
   		<img class="splashLogo" src="images/signup_bubble.png">
   		<div class="singleLine">
@@ -35,7 +35,7 @@
 		  	</div>
 		</div>
 	</div>
-</template>
+</template> -->
 
 <template name="verifyemail">
     {{> sAlert}}
@@ -64,8 +64,14 @@
         {{> sAlert}}
         <form id="verify" role="form">
            <div class="form-group">
-                <input class="loginForm" id="navSignupEmail" type="email" name="emailAddress"
-                       placeholder="your e-mail">
+                <!-- <input class="loginForm" id="navSignupEmail" type="email" name="emailAddress"
+                       placeholder="your e-mail"> -->
+                <div class="group">      
+                    <input name="emailAddress" class="loginForm" id="navSignupEmail" type="email" required>
+                    <span class="highlight"></span>
+                    <span class="bar"></span>
+                    <label id="loginEmailLabel">Email</label>
+                </div>
                 <br>
                <a class="waves-effect waves-light btn signup-button-2 signupButtons" id="signupButton"><i></i></a>
                 <!-- <img style="margin-top:5%; margin-bottom:5%;" src="images/signupbutton.png" id="signupButton"> -->

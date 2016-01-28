@@ -31,7 +31,7 @@
 
               <!--Replace text with your app name or logo image-->
               <!-- <div id="logo" href="#"> -->
-                <img class="unselectable" id="splashLogo" src="/images/keepspace_home_button.png">
+                <img class="unselectable" id="splashLogo" src="/images/keepspace_white.png">
               <!-- </div> -->
 
             </div>
@@ -110,7 +110,7 @@
             <div class="signOptions" id="navLoginOption" style="display:none">
               <form class="myform">
                 <div class="group">      
-                    <input name="email" id="loginEmail" type="email">
+                    <input name="email" id="loginEmail" type="email" required>
                     <span class="highlight"></span>
                     <span class="bar"></span>
                     <label id="loginEmailLabel">Email</label>
@@ -119,8 +119,15 @@
                 placeholder="your e-mail"> -->
               </form>
               <form class="myform">
-                <input class="loginForm" id="loginPassword" type="password" name="password"
-                placeholder="password">
+                <div class="group">      
+                    <input class="loginForm" name="password" id="loginPassword" type="password" required>
+                    <span class="highlight"></span>
+                    <span class="bar"></span>
+                    <label id="loginEmailLabel">password</label>
+                </div>
+
+                <!-- <input class="loginForm" id="loginPassword" type="password" name="password"
+                placeholder="password"> -->
               </form>
 
               <br>
@@ -128,7 +135,7 @@
                  style="float: right; margin-right: 12%; background-color: #32C0D2;" id="goButton">
                   <i style="font-style: normal;">GO</i></a>
               <br>
-              <p style="margin-top:3%; margin-left: 28%; color: rgba(0, 0, 0, 0.5); display: inline-block; text-align: center">or</p>
+              <p style="margin-top:6%; margin-left: 28%; color: rgba(0, 0, 0, 0.5); display: inline-block; text-align: center">or</p>
               <br>
               <a class="waves-effect waves-light btn facebook-button" id="facebookSignButton"><i></i></a>
                 <!--<img style="margin-bottom:2%;" src="images/signupwithfbbutton.png" class="landingButton" id="facebookSignButton">-->
