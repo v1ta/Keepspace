@@ -7,7 +7,7 @@ Template.header.events({
      }
      },*/
     'click #date': function(event) {
-        Router.go("calendar");
+        // Router.go("calendar");
     },
     'click #header': function(event){
         Session.set("showChangePassword", false);
@@ -15,7 +15,7 @@ Template.header.events({
     },
     'click #homeButton': function(event) {
         // Router.go("mainPage");
-        Router.go("calendar");
+        // Router.go("calendar");
     },
     'click .icon-friendsiconnavbar': function(){
         Router.go("friends");
@@ -120,12 +120,14 @@ Template.header.events({
     },
     'click #profile-picture': function(event) {
         // TODO: encrypt userId
-        Session.set('showProfile', Meteor.user());
+        Router.go("calendar");
+        // Session.set('showProfile', Meteor.user());
         event.stopPropagation();
     },
     'click .username': function(event) {
         // TODO: encrypt userId
-        Session.set('showProfile', Meteor.user());
+        Router.go("calendar");
+        // Session.set('showProfile', Meteor.user());
         event.stopPropagation();
     },
     'click #close-profile': function(event) {
@@ -162,7 +164,9 @@ Template.header.events({
 Template.header.helpers({
     username: function(){
         if (Meteor.user()) {
-            return Meteor.user().username;
+            var user = Meteor.user().username;
+            var result = user.split(" ");
+            return result[0];
         }
     },
     picture: function() {
@@ -197,7 +201,7 @@ Template.header.onDestroyed(function(event) {
 Template.header.onRendered(function(event) {
     var today = new Date();
     $("#dayNum").text(today.getDOY());
-    var currentDate = $.format.date(today, "MMM D");
+    var currentDate = $.format.date(today, "MMM d");
     $("#date").text(currentDate);
     localStorage.setItem("selectedDate", $.format.date(today, "M d yyyy"));
     setMidPadding();

@@ -90,6 +90,10 @@ nav.navbar.fixed-to-top{
 #secondSlide{
 	background-color: #FABF80;
 }
+#secondSlideContainer{
+    padding-left: 4%;
+    width: 100%;
+}
 #cultivateSlide{
 	background-color:#F8A346;
 }
