@@ -209,3 +209,16 @@ nav.navbar.fixed-to-top{
 	position:relative;
 	left:10px;
 }
+#contactUs{
+    background-color: #EF6A4F;
+    height: 20%;
+    min-height: 20%;
+    padding-top: 7%;
+}
+#contact{
+	font-size:1.4em;
+	margin-bottom:2%;
+}
+#contactEmail{
+	font-size: 1em;
+}
