@@ -10,7 +10,6 @@
  iron:router
  meteorhacks:npm
  npm
- insecure
  meteorhacks:search-source
  meteorhacks:kadira
  matb33:collection-hooks
@@ -59,3 +58,11 @@ spacebars
 npm-container
 meteorhacks:aggregate
 materialize:materialize
+raix:ui-dropped-event
+cfs:s3
+reactive-var
+chrismbeckett:toastr
+sacha:spin
+insecure
+msavin:mongol
+momentjs:moment

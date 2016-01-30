@@ -10,11 +10,11 @@
 <template name="home">
     {{> sAlert}}
     <div id="main-feed" class="container-fluid full-height unselectable">
-        <div class="row feed-wrapper">
+        <div class="row feed-wrapper" style="z-index: -1;">
             <div class="flip-container col-xs-6">
                 <div class="flipper" id="flipper">
                 {{#with showFriendFeed}}
-                    <div id="front" class="friendFeed feed front">
+                    <ul id="front" class="friendFeed feed front">
                         <i class="fa fa-users feed-user-icon"><div class="badge success">{{currentUser.numRequests}}</div></i>
                         {{>friendSearch}}
                         <div style="display: block">
@@ -24,11 +24,13 @@
                         <!-- <button class="btn toggleWorldFeed">World</button> -->
                         <div class="feed-name unselectable">Friends</div>
                         {{> friendFeed}}
-                    </div>
+                    </ul>
+                    <!-- <ul id="cloned-friendFeed" class="cloned-friendFeed col-xs-6">
+                    </ul> -->
                 {{/with}}
 
                 {{#unless showFriendFeed}}
-                    <div id="back" class="worldFeed feed back">
+                    <ul id="back" class="worldFeed feed back">
                         <div style="display: block">
                             <a class="waves-effect waves-light toggleFriendFeed"></a>
                             <a class="waves-effect waves-light toggleWorldFeed"></a>
@@ -47,12 +49,12 @@
                         -->
                         <div class="feed-name unselectable">World</div>
                         {{> worldFeed}}
-                    </div>
+                    </ul>
             {{/unless}}
             </div>
             </div>
             <!-- <div id="myFeed" class="feed col-xs-6 unselectable"> -->
-                <div id="myFeed" class="feed col-xs-6">
+                <ul class="myFeed feed col-xs-6">
                 <div id="tempForm">
                     <form class="new-thought form-horizontal" autocomplete="off">
                         <div class="form-group">
@@ -60,7 +62,9 @@
                                 <p id="time">...</p>
                             </div>
                             <div class="col-xs-8">
-                                <textarea id="newThoughtBox" class="form-control" name="text" rows="1" placeholder="How will you remember today?"></textarea>
+                                <!--{{>dropzone}}-->
+                                <textarea id="newThoughtBox" class="form-control" name="text" rows="1" placeholder="How will you remember today?">
+                                </textarea>
                                 <a id="submit-new-thought" class="btn-floating waves-light waves-effect">Keep</a>
                             </div>
                         </div>
@@ -69,7 +73,9 @@
                 <div class="feed-name unselectable">{{username}}</div>
                 <div id="expandedThoughtContent"></div>
                 {{> myFeed}}
-            </div>
+            </ul>
+            <ul id="cloned-myFeed" class="cloned-myFeed">
+            </ul>
             </div>
     </div>
 </template>

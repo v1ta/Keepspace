@@ -1,0 +1,10 @@
+{
+  "public" : {
+    "recordsPerPage" : "20"
+  },
+  "private" : {
+    "AWSAccessKeyId" : "<AWS KEY>",
+    "AWSSecretAccessKey" : "<AWS SECRET>",
+    "AWSBucket" : "<AWS BUCKET>"
+  }
+}

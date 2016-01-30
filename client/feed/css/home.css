@@ -79,10 +79,6 @@
     left: 15px;
     z-index: 1;
 }
-#myFeed{
-    border-left: 1px solid #97D8F9;
-    border-right: 1px solid #97D8F9;
-}
 #worldButtons {
     position: absolute;
     top: 15px;
