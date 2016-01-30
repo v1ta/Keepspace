@@ -120,6 +120,12 @@ Template.splashBanner.events({
             }
           });
     }
+  },
+  'click .icon-downbutton': function(event){
+    event.preventDefault();
+    $("body, html").animate({ 
+        scrollTop: $("#secondSlide").offset().top - em(5.3)
+    }, 800);
   }
 });
 
@@ -159,4 +165,9 @@ var trimInput = function(val) {
 function validateEmail(email) {
     var re = /^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/i;
     return re.test(email);
+}
+//convert em to pixel
+function em(input) {
+    var emSize = parseFloat($("body").css("font-size"));
+    return (emSize * input);
 }

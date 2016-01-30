@@ -250,3 +250,13 @@ nav.navbar.fixed-to-top{
 	border-color: #ffffff transparent transparent transparent;
 	  -webkit-transform:rotate(360deg)
 }
+.icon-downbutton{
+    bottom: 1%;
+    position: absolute;
+    left: 48%;
+    left: -webkit-calc(50% - 19px);
+    left: -moz-calc(50% - 19px);
+    font-size: 2.8em;
+    color: black;
+    cursor:pointer;
+}
