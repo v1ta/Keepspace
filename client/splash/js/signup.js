@@ -13,8 +13,8 @@ Template.beta_email_invite.rendered = function() {
             }
         },
         submitHandler: function () {
-            console.log(messages);
-            console.log(rules);
+            // console.log(messages);
+            // console.log(rules);
             var invitee;
             invitee = {
                 email: $('[name="emailAddress"]').val().toLowerCase(),
