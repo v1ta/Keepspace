@@ -54,10 +54,11 @@
     position: relative;
     display: block;
     color: white;
-    /*margin-top: 0px;*/
-    /*margin: 0 auto;*/
+    /*margin-top: 0px;
+    /*margin: 0 auto;
     outline: solid;
     outline-color: white;
+    */
     width: calc(100% - 33%);
     height: calc(100%);
     text-align: center;
@@ -143,8 +144,12 @@ input.button-add {
 }
 
 .author-container {
+    position: absolute;
     display: inline-block;
     height: inherit;
+    margin: auto;
+    left: 0;
+    right: 0;
 }
 
 .text-container {
@@ -207,8 +212,41 @@ input.button-add {
 
 .cloned-myFeed .thought {
     position: absolute;
-    z-index: 1;
+    z-index: 2;
 }
 .cloned-myFeed .thought:before {
-    content: attr(data-pos);
+    /*content: attr(data-pos);*/
+}
+
+.cloned-friendFeed {
+    position: absolute;
+    width: 100%;
+    margin: 10px 0;
+    height: calc(100% - 20px);
+    min-height: 1px;
+}
+
+.cloned-friendFeed .thought {
+    position: absolute;
+    z-index: 2;
+}
+.cloned-friendFeed .thought:before {
+    /*content: attr(data-pos);*/
+}
+
+.cloned-worldFeed {
+    position: absolute;
+    height: 100%;
+    top: 0;
+    /*top: 115px;*/
+    width: 100%;
+    min-height: 1px;
+}
+
+.cloned-worldFeed .thought {
+    position: absolute;
+    z-index: 2;
+}
+.cloned-worldFeed .thought:before {
+    /*content: attr(data-pos);*/
 }

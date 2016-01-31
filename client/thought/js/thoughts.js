@@ -1,5 +1,8 @@
 var feed;
 var direction = 1;
+var myFeedThoughts = 0;
+var friendFeedThoughts = 0;
+var worldFeedThoughts = 0;
 
 function randDir() {
     return (Math.random() < 0.5 ? -1 : 1);
@@ -45,87 +48,13 @@ Template.thought.onRendered(function() {
     });
     if (thought.userId == Meteor.userId()) {
         node.css({'background-color' : "#F38286"});
-        //node.children().get(4).className += " edit-thought";
-        //node.children().get(4).className += " delete-thought";
     } else if ((container == "friendFeed" && thought.userId != Meteor.userId())
         || thought.collectedBy.includes(Meteor.userId()) && thought.privacy != "public") {
         var avatar = Meteor.users.findOne({_id: thought.userId});
         node.css({'background-color' : "#32C0D2"});
-        /*
-
-         background-repeat: no-repeat;
-         background-position: 100%;
-
-        node.children().css({'background-image' : 'url('+avatar.profile.picture+')'});
-        node.children().css({'background-size' : radius * 2 + 'px ' + radius * 2 + 'px'});
-        node.children().get(0).className += "avatarWrapper";
-        node.children().css({
-            'height' : radius*2 + 'px',
-            'width'  : radius*2 + 'px',
-            'border-radius' : radius + 'px',
-            'line-height' : radius*2 + 'px'
-        });
-        */
-        //node.parent().get(4).className += " bubble-row";
-        //node.children().get(4).className += " collect-thought";
-        //node.children().get(4).className += " hide-thought";
     } else {
         node.css({'background-color': "#FAA43A"});
-        //node.children().get(4).className += " collect-thought";
-        //node.children().get(4).className += " hide-thought";
     }
-    /*
-    $('#' + thought._id).draggable({
-        //revert: 'invalid',
-        containment: "parent",
-        //revertDuration: 300,
-        stack: '.thought',
-        helper: 'clone',
-        appendTo: 'body',
-        refreshPosition: true,
-        //connectToSortable: '.thought',
-        /*
-            thought_id -> BSON _id associated w/Thought
-            feed -> <div> feed id
-            hide's the actual thought and creates a clone to faciliate dragging
-            over the 'feedwrapper' <div>
-         */
-    /*
-        start: function(event, ui) {
-            /*
-            $('#' + thought._id + ".ui-draggable-dragging").css({
-                'height' : radius*2 + 'px',
-                'width'  : radius*2 + 'px',
-                'border-radius' : radius + 'px',
-                'line-height' : radius*2 + 'px'
-            });
-            console.log($('#' + thought._id + ".ui-draggable-dragging"));
-            console.log($('#' + thought._id));
-            */
-    /*
-            thought_id = this.id;
-            feed = $(this).parent().get(0).id;
-            $(this).css({
-                'visibility': 'hidden'
-            })
-        },
-        /*
-            If the drag was successful, delete the thought currently masked by hide(),
-             else show() the original thought. The clone will be GCd
-         */
-    /*
-        stop: function(event, ui) {
-            if (feed != $(this).parent().get(0).id) {
-                $(this).remove();
-            } else {
-                $(this).css({
-                    'visibility': 'visible'
-                })
-            }
-        }
-
-    });
-*/
     $('#' + thought._id).playKeyframe({
         name: animationName, // name of the keyframe you want to bind to the selected element
         duration: '17s', // [optional, default: 0, in ms] how long you want it to last in milliseconds
@@ -134,36 +63,78 @@ Template.thought.onRendered(function() {
     });
 });
 
-var cloneThoughts = function() {
+Template.thought.hooks({
+    rendered: function() {
+        var thought = this.data;
+        var bubble = $('#' + thought._id);
+        console.log(this.data.privacy);
+
+        var item_clone = bubble.clone();
+        bubble.data("clone", item_clone);
+        var position = bubble.position();
+        item_clone
+            .css({
+                left: position.left,
+                top: position.top,
+                visibility: "hidden"
+            });
+        var feedName = "";
+        var index = 0;
+        if (this.data.privacy == "private") {
+            feedName = "myFeed";
+            myFeedThoughts += 1;
+            index = myFeedThoughts;
+        } else if (this.data.privacy == "friends") {
+            feedName = "friendFeed";
+            friendFeedThoughts += 1;
+            index = friendFeedThoughts;
+        } else if (this.data.privacy == "public") {
+            feedName = "worldFeed";
+            worldFeedThoughts += 1;
+            index = worldFeedThoughts;
+        }
+        item_clone.attr("data-pos",index);
+        $("#cloned-"+feedName).append(item_clone);
+
+    }
+});
+
+var cloneThoughts = function(feedName) {
+    $('#cloned-'+feedName).empty();
     $('.thought').each(function(i) {
         var item = $(this);
-        if (item.parent().get(0).classList[0] != "myFeed") {
+        if (item.parent().get(0).classList[0] != feedName) {
             i -= 1;
             return;
         }
+        console.log(item);
         var item_clone = item.clone();
         item.data("clone", item_clone);
         var position = item.position();
-        console.log(position);
         item_clone
             .css({
                 left: position.left,
                 top: position.top,
                 visibility: "hidden"
             })
-            .attr("data-pos", i+1);
-
-        $("#cloned-myFeed").append(item_clone);
+            var index;
+            if (feedName == "myFeed") {
+                myFeedThoughts += 1;
+                index = myFeedThoughts;
+            } else if (feedName == "friendFeed") {
+                friendFeedThoughts += 1;
+                index = friendFeedThoughts;
+            } else {
+                worldFeedThoughts += 1;
+                index = worldFeedThoughts;
+            }
+        item_clone.attr("data-pos",index);
+        $("#cloned-"+feedName).append(item_clone);
     });
-}
+};
 
 Template.myFeed.onRendered(function() {
-    cloneThoughts();
-    /*
-     Sets #myFeed as a droppable jQueryGUI zone, if the drop thought's
-     feed differs from the origin feed, update the privacy settings and append
-     the thought to the new feed, else do nothing.
-     */
+    cloneThoughts("myFeed");
     $('.myFeed').sortable({
         revert: 'true',
         //revertDuration: 1000,
@@ -175,11 +146,7 @@ Template.myFeed.onRendered(function() {
         appendTo: 'body',
         //helper: 'clone',
         start: function(event, ui) {
-            /*
-            feed = this.id;
-            $(ui.placeholder).hide(300);
-            */
-
+            feed = "myFeed";
             ui.helper.addClass("exclude-me");
             $(".myFeed .thought:not(.exclude-me)").css({"visibility": "hidden"});
             ui.helper.data("clone").hide();
@@ -215,15 +182,15 @@ Template.myFeed.onRendered(function() {
             $(".cloned-myFeed .thought").css("visibility", "hidden");
         },
         change: function(event, ui) {
-            /*
-            $(ui.placeholder).hide().show(300);
-            */
             $(".myFeed .thought:not(.exclude-me)").each(function() {
                 var item = $(this);
                 if (item.parent().get(0).classList[0] != "myFeed") {
                     return;
                 }
                 var clone = item.data("clone");
+                if (clone == undefined) {
+                    return;
+                }
                 clone.stop(true, false);
                 var position = item.position();
                 clone.animate({
@@ -239,6 +206,201 @@ Template.myFeed.onRendered(function() {
                     return;
                 }
                 var clone = item.data("clone");
+                if (clone === undefined) {
+                    return;
+                }
+                clone.stop(true, false);
+                var position = item.position();
+                clone.animate({
+                    left: position.left,
+                    top: position.top
+                }, 200);
+            });
+        },
+        receive: function(event,ui) {
+            console.log(ui.item);
+            $('#cloned-'+feed+' #'+ ui.item.get(0).id).remove();
+            Meteor.call("updatePrivacy", ui.item.get(0).id, "private", Meteor.userId());
+            if (Meteor.userId() != Thoughts.findOne({_id: ui.item.get(0).id}).userId) {
+                Meteor.call("addToMyCollection", ui.item.get(0).id);
+            }
+        }
+    });
+});
+
+Template.friendFeed.onRendered(function() {
+    cloneThoughts("friendFeed");
+    $('.friendFeed').sortable({
+        revert: 'true',
+        //revertDuration: 1000,
+        tolerance: 'pointer',
+        placeholder: 'sortable-placeholder',
+        cursor: 'move',
+        items: "> li",
+        connectWith: ['.worldFeed','.myFeed'],
+        appendTo: 'body',
+        //helper: 'clone',
+        start: function(event, ui) {
+            feed = "friendFeed";
+            ui.helper.addClass("exclude-me");
+            $(".friendFeed .thought:not(.exclude-me)").css({"visibility": "hidden"});
+            ui.helper.data("clone").hide();
+            $(".cloned-friendFeed .thought").css({"visibility": "visible"});
+        },
+        stop :function(event, ui) {
+            //cloneThought($(ui.helper),"friendFeed");
+            $(".friendFeed .thought.exclude-me").each(function() {
+                var item = $(this);
+                if (item.parent().get(0).classList[0] != "friendFeed") {
+                    return;
+                }
+                var clone = item.data("clone");
+                if (clone == undefined) {
+                    return;
+                }
+                var position = item.position();
+
+                clone.css("left", position.left);
+                clone.css("top", position.top);
+                clone.show();
+
+                item.removeClass("exclude-me");
+            });
+
+            $(".friendFeed .thought").each(function() {
+                var item = $(this);
+                if (item.parent().get(0).classList[0] != "friendFeed") {
+                    return;
+                }
+                var clone = item.data("clone");
+                clone.attr("data-pos", item.index());
+            });
+
+            $(".friendFeed .thought").css("visibility", "visible");
+            $(".cloned-friendFeed .thought").css("visibility", "hidden");
+        },
+        change: function(event, ui) {
+            /*
+             $(ui.placeholder).hide().show(300);
+             */
+            $(".friendFeed .thought:not(.exclude-me)").each(function() {
+                var item = $(this);
+                if (item.parent().get(0).classList[0] != "friendFeed") {
+                    return;
+                }
+                var clone = item.data("clone");
+                clone.stop(true, false);
+                var position = item.position();
+                clone.animate({
+                    left: position.left,
+                    top: position.top
+                }, 200);
+            });
+        },
+        update: function (event,ui) {
+            $(".friendFeed .thought:not(.exclude-me)").each(function() {
+                var item = $(this);
+                if (item.parent().get(0).classList[0] != "friendFeed") {
+                    return;
+                }
+                var clone = item.data("clone");
+                if (clone === undefined) {
+                    return;
+                }
+                clone.stop(true, false);
+                var position = item.position();
+                clone.animate({
+                    left: position.left,
+                    top: position.top
+                }, 200);
+            });
+        },
+        receive: function(event,ui) {
+            $('#cloned-'+feed+' #'+ ui.item.get(0).id).remove();
+            Meteor.call("updatePrivacy", ui.item.get(0).id, "friends", Meteor.userId());
+        }
+    });
+});
+
+Template.worldFeed.onRendered(function() {
+    cloneThoughts("worldFeed");
+    $('.worldFeed').sortable({
+        revert: 'true',
+        //revertDuration: 1000,
+        tolerance: 'pointer',
+        placeholder: 'sortable-placeholder',
+        cursor: 'move',
+        items: "> li",
+        connectWith: ['.friendFeed','.myFeed'],
+        appendTo: 'body',
+        //helper: 'clone',
+        start: function(event, ui) {
+            feed = "worldFeed";
+            ui.helper.addClass("exclude-me");
+            $(".worldFeed .thought:not(.exclude-me)").css({"visibility": "hidden"});
+            ui.helper.data("clone").hide();
+            $(".cloned-worldFeed .thought").css({"visibility": "visible"});
+        },
+        stop :function(event, ui) {
+
+            $(".worldFeed .thought.exclude-me").each(function() {
+                var item = $(this);
+                if (item.parent().get(0).classList[0] != "worldFeed") {
+                    return;
+                }
+                var clone = item.data("clone");
+                var position = item.position();
+
+                clone.css("left", position.left);
+                clone.css("top", position.top);
+                clone.show();
+
+                item.removeClass("exclude-me");
+            });
+
+            $(".worldFeed .thought").each(function() {
+                var item = $(this);
+                if (item.parent().get(0).classList[0] != "worldFeed") {
+                    return;
+                }
+                var clone = item.data("clone");
+                clone.attr("data-pos", item.index());
+            });
+
+            $(".worldFeed .thought").css("visibility", "visible");
+            $(".cloned-worldFeed .thought").css("visibility", "hidden");
+        },
+        change: function(event, ui) {
+            /*
+             $(ui.placeholder).hide().show(300);
+             */
+            $(".worldFeed .thought:not(.exclude-me)").each(function() {
+                var item = $(this);
+                if (item.parent().get(0).classList[0] != "worldFeed") {
+                    return;
+                }
+                var clone = item.data("clone");
+                if (clone == undefined) {
+                    return;
+                }
+                clone.stop(true, false);
+                var position = item.position();
+                clone.animate({
+                    left: position.left,
+                    top: position.top
+                }, 200);
+            });
+        },
+        update: function (event,ui) {
+            $(".worldFeed .thought:not(.exclude-me)").each(function() {
+                var item = $(this);
+                if (item.parent().get(0).classList[0] != "worldFeed") {
+                    return;
+                }
+                var clone = item.data("clone");
+                if (clone == undefined) {
+                    return;
+                }
                 clone.stop(true, false);
                 var position = item.position();
                 clone.animate({
@@ -249,108 +411,10 @@ Template.myFeed.onRendered(function() {
         },
         receive: function(event,ui) {
             console.log("AHH");
-            Meteor.call("updatePrivacy", ui.item.get(0).id, "private", Meteor.userId());
-            if (Meteor.userId() != Thoughts.findOne({_id: ui.item.get(0).id}).userId) {
-                Meteor.call("addToMyCollection", ui.item.get(0).id);
-            }
-        }
-    });
-
-
-    /*
-    $( "#myFeed" ).droppable({ //set container droppable
-        drop: function(event, ui) { //on drop
-            if (event.target.id != feed) {
-                Meteor.call("updatePrivacy", thought_id, "private", Meteor.userId());
-                if (Meteor.userId() != Thoughts.findOne({_id: thought_id}).userId) {
-                    Meteor.call("addToMyCollection", thought_id);
-                }
-                ui.draggable.css({ // set absolute position of dropped object
-                    position: 'absolute',
-                    top: ui.position.top - 95, //subtract height of header
-                    left: ui.position.left
-                }).appendTo('#myFeed'); //append to container
-            }
-        }
-    });
-    */
-});
-
-Template.friendFeed.onRendered(function() {
-    $(".friendFeed").sortable({
-        revert: 'invalid',
-        tolerance: 'pointer',
-        placeholder: 'sortable-placeholder',
-        cursor: 'move',
-        items: "> li",
-        connectWith: ['.friendFeed','.worldFeed'],
-        appendTo: 'body',
-        helper: 'clone',
-        start: function(event, ui) {
-            $(ui.placeholder).hide(300);
-        },
-        change: function(event, ui) {
-             $(ui.placeholder).hide().show(300);
-        },
-        receive: function(event,ui) {
-            console.log(ui.item);
-            Meteor.call("updatePrivacy", ui.item.get(0).id, "friends", Meteor.userId());
-        }
-    });
-    /*
-     Sets #friendFeed as a droppable jQueryGUI zone, if the drop thought's
-     feed differs from the origin feed, update the privacy settings and append
-     the thought to the new feed, else do nothing.
-     */
-    /*
-    $( ".friendFeed" ).droppable({
-        drop: function(event, ui) {
-            if (event.target.id != feed && Thoughts.findOne({_id: thought_id}).userId == Meteor.userId()) {
-                Meteor.call("updatePrivacy", thought_id, "friends", Meteor.userId());
-                ui.draggable.css({ // set absolute position of dropped object
-                    position: 'absolute',
-                    top: ui.position.top - 95, //subtract height of header
-                    left: ui.position.left
-                }).appendTo('.friendFeed'); //append to container
-            }
-        }
-    });
-    */
-});
-
-Template.worldFeed.onRendered(function() {
-    $(".worldFeed").sortable({
-        items: "> li",
-        connectWith: ['.myFeed','.friendFeed'],
-        appendTo: 'body',
-        helper: 'clone',
-        start: function(event, ui) {
-            feed = this.id;
-        },
-        receive: function(event,ui) {
-            console.log(ui.item);
+            $('#cloned-'+feed+' #'+ ui.item.get(0).id).remove();
             Meteor.call("updatePrivacy", ui.item.get(0).id, "public", Meteor.userId());
         }
     });
-    /*
-     Sets #worldFeed as a droppable jQueryGUI zone, if the drop thought's
-     feed differs from the origin feed, update the privacy settings and append
-     the thought to the new feed, else do nothing.
-     */
-    /*
-    $( ".worldFeed" ).droppable({ //set container droppable
-        drop: function(event, ui) { //on drop
-            if (event.target.id != feed && Thoughts.findOne({_id: thought_id}).userId == Meteor.userId()) {
-                Meteor.call("updatePrivacy", thought_id, "public", Meteor.userId());
-                    ui.draggable.css({ // set absolute position of dropped object
-                        position: 'absolute',
-                        top: ui.position.top - 95, //subtract height of header
-                        left: ui.position.left
-                    }).appendTo('.worldFeed'); //append to container
-            }
-        }
-    });
-    */
 });
 
 Template.thought.events({
@@ -428,12 +492,13 @@ Template.thought.events({
     /* Condense a thought */
     'click .expanded': function(event) {
         var bubble = $(event.currentTarget);
+        console.log(this.rank);
         var author = $(bubble.children().get(0));//.children();
         var text = $(bubble.children().get(1)).children();
         var buttons = $(bubble.children().get(2)).children();
         bubble.animate({
-            width: 150,
-            height: 150
+            width: ((this.rank+1) * 75)*2,
+            height: ((this.rank+1) * 75)*2
         });
         bubble.toggleClass('condensed expanded');
         $(bubble.children().get(1)).removeClass('text-container');
