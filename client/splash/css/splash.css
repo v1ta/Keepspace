@@ -254,9 +254,24 @@ nav.navbar.fixed-to-top{
     bottom: 1%;
     position: absolute;
     left: 48%;
-    left: -webkit-calc(50% - 19px);
-    left: -moz-calc(50% - 19px);
+    left: -webkit-calc(50% - 50px);
+    left: -moz-calc(50% - 50px);
     font-size: 2.8em;
     color: black;
-    cursor:pointer;
+    cursor: pointer;
+    width: 100px;
+    text-align: center;
+}
+.scrollDown{
+    color: black;
+    font-size: 1.3em;
+    bottom: 1%;
+    position: absolute;
+    left: -webkit-calc(50% - 50px);
+    left: -moz-calc(50% - 50px);
+    height: 55px;
+    margin-bottom: 0px;
+    width: 100px;
+    padding-top: 10px;
+    cursor: pointer;
 }

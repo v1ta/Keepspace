@@ -66,79 +66,79 @@ Template.beta_email_invite.events({
     }
 });
 
-Template.signupPage.events({//custom login/register functions
-    'click #login-buttons-facebook': function() { //login with facebook
-        Meteor.loginWithFacebook({requestPermissions: ['email', 'user_friends', 'user_location', 'user_status',
-                'user_posts','publish_actions']}, 
-            function(err){
-                if (!err){
-                    Session.set("isFB", true);
-                    localStorage.setItem("justLoggedIn", "true");
-                    resetAllFeeds();
-                    Router.go("home");
-                  // $("#changePassword").hide();
-                } else {
-                  console.log(err);
-                }
-            }
-        )},
-    'click #createButton': function(event) {
-        var userName = $("#username").val();
-        var DOB = $("#dateOfBirth").val();
-        var userEmail = $("#signupEmail").val();
-        var passwordVar = $("#password").val();
-        var repeat = $("#passwordAgain").val();
-        var emailValidate = validateEmail(userEmail);
-        var validate = true;
-        if (passwordVar != repeat) {
-            //passwords don't match
-            alert("Passwords don't match!");
-            validate = false;
-        } else if (!emailValidate) {
-            alert("Please enter a valid email.");
-            validate = false;
-        } else {
-            Accounts.createUser({
-                    username: userName,
-                    email: userEmail,
-                    password: passwordVar,
-                    profile: {
-                        dateOfBirth: DOB
-                    }
-                }, function(err) {
-                    if (err){
-                        alert(err);
-                    } else {
-                        localStorage.setItem("justLoggedIn", "true");
-                        resetAllFeeds();
-                        Router.go("home");
-                    }
-                }
-            );
-        }   
-    },
-    'click #nextLoginButton': function(){
-        var checkDate = isValidDate($("#dateOfBirth").val());
-        var name = $("#username").val();
-        if (!name && checkDate){
-            alert("Please enter your name!");
-        }
-        else if (checkDate && name){
-            $("#firstSignPage").hide();
-            $("#nextLoginButton").hide();
-            $("#secondSignPage").show();
-            $(".backButton").show();
-            $("#splashTitle").css("margin-right", "76px");
-        }
-    },
-    'click .backButton': function(){
-        $("#firstSignPage").show();
-        $("#nextLoginButton").show();
-        $("#secondSignPage").hide();
-        $(".backButton").hide();
-        $("#splashTitle").css("margin-right", "0px");
-    },
-});
+// Template.signupPage.events({//custom login/register functions
+//     'click #login-buttons-facebook': function() { //login with facebook
+//         Meteor.loginWithFacebook({requestPermissions: ['email', 'user_friends', 'user_location', 'user_status',
+//                 'user_posts','publish_actions']}, 
+//             function(err){
+//                 if (!err){
+//                     Session.set("isFB", true);
+//                     localStorage.setItem("justLoggedIn", "true");
+//                     resetAllFeeds();
+//                     Router.go("home");
+//                   // $("#changePassword").hide();
+//                 } else {
+//                   console.log(err);
+//                 }
+//             }
+//         )},
+//     'click #createButton': function(event) {
+//         var userName = $("#username").val();
+//         var DOB = $("#dateOfBirth").val();
+//         var userEmail = $("#signupEmail").val();
+//         var passwordVar = $("#password").val();
+//         var repeat = $("#passwordAgain").val();
+//         var emailValidate = validateEmail(userEmail);
+//         var validate = true;
+//         if (passwordVar != repeat) {
+//             //passwords don't match
+//             alert("Passwords don't match!");
+//             validate = false;
+//         } else if (!emailValidate) {
+//             alert("Please enter a valid email.");
+//             validate = false;
+//         } else {
+//             Accounts.createUser({
+//                     username: userName,
+//                     email: userEmail,
+//                     password: passwordVar,
+//                     profile: {
+//                         dateOfBirth: DOB
+//                     }
+//                 }, function(err) {
+//                     if (err){
+//                         alert(err);
+//                     } else {
+//                         localStorage.setItem("justLoggedIn", "true");
+//                         resetAllFeeds();
+//                         Router.go("home");
+//                     }
+//                 }
+//             );
+//         }   
+//     },
+//     'click #nextLoginButton': function(){
+//         var checkDate = isValidDate($("#dateOfBirth").val());
+//         var name = $("#username").val();
+//         if (!name && checkDate){
+//             alert("Please enter your name!");
+//         }
+//         else if (checkDate && name){
+//             $("#firstSignPage").hide();
+//             $("#nextLoginButton").hide();
+//             $("#secondSignPage").show();
+//             $(".backButton").show();
+//             $("#splashTitle").css("margin-right", "76px");
+//         }
+//     },
+//     'click .backButton': function(){
+//         $("#firstSignPage").show();
+//         $("#nextLoginButton").show();
+//         $("#secondSignPage").hide();
+//         $(".backButton").hide();
+//         $("#splashTitle").css("margin-right", "0px");
+//     },
+// });
 
 function isValidDate(dateString) { // Validates that the input string is a valid date formatted as "mm/dd/yyyy"
     if (!/^\d{1,2}\/\d{1,2}\/\d{4}$/.test(dateString)) { // First check for the pattern

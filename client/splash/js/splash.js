@@ -121,7 +121,7 @@ Template.splashBanner.events({
           });
     }
   },
-  'click .icon-downbutton': function(event){
+  'click .scrollDown': function(event){
     event.preventDefault();
     $("body, html").animate({ 
         scrollTop: $("#secondSlide").offset().top - em(5.3)
@@ -132,6 +132,34 @@ Template.splashBanner.events({
 Template.splashBanner.onRendered(function(){
 	$(".alertDiv").click(closeAlert);
 	$(".closeAlert").click(closeAlert);
+  $(function(){
+    $(".icon-downbutton").hover(
+      function(){
+        // console.log("a");
+        $(".icon-downbutton").hide();
+        $(".scrollDown").show();
+      },
+      function() {
+        // on mouseout, reset the background colour
+        // $('#b').css('background-color', '');
+        $(".scrollDown").hide();
+        $(".icon-downbutton").show();
+        console.log("b");
+    });
+    $(".scrollDown").hover(
+      function(){
+        // console.log("a");
+        $(".icon-downbutton").hide();
+        $(".scrollDown").show();
+      },
+      function() {
+        // on mouseout, reset the background colour
+        // $('#b').css('background-color', '');
+        $(".scrollDown").hide();
+        $(".icon-downbutton").show();
+        console.log("b");
+    });
+  });
 });
 
 //TODO throws undefined(.carousel) error when loaded
