@@ -67,8 +67,6 @@ Template.thought.hooks({
     rendered: function() {
         var thought = this.data;
         var bubble = $('#' + thought._id);
-        console.log(this.data.privacy);
-
         var item_clone = bubble.clone();
         bubble.data("clone", item_clone);
         var position = bubble.position();
@@ -101,13 +99,11 @@ Template.thought.hooks({
 
 var cloneThoughts = function(feedName) {
     $('#cloned-'+feedName).empty();
-    $('.thought').each(function(i) {
+    $('.thought').each(function() {
         var item = $(this);
         if (item.parent().get(0).classList[0] != feedName) {
-            i -= 1;
             return;
         }
-        console.log(item);
         var item_clone = item.clone();
         item.data("clone", item_clone);
         var position = item.position();
@@ -248,7 +244,6 @@ Template.friendFeed.onRendered(function() {
             $(".cloned-friendFeed .thought").css({"visibility": "visible"});
         },
         stop :function(event, ui) {
-            //cloneThought($(ui.helper),"friendFeed");
             $(".friendFeed .thought.exclude-me").each(function() {
                 var item = $(this);
                 if (item.parent().get(0).classList[0] != "friendFeed") {
@@ -280,9 +275,6 @@ Template.friendFeed.onRendered(function() {
             $(".cloned-friendFeed .thought").css("visibility", "hidden");
         },
         change: function(event, ui) {
-            /*
-             $(ui.placeholder).hide().show(300);
-             */
             $(".friendFeed .thought:not(.exclude-me)").each(function() {
                 var item = $(this);
                 if (item.parent().get(0).classList[0] != "friendFeed") {
@@ -420,10 +412,13 @@ Template.worldFeed.onRendered(function() {
 Template.thought.events({
     /* Expand a thought */
     'click .condensed': function(event) {
+
         var bubble = $(event.currentTarget);
+        feed = bubble.parent().get(0).classList[0];
         if (bubble.get(0).classList.contains("exclude-me")) {
             return;
         }
+        Session.set("maximized", true);
         var author = $(bubble.children().get(0));//.children();
         var text = $(bubble.children().get(1)).children();
         var buttons = $(bubble.children().get(2)).children();
@@ -492,7 +487,6 @@ Template.thought.events({
     /* Condense a thought */
     'click .expanded': function(event) {
         var bubble = $(event.currentTarget);
-        console.log(this.rank);
         var author = $(bubble.children().get(0));//.children();
         var text = $(bubble.children().get(1)).children();
         var buttons = $(bubble.children().get(2)).children();
@@ -510,11 +504,22 @@ Template.thought.events({
         buttons.toggleClass('buttons-show buttons-hide');
     },
     /* Deletes a thought */
-    "click #action-1": function (event) {
-        Meteor.call("deleteThought", this._id);
-    },
-    /* Sets a thought's privacy setting to private */
     "click #action-2": function (event) {
+        var bubble = $(event.currentTarget);
+        bubble.animate({
+            width: ((this.rank+1) * 75)*2,
+            height: ((this.rank+1) * 75)*2
+        });
+        bubble.toggleClass('condensed expanded');
+        var id = this._id
+        Meteor.setTimeout( function() {
+            $('#cloned-'+feed+' #'+id).remove();
+                Meteor.call("deleteThought", id);
+            }, 300
+        );
+    },
+    /* Collect a thought */
+    "click #action-1": function (event) {
         Meteor.call("setPrivate", this._id, ! this.private);
     },
 });

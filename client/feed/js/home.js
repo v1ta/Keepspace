@@ -18,7 +18,7 @@ Template.home.onRendered(function(){
     Session.setDefault('showFriendFeed', true);
     Session.setDefault('centerfeed', thoughtsList)
     Session.set('showFriendFeed', true);
-
+    Session.set("maximized", false);
     $("#newThoughtBox").keypress(function(e) {
         var code = (e.keyCode ? e.keyCode : e.which);
         if (code == 13){
@@ -27,7 +27,6 @@ Template.home.onRendered(function(){
         }
         return true;
     });
-
     var self = this;
     // is triggered every time we scroll
     $(window).scroll(function() {
@@ -142,6 +141,11 @@ Template.home.helpers({
 
 //request facebook data
 Template.home.events({
+    'click' : function(event) {
+        if (Session.get("maximized")) {
+            //minimize selected bubble
+        }
+    },
     "submit .new-thought": function (event) {
         event.preventDefault();
         // This function is called when the new thought form is submitted
@@ -292,7 +296,3 @@ var incrementLimit = function(templateInstance) {
         parseInt(Meteor.settings.public.recordsPerPage);
     templateInstance.limit.set(newLimit);
 }
-/*
-
-
- */
