@@ -18,7 +18,7 @@
     height: -moz-calc(100% - 20px);
     height: calc(100% - 20px);
     margin: 10px 0;
-    overflow: auto;
+    /*overflow: auto;*/
     z-index: 0;
     position: relative;
 }
@@ -40,7 +40,7 @@
     width: -webkit-calc(100% - 30px);
     width: -moz-calc(100% - 30px);
     width: calc(100% - 30px);
-    text-align: center;
+    /*text-align: center;*/
     font-size: 50px;
     color:rgba(50, 192, 210, 0.5);
     cursor:default;
@@ -78,10 +78,6 @@
     position: absolute;
     left: 15px;
     z-index: 1;
-}
-#myFeed{
-    border-left: 1px solid #97D8F9;
-    border-right: 1px solid #97D8F9;
 }
 #worldButtons {
     position: absolute;
@@ -220,7 +216,7 @@ ul
     -moz-backface-visibility: hidden;
     -o-backface-visibility: hidden;
     backface-visibility: hidden;
-    overflow: auto;
+    /*overflow: auto;*/
     position: absolute;
     height: 100%;
     width: 100%;

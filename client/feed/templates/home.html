@@ -14,11 +14,11 @@
 <template name="home">
     {{> sAlert}}
     <div id="main-feed" class="container-fluid full-height unselectable">
-        <div class="row feed-wrapper">
+        <div class="row feed-wrapper" style="z-index: -1;">
             <div class="flip-container col-xs-6">
                 <div class="flipper" id="flipper">
                 {{#with showFriendFeed}}
-                    <div id="front" class="friendFeed feed front">
+                    <ul id="front" class="friendFeed feed front">
                         <i class="fa fa-users feed-user-icon"><div class="badge success">{{currentUser.numRequests}}</div></i>
                         {{>friendSearch}}
                         <div style="display: block">
@@ -28,19 +28,23 @@
                         <!-- <button class="btn toggleWorldFeed">World</button> -->
                         <div class="feed-name unselectable">Friends</div>
                         {{> friendFeed}}
-                    </div>
+                    </ul>
+                    <ul id="cloned-friendFeed" class="cloned-friendFeed">
+                    </ul>
+                    <!-- <ul id="cloned-friendFeed" class="cloned-friendFeed col-xs-6">
+                    </ul> -->
                 {{/with}}
 
                 {{#unless showFriendFeed}}
-                    <div id="back" class="worldFeed feed back">
-                        <div style="display: block">
+                    <ul id="back" class="worldFeed feed back">
+                        <div style="display: block; z-index: 2;">
                             <a class="waves-effect waves-light toggleFriendFeed"></a>
                             <a class="waves-effect waves-light toggleWorldFeed"></a>
                         </div>
                         <!--<button class="btn toggleWorldFeed">World</button>-->
-                        <i class="fa fa-search feed-search-icon"></i>
-                        <form class="search">
-                            <input type="text" name="search" class="form-control" placeholder="find a thought" />
+                        <i class="fa fa-search feed-search-icon" style="top: 0; z-index: 2"></i>
+                        <form class="search" style="top: 0; z-index: 2;">
+                            <input type="text" name="search" class="form-control" placeholder="find a thought"/>
                         </form>
                         <!--
                         <i class="fa fa-caret-down fa-lg world-dropdown"></i>
@@ -51,12 +55,14 @@
                         -->
                         <div class="feed-name unselectable">World</div>
                         {{> worldFeed}}
-                    </div>
+                        <ul id="cloned-worldFeed" class="cloned-worldFeed">
+                        </ul>
+                    </ul>
             {{/unless}}
             </div>
             </div>
             <!-- <div id="myFeed" class="feed col-xs-6 unselectable"> -->
-                <div id="myFeed" class="feed col-xs-6">
+                <ul class="myFeed feed col-xs-6">
                 <div id="tempForm">
                     <form class="new-thought form-horizontal" autocomplete="off">
                         <div class="form-group">
@@ -64,7 +70,9 @@
                                 <p id="time">...</p>
                             </div>
                             <div class="col-xs-8">
-                                <textarea id="newThoughtBox" class="form-control" name="text" rows="1" placeholder="How will you remember today?"></textarea>
+                                <!--{{>dropzone}}-->
+                                <textarea id="newThoughtBox" class="form-control" name="text" rows="1" placeholder="How will you remember today?">
+                                </textarea>
                                 <a id="submit-new-thought" class="btn-floating waves-light waves-effect">Keep</a>
                             </div>
                         </div>
@@ -73,7 +81,9 @@
                 <div class="feed-name unselectable">{{username}}</div>
                 <div id="expandedThoughtContent"></div>
                 {{> myFeed}}
-            </div>
+            </ul>
+            <ul id="cloned-myFeed" class="cloned-myFeed">
+            </ul>
             </div>
     </div>
 </template>
