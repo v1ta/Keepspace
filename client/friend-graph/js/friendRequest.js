@@ -121,10 +121,13 @@ Template.friendRequestPage.helpers({
                 console.log(err);
             else{
                 // console.log("num friends:");
-                console.log(data);
-                result = " friends";
+                // console.log(data);
+                result = "";
                 if (data == 1){
-                    result = " friend"
+                    result = " friend";
+                }
+                else{
+                    result = " friends";
                 }
 
                 // console.log(friendId);
@@ -167,6 +170,9 @@ Template.friendRequestPage.helpers({
                     }
                 }
                 if (!isFriend){
+                    console.log(friends);
+                    console.log(user._id);
+                    // console.log(user);
                     user.isFriend = false;
                     theRest.push(user);
                 }
@@ -175,6 +181,8 @@ Template.friendRequestPage.helpers({
         // console.log(Meteor.users.find().fetch());
         // console.log(friends);
         return $.merge(topResults, theRest);
+        console.log(topResults);
+        console.log(theRest);
         // return Meteor.users.find().fetch();
     }
 });
