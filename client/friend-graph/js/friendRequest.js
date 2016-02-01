@@ -71,7 +71,16 @@ Template.friendRequestPage.helpers({
         // console.log(results.fetch());
         // return results;
         var ready = Meteor.subscribe('friendRequests').ready();
-        Session.set("numRequests", results.fetch().length)
+        var requests = results.fetch();
+        var numRequests = 0;
+        var userId = Meteor.userId();
+        for (var i = 0; i < requests.length; i++){
+            if (requests[i].userId == userId){
+                numRequests += 1;
+                console.log(requests[i]);
+            }
+        }
+        Session.set("numRequests", numRequests);
         // console.log(ready);
         return {
               data: results,

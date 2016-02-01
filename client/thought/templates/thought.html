@@ -1,20 +1,30 @@
 <template name="thought">
-    <!-- TODO encrypt _id or use alternate id -->
-    <div id="{{_id}}" class="thought condensed">
-        <p class="author">{{author}}</p>
-        <span class="text">{{text}}</span>
-        <br>
-        <button class="thought-action" id="action-1">Collect</button>
-        <button class="thought-action" id="action-2">Delete</button>
-    </div>
+    <li id="{{_id}}" class="thought condensed">
+        <div class="header-hide">
+            <div class="avatar-container">
+            </div>
+            <div class="author-container">
+                <h1 class="author buttons-hide">{{author}}</h1>
+            </div>
+        </div>
+        <div class="text">
+            <span>
+                {{text}}
+            </span>
+        </div>
+        <div class="buttons-container">
+            <button class="thought-action buttons-hide" id="action-1"></button>
+            <button class="thought-action buttons-hide" id="action-2"></button>
+        </div>
+    </li>
 </template>
 
 <template name="myFeed">
-    {{#if currentUser}}
-        {{#each thoughts}}
-            {{> thought}}
-        {{/each}}
-    {{/if}}
+        {{#if currentUser}}
+            {{#each thoughts}}
+                {{> thought}}
+            {{/each}}
+        {{/if}}
 </template>
 
 <template name="worldFeed">

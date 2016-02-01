@@ -4,11 +4,21 @@ Meteor.subscribe("outgoingFriendRequests");
 Meteor.subscribe('ignoredFriendRequests');
 var thoughtsList = [];
 
+Template.home.created = function() {
+    var self = this;
+
+    self.limit = new ReactiveVar;
+    self.limit.set(parseInt(Meteor.settings.public.recordsPerPage));
+    Tracker.autorun(function() {
+        Meteor.subscribe('images');
+    });
+}
+
 Template.home.onRendered(function(){
     Session.setDefault('showFriendFeed', true);
     Session.setDefault('centerfeed', thoughtsList)
     Session.set('showFriendFeed', true);
-
+    Session.set("maximized", false);
     $("#newThoughtBox").keypress(function(e) {
         var code = (e.keyCode ? e.keyCode : e.which);
         if (code == 13){
@@ -17,7 +27,13 @@ Template.home.onRendered(function(){
         }
         return true;
     });
-
+    var self = this;
+    // is triggered every time we scroll
+    $(window).scroll(function() {
+        if ($(window).scrollTop() + $(window).height() > $(document).height() - 100) {
+            incrementLimit(self);
+        }
+    });
 });
 
 window.onload = function(event){ // Website has loaded
@@ -117,11 +133,19 @@ Template.home.helpers({
     },
     showFriendFeed: function() {
         return Session.get('showFriendFeed');
+    },
+    'images': function() {
+        return Images.find({}, {sort:{uploadedAt:-1}});
     }
 });
 
 //request facebook data
 Template.home.events({
+    'click' : function(event) {
+        if (Session.get("maximized")) {
+            //minimize selected bubble
+        }
+    },
     "submit .new-thought": function (event) {
         event.preventDefault();
         // This function is called when the new thought form is submitted
@@ -266,6 +290,13 @@ getFriends = function() {
         return d.friendId});
     return _.pluck(distinctArr, 'friendId');
 }
+
+var incrementLimit = function(templateInstance) {
+    var newLimit = templateInstance.limit.get() +
+        parseInt(Meteor.settings.public.recordsPerPage);
+    templateInstance.limit.set(newLimit);
+};
+
 getFriendsAsUsers = function() {
     var friends = Meteor.friends.find();
     var friendsAsUsers = [];

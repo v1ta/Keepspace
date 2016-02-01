@@ -13,9 +13,30 @@ Template.calendar.onRendered(function () { //calendar loading
 });
 
 Template.calendar.onDestroyed(function () {
-    feedStage.destroyChildren(); // Cleanup canvas
-    feedStage.destroy();
+    //feedStage.destroyChildren(); // Cleanup canvas
+    //feedStage.destroy();
 })
+
+Template.calendar.helpers({
+    thoughts: function () {
+        // Only find posts made after 00:00 of today
+        var start = new Date();
+        start.setHours(0,0,0,0);
+        return Thoughts.find({
+                $or: [
+                    {$and: [
+                        {userId: Meteor.userId()},
+                        {privacy: "private"},
+                        {createdAt: {$gte: start}}
+                    ]},
+                    {$and :[
+                        {collectedBy: Meteor.userId()},
+                        {createdAt: {$gte: start}}
+                    ]},
+                ]},
+            {sort: {createdAt: -1}});
+    }
+});
 
 Template.calendar.events({
     'click .datepicker-td': function (event) {
@@ -114,6 +135,7 @@ function getCalFeed(date) { //show posts for a given day
     dateMidnight.setMinutes(59);
     dateMidnight.setSeconds(59);
     feedStage = {};
+    /*
     renderFeed('#calFeed', 'calFeed-container', 'single',
         Thoughts.find({
             $and: [
@@ -132,6 +154,7 @@ function getCalFeed(date) { //show posts for a given day
             ]
         }, {sort: {createdAt: -1}}).fetch()
     );
+    */
 }
 
 function setCalText(date, setCal, setHead) { //set calendar feed header + calendar month/year

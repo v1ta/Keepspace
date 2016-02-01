@@ -1,16 +1,16 @@
 <template name="friendRequestPage">
-	<div id="friendRequests" class="full-height" style="">
-		<div class="friendPageTab" id="friendsTab">
-			<div class="friendTabHeader" id="friendHead">
-				<p id="friendTitle"> Your Friends </p>
-				<div class="box">
-				  	<div class="container-1">
-					  		<input type="text" id="friendSearch" placeholder="Search for your friends" />
-					      	<i id="friendSearchIcon" class="material-icons">search</i>
-				  	</div>
-				</div>
-			</div>
-			<div class="friendContainer" id="friendsList">
+    <div id="friendRequests" class="full-height" style="">
+        <div class="friendPageTab" id="friendsTab">
+            <div class="friendTabHeader" id="friendHead">
+                <p id="friendTitle"> Your Friends </p>
+                <div class="box">
+                    <div class="container-1">
+                        <input type="text" id="friendSearch" placeholder="Search for your friends" />
+                        <i id="friendSearchIcon" class="material-icons">search</i>
+                    </div>
+                </div>
+            </div>
+            <div class="friendContainer" id="friendsList">
 
 				{{#if searchFriendInput}}
 					{{#each friendSearchResult}}
@@ -39,13 +39,6 @@
 										<p class="numFriends">{{numFriends _id}}</p>
 									</div>
 								</div>
-
-			<!-- 	        		<div class="friendLine">
-			         		 		<p class="friendName">{{username}}</p>
-			          				<img class="friendButton" src="/images/deleteButton.png" data-action="unfriend">
-				        		</div> -->
-				        	<!-- {{else}}
-				        		<p class="noFriends">No friends :(</p> -->
 				        	{{/each}}
 				        {{/if}}
 			        {{/with}}
@@ -59,33 +52,33 @@
 			</div>
 			<div class="friendContainer" id="requestsList">
 
-				{{#with friendRequests}}
-					{{#if ready}}
-						{{#each data}}
-				            {{#if isOutgoing requesterId}}
-				              <!-- <div class="friendLine">
+                {{#with friendRequests}}
+                    {{#if ready}}
+                        {{#each data}}
+                            {{#if isOutgoing requesterId}}
+                                <!-- <div class="friendLine">
 				                <p class="friendName">{{username}}</p>
 				                <p class="requestPending">pending.</p>
 				              </div>  -->
-				            {{else}}
-				            	<div class="singleRequest">
-									<img class="friendPageFriendImage" src="{{requester.profile.picture}}">
-									<div class="friendTextContainer">
-										<p class="friendName">{{requester.username}}</p>
-										<p class="numFriends">{{mutualFriends requesterId}} mutual friends</p>
-									</div>
-									<p class="requestOption" id="deleteRequest" data-action="deny">Delete Request</p>
-									<p class="requestOption" id="acceptRequest" data-action="accept">Accept</p>
-								</div>
-				            {{/if}}
-		          		{{else}}
-			            	<p class="noFriends">No pending requests</p>
-			            {{/each}}
-				    {{/if}}
-	          	{{/with}}
-			</div>
-		</div>
-	</div>
+                            {{else}}
+                                <div class="singleRequest">
+                                    <img class="friendPageFriendImage" src="{{requester.profile.picture}}">
+                                    <div class="friendTextContainer">
+                                        <p class="friendName">{{requester.username}}</p>
+                                        <p class="numFriends">{{mutualFriends requesterId}} mutual friends</p>
+                                    </div>
+                                    <p class="requestOption" id="deleteRequest" data-action="deny">Delete Request</p>
+                                    <p class="requestOption" id="acceptRequest" data-action="accept">Accept</p>
+                                </div>
+                            {{/if}}
+                        {{else}}
+                            <p class="noFriends">No pending requests</p>
+                        {{/each}}
+                    {{/if}}
+                {{/with}}
+            </div>
+        </div>
+    </div>
 </template>
 
 <!-- <div class="singleFriend">

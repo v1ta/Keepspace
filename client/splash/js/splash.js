@@ -144,7 +144,7 @@ Template.splashBanner.onRendered(function(){
         // $('#b').css('background-color', '');
         $(".scrollDown").hide();
         $(".icon-downbutton").show();
-        console.log("b");
+        // console.log("b");
     });
     $(".scrollDown").hover(
       function(){
@@ -157,7 +157,7 @@ Template.splashBanner.onRendered(function(){
         // $('#b').css('background-color', '');
         $(".scrollDown").hide();
         $(".icon-downbutton").show();
-        console.log("b");
+        // console.log("b");
     });
   });
 });
