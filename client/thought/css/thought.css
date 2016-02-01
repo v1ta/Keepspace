@@ -2,6 +2,13 @@
 @font-face {font-family: Roboto-Italic; src: url('fonts/roboto/Roboto-MediumItalic.ttf') format('truetype');}
 @font-face {font-family: Gotham; src: url('fonts/GothamHTF-Medium.otf');}
 /* Bubbles */
+.myFeed{
+    position: absolute;
+    left: 50%;
+    border-left: 1px solid #97D8F9;
+    border-right: 1px solid #97D8F9;
+    z-index: 1;
+}
 .thought {
     display: inline-block;
     width: 100px;
@@ -10,6 +17,26 @@
     background-color: #F38286;
     /*animation: float 20s infinite;*/
     margin: 75px;
+    margin: 20px;
+    position: relative;
+    z-index: 5;
+    user-select: none;
+}
+
+.thought:before {
+    position: absolute;
+    /*
+    bottom: 0;
+    right: 100%;
+
+    counter-increment: thoughts;
+    content: counter(thoughts);
+
+    padding-right: 0.35rem;
+    color: #999;
+    line-height: normal;
+    font-size: 1rem;
+    */
 }
 
 .text {
@@ -25,14 +52,23 @@
 }
 
 .text-expanded {
+    position: relative;
     display: block;
     color: white;
     margin-top: 0px;
     display: inline-block;
+    /*margin-top: 0px;
+    /*margin: 0 auto;
+    outline: solid;
+    outline-color: white;
+    */
     width: calc(100% - 33%);
     height: calc(100% - 33%);
     text-align: left;
-    vertical-align: middle;
+    height: calc(100%);
+    text-align: center;
+    /*vertical-align: middle;*/
+    /*horiz-align: middle;*/
     line-height: normal;
     overflow-x: auto;
     overflow-y: auto;
@@ -40,11 +76,14 @@
 }
 
 .author {
+    display:inline-block;
     display:none;
-    height: 20px;
+    /*height: 20px;*/
     text-align: center;
+    /*position: relative;*/
+    vertical-align: middle;
     color: white;
-    font-size: 16px;
+    font-size: 25px;
 }
 
 input.button-add {
@@ -69,46 +108,154 @@ input.button-add {
     margin-top: 0px;
     visibility: hidden;
     vertical-align: top;
+    position: relative;
+    display: inline-block;
     font: 'Roboto';
+    vertical-align: top;
     color: white;
-    border: 2px solid white;
+    /*border: 2px solid white;
     background-color: Transparent;
+    background-repeat: no-repeat;*/
+}
+
+#action-1 {
+    background-image: url('images/keepspaceLogo-03.png');
     background-repeat: no-repeat;
+    background-position: 100%;
+    background-color: transparent;
+    background-size: 40px auto;
+    height: inherit;
+    width: 40px;
+    border: none;
 }
 
-@keyframes float {
-    0% {
-        transform: translatex(0px) translatey(0px);
-    }
-    12.5% {
-        transform: translatex(-50px) translatey(37.5px);
-    }
-    37.5% {
-        transform: translatex(37.5px) translatey(50px);
-    }
-    62.5% {
-        transform: translatex(50px) translatey(-37.5px);
-    }
-    87.5% {
-        transform: translatex(-37.5px) translatey(-50px);
-    }
+#action-2 {
+    background-image: url('images/trashcan_white.png');
+    background-repeat: no-repeat;
+    background-position: 100%;
+    background-color: transparent;
+    background-size: 40px auto;
+    height: inherit;
+    width: 40px;
+    border: none;
+}
+
+.header-hide {
+    display: none;
+}
+
+.header-show {
+    display: block;
+}
+
+.avatar-container {
+    display: inline-block;
+}
+
+.author-container {
+    position: absolute;
+    display: inline-block;
+    height: inherit;
+    margin: auto;
+    left: 0;
+    right: 0;
+}
+
+.text-container {
+    display: block;
+}
+
+.button-container {
+    display: block;
+}
+
+.buttons-show {
+    display: inline-block;
+}
+
+.buttons-hide {
+    display: none;
+}
+
+.marker {
+    opacity:0.0;
+}
+
+.bubbles {
+    height: inherit;
+}
+
+.ui-sortable-helper {
+    transition: none !important;
+    animation: pulse 0.4s alternate infinite;
+}
+
+.sortable-placeholder {
+    display: inline-block;
+    height: 150px;
+    width: 150px;
+    margin: 20px;
+    position: relative;
+    z-index: 6;
+}
+
+@keyframes pulse {
     100% {
-        transform: translatex(0px) translatey(0px);
+        transform: scale(1.1);
     }
 }
 
-.delete-thought {
-
+.cloned-myFeed {
+    position: absolute;
+    height: calc(100% - 20px);
+    border-left: 1px solid #97D8F9;
+    border-right: 1px solid #97D8F9;
+    top: 115px;
+    width: 50%;
+    margin: 10px 0;
+    min-height: 1px;
+    padding-right: 15px;
+    padding-left: 15px;
+    left: 50%;
 }
 
-.collect-thought {
-
+.cloned-myFeed .thought {
+    position: absolute;
+    z-index: 2;
+}
+.cloned-myFeed .thought:before {
+    /*content: attr(data-pos);*/
 }
 
-.hide-thought {
-
+.cloned-friendFeed {
+    position: absolute;
+    width: 100%;
+    margin: 10px 0;
+    height: calc(100% - 20px);
+    min-height: 1px;
 }
 
-.unshare-thought {
+.cloned-friendFeed .thought {
+    position: absolute;
+    z-index: 2;
+}
+.cloned-friendFeed .thought:before {
+    /*content: attr(data-pos);*/
+}
 
+.cloned-worldFeed {
+    position: absolute;
+    height: 100%;
+    top: 0;
+    /*top: 115px;*/
+    width: 100%;
+    min-height: 1px;
+}
+
+.cloned-worldFeed .thought {
+    position: absolute;
+    z-index: 2;
+}
+.cloned-worldFeed .thought:before {
+    /*content: attr(data-pos);*/
 }
