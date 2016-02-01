@@ -17,6 +17,27 @@ Template.calendar.onDestroyed(function () {
     //feedStage.destroy();
 })
 
+Template.calendar.helpers({
+    thoughts: function () {
+        // Only find posts made after 00:00 of today
+        var start = new Date();
+        start.setHours(0,0,0,0);
+        return Thoughts.find({
+                $or: [
+                    {$and: [
+                        {userId: Meteor.userId()},
+                        {privacy: "private"},
+                        {createdAt: {$gte: start}}
+                    ]},
+                    {$and :[
+                        {collectedBy: Meteor.userId()},
+                        {createdAt: {$gte: start}}
+                    ]},
+                ]},
+            {sort: {createdAt: -1}});
+    }
+});
+
 Template.calendar.events({
     'click .datepicker-td': function (event) {
         //console.log(e.currentTarget.innerHTML);

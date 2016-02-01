@@ -425,7 +425,9 @@ Template.thought.events({
         var container = $(event.currentTarget.parentNode);
         var radius = Math.min( parseInt(container.css('width')), parseInt(container.css('height')) - 75 );
         radius -= 20;
-
+        if (feed == "calFeed") {
+            radius = 500;
+        }
         bubble.animate({
             width: radius,
             height: radius,

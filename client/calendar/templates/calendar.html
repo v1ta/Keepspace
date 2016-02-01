@@ -4,9 +4,13 @@
     <p id="calFeedHead" class="feed-name unselectable">Feed</p>
     <p id="noPostText" class="unselectable" style="display:none">Looks like you didn't collect anything on this day</p>
     <div id="expandedThoughtContent"></div>
-    <div id="calFeed" class="unselectable">
-      <div id="calFeed-container"></div>
-    </div>
+    <ul id="calFeed" class="calFeed unselectable">
+        {{#if currentUser}}
+            {{#each thoughts}}
+                {{> thought}}
+            {{/each}}
+        {{/if}}
+    </ul>
   </div>
 
   <div class="calContainerClass unselectable" id="calendarContainer">
