@@ -423,11 +423,9 @@ Template.thought.events({
         var text = $(bubble.children().get(1)).children();
         var buttons = $(bubble.children().get(2)).children();
         var container = $(event.currentTarget.parentNode);
-        var radius = Math.min( parseInt(container.css('width')), parseInt(container.css('height')) - 65 );
-        /* smallest value the bubble can resize to w/o element overlap */
-        if (radius < 608) {
-            radius = 608;
-        }
+        var radius = Math.min( parseInt(container.css('width')), parseInt(container.css('height')) - 75 );
+        radius -= 20;
+
         bubble.animate({
             width: radius,
             height: radius,

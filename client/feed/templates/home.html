@@ -19,8 +19,10 @@
                 <div class="flipper" id="flipper">
                 {{#with showFriendFeed}}
                     <ul id="front" class="friendFeed feed front">
+                        <!--
                         <i class="fa fa-users feed-user-icon"><div class="badge success">{{currentUser.numRequests}}</div></i>
                         {{>friendSearch}}
+                        -->
                         <div style="display: block">
                             <a class="waves-effect waves-light toggleFriendFeed"></a>
                             <a class="waves-effect waves-light toggleWorldFeed"></a>
@@ -42,10 +44,12 @@
                             <a class="waves-effect waves-light toggleWorldFeed"></a>
                         </div>
                         <!--<button class="btn toggleWorldFeed">World</button>-->
+                        <!--
                         <i class="fa fa-search feed-search-icon" style="top: 0; z-index: 2"></i>
                         <form class="search" style="top: 0; z-index: 2;">
                             <input type="text" name="search" class="form-control" placeholder="find a thought"/>
                         </form>
+                        -->
                         <!--
                         <i class="fa fa-caret-down fa-lg world-dropdown"></i>
                         <ul id="worldButtons">

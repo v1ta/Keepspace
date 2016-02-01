@@ -13,8 +13,8 @@ Template.calendar.onRendered(function () { //calendar loading
 });
 
 Template.calendar.onDestroyed(function () {
-    feedStage.destroyChildren(); // Cleanup canvas
-    feedStage.destroy();
+    //feedStage.destroyChildren(); // Cleanup canvas
+    //feedStage.destroy();
 })
 
 Template.calendar.events({
@@ -114,6 +114,7 @@ function getCalFeed(date) { //show posts for a given day
     dateMidnight.setMinutes(59);
     dateMidnight.setSeconds(59);
     feedStage = {};
+    /*
     renderFeed('#calFeed', 'calFeed-container', 'single',
         Thoughts.find({
             $and: [
@@ -132,6 +133,7 @@ function getCalFeed(date) { //show posts for a given day
             ]
         }, {sort: {createdAt: -1}}).fetch()
     );
+    */
 }
 
 function setCalText(date, setCal, setHead) { //set calendar feed header + calendar month/year
