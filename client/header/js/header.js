@@ -187,7 +187,7 @@ Template.header.helpers({
 });
 
 Template.header.onCreated(function(event) {
-    $(window).resize(function() { setMidPadding(); });
+   // $(window).resize(function() { setMidPadding(); });
 });
 
 Template.header.onDestroyed(function(event) {
@@ -200,7 +200,7 @@ Template.header.onRendered(function(event) {
     var currentDate = $.format.date(today, "MMM D");
     $("#date").text(currentDate);
     localStorage.setItem("selectedDate", $.format.date(today, "M d yyyy"));
-    setMidPadding();
+    //setMidPadding();
     Session.set('showProfile', false);
     Session.set('showFriendPage', false);
     Session.set("showChangePassword", false);

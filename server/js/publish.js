@@ -27,7 +27,7 @@ Meteor.publish("Notifications", function() {
 Meteor.publish("avatars", function() {
     return Avatars.find();
 });
-
+/*
 Meteor.publish('images', function(limit) {
     //check(limit, Number);
     limit = 20;
@@ -36,3 +36,4 @@ Meteor.publish('images', function(limit) {
         sort: {uploadedAt:-1}
     });
 });
+    */

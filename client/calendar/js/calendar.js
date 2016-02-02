@@ -1,3 +1,5 @@
+var thoughts;
+
 Template.calendar.onRendered(function () { //calendar loading
     if (!this._rendered) {
         this._rendered = true;
@@ -8,33 +10,55 @@ Template.calendar.onRendered(function () { //calendar loading
         var otherDate = getDate(date.getDate() - 1, 1);
         var today = new Date();
         $("#calFeedHead").text("Day " + today.getDOY());
+        Session.set("date", today);
     }
-    getCalFeed(otherDate);
+    thoughts = getCalendarBubbles(date);
+    Session.set("getBubbles",thoughts);
 });
 
 Template.calendar.onDestroyed(function () {
     //feedStage.destroyChildren(); // Cleanup canvas
     //feedStage.destroy();
-})
+});
+
+function getCalendarBubbles(date) {
+    var startDate = new Date(date);
+    startDate.setSeconds(0);
+    startDate.setHours(0);
+    startDate.setMinutes(0);
+    var dateMidnight = new Date(startDate);
+    dateMidnight.setHours(23);
+    dateMidnight.setMinutes(59);
+    dateMidnight.setSeconds(59);
+    // Only find posts made after 00:00 of today
+    var start = new Date();
+    return Thoughts.find({
+            $or: [
+                {$and: [
+                    {userId: Meteor.userId()},
+                    {privacy: "private"},
+                    {"createdAt":
+                    {$gt: startDate,$lt: dateMidnight}
+                    }
+                ]},
+                {$and :[
+                    {collectedBy: Meteor.userId()},
+                    {"createdAt":
+                    {$gt: startDate,$lt: dateMidnight}
+                    }
+                ]}
+            ]},
+        {sort: {createdAt: -1}}).fetch();
+}
+
+Tracker.autorun(function() {
+    thoughts = getCalendarBubbles(Session.get('selectedDate'));
+    Session.set("getBubbles",thoughts);
+});
 
 Template.calendar.helpers({
-    thoughts: function () {
-        // Only find posts made after 00:00 of today
-        var start = new Date();
-        start.setHours(0,0,0,0);
-        return Thoughts.find({
-                $or: [
-                    {$and: [
-                        {userId: Meteor.userId()},
-                        {privacy: "private"},
-                        {createdAt: {$gte: start}}
-                    ]},
-                    {$and :[
-                        {collectedBy: Meteor.userId()},
-                        {createdAt: {$gte: start}}
-                    ]},
-                ]},
-            {sort: {createdAt: -1}});
+    'thoughts' : function() {
+        return Session.get("getBubbles");
     }
 });
 
@@ -49,7 +73,9 @@ Template.calendar.events({
         var date = getDate(day - 1, 1);
         localStorage.setItem("selectedDate", $.format.date(date, "M d yyyy"));
         setCalText(date, false, true);
-        getCalFeed(date);
+        Session.set("selectedDate",date);
+        //console.log(date);
+        //getCalFeed(date);
     },
     'click #monthPrev': function () {
         var date = getDate(-7, 1);
@@ -88,7 +114,7 @@ function loadCalendar(date, shouldSelect) { //load the calendar
     var selectedDay = 0;
     if (!shouldSelect) {
         var selectedDate = new Date(localStorage.getItem("selectedDate"));
-        console.log(selectedDate);
+        //console.log(selectedDate);
         var selectedMonth = selectedDate.getMonth();
         var selectedYear = selectedDate.getFullYear();
         var curMonth = dt.getMonth();
@@ -124,37 +150,6 @@ function loadCalendar(date, shouldSelect) { //load the calendar
     $(".selectedDate").addClass("datepicker-td");
     dt.setDate(day);
     setCalText(dt, true, shouldSelect);
-}
-function getCalFeed(date) { //show posts for a given day
-    var startDate = new Date(date);
-    startDate.setSeconds(0);
-    startDate.setHours(0);
-    startDate.setMinutes(0);
-    var dateMidnight = new Date(startDate);
-    dateMidnight.setHours(23);
-    dateMidnight.setMinutes(59);
-    dateMidnight.setSeconds(59);
-    feedStage = {};
-    /*
-    renderFeed('#calFeed', 'calFeed-container', 'single',
-        Thoughts.find({
-            $and: [
-                {
-                    "createdAt": {
-                        $gt: startDate,
-                        $lt: dateMidnight
-                    }
-                },
-                {
-                    $or: [
-                        {"userId": Meteor.userId()},
-                        {"collectedBy": Meteor.userId()}
-                    ]
-                }
-            ]
-        }, {sort: {createdAt: -1}}).fetch()
-    );
-    */
 }
 
 function setCalText(date, setCal, setHead) { //set calendar feed header + calendar month/year
