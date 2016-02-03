@@ -16,11 +16,6 @@ Template.calendar.onRendered(function () { //calendar loading
     Session.set("getBubbles",thoughts);
 });
 
-Template.calendar.onDestroyed(function () {
-    //feedStage.destroyChildren(); // Cleanup canvas
-    //feedStage.destroy();
-});
-
 function getCalendarBubbles(date) {
     var startDate = new Date(date);
     startDate.setSeconds(0);
@@ -36,7 +31,6 @@ function getCalendarBubbles(date) {
             $or: [
                 {$and: [
                     {userId: Meteor.userId()},
-                    {privacy: "private"},
                     {"createdAt":
                     {$gt: startDate,$lt: dateMidnight}
                     }
