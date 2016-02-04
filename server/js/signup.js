@@ -32,5 +32,10 @@ Accounts.onCreateUser(function(options, user){
         date: 0,
         thoughtId: 0
     };
+    user.profile.firstName = options.firstName;
+    user.profile.lastName = options.lastName;
+    user.profile.phone = options.phone;
+    // console.log(user);
+    // console.log(options);
     return user;
 });

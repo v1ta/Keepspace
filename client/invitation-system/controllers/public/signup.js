@@ -11,7 +11,17 @@ Template.signup.rendered = function () {
             },
             betaToken: {
                 required: true
-            }
+            },
+            firstName: {
+                required: true
+            },
+            lastName: {
+                required: true
+            },
+            phone: {
+                required:false
+            },
+
         },
         messages: {
             emailAddress: {
@@ -24,6 +34,15 @@ Template.signup.rendered = function () {
             },
             betaToken: {
                 required: "A valid beta token is required to sign up."
+            },
+            firstName: {
+                required: "Please enter your first name"
+            },
+            lastName: {
+                required: "Please enter your last name"
+            },
+            phone: {
+
             }
         },
         submitHandler: function () {
@@ -31,7 +50,10 @@ Template.signup.rendered = function () {
             user = {
                 email: $('[name="emailAddress"]').val().toLowerCase(),
                 password: $('[name="password"]').val(),
-                betaToken: $('[name="betaToken"]').val()
+                betaToken: $('[name="betaToken"]').val(),
+                firstName: $('[name="firstName"]').val(),
+                lastName: $('[name="lastName"]').val(),
+                phone: $('[name="phone"]').val(),
             };
             return Meteor.call('validateBetaToken', user, function (error) {
                 if (error) {
