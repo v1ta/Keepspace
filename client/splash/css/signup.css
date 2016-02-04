@@ -37,6 +37,10 @@
 #loginEmailLabel{
   color:red;
 }
+#loginPassword{
+  background-color:transparent !important;
+  background:transparent;
+}
 #signupButton{
   /*margin-top:14%;*/
 }

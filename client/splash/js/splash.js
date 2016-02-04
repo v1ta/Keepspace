@@ -23,6 +23,24 @@ Template.splashBanner.events({
       }
     )
   },
+  'click #facebookLoginButton': function(){
+    Meteor.loginWithFacebook(
+      {requestPermissions: ['email', 'user_friends', 'user_location', 'user_status',
+      'user_posts','publish_actions']}, 
+      function(err){
+          if (!err){
+          Session.set("isFB", true);
+          localStorage.setItem("justLoggedIn", "true");
+          resetAllFeeds();
+          Router.go("home");
+            // $("#changePassword").hide();
+          }
+          else{
+            console.log(err);
+          }
+      }
+    )
+  },
   'click #topSlide':function(event){
     $(".signOptions").hide();
     // $(".signupEmail").val("");

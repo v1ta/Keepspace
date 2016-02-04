@@ -1,27 +1,62 @@
 <template name="signup">
   <div class="row">
+    <div id="header" class="container-fluid">
+        <div class="row" style="margin-bottom: 5px">
+            <div class="left col-xs-4 unselectable">
+                <div id="logo">
+                    <img class="unselectable" id="homeLogo" src="/images/keepspace_home_button.png">
+                </div>
+            </div>
+        </div>
+      </div>
+    <div class="col-md-4"></div>
     <div class="col-xs-12 col-sm-6 col-md-4">
-      <h3 class="page-header">
+      <!-- <h3 class="page-header">
           <div id="logo">
               <img id="homeLogo" src="/images/keepspace_home_button.png">
           </div>
           <br>
-          Sign Up</h3>
+          Sign Up</h3> -->
+      <p id="registerId">Sign up for KeepSpace!</p>
       <form id="application-signup" class="signup">
-        <div class="form-group">
-          <label for="emailAddress">Email Address</label>
-          <input type="email" name="emailAddress" class="form-control" placeholder="Email Address">
+        <div class="group registerGroup">      
+          <input name="firstName" id="registerFirst" class="signupEmail registerInput" type="" required>
+          <span class="highlight registerHighlight"></span>
+          <span class="bar registerBar"></span>
+          <label class="registerLabel">First Name</label>
+        </div>
+        <div class="group registerGroup">      
+          <input name="lastName" id="registerLast" class="signupEmail registerInput" type="" required>
+          <span class="highlight registerHighlight"></span>
+          <span class="bar registerBar"></span>
+          <label id="registerLabel" class="registerLabel">Last Name</label>
+        </div>
+        <div class="group registerGroup">      
+          <input name="phone" id="registerPhone" class="signupEmail registerInput" type="">
+          <span class="highlight registerHighlight"></span>
+          <span class="bar registerBar"></span>
+          <label class="registerLabel">Phone Number</label>
+        </div>
+        <div class="group registerGroup">      
+          <input name="emailAddress" id="registerEmail" class="signupEmail registerInput" type="email" required>
+          <span class="highlight registerHighlight"></span>
+          <span class="bar registerBar"></span>
+          <label id="registerLabel" class="registerLabel">Email</label>
+        </div>
+        <div class="group registerGroup">      
+          <input name="password" id="registerPass" class="signupEmail registerInput" type="password" required>
+          <span class="highlight registerHighlight"></span>
+          <span class="bar registerBar"></span>
+          <label id="registerLabel" class="registerLabel">Password</label>
+        </div>
+        <div class="group registerGroup">      
+          <input name="betaToken" id="registerLast" class="signupEmail registerInput" type="" required>
+          <span class="highlight registerToken"></span>
+          <span class="bar registerBar"></span>
+          <label id="registerLabel" class="registerLabel">Beta Token</label>
         </div>
         <div class="form-group">
-          <label for="password">Password</label>
-          <input type="password" name="password" class="form-control" placeholder="Password">
-        </div>
-        <div class="form-group">
-          <label for="betaToken">Beta Token</label>
-          <input type="text" name="betaToken" class="form-control" placeholder="Beta Token" value="{{betaToken}}">
-        </div>
-        <div class="form-group">
-          <input type="submit" class="btn btn-primary" value="Sign Up">
+          <input id="registerButton" type="submit" class="btn btn-primary" value="Sign Up">
         </div>
       </form>
       <p>Already have an account? <a href="{{pathFor 'loginPage'}}">Log In</a>.</p>
