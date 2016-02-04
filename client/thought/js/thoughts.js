@@ -14,7 +14,7 @@ function getRandom(min, max) {
     return Math.random() * (max - min) + min;
 }
 
-Template.thought.onRendered(function() {
+Template.thought.onRendered(function()  {
     var thought = this.data;
     var node = $('#' + thought._id);
     var radius = 75 * (thought.rank+1);
