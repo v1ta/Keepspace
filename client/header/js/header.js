@@ -332,8 +332,8 @@ logoutFunction = function(){
 }
 
 function setMidPadding() {
-    var padding = parseInt($(".mid").css("width")) - ( parseInt($("#homeButton").css("width"))+parseInt($("#date").css("width"))-parseInt($("#date").css("padding-left")) );
-    $(".mid").css("padding-left", padding/2);
+    //var padding = parseInt($(".mid").css("width")) - ( parseInt($("#homeButton").css("width"))+parseInt($("#date").css("width"))-parseInt($("#date").css("padding-left")) );
+    //$(".mid").css("padding-left", padding/2);
 }
 
 function showOldPost(){

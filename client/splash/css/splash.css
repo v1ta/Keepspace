@@ -3,6 +3,7 @@
 	height: 55px;
     display: inline-block;
     margin-left: 0px;
+	position: absolute;
 }
 #inslideHeader{
 	position:absolute;
