@@ -99,11 +99,11 @@
 #date {
   color: #000000;
   font-size: 1.2em;
-  border-radius: 5px;
+  /*border-radius: 5px;*/
   position: absolute;
   z-index: 1;
   top: 12.5px;
-  left: 150px;
+  left: 135px;
   right: 0;
   bottom: 0;
   /*top: -14px;*/
