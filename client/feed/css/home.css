@@ -37,9 +37,9 @@
     top: calc(50% - 50px);
     /* Full width minus some Bootstrap padding */
     width: 100%;
-    width: -webkit-calc(100% - 30px);
-    width: -moz-calc(100% - 30px);
-    width: calc(100% - 30px);
+    width: -webkit-calc(100%);
+    width: -moz-calc(100%);
+    width: calc(100%);
     /*text-align: center;*/
     font-size: 50px;
     color:rgba(50, 192, 210, 0.5);
@@ -107,6 +107,10 @@
     position: absolute;
     right: 15px;
     text-decoration: none;
+    -webkit-box-shadow: none;
+    -moz-box-shadow: none;
+    box-shadow: none;
+    background-color: #32c0d2;
 }
 #btn-import-facebook {
     position: absolute;
@@ -145,7 +149,7 @@ ul
 }
 
 .toggleFriendFeed {
-    background-image: url('images/friendFeed.png');
+   /* background-image: url('images/friendFeed.png');
     background-repeat: no-repeat;
     background-position: 100%;
     background-color: transparent;
@@ -153,9 +157,14 @@ ul
     height: 45px;
     width: 45px;
     border: none;
+    */
+    -webkit-box-shadow: none;
+    -moz-box-shadow: none;
+    box-shadow: none;
 }
 
 .toggleWorldFeed {
+    /*
     background-image: url('images/worldFeed.png');
     background-repeat: no-repeat;
     background-position: 100%;
@@ -164,6 +173,11 @@ ul
     height: 40px;
     width: 40px;
     border: none;
+    */
+    -webkit-box-shadow: none;
+    -moz-box-shadow: none;
+    box-shadow: none;
+
 }
 
 .flip-container {

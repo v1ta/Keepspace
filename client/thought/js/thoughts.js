@@ -1,4 +1,6 @@
 var feed;
+var selectedUi;
+var selected;
 var direction = 1;
 var myFeedThoughts = 0;
 var friendFeedThoughts = 0;
@@ -12,7 +14,7 @@ function getRandom(min, max) {
     return Math.random() * (max - min) + min;
 }
 
-Template.thought.onRendered(function() {
+Template.thought.onRendered(function()  {
     var thought = this.data;
     var node = $('#' + thought._id);
     var radius = 75 * (thought.rank+1);
@@ -104,6 +106,7 @@ var cloneThoughts = function(feedName) {
         if (item.parent().get(0).classList[0] != feedName) {
             return;
         }
+        console.log(item);
         var item_clone = item.clone();
         item.data("clone", item_clone);
         var position = item.position();
@@ -214,7 +217,7 @@ Template.myFeed.onRendered(function() {
             });
         },
         receive: function(event,ui) {
-            console.log(ui.item);
+            console.log("myFeed receive called");
             $('#cloned-'+feed+' #'+ ui.item.get(0).id).remove();
             Meteor.call("updatePrivacy", ui.item.get(0).id, "private", Meteor.userId());
             if (Meteor.userId() != Thoughts.findOne({_id: ui.item.get(0).id}).userId) {
@@ -308,6 +311,7 @@ Template.friendFeed.onRendered(function() {
             });
         },
         receive: function(event,ui) {
+            console.log("friendFeed receive called");
             $('#cloned-'+feed+' #'+ ui.item.get(0).id).remove();
             Meteor.call("updatePrivacy", ui.item.get(0).id, "friends", Meteor.userId());
         }
@@ -402,7 +406,7 @@ Template.worldFeed.onRendered(function() {
             });
         },
         receive: function(event,ui) {
-            console.log("AHH");
+            console.log(ui);
             $('#cloned-'+feed+' #'+ ui.item.get(0).id).remove();
             Meteor.call("updatePrivacy", ui.item.get(0).id, "public", Meteor.userId());
         }
@@ -411,9 +415,11 @@ Template.worldFeed.onRendered(function() {
 
 Template.thought.events({
     /* Expand a thought */
-    'click .condensed': function(event) {
-
+    'click .condensed': function(event, ui) {
         var bubble = $(event.currentTarget);
+        selected = bubble;
+        selectedUi = ui;
+        console.log(ui.data);
         feed = bubble.parent().get(0).classList[0];
         if (bubble.get(0).classList.contains("exclude-me")) {
             return;
@@ -435,6 +441,7 @@ Template.thought.events({
         });
         $(bubble.children().get(1)).removeClass('text');
         $(bubble.children().get(1)).addClass('text-container');
+        //console.log($(bubble.children().get(1)));
         $(bubble.children().get(1)).css({
             'display' : 'block',
             'height' : radius - (radius * .33),
@@ -453,7 +460,6 @@ Template.thought.events({
             'background-size' : '100% auto',
             'background-repeat': 'no-repeat',
             'background-position': '100%',
-            'opacity': 0.8,
             'height':  (pictureScale * 1.10) + 'px',
             'width': (pictureScale * 1.10) + 'px',
             'max-width': (pictureScale * 1.10) + 'px',
@@ -487,6 +493,7 @@ Template.thought.events({
     /* Condense a thought */
     'click .expanded': function(event) {
         var bubble = $(event.currentTarget);
+        //console.log(bubble);
         var author = $(bubble.children().get(0));//.children();
         var text = $(bubble.children().get(1)).children();
         var buttons = $(bubble.children().get(2)).children();
@@ -497,21 +504,19 @@ Template.thought.events({
         bubble.toggleClass('condensed expanded');
         $(bubble.children().get(1)).removeClass('text-container');
         $(bubble.children().get(1)).addClass('text');
-        text.get(0).className = 'text';
+        text.get(0).className = 'text-inner';
+        $(text.get(0)).removeAttr('style');
+        console.log(text.get(0));
         $(bubble.children().get(1)).removeAttr('style');
         author.toggleClass('header-show header-hide');
+        author.removeAttr('style');
         $($(bubble.children().get(0)).children().get(1)).children().toggleClass('buttons-show buttons-hide');
         buttons.toggleClass('buttons-show buttons-hide');
+        $(bubble.children().get(2)).removeAttr('style');
     },
     /* Deletes a thought */
     "click #action-2": function (event) {
-        var bubble = $(event.currentTarget);
-        bubble.animate({
-            width: ((this.rank+1) * 75)*2,
-            height: ((this.rank+1) * 75)*2
-        });
-        bubble.toggleClass('condensed expanded');
-        var id = this._id
+        var id = this._id;
         Meteor.setTimeout( function() {
             $('#cloned-'+feed+' #'+id).remove();
                 Meteor.call("deleteThought", id);
@@ -519,9 +524,20 @@ Template.thought.events({
         );
     },
     /* Collect a thought */
-    "click #action-1": function (event) {
-        Meteor.call("setPrivate", this._id, ! this.private);
-    },
+    "click #action-1": function (event, ui) {
+        var bubble = selected;
+        if (feed == 'myFeed') {
+            return;
+        }
+        Meteor.setTimeout(function () {
+            $('#cloned-'+feed+' #'+ bubble.get(0).id).remove();
+            if (Meteor.userId() == Thoughts.findOne({_id: bubble.get(0).id}).userId) {
+                Meteor.call("updatePrivacy", bubble.get(0).id, "private", Meteor.userId());
+            } else {
+                Meteor.call("addToMyCollection", bubble.get(0).id);
+            }
+        }, 300);
+    }
 });
 
 Template.thought.helpers({

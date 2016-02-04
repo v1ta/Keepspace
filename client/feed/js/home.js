@@ -146,6 +146,24 @@ Template.home.events({
             //minimize selected bubble
         }
     },
+    "click #submit-new-thought": function(event) {
+        event.preventDefault();
+        // This function is called when the new thought form is submitted
+        var text = $("#newThoughtBox").val();
+
+        var thoughtId = Meteor.call("addThought", text, null,
+            function(err, data) {
+                if (err){
+                    console.log(err);
+                }
+                var thought = Thoughts.findOne({_id:data});
+                thoughtsList.push(thought);
+            });
+
+        // Clear form
+        $("#newThoughtBox").val("");
+        return false;
+    },
     "submit .new-thought": function (event) {
         event.preventDefault();
         // This function is called when the new thought form is submitted

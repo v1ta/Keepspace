@@ -26,8 +26,8 @@
                         {{>friendSearch}}
                         -->
                         <div style="display: block">
-                            <a class="waves-effect waves-light toggleFriendFeed"></a>
-                            <a class="waves-effect waves-light toggleWorldFeed"></a>
+                            <a class="waves-effect waves-light btn toggleFriendFeed">Friends</a>
+                            <a class="waves-effect waves-light btn toggleWorldFeed" style="background-color: #d3d3d3;">World</a>
                         </div>
                         <!-- <button class="btn toggleWorldFeed">World</button> -->
                         <div class="feed-name unselectable">Friends</div>
@@ -42,8 +42,8 @@
                 {{#unless showFriendFeed}}
                     <ul id="back" class="worldFeed feed back">
                         <div style="display: block; z-index: 2;">
-                            <a class="waves-effect waves-light toggleFriendFeed"></a>
-                            <a class="waves-effect waves-light toggleWorldFeed"></a>
+                            <a class="waves-effect waves-light btn toggleFriendFeed" style="background-color: #d3d3d3;">Friends</a>
+                            <a class="waves-effect waves-light btn toggleWorldFeed">World</a>
                         </div>
                         <!--<button class="btn toggleWorldFeed">World</button>-->
                         <!--
@@ -76,9 +76,7 @@
                                 <p id="time">...</p>
                             </div>
                             <div class="col-xs-8">
-                                <!--{{>dropzone}}-->
-                                <textarea id="newThoughtBox" class="form-control" name="text" rows="1" placeholder="How will you remember today?">
-                                </textarea>
+                                <textarea id="newThoughtBox" class="form-control" name="text" rows="1" placeholder="How will you remember today?"></textarea>
                                 <a id="submit-new-thought" class="btn-floating waves-light waves-effect">Keep</a>
                             </div>
                         </div>
