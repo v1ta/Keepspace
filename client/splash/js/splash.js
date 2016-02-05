@@ -6,7 +6,33 @@ Template.splashBanner.events({
 		Router.go("loginPage");
 	},
 	'click #aboutLink': function() { Router.go('about'); },
-	'click #teamLink': function() { Router.go('team'); },
+	'click #teamLink': function() {
+    event.preventDefault();
+    $("body, html").animate({ 
+        scrollTop: $("#teamSlide").offset().top - em(5.3)
+    }, 800);
+  },
+  'click #fixedLoginLink': function(){
+    event.stopPropagation();
+    $("body, html").animate({ 
+        scrollTop: $("#topSlide").offset().top
+    }, 800);
+    
+    $(".signOptions").hide();
+    // $(".signupEmail").val("");
+    $("#mainSlide").hide();
+    $("#navLoginOption").show();
+  },
+  'click #fixedSignupLink': function(){
+    event.stopPropagation();
+    $("body, html").animate({ 
+        scrollTop: $("#topSlide").offset().top
+    }, 800);
+    
+    $(".signOptions").hide();
+    $("#mainSlide").hide();
+    $("#navSignupOption").show();
+  },
 	'click #splashBannerLogo': function(){ Router.go('splash');},
   'click #facebookSignButton': function(){
     Meteor.loginWithFacebook(

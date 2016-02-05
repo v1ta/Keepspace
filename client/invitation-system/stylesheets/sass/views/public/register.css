@@ -21,9 +21,9 @@
 }
 .registerLabel{
 	position: absolute !important;
-    color: red !important;
-    left: 20px !important;
-    top: 15px !important;
+  color: gray !important;
+  left: 20px !important;
+  top: 15px !important;
 }
 .registerBar{
     width: 90% !important;

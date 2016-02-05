@@ -11,19 +11,45 @@ Template.signup.rendered = function () {
             },
             betaToken: {
                 required: true
-            }
+            },
+            firstName: {
+                required: true
+            },
+            lastName: {
+                required: true
+            },
+            phone: {
+                required:false
+            },
+
         },
         messages: {
             emailAddress: {
-                required: "Please enter your email address to sign up.",
-                email: "Please enter a valid email address."
+                // required: "Please enter your email address to sign up.",
+                required: "",
+                email: "",
+                // email: "Please enter a valid email address."
             },
             password: {
-                required: "Please enter a password to sign up.",
-                minlength: "Please use at least six characters."
+                // required: "Please enter a password to sign up.",
+                required: "",
+                minlength: "",
+                // minlength: "Please use at least six characters."
             },
             betaToken: {
-                required: "A valid beta token is required to sign up."
+                // required: "A valid beta token is required to sign up."
+                required: "",
+            },
+            firstName: {
+                // required: "Please enter your first name"
+                required: "",
+            },
+            lastName: {
+                // required: "Please enter your last name"
+                required: "",
+            },
+            phone: {
+
             }
         },
         submitHandler: function () {
@@ -31,7 +57,10 @@ Template.signup.rendered = function () {
             user = {
                 email: $('[name="emailAddress"]').val().toLowerCase(),
                 password: $('[name="password"]').val(),
-                betaToken: $('[name="betaToken"]').val()
+                betaToken: $('[name="betaToken"]').val(),
+                firstName: $('[name="firstName"]').val(),
+                lastName: $('[name="lastName"]').val(),
+                phone: $('[name="phone"]').val(),
             };
             return Meteor.call('validateBetaToken', user, function (error) {
                 if (error) {

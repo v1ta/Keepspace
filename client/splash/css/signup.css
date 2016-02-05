@@ -29,13 +29,13 @@
 	font-family:"Gotham-Book";
 }
 #signupLabel{
-	color:red;
+	color:gray;
   /*position:relative;*/
   margin-top:10px;
   margin-left:75px;
 }
 #loginEmailLabel{
-  color:red;
+  color:gray;
 }
 #loginPassword{
   background-color:transparent !important;

@@ -4,7 +4,10 @@ Meteor.methods({
         check(user, {
             email: String,
             password: String,
-            betaToken: String
+            betaToken: String,
+            firstName: String,
+            lastName: String,
+            phone: String
         });
         testInvite = Invites.findOne({
             email: user.email,
@@ -21,7 +24,10 @@ Meteor.methods({
         } else {
             id = Accounts.createUser({
                 email: user.email,
-                password: user.password
+                password: user.password,
+                firstName: user.firstName,
+                lastName: user.lastName,
+                phone: user.phone
             });
             Roles.addUsersToRoles(id, ['tester']);
             Invites.update(testInvite._id, {

@@ -164,7 +164,10 @@ Template.header.events({
 Template.header.helpers({
     username: function(){
         if (Meteor.user()) {
-            var user = Meteor.user().username;
+            var user = Meteor.user().profile.firstName;
+            if (!user){
+                user = Meteor.user().username;
+            }
             var result = user.split(" ");
             return result[0];
         }

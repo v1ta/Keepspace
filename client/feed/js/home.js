@@ -321,14 +321,17 @@ getFriendsAsUsers = function() {
     friends.forEach(function (friend) {
         friendsAsUsers.push(friend.user());
     });
-    console.log(friendsAsUsers);
+    // console.log("getFriendsAsUsers");
+    Meteor.subscribe("friends").ready();
+    // console.log(friends.fetch());
+    // console.log(friendsAsUsers);
     // console.log(friendsAsUsers);
     return friendsAsUsers;
 }
 
 getFriendIds = function() {
     var friends = getFriendsAsUsers();
-    console.log(friends);
+    // console.log(friends);
     var friendIds = [];
     for (var i = 0; i < friends.length; i++) {
         friendIds.push(friends[i]._id);

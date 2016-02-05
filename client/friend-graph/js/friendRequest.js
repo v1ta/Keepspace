@@ -148,7 +148,7 @@ Template.friendRequestPage.helpers({
         return Session.get(friendId);
     },
     searchFriendInput: function(){
-        // console.log("searchFriendInput");
+        console.log("searchFriendInput");
         var searchString = Session.get('friendSearchString');
         if (searchString && searchString.length > 0)
             return true;
@@ -157,7 +157,8 @@ Template.friendRequestPage.helpers({
     },
     friendSearchResult: function(){
         // console.log("friendSearchResult");
-        users = searchUsers(Session.get("searchString")).fetch();
+        var ready = Meteor.subscribe('SearchUsers', Session.get('friendSearchString')).ready();
+        users = searchUsers(Session.get("friendSearchString")).fetch();
         friends = getFriendIds();
         // console.log(users);
         // console.log(friends);
@@ -179,8 +180,8 @@ Template.friendRequestPage.helpers({
                     }
                 }
                 if (!isFriend){
-                    console.log(friends);
-                    console.log(user._id);
+                    // console.log(friends);
+                    // console.log(user._id);
                     // console.log(user);
                     user.isFriend = false;
                     theRest.push(user);
@@ -189,9 +190,12 @@ Template.friendRequestPage.helpers({
         }
         // console.log(Meteor.users.find().fetch());
         // console.log(friends);
-        return $.merge(topResults, theRest);
-        console.log(topResults);
-        console.log(theRest);
+        
+        var data = $.merge(topResults, theRest);
+        return{
+            data: data,
+            ready: ready
+        };
         // return Meteor.users.find().fetch();
     }
 });

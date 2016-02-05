@@ -15,7 +15,7 @@ Meteor.methods({
 Accounts.onCreateUser(function(options, user){
     if (options.profile){
         user.profile = options.profile; 
-        user.username = ( user.username || options.profile.name );
+        user.username = ( user.profile.firstName || options.profile.name );
         if (user.services.facebook) {
             options.profile.picture = "http://graph.facebook.com/" + user.services.facebook.id + "/picture/?height=200&width=200";
         } else {
@@ -32,5 +32,10 @@ Accounts.onCreateUser(function(options, user){
         date: 0,
         thoughtId: 0
     };
+    user.profile.firstName = options.firstName;
+    user.profile.lastName = options.lastName;
+    user.profile.phone = options.phone;
+    console.log(user);
+    console.log(options);
     return user;
 });
