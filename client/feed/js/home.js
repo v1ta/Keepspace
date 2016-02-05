@@ -147,6 +147,7 @@ Template.home.events({
         }
     },
     "click #submit-new-thought": function(event) {
+        console.log(event);
         event.preventDefault();
         // This function is called when the new thought form is submitted
         var text = $("#newThoughtBox").val();
@@ -162,6 +163,8 @@ Template.home.events({
 
         // Clear form
         $("#newThoughtBox").val("");
+        $('#newThoughtBox').animate({height: '34px'},300);
+        $('#time-container').animate({height: '65px'},300);
         return false;
     },
     "submit .new-thought": function (event) {
@@ -180,6 +183,8 @@ Template.home.events({
 
         // Clear form
         $("#newThoughtBox").val("");
+        $('#newThoughtBox').animate({height: '34px'},300);
+        $('#time-container').animate({height: '65px'},300);
         return false;
     },
     'click #btn-user-data': function(event) {
@@ -225,7 +230,7 @@ Template.home.events({
         $('#newThoughtBox').animate({height: '150px'},300);
         $('#time-container').animate({height: '200px'},300);
     },
-    'blur #newThoughtBox': function(event) {
+    'blur #newThoughtBox .submit-new-thought': function(event, ui) {
         $('#newThoughtBox').animate({height: '34px'},300);
         $('#time-container').animate({height: '65px'},300);
     },
@@ -338,4 +343,4 @@ getFriendIds = function() {
     }
     return friendIds;
 }
-    
+
