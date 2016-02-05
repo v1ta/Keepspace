@@ -338,4 +338,4 @@ getFriendIds = function() {
     }
     return friendIds;
 }
-    */
+    
