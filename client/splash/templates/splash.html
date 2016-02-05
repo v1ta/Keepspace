@@ -250,10 +250,21 @@
 
       </div>
     </section>
-    
+
+    <section name="thirdSlide" class="landingSection" id="thirdSlide" style="/*position:absolute*/">
+        <h1>Create your mindful masterpiece</h1>
+        <div class="container" id="thirdSlideSlideContainer" style="height: 550px;">
+            <ul class="splashThoughs" style="height:550px; position: relative">
+                {{#each splashThoughts}}
+                    {{>thought}}
+                {{/each}}
+            </ul>
+            <img class="icon-downbutton" src="images/scrollDownButtonSplash.png">
+        </div>
+    </section>
     
     <section class="landingSection" id="teamSlide">
-      {{>teamPage}}
+        {{>teamPage}}
     </section>
     
     <section class="landingSection" id="contactUs">

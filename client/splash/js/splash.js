@@ -1,3 +1,6 @@
+Meteor.subscribe("splashThoughts");
+Meteor.subscribe("users");
+
 Template.splashBanner.events({
 	'click #loginLink': function(){
 		Router.go("loginPage");
@@ -126,7 +129,14 @@ Template.splashBanner.events({
     $("body, html").animate({ 
         scrollTop: $("#secondSlide").offset().top - em(5.3)
     }, 800);
-  }
+  },
+
+});
+
+Template.splashBanner.helpers({
+    'splashThoughts' : function () {
+        return SplashThoughts.find({});
+    }
 });
 
 Template.splashBanner.onRendered(function(){

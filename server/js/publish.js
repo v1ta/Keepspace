@@ -12,6 +12,10 @@ Meteor.publish("thoughts", function () { // Only publish thoughts that are publi
     });
 });
 
+Meteor.publish("splashThoughts", function() {
+    return SplashThoughts.find({});
+});
+
 Meteor.publish("users", function() {
     return Meteor.users.find({});
 });
