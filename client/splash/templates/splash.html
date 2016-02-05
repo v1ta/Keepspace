@@ -37,9 +37,9 @@
             </div>
             <div class="collapse navbar-collapse navbar-ex1-collapse">
               <ul class="nav navbar-nav">
-                <li class="fixedHeadLi"><a onclick="$('header').animatescroll({padding:71});">TEAM</a></li>
-                <li class="fixedHeadLi"><a onclick="$('.detail').animatescroll({padding:71});">LOGIN</a></li>
-                <li class="fixedHeadLi"><a onclick="$('.features').animatescroll({padding:71});">SIGN UP</a></li>
+                <li class="fixedHeadLi" id="teamLink"><a onclick="">TEAM</a></li>
+                <li class="fixedHeadLi" id="fixedLoginLink"><a onclick="$('.detail').animatescroll({padding:71});">LOGIN</a></li>
+                <li class="fixedHeadLi" id="fixedSignupLink"><a onclick="$('.features').animatescroll({padding:71});">SIGN UP</a></li>
                 <!-- <li><a onclick="$('.social').animatescroll({padding:71});">Social </a></li> -->
               </ul>
             </div>
@@ -51,7 +51,7 @@
     
      <!-- HEADER
      ================================================== -->   
-    <header id="topSlide" style="width: 100%; padding: 15px;">
+    <header name="topSlide" id="topSlide" style="width: 100%; padding: 15px;">
         <div class="navbar-header">
           <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
             <span class="sr-only">Toggle navigation</span>
@@ -252,7 +252,7 @@
     </section>
     
     
-    <section class="landingSection" id="teamSlide">
+    <section class="landingSection" name="teamSlide" id="teamSlide">
       {{>teamPage}}
     </section>
     

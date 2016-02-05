@@ -62,7 +62,7 @@
   right: 0;
   top: 0;
   bottom: 0;
-  cursor: pointer;
+  cursor: default;
   margin: 0 auto;
   /*right:23px;*/
 }
@@ -93,6 +93,7 @@
   left: 0;
   right: 125px;
   font-size: 1.2em;
+  cursor:default;
   /*top:18px;*/
   /* right: 15px; */
 }
@@ -109,7 +110,7 @@
   /*top: -14px;*/
   display: inline-block;
   /*font-family:Roboto;*/
-  cursor: pointer;
+  cursor: default;
   /*margin-right:29px;*/
 }
 #profile-picture{
