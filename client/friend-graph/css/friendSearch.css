@@ -12,6 +12,9 @@
   width:90%;
   background-color: #f9f9f9;
 }
+#friendSearch{
+  border-bottom: 0px !important;
+}
 #friendSearchList { 
   display:inline-block;
   background-color: #f9f9f9;
