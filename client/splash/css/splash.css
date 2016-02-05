@@ -65,12 +65,15 @@ nav.navbar.fixed-to-top{
 }
 .landingSection{
 	overflow: hidden;
-	padding: 50px 0px 150px 0px;
+	padding: 50px 0px 75px 0px;
 	min-height: 600px;
 	color: white;
 	width:100%;
 }
-
+#teamSlide{
+	padding-top:20px;
+	padding-bottom:75px;
+}
 .landingSection h1{
 	/*text-transform: uppercase;*/
 	font-weight: 300;
