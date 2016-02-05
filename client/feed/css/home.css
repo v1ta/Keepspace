@@ -158,9 +158,11 @@ ul
     width: 45px;
     border: none;
     */
+    background-color: '#32C0D2';
     -webkit-box-shadow: none;
     -moz-box-shadow: none;
     box-shadow: none;
+    height: 34px;
 }
 
 .toggleWorldFeed {
@@ -174,9 +176,11 @@ ul
     width: 40px;
     border: none;
     */
+    background-color: '#32C0D2';
     -webkit-box-shadow: none;
     -moz-box-shadow: none;
     box-shadow: none;
+    height: 34px;
 
 }
 

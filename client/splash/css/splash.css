@@ -95,6 +95,14 @@ nav.navbar.fixed-to-top{
     padding-left: 4%;
     width: 100%;
 }
+#thirdSlide{
+	background-color: #FFFFFF;
+}
+#thirdSlideContainer{
+	padding-left: 4%;
+	width: 100%;
+	height: 500px;
+}
 #cultivateSlide{
 	background-color:#F8A346;
 }
@@ -284,4 +292,9 @@ nav.navbar.fixed-to-top{
     width: 100px;
     padding-top: 10px;
     cursor: pointer;
+}
+.splashThoughts {
+	width: inherit;
+	height: inherit;
+	position: relative;
 }

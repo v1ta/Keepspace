@@ -5,6 +5,7 @@ var direction = 1;
 var myFeedThoughts = 0;
 var friendFeedThoughts = 0;
 var worldFeedThoughts = 0;
+var splashThoughts = 0;
 
 function randDir() {
     return (Math.random() < 0.5 ? -1 : 1);
@@ -48,7 +49,41 @@ Template.thought.onRendered(function()  {
         'border-radius' : radius + 'px',
         'line-height' : radius*2 + 'px'
     });
-    if (thought.userId == Meteor.userId()) {
+    if (thought.privacy == 'splash') {
+        //node.css({'background-color' : "#F38286"});
+        node.css({'position':'absolute'});
+        switch(splashThoughts) {
+            case 0:
+                node.css({
+                    'top':30,
+                    'left': 100,
+                    'background-color' : "#F38286"
+                });
+                break;
+            case 1:
+                node.css({
+                    'top': 5,
+                    'right': 100,
+                    'background-color' : "#32C0D2"
+                });
+                break;
+            case 2:
+                node.css({
+                    'top': 300,
+                    'left': 5,
+                    'background-color': "#FAA43A"
+                });
+                break;
+            case 3:
+                node.css({
+                    'top': 200,
+                    'right': 270,
+                    'background-color' : "#F38286"
+                });
+                break;
+        }
+        splashThoughts += 1;
+    } else if (thought.userId == Meteor.userId()) {
         node.css({'background-color' : "#F38286"});
     } else if ((container == "friendFeed" && thought.userId != Meteor.userId())
         || thought.collectedBy.includes(Meteor.userId()) && thought.privacy != "public") {
@@ -68,6 +103,10 @@ Template.thought.onRendered(function()  {
 Template.thought.hooks({
     rendered: function() {
         var thought = this.data;
+        //console.log(thought);
+        if (thought.privacy == 'splash') {
+            return;
+        }
         var bubble = $('#' + thought._id);
         var item_clone = bubble.clone();
         bubble.data("clone", item_clone);
@@ -419,7 +458,7 @@ Template.thought.events({
         var bubble = $(event.currentTarget);
         selected = bubble;
         selectedUi = ui;
-        console.log(ui.data);
+        //console.log(ui.data);
         feed = bubble.parent().get(0).classList[0];
         if (bubble.get(0).classList.contains("exclude-me")) {
             return;
@@ -433,6 +472,9 @@ Template.thought.events({
         radius -= 20;
         if (feed == "calFeed") {
             radius = 500;
+        }
+        if (ui.data.privacy == 'splash') {
+            radius *= .66;
         }
         bubble.animate({
             width: radius,
@@ -451,34 +493,39 @@ Template.thought.events({
         radius = (radius + 75) / 2;
         var width = Math.min( parseInt(container.css('width')), parseInt(container.css('height')) - 65 ) - radius;
         var thought = Thoughts.findOne({_id: bubble.get(0).id});
-        var avatar = Meteor.users.findOne({_id: thought.userId});
-        /* avatar container */
-        var pictureScale = (radius - (radius * Math.sin(0.785398)));
-        $(author.children().get(0)).css({
-            'borderRadius': (pictureScale * 1.10) + 'px',
-            'background-image': 'url('+avatar.profile.picture+')',
-            'background-size' : '100% auto',
-            'background-repeat': 'no-repeat',
-            'background-position': '100%',
-            'height':  (pictureScale * 1.10) + 'px',
-            'width': (pictureScale * 1.10) + 'px',
-            'max-width': (pictureScale * 1.10) + 'px',
-            'left': 0,
-            'top' :0,
-            'position': 'absolute'
-        });
-        /* header contaienr */
+        if (thought != undefined) {
+            var avatar = Meteor.users.findOne({_id: thought.userId});
+            /* avatar container */
+            var pictureScale = (radius - (radius * Math.sin(0.785398)));
+            $(author.children().get(0)).css({
+                'borderRadius': (pictureScale * 1.10) + 'px',
+                'background-image': 'url(' + avatar.profile.picture + ')',
+                'background-size': '100% auto',
+                'background-repeat': 'no-repeat',
+                'background-position': '100%',
+                'height': (pictureScale * 1.10) + 'px',
+                'width': (pictureScale * 1.10) + 'px',
+                'max-width': (pictureScale * 1.10) + 'px',
+                'left': 0,
+                'top': 0,
+                'position': 'absolute'
+            });
+        }
         author.css({
             'height': (radius - (radius * Math.sin(0.785398))) + 'px'
-        })
+        });
         /* author container */
         $(author.children().get(1)).css({
             'line-height': (radius - (radius * Math.sin(0.785398))) + 'px'
         });
-        /* button container */
-        $(bubble.children().get(2)).css({
-            'height' : (radius - (radius * Math.sin(0.785398))) + 'px',
-        });
+        /* header contaienr */
+        if (ui.data.privacy != 'splash') {
+            /* button container */
+            $(bubble.children().get(2)).css({
+                'height': (radius - (radius * Math.sin(0.785398))) + 'px',
+            });
+
+        }
         bubble.toggleClass('condensed expanded');
         text.get(0).className = 'text-expanded';
         text.css({'left': (radius - (radius * Math.cos(0.785398))) + 'px'});
@@ -486,12 +533,14 @@ Template.thought.events({
             text.fadeIn();
         });
         author.toggleClass('header-show header-hide');
-        $($(bubble.children().get(0)).children().get(1)).children().toggleClass('buttons-show buttons-hide');
-        buttons.toggleClass('buttons-show buttons-hide');
+        if (ui.data.privacy != 'splash') {
+            $($(bubble.children().get(0)).children().get(1)).children().toggleClass('buttons-show buttons-hide');
+            buttons.toggleClass('buttons-show buttons-hide');
+        }
     },
 
     /* Condense a thought */
-    'click .expanded': function(event) {
+    'click .expanded': function(event, ui) {
         var bubble = $(event.currentTarget);
         //console.log(bubble);
         var author = $(bubble.children().get(0));//.children();
@@ -506,13 +555,15 @@ Template.thought.events({
         $(bubble.children().get(1)).addClass('text');
         text.get(0).className = 'text-inner';
         $(text.get(0)).removeAttr('style');
-        console.log(text.get(0));
+        //console.log(text.get(0));
         $(bubble.children().get(1)).removeAttr('style');
         author.toggleClass('header-show header-hide');
         author.removeAttr('style');
-        $($(bubble.children().get(0)).children().get(1)).children().toggleClass('buttons-show buttons-hide');
-        buttons.toggleClass('buttons-show buttons-hide');
-        $(bubble.children().get(2)).removeAttr('style');
+        if (ui.data.privacy != 'splash') {
+            $($(bubble.children().get(0)).children().get(1)).children().toggleClass('buttons-show buttons-hide');
+            buttons.toggleClass('buttons-show buttons-hide');
+            $(bubble.children().get(2)).removeAttr('style');
+        }
     },
     /* Deletes a thought */
     "click #action-2": function (event) {
