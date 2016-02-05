@@ -314,7 +314,7 @@ var incrementLimit = function(templateInstance) {
         parseInt(Meteor.settings.public.recordsPerPage);
     templateInstance.limit.set(newLimit);
 };
-/*
+
 getFriendsAsUsers = function() {
     var friends = Meteor.friends.find();
     var friendsAsUsers = [];
