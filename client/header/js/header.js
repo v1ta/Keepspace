@@ -118,6 +118,12 @@ Template.header.events({
     'mouseleave .menu-item': function(event) {
         $(event.target).css("background-color", "");
     },
+    'mouseenter .username, mouseenter #profile-picture': function(event) {
+        $(".username").css("text-decoration", "underline");
+    },
+    'mouseleave .username, mouseenter #profile-picture': function(event) {
+        $(".username").css("text-decoration", "none");
+    },
     'click #profile-picture': function(event) {
         // TODO: encrypt userId
         Router.go("calendar");
