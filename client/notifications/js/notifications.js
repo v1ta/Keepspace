@@ -66,7 +66,6 @@ Template.notifications.helpers({
             data: Session.get("numUnread"),
             ready: ready
         }
-        
     }
 });
 

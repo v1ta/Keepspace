@@ -197,6 +197,13 @@ Template.header.helpers({
     showChangePassword: function(){
         return Session.get("showChangePassword");
     },
+    numNotifications: function(){
+        var ready = Session.get("loadedNotifications");
+        return{
+            data: Session.get("numUnread"),
+            ready: ready
+        }
+    }
 });
 
 Template.header.onCreated(function(event) {

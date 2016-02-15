@@ -18,6 +18,14 @@
             <div class="right col-xs-4">
                 <div class="icon-moreiconnavbar headerIcon"></div>
                 <div class="icon-bellnavbar headerIcon"></div>
+                {{#with numNotifications}}
+                  {{#if ready}}
+                        <p id="headNumNotifications">{{data}}</p>
+                  {{else}}
+                        <!-- <p id="headNumNotifications">{{data}}</p> -->
+                  {{/if}}
+                {{/with}}
+                
                 <div class="icon-friendsiconnavbar headerIcon">
                 </div>
                 <img class="unselectable grayLine" src="/images/greyBox.png" />
