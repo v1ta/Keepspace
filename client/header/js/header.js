@@ -197,6 +197,9 @@ Template.header.helpers({
     showChangePassword: function(){
         return Session.get("showChangePassword");
     },
+    gotOne: function(data){
+        return data > 0;
+    },
     numNotifications: function(){
         result = [];
         // var ready = Meteor.subscribe('Notifications').ready();

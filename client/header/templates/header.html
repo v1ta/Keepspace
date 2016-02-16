@@ -20,7 +20,9 @@
                 <div class="icon-bellnavbar headerIcon"></div>
                 {{#with numNotifications}}
                   {{#if ready}}
-                        <p id="headNumNotifications">{{data}}</p>
+                        {{#if gotOne data}}
+                            <p id="headNumNotifications">{{data}}</p>
+                        {{/if}}
                   {{else}}
                         <!-- <p id="headNumNotifications">{{data}}</p> -->
                   {{/if}}
