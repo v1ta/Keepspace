@@ -151,13 +151,16 @@
   cursor:default;
 }
 #main-menu {
-  display: none;
-  position: absolute;
-  z-index: 2;
-  top:75px;
-  right:0px;
-  width:200px;
-  box-shadow: 10px 10px 5px #888888;
+    display: none;
+    position: absolute;
+    z-index: 2;
+    top: 70px;
+    right: 0px;
+    width: 200px;
+    box-shadow: 10px 10px 5px #888888;
+    border: 1px solid black;
+    height: 160px !important;
+    background:white;
 }
 #main-menu ul {
   list-style: none;
