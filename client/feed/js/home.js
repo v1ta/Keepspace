@@ -122,14 +122,16 @@ Template.worldFeed.events({
 //put in username
 Template.home.helpers({
     username: function(event){
-        if (Meteor.user()) {
-            var username = Meteor.user().username;
-            return username.split(" ")[0];
-        }
+        // if (Meteor.user()) {
+        //     var username = Meteor.user().username;
+        //     return username.split(" ")[0];
+        // }
+        console.log(Meteor.user());
+        return Meteor.user().profile.firstName;
     },
     posts: function(event){
         var thoughts = Thoughts.find({}, {sort: {createdAt: -1}});
-        return thoughts
+        return thoughts;
     },
     showFriendFeed: function() {
         return Session.get('showFriendFeed');
