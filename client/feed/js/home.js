@@ -127,7 +127,11 @@ Template.home.helpers({
         //     return username.split(" ")[0];
         // }
         console.log(Meteor.user());
-        return Meteor.user().profile.firstName;
+        var name = Meteor.user().profile.firstName;
+        if (!name){
+            name = Meteor.user().profile.name.split(" ")[0];
+        }
+        return name;
     },
     posts: function(event){
         var thoughts = Thoughts.find({}, {sort: {createdAt: -1}});
