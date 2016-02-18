@@ -198,7 +198,34 @@ Template.header.helpers({
         return Session.get("showChangePassword");
     },
     gotOne: function(data){
+        // console.log(data);
         return data > 0;
+    },
+    numRequests: function(){
+        var results =  Meteor.requests.find({
+            $or: [
+                {userId:Meteor.userId()},
+                {requesterId:Meteor.userId()}
+            ]
+        });
+
+        var ready = Meteor.subscribe('friendRequests').ready();
+        var requests = results.fetch();
+        var numRequests = 0;
+        var userId = Meteor.userId();
+        for (var i = 0; i < requests.length; i++){
+            if (requests[i].userId == userId){
+                numRequests += 1;
+                console.log(requests[i]);
+            }
+        }
+        Session.set("loadedRequests", true);
+        Session.set("numRequests", numRequests);
+        localStorage.setItem("requests", JSON.stringify(requests));
+        return {
+            data: Session.get("numRequests"),
+            ready: ready
+        };
     },
     numNotifications: function(){
         result = [];

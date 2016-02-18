@@ -238,14 +238,19 @@
   top: -10px;
   z-index:1;
 }
-#headNumNotifications{
+.headNotifications{
     background-color: #EE2B3F;
     border-radius: 15px;
     width: 15px;
     height: 15px;
     font-size: 0.8em;
     position: absolute;
-    right: 16%;
-    top: 16%;
     color: white;
+    top: 56%;
+}
+#headNumNotifications{
+    right: 16%;    
+}
+#headNumRequests{
+    right: 25%;
 }

@@ -51,7 +51,14 @@
 		<div class="friendPageTab" id="requestsTab">
 			<div class="friendTabHeader" id="requestHead">
 				<p id="requestTitle"> Respond to your Friend Requests </p>
-				<p class="numRequests"> {{numRequests}} </p>
+				{{#with numRequests}}
+			      {{#if ready}}
+					    <p class="numRequests"> {{data}} </p>
+			      {{else}}
+			        <p class="numRequests"> . </p>
+			      {{/if}}
+			    {{/with}}
+				
 			</div>
 			<div class="friendContainer" id="requestsList">
 

@@ -74,35 +74,26 @@ Template.friendRequestPage.events({
 
 Template.friendRequestPage.helpers({
     friendRequests: function() {
-        var results =  Meteor.requests.find({
-            $or: [
-                {userId:Meteor.userId()},
-                {requesterId:Meteor.userId()}
-            ]
-        });
         // console.log(Meteor.users.findOne("M3EaWLmSDBCPuZ2w8"))
         // console.log("friend request results:");
         // console.log(results.fetch());
         // return results;
+
+        result = JSON.parse(localStorage.getItem("requests"));
         var ready = Meteor.subscribe('friendRequests').ready();
-        var requests = results.fetch();
-        var numRequests = 0;
-        var userId = Meteor.userId();
-        for (var i = 0; i < requests.length; i++){
-            if (requests[i].userId == userId){
-                numRequests += 1;
-                console.log(requests[i]);
-            }
-        }
-        Session.set("numRequests", numRequests);
-        // console.log(ready);
-        return {
-              data: results,
-              ready: ready
-          };
+
+        return{
+            data: result,
+            ready: ready
+        };
     },
     numRequests: function(){
-        return Session.get("numRequests");
+        var ready = Session.get("loadedRequests");
+        console.log(Session.get("numRequests"));
+        return{
+            data: Session.get("numRequests"),
+            ready: ready
+        }
     },
     friends: function(){
         var ready = Meteor.subscribe('friends').ready();

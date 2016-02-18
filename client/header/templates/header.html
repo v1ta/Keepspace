@@ -21,15 +21,23 @@
                 {{#with numNotifications}}
                   {{#if ready}}
                         {{#if gotOne data}}
-                            <p id="headNumNotifications">{{data}}</p>
+                            <p id="headNumNotifications" class="headNotifications">{{data}}</p>
                         {{/if}}
                   {{else}}
                         <!-- <p id="headNumNotifications">{{data}}</p> -->
                   {{/if}}
                 {{/with}}
                 
-                <div class="icon-friendsiconnavbar headerIcon">
-                </div>
+                <div class="icon-friendsiconnavbar headerIcon"></div>
+                {{#with numRequests}}
+                  {{#if ready}}
+                        {{#if gotOne data}}
+                            <p id="headNumRequests" class="headNotifications">{{data}}</p>
+                        {{/if}}
+                  {{else}}
+                        <!-- <p id="headNumNotifications">{{data}}</p> -->
+                  {{/if}}
+                {{/with}}
                 <img class="unselectable grayLine" src="/images/greyBox.png" />
                 <span class="username vertical-center unselectable">{{username}}</span>
                 <img id="profile-picture" class="header-circle unselectable" alt="{{username}}" src="{{picture}}" />
