@@ -41,7 +41,21 @@ Template.friendRequestPage.events({
     },
     "click .icon-addfriend": function(event){   
         var sendTo = Meteor.users.findOne({_id:this._id});
-        if (sendTo != undefined){
+        // console.log(sendTo);
+        var requests = Meteor.requests.find({
+            $or: [
+                {$and: [
+                    {userId:Meteor.userId()},
+                    {requesterId:sendTo._id}
+                ]},
+                {$and: [
+                    {userId:sendTo._id},
+                    {requesterId:Meteor.userId()}
+                ]},
+            ]
+        });
+        // console.log(requests.fetch());
+        if (sendTo != undefined && (requests.fetch().length == 0)){
             sendTo.requestFriendship();
             sAlert.success('Friend Request Sent', {position: 'bottom'});
         }else{
