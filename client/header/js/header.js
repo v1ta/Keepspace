@@ -278,8 +278,6 @@ Template.header.helpers({
             // else
             //     sAlert.success(user.username + ' collected your thought!', {position: 'bottom'});
         });
-        localStorage.setItem("notifications", JSON.stringify(result));
-        // console.log(JSON.parse(localStorage.getItem("notifications"))[0]);
         var ready = Session.get("loadedNotifications");
         return{
             data: Session.get("numUnread"),
