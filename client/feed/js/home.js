@@ -119,13 +119,13 @@ Template.worldFeed.events({
 });
 
 Template.home.helpers({
-    username: function(event){
-        if (Meteor.user().emails[0].address == Meteor.user().username) {
-            return Meteor.user().username;
-        } else if (!Meteor.user().profile.firstName) {
+    username: function(event) {
+        if (Meteor.user().profile.name != undefined) {
+            return Meteor.user().profile.name.split(" " || "@")[0];
+        } else if (Meteor.user().profile.firstName != undefined) {
             return Meteor.user().profile.firstName;
         } else {
-            return Meteor.user().profile.name.split(" " || "@")[0];
+            return Meteor.user().username;
         }
     },
     posts: function(event){

@@ -160,13 +160,13 @@ Template.header.events({
 });
 
 Template.header.helpers({
-    username: function(event){
-        if (Meteor.user().emails[0].address == Meteor.user().username) {
-            return Meteor.user().username;
-        } else if (!Meteor.user().profile.firstName) {
+    username: function(event) {
+        if (Meteor.user().profile.name != undefined) {
+            return Meteor.user().profile.name.split(" " || "@")[0];
+        } else if (Meteor.user().profile.firstName != undefined) {
             return Meteor.user().profile.firstName;
         } else {
-            return Meteor.user().profile.name.split(" " || "@")[0];
+            return Meteor.user().username;
         }
     },
     picture: function() {
@@ -302,8 +302,7 @@ Template.header.onRendered(function(event) {
     Session.set('showProfile', false);
     Session.set('showFriendPage', false);
     Session.set("showChangePassword", false);
-    if (localStorage.getItem("justLoggedIn") == true) { //Node is bad @ booleans
-        console.log('hi');
+    if (localStorage.getItem("justLoggedIn") == "true") { //Node is bad @ booleans
         var rand = Math.random();
          if (rand < 0.33){
              Session.set("result",Thoughts.findOne({userId: Meteor.userId()}));
