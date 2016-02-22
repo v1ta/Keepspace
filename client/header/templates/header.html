@@ -78,7 +78,9 @@
     </div>
 
     {{#with showRandomReminder}}
-        {{> randomReminder}}
+        <div class="alertDiv" id="mainAlert">
+            {{> thought randomReminder}}
+        </div>
     {{/with}}
     {{#with showChangePassword}}
         {{> changePass}}
@@ -90,5 +92,5 @@
         {{> friendRequestPage}}
     {{/with}} -->
 
-    {{> yield}}
+    {{>yield}}
 </template>

@@ -12,7 +12,7 @@ Template.home.created = function() {
     Tracker.autorun(function() {
         Meteor.subscribe('images');
     });
-}
+};
 
 Template.home.onRendered(function(){
     Session.setDefault('showFriendFeed', true);
@@ -56,7 +56,7 @@ window.onload = function(event){ // Website has loaded
     }
     setTime(); // Set countdown timer
     Meteor.setInterval(setTime, 1000);
-}
+};
 
 Template.friendFeed.helpers({
     friendPosts: function() {
@@ -118,20 +118,15 @@ Template.worldFeed.events({
     }
 });
 
-
-//put in username
 Template.home.helpers({
     username: function(event){
-        // if (Meteor.user()) {
-        //     var username = Meteor.user().username;
-        //     return username.split(" ")[0];
-        // }
-        console.log(Meteor.user());
-        var name = Meteor.user().profile.firstName;
-        if (!name){
-            name = Meteor.user().profile.name.split(" ")[0];
+        if (Meteor.user().emails[0].address == Meteor.user().username) {
+            return Meteor.user().username;
+        } else if (!Meteor.user().profile.firstName) {
+            return Meteor.user().profile.firstName;
+        } else {
+            return Meteor.user().profile.name.split(" " || "@")[0];
         }
-        return name;
     },
     posts: function(event){
         var thoughts = Thoughts.find({}, {sort: {createdAt: -1}});
@@ -145,7 +140,6 @@ Template.home.helpers({
     }
 });
 
-//request facebook data
 Template.home.events({
     'click' : function(event) {
         if (Session.get("maximized")) {

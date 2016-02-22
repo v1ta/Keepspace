@@ -1,11 +1,4 @@
 Template.header.events({
-    /*'click #postButton': function(e) {
-     if ($("#tempForm").css("display") === "none") {
-     $("#tempForm").show();
-     } else {
-     $("#tempForm").hide();
-     }
-     },*/
     'click #date': function(event) {
         // Router.go("calendar");
     },
@@ -24,7 +17,6 @@ Template.header.events({
         Router.go("notifications");
     },
     'click #settingsButton': function(event){
-        console.log(Meteor.user());
         event.preventDefault();
         // $("#settingDropDown").toggle();
         if ($("#settingDropDown").css("display") == "none"){
@@ -36,7 +28,7 @@ Template.header.events({
     },
     'click .logout': function(event){
         event.preventDefault();
-        Meteor.logout(logoutFunction);
+        Router.go('logout');
     },
     'click .dropdownAbout': function(event){
         Router.go("mainAbout");
@@ -168,14 +160,13 @@ Template.header.events({
 });
 
 Template.header.helpers({
-    username: function(){
-        if (Meteor.user()) {
-            var user = Meteor.user().profile.firstName;
-            if (!user){
-                user = Meteor.user().username;
-            }
-            var result = user.split(" ");
-            return result[0];
+    username: function(event){
+        if (Meteor.user().emails[0].address == Meteor.user().username) {
+            return Meteor.user().username;
+        } else if (!Meteor.user().profile.firstName) {
+            return Meteor.user().profile.firstName;
+        } else {
+            return Meteor.user().profile.name.split(" " || "@")[0];
         }
     },
     picture: function() {
@@ -197,6 +188,12 @@ Template.header.helpers({
     showChangePassword: function(){
         return Session.get("showChangePassword");
     },
+    showRandomReminder: function(){
+        return Session.get("showRandomReminder");
+    },
+    randomReminder: function(){
+        return Session.get("result");
+    },
     gotOne: function(data){
         // console.log(data);
         return data > 0;
@@ -216,7 +213,6 @@ Template.header.helpers({
         for (var i = 0; i < requests.length; i++){
             if (requests[i].userId == userId){
                 numRequests += 1;
-                console.log(requests[i]);
             }
         }
         Session.set("loadedRequests", true);
@@ -288,6 +284,7 @@ Template.header.helpers({
 
 Template.header.onCreated(function(event) {
    // $(window).resize(function() { setMidPadding(); });
+    Session.set("showRandomReminder", false);
 });
 
 Template.header.onDestroyed(function(event) {
@@ -305,25 +302,31 @@ Template.header.onRendered(function(event) {
     Session.set('showProfile', false);
     Session.set('showFriendPage', false);
     Session.set("showChangePassword", false);
-    var loggedIn = localStorage.getItem("justLoggedIn");
-    if (loggedIn == "true"){
+    if (localStorage.getItem("justLoggedIn") == true) { //Node is bad @ booleans
+        console.log('hi');
         var rand = Math.random();
-        if (rand < 0.33) {
-            showOldPost();
-        }
-        localStorage.setItem("justLoggedIn", "false");
-    };
-    $(document).mouseup(function (e){
-        if (!$("#friendRequests").is(e.target) // if the target of the click isn't the container...
-            && $("#friendRequests").has(e.target).length === 0) // ... nor a descendant of the container
+         if (rand < 0.33){
+             Session.set("result",Thoughts.findOne({userId: Meteor.userId()}));
+             Session.set("showRandomReminder", true);
+         }
+        localStorage.setItem("justLoggedIn", false);
+    }
+    $(document).mouseup(function (event){
+        if (!$("#friendRequests").is(event.target) // if the target of the click isn't the container...
+            && $("#friendRequests").has(event.target).length === 0) // ... nor a descendant of the container
         {
             // $("#friendRequests").hide();
             Session.set("showFriendPage", false);
         }
-        if(!$("#profile").is(e.target) // if the target of the click isn't the container...
-            && $("#profile").has(e.target).length === 0) // ... nor a descendant of the container
+        if(!$("#profile").is(event.target) // if the target of the click isn't the container...
+            && $("#profile").has(event.target).length === 0) // ... nor a descendant of the container
         {
             Session.set('showProfile', false);
+        }
+    });
+    $(document).mouseup(function (event){
+        if($("#mainAlert").is(event.target)) {
+            Session.set('showRandomReminder', false);
         }
     });
 });
@@ -351,7 +354,6 @@ Template.profile.helpers({
         var notifications = Notifications.find().fetch();
         result = [];
         notifications.forEach(function (notification) {
-            console.log(notification);
             var user = Meteor.users.findOne({_id:notification.friendId});
             var element = {};
             if (notification.type == "acceptRequest"){
@@ -397,9 +399,6 @@ Template.profile.helpers({
             // else
             //     sAlert.success(user.username + ' collected your thought!', {position: 'bottom'});
         });
-        console.log(result);
-        console.log(result[0]);
-
         return result;
     }
 });
@@ -423,23 +422,20 @@ Template.profile.events({
         });
     },
 
-})
-
-logoutFunction = function(){
-    Router.go("home");
-}
+});
 
 function setMidPadding() {
     //var padding = parseInt($(".mid").css("width")) - ( parseInt($("#homeButton").css("width"))+parseInt($("#date").css("width"))-parseInt($("#date").css("padding-left")) );
     //$(".mid").css("padding-left", padding/2);
 }
 
-function showOldPost(){
+showOldPost = function(){
     rand = Math.floor(Math.random() * 100000000) + 1;
     result = Thoughts.findOne( { userId:Meteor.userId(), randomIndex : { $gte : rand } } );
     if (result == null) {
         result = Thoughts.findOne( { userId:Meteor.userId(), randomIndex : { $lte : rand } } );
     }
+    console.log(result);
     var time = result.createdAt;
     var newDate = new Date(time);
     var text = result.text;
@@ -454,10 +450,17 @@ function showOldPost(){
     $("#mainAlert").show();
     $(".alertBubble").click(function(event){
         event.stopPropagation();
+        Session.set("showRandomReminder",false);
     });
-    $(".alertDiv").click(closeAlert);
-    $(".closeAlert").click(closeAlert);
-}
+    $(".alertDiv").click(function(event) {
+        Session.set("showRandomReminder",false);
+    });
+    $(".closeAlert").click(function(event) {
+        Session.set("showRandomReminder",false);
+    });
+    console.log("ahh");
+    Session.set("showRandomReminder", true);
+};
 
 showMainMenu = function(event) {
     // $("#logo").css({"border-bottom-right-radius": "0",
@@ -466,7 +469,7 @@ showMainMenu = function(event) {
     // $("#dropdownDiv").css("background-color", "#E0E0E0");
     // $("#homeLogo").css("background-color", "#f9f9f9");
     $("#main-menu").slideDown('fast');
-}
+};
 
 hideMainMenu = function(event) {
     $("#main-menu").slideUp('fast', function() {
@@ -474,4 +477,4 @@ hideMainMenu = function(event) {
         $("#homeLogo").css({"background-color": ""});
         // $("#dropdownDiv").css({"background-color": ""});
     });
-}
+};

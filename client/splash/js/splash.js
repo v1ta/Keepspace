@@ -5,7 +5,9 @@ Template.splashBanner.events({
 	'click #loginLink': function(){
 		Router.go("loginPage");
 	},
-	'click #aboutLink': function() { Router.go('about'); },
+	'click #aboutLink': function() {
+        Router.go('about');
+    },
 	'click #teamLink': function() {
     event.preventDefault();
     $("body, html").animate({ 
@@ -33,15 +35,17 @@ Template.splashBanner.events({
     $("#mainSlide").hide();
     $("#navSignupOption").show();
   },
-	'click #splashBannerLogo': function(){ Router.go('splash');},
-  'click #facebookSignButton': function(){
+   'click #splashBannerLogo': function() {
+        Router.go('splash');
+    },
+  'click #facebookSignButton': function() {
     Meteor.loginWithFacebook(
       {requestPermissions: ['email', 'user_friends', 'user_location', 'user_status',
       'user_posts','publish_actions']}, 
       function(err){
           if (!err){
           Session.set("isFB", true);
-          localStorage.setItem("justLoggedIn", "true");
+          localStorage.setItem("justLoggedIn", true);
           resetAllFeeds();
           Router.go("home");
             // $("#changePassword").hide();
@@ -59,7 +63,7 @@ Template.splashBanner.events({
       function(err){
           if (!err){
           Session.set("isFB", true);
-          localStorage.setItem("justLoggedIn", "true");
+          localStorage.setItem("justLoggedIn", true);
           resetAllFeeds();
           Router.go("home");
             // $("#changePassword").hide();
@@ -106,13 +110,11 @@ Template.splashBanner.events({
     Meteor.loginWithPassword({email: emailVar}, passwordVar, function(err){
       if (!err){
         Session.set("isFB", false);
-        localStorage.setItem("justLoggedIn", "true");
+        localStorage.setItem("justLoggedIn", true);
         resetAllFeeds();
           if (emailVar === "admin@thekeepspace.com") {
-              console.log("I'm bad at debugging");
               Router.go('invites');
           } else {
-              console.log("not as bad as me!");
               Router.go("home");
           }
         // $("#changePassword").show();
@@ -123,20 +125,17 @@ Template.splashBanner.events({
     });
   },
   'submit .myform': function(event){
-    console.log("hi");
     event.preventDefault();
     var emailVar = $("#loginEmail").val();
     var passwordVar = $("#loginPassword").val();
     Meteor.loginWithPassword({email: emailVar}, passwordVar, function (err) {
         if (!err) {
             Session.set("isFB", false);
-            localStorage.setItem("justLoggedIn", "true");
+            localStorage.setItem("justLoggedIn", true);
             resetAllFeeds();
             if (emailVar === "admin@thekeepspace.com") {
-                console.log("I'm bad at debugging");
                 Router.go('invites');
             } else {
-                console.log("not as bad as me!");
                 Router.go("home");
             }
             // $("#changePassword").show();
@@ -215,30 +214,6 @@ Template.splashBanner.onRendered(function(){
     });
   });
 });
-
-//TODO throws undefined(.carousel) error when loaded
-/*
-Template.carousel.onRendered(function() {
-    /
-	$('#carousel').on('slide.bs.carousel', function (event) {
-  		if (event.relatedTarget.id == "loginSlide"){
-  			$(".right.carousel-control").hide();
-  		}
-  		else{
-  			$(".right.carousel-control").show();
-  		}
-	})
-    //TODO this variable is never initialized
-  	if (Session.get('c_login')) {
-    	$('#carousel').carousel(3);
-    	$('#carousel').carousel('pause');
-  	}
-	else
-    	$('#carousel').carousel(0);
-
-    $('#carousel').carousel(0);
-});
-*/
 
 var trimInput = function(val) {
   return val.replace(/^\s*|\s*$/g, "");

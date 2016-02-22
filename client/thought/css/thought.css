@@ -156,6 +156,16 @@ input.button-add {
     display: inline-block;
 }
 
+.day-container {
+    display:block;
+    /*height: 20px;*/
+    text-align: center;
+    /*position: relative;*/
+    vertical-align: middle;
+    color: white;
+    font-size: 25px;
+}
+
 .author-container {
     position: absolute;
     display: inline-block;
@@ -178,6 +188,14 @@ input.button-add {
 }
 
 .buttons-hide {
+    display: none;
+}
+
+.author-show {
+    display: block;
+}
+
+.author-hide {
     display: none;
 }
 

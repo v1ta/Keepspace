@@ -1,6 +1,6 @@
 Meteor.startup(function () {
-  Accounts.emailTemplates.from = 'do-not-reply@mykeepspace.com';
-  Accounts.emailTemplates.siteName = 'mykeepspace';
+  Accounts.emailTemplates.from = 'do-not-reply@thekeepspace.com';
+  Accounts.emailTemplates.siteName = 'thekeepspace';
 });
 
 Meteor.publish("thoughts", function () { // Only publish thoughts that are public or belong to the current user
@@ -15,6 +15,10 @@ Meteor.publish("thoughts", function () { // Only publish thoughts that are publi
 Meteor.publish("splashThoughts", function() {
     return SplashThoughts.find({});
 });
+
+Meteor.publish("RandomReminder", function() {
+    return RandomReminder.find()
+})
 
 Meteor.publish("users", function() {
     return Meteor.users.find({});

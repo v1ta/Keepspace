@@ -18,9 +18,13 @@ function getRandom(min, max) {
 Template.thought.onRendered(function()  {
     var thought = this.data;
     var node = $('#' + thought._id);
-    var radius = 75 * (thought.rank+1);
     var container = this.firstNode.parentNode.classList[0];
-    /* set css & available buttons based off starting feed */
+    var radius = 75 * (thought.rank+1);
+    if (container == 'alertDiv') {
+        radius = 75 * (thought.rank+2);
+    } else {
+        radius = 75 * (thought.rank+1);
+    }
     var animationName = 'float' + thought._id;
     $.keyframe.define([{
         name: animationName,
@@ -49,8 +53,17 @@ Template.thought.onRendered(function()  {
         'border-radius' : radius + 'px',
         'line-height' : radius*2 + 'px'
     });
-    if (thought.privacy == 'splash') {
-        //node.css({'background-color' : "#F38286"});
+    if (container == 'alertDiv') {
+        node.css({
+            'background-color' : "#2BA99C"
+        });
+        // display post date.
+        $(node.children()[0]).toggleClass('header-hide header-show');
+        $(node.children()[0]).css({
+            'height':0
+        });
+        $($($(node.children()[0]).children()[1]).children()[0]).toggleClass('author-show author-hide');
+    } else if (thought.privacy == 'splash') {
         node.css({'position':'absolute'});
         switch(splashThoughts) {
             case 0:
@@ -103,8 +116,9 @@ Template.thought.onRendered(function()  {
 Template.thought.hooks({
     rendered: function() {
         var thought = this.data;
-        //console.log(thought);
         if (thought.privacy == 'splash') {
+            return;
+        } else if (this.firstNode.parentNode.classList[0] == 'alertDiv') {
             return;
         }
         var bubble = $('#' + thought._id);
@@ -134,7 +148,6 @@ Template.thought.hooks({
         }
         item_clone.attr("data-pos",index);
         $("#cloned-"+feedName).append(item_clone);
-
     }
 });
 
@@ -145,7 +158,6 @@ var cloneThoughts = function(feedName) {
         if (item.parent().get(0).classList[0] != feedName) {
             return;
         }
-        console.log(item);
         var item_clone = item.clone();
         item.data("clone", item_clone);
         var position = item.position();
@@ -191,7 +203,6 @@ Template.myFeed.onRendered(function() {
             $(".cloned-myFeed .thought").css({"visibility": "visible"});
         },
         stop :function(event, ui) {
-
             $(".myFeed .thought.exclude-me").each(function() {
                 var item = $(this);
                 if (item.parent().get(0).classList[0] != "myFeed") {
@@ -206,7 +217,6 @@ Template.myFeed.onRendered(function() {
 
                 item.removeClass("exclude-me");
             });
-
             $(".myFeed .thought").each(function() {
                 var item = $(this);
                 if (item.parent().get(0).classList[0] != "myFeed") {
@@ -215,7 +225,6 @@ Template.myFeed.onRendered(function() {
                 var clone = item.data("clone");
                 clone.attr("data-pos", item.index());
             });
-
             $(".myFeed .thought").css("visibility", "visible");
             $(".cloned-myFeed .thought").css("visibility", "hidden");
         },
@@ -256,7 +265,6 @@ Template.myFeed.onRendered(function() {
             });
         },
         receive: function(event,ui) {
-            console.log("myFeed receive called");
             $('#cloned-'+feed+' #'+ ui.item.get(0).id).remove();
             Meteor.call("updatePrivacy", ui.item.get(0).id, "private", Meteor.userId());
             if (Meteor.userId() != Thoughts.findOne({_id: ui.item.get(0).id}).userId) {
@@ -350,7 +358,6 @@ Template.friendFeed.onRendered(function() {
             });
         },
         receive: function(event,ui) {
-            console.log("friendFeed receive called");
             $('#cloned-'+feed+' #'+ ui.item.get(0).id).remove();
             Meteor.call("updatePrivacy", ui.item.get(0).id, "friends", Meteor.userId());
         }
@@ -406,9 +413,6 @@ Template.worldFeed.onRendered(function() {
             $(".cloned-worldFeed .thought").css("visibility", "hidden");
         },
         change: function(event, ui) {
-            /*
-             $(ui.placeholder).hide().show(300);
-             */
             $(".worldFeed .thought:not(.exclude-me)").each(function() {
                 var item = $(this);
                 if (item.parent().get(0).classList[0] != "worldFeed") {
@@ -445,7 +449,6 @@ Template.worldFeed.onRendered(function() {
             });
         },
         receive: function(event,ui) {
-            console.log(ui);
             $('#cloned-'+feed+' #'+ ui.item.get(0).id).remove();
             Meteor.call("updatePrivacy", ui.item.get(0).id, "public", Meteor.userId());
         }
@@ -458,10 +461,13 @@ Template.thought.events({
         var bubble = $(event.currentTarget);
         selected = bubble;
         selectedUi = ui;
-        //console.log(ui.data);
         feed = bubble.parent().get(0).classList[0];
         if (bubble.get(0).classList.contains("exclude-me")) {
             return;
+        }
+        if (ui.firstNode.parentNode.classList[0] == 'alertDiv') {
+            $(bubble.children()[0]).toggleClass('header-hide header-show');
+            $($($(bubble.children()[0]).children()[1]).children()[0]).toggleClass('author-show author-hide');
         }
         Session.set("maximized", true);
         var author = $(bubble.children().get(0));//.children();
@@ -483,7 +489,6 @@ Template.thought.events({
         });
         $(bubble.children().get(1)).removeClass('text');
         $(bubble.children().get(1)).addClass('text-container');
-        //console.log($(bubble.children().get(1)));
         $(bubble.children().get(1)).css({
             'display' : 'block',
             'height' : radius - (radius * .33),
@@ -497,6 +502,7 @@ Template.thought.events({
             var avatar = Meteor.users.findOne({_id: thought.userId});
             /* avatar container */
             var pictureScale = (radius - (radius * Math.sin(0.785398)));
+            $(author.children().get(0)).toggleClass('buttons-show buttons-hide');
             $(author.children().get(0)).css({
                 'borderRadius': (pictureScale * 1.10) + 'px',
                 'background-image': 'url(' + avatar.profile.picture + ')',
@@ -511,20 +517,18 @@ Template.thought.events({
                 'position': 'absolute'
             });
         }
-        author.css({
+        author.css({ //header
             'height': (radius - (radius * Math.sin(0.785398))) + 'px'
         });
         /* author container */
         $(author.children().get(1)).css({
             'line-height': (radius - (radius * Math.sin(0.785398))) + 'px'
         });
-        /* header contaienr */
+        /* button container */
         if (ui.data.privacy != 'splash') {
-            /* button container */
             $(bubble.children().get(2)).css({
                 'height': (radius - (radius * Math.sin(0.785398))) + 'px',
             });
-
         }
         bubble.toggleClass('condensed expanded');
         text.get(0).className = 'text-expanded';
@@ -534,7 +538,10 @@ Template.thought.events({
         });
         author.toggleClass('header-show header-hide');
         if (ui.data.privacy != 'splash') {
-            $($(bubble.children().get(0)).children().get(1)).children().toggleClass('buttons-show buttons-hide');
+            $($(bubble.children().get(0)).children().get(1)).children().toggleClass('author-show author-hide');//author
+            buttons.toggleClass('buttons-show buttons-hide'); // buttons
+        }
+        if (ui.firstNode.parentNode.classList[0] == 'alertDiv') {
             buttons.toggleClass('buttons-show buttons-hide');
         }
     },
@@ -542,27 +549,41 @@ Template.thought.events({
     /* Condense a thought */
     'click .expanded': function(event, ui) {
         var bubble = $(event.currentTarget);
-        //console.log(bubble);
         var author = $(bubble.children().get(0));//.children();
         var text = $(bubble.children().get(1)).children();
         var buttons = $(bubble.children().get(2)).children();
-        bubble.animate({
-            width: ((this.rank+1) * 75)*2,
-            height: ((this.rank+1) * 75)*2
-        });
+        if (ui.firstNode.parentNode.classList[0] == 'alertDiv') {
+            bubble.animate({
+                width: ((this.rank+2) * 75)*2,
+                height: ((this.rank+2) * 75)*2
+            });
+        } else {
+            bubble.animate({
+                width: ((this.rank + 1) * 75) * 2,
+                height: ((this.rank + 1) * 75) * 2
+            });
+        }
         bubble.toggleClass('condensed expanded');
         $(bubble.children().get(1)).removeClass('text-container');
         $(bubble.children().get(1)).addClass('text');
         text.get(0).className = 'text-inner';
         $(text.get(0)).removeAttr('style');
-        //console.log(text.get(0));
         $(bubble.children().get(1)).removeAttr('style');
         author.toggleClass('header-show header-hide');
         author.removeAttr('style');
+        $(author.children().get(0)).toggleClass('buttons-show buttons-hide');
         if (ui.data.privacy != 'splash') {
-            $($(bubble.children().get(0)).children().get(1)).children().toggleClass('buttons-show buttons-hide');
+            $($(bubble.children().get(0)).children().get(1)).children().toggleClass('author-show author-hide');
             buttons.toggleClass('buttons-show buttons-hide');
             $(bubble.children().get(2)).removeAttr('style');
+        }
+        if (ui.firstNode.parentNode.classList[0] == 'alertDiv') {
+            $(bubble.children()[0]).toggleClass('header-hide header-show');
+             $(bubble.children()[0]).css({
+             'height':0
+             });
+            $($($(bubble.children()[0]).children()[1]).children()[0]).toggleClass('author-show author-hide');
+            buttons.toggleClass('buttons-show buttons-hide');
         }
     },
     /* Deletes a thought */
@@ -594,5 +615,9 @@ Template.thought.events({
 Template.thought.helpers({
     author: function (event) {
         return this.username;
+    },
+    day: function (event) {
+        var newDate = new Date(this.createdAt);
+        return "Day " + newDate.getDOY();
     }
 });

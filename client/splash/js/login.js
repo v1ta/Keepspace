@@ -9,7 +9,7 @@ Template.loginPage.events({
 			function(err){
 			    if (!err){
 					Session.set("isFB", true);
-					localStorage.setItem("justLoggedIn", "true");
+					localStorage.setItem("justLoggedIn", true);
 					resetAllFeeds();
 					Router.go("home");
 			      // $("#changePassword").hide();
@@ -27,10 +27,9 @@ Template.loginPage.events({
 		Meteor.loginWithPassword({email: emailVar}, passwordVar, function(err){
 			if (!err){
 				Session.set("isFB", false);
-				localStorage.setItem("justLoggedIn", "true");
+				localStorage.setItem("justLoggedIn", true);
 				resetAllFeeds();
 				if (emailVar === "admin@thekeepspace.com") {
-					console.log("I'm bad at debugging");
 					Router.go('invites');
 				} else {
 					console.log("not as bad as me!");
