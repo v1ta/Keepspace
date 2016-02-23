@@ -33,7 +33,6 @@ Template.beta_email_invite.rendered = function() {
                     if (response.error) {
                         return alert(response.error);
                     } else {
-                        console.log("should work");
                         return Meteor.call('addToInvitesList', invitee, function (error, response) {
                             if (error) {
                                 sAlert.error(error.reason, {effect: 'genie', position: 'top', offset: '91px'});

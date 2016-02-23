@@ -1,0 +1,34 @@
+<template name="testUsers">
+    <div class="container test-user-container">
+        <a class="waves-effect waves-light btn test-user-button">Create Test Users</a>
+    </div>
+    {{#if testUsers}}
+        <table class="table">
+            <thead>
+            <tr>
+                <th width="25%">User Name</th>
+                <th width="5%">Thoughts Collected</th>
+                <th width="30%" class="text-center">Last Shared</th>
+                <th width="20%" class="text-center">Account Created</th>
+                <th width="20%" class="text-center">Action</th>
+            </tr>
+            </thead>
+            <tbody>
+            {{#each testUser}}
+                <tr>
+                    <td class="vertical-align">{{profile.name}}</td>
+                    <td class="text-center vertical-align">{{profile.collects}}</td>
+                    <td class="text-center vertical-align">{{profile.lastShared.date}}</td>
+                    <td class="text-center vertical-align">{{epochToString createdAt}}</td>
+                    <td class="text-center vertical-align">
+                        <a class="waves-effect waves-light btn test-user-login" id="{{_id}}">Login</a>
+                        <a class="waves-effect waves-light btn test-user-delete" id="{{_id}}">delete</a>
+                    </td>
+                </tr>
+            {{/each}}
+            </tbody>
+        </table>
+    {{else}}
+        <p class="alert alert-warning">No test users found.</p>
+    {{/if}}
+</template>

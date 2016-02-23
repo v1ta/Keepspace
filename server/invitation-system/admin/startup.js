@@ -3,7 +3,7 @@ Meteor.startup(function () {
 
     var splashThoughtTwo = "I wandered around an art store by my house today and decided to buy some clay. It was surprisingly fun to mess around with. I never realized how powerful and versatile a material it is. A world without painting, photography, or animation wouldn't be much different, but without clay?";
 
-    var splashThoughtThree = "Don't confused my personality with my attitude. My personality is who I am. My attitude depends on who you are. ";
+    var splashThoughtThree = "Don't confuse my personality with my attitude. My personality is who I am. My attitude depends on who you are. ";
 
     var splashThoughtFour = "I'm not a politician but I could run the country into the ground way better than any of these candidates";
     SplashThoughts.remove({});

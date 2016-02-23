@@ -270,6 +270,7 @@ Template.myFeed.onRendered(function() {
             if (Meteor.userId() != Thoughts.findOne({_id: ui.item.get(0).id}).userId) {
                 Meteor.call("addToMyCollection", ui.item.get(0).id);
             }
+            Meteor.call("shareThought", ui.item.get(0).id, "private");
         }
     });
 });
@@ -360,6 +361,7 @@ Template.friendFeed.onRendered(function() {
         receive: function(event,ui) {
             $('#cloned-'+feed+' #'+ ui.item.get(0).id).remove();
             Meteor.call("updatePrivacy", ui.item.get(0).id, "friends", Meteor.userId());
+            Meteor.call("shareThought", ui.item.get(0).id, "friends");
         }
     });
 });
@@ -384,7 +386,6 @@ Template.worldFeed.onRendered(function() {
             $(".cloned-worldFeed .thought").css({"visibility": "visible"});
         },
         stop :function(event, ui) {
-
             $(".worldFeed .thought.exclude-me").each(function() {
                 var item = $(this);
                 if (item.parent().get(0).classList[0] != "worldFeed") {
@@ -451,6 +452,7 @@ Template.worldFeed.onRendered(function() {
         receive: function(event,ui) {
             $('#cloned-'+feed+' #'+ ui.item.get(0).id).remove();
             Meteor.call("updatePrivacy", ui.item.get(0).id, "public", Meteor.userId());
+            Meteor.call("shareThought", ui.item.get(0).id, "public");
         }
     });
 });

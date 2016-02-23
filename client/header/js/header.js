@@ -306,7 +306,11 @@ Template.header.onRendered(function(event) {
         var rand = Math.random();
          if (rand < 0.33){
              Session.set("result",Thoughts.findOne({userId: Meteor.userId()}));
-             Session.set("showRandomReminder", true);
+             if (Session.get("result") != undefined) {
+                 Session.set("showRandomReminder", true);
+             } else {
+                 Session.set("showRandomReminder", false);
+             }
          }
         localStorage.setItem("justLoggedIn", false);
     }

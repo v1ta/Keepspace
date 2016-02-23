@@ -6,11 +6,12 @@
             <img id="homeLogo" src="/images/keepspace_home_button.png">
         </div>
         <br>
-        Beta Invite Control Panel
+        Admin Control Panel
     </h3>
     <ul class="nav nav-tabs" role="tablist">
-        <li role="presentation" class="active"><a href="#open-invitations" role="tab" data-toggle="tab" style="color:black;">Open</a></li>
-        <li role="presentation"><a href="#closed-invitations" role="tab" data-toggle="tab" style="color:black;">Invited</a></li>
+        <li role="presentation" class="active"><a href="#open-invitations" role="tab" data-toggle="tab" style="color:black;">Pending Invites</a></li>
+        <li role="presentation"><a href="#closed-invitations" role="tab" data-toggle="tab" style="color:black;">Sent Invites</a></li>
+        <li role="presentation"><a href="#test-users" role="tab" data-toggle="tab" style="color:black;">Test Users</a></li>
     </ul>
     <div class="tab-content">
         <div class="tab-pane active" id="open-invitations">
@@ -18,6 +19,9 @@
         </div>
         <div class="tab-pane" id="closed-invitations">
             {{>closedInvitations}}
+        </div>
+        <div class="tab-pane" id="test-users">
+            {{>testUsers}}
         </div>
     </div>
 </template>

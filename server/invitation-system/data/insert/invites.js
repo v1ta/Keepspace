@@ -24,6 +24,22 @@ Meteor.methods({
                 }
             });
         }
+    },
+    createTestUsers: function () {
+        Accounts.createUser({
+             username: faker.internet.userName(),
+             email: faker.internet.email(),
+             password: "blacksheep",
+             profile: {
+                dateOfBirth: faker.date.past(),
+                picture: faker.image.avatar(),
+                name: faker.name.findName(),
+                testUser: true
+             }
+         });
+    },
+    deleteTestUser: function(id) {
+        Meteor.users.remove({_id:id});
     }
 });
 

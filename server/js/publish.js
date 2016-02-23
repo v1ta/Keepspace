@@ -16,10 +16,6 @@ Meteor.publish("splashThoughts", function() {
     return SplashThoughts.find({});
 });
 
-Meteor.publish("RandomReminder", function() {
-    return RandomReminder.find()
-})
-
 Meteor.publish("users", function() {
     return Meteor.users.find({});
 });
