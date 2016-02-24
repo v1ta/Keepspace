@@ -15,9 +15,10 @@ Template.home.created = function() {
 };
 
 Template.home.onRendered(function(){
-    Session.setDefault('showFriendFeed', true);
-    Session.setDefault('centerfeed', thoughtsList)
+    //Session.setDefault('showFriendFeed', true);
+    Session.setDefault('centerfeed', thoughtsList);
     Session.set('showFriendFeed', true);
+    Session.setDefault('currentFeed', "worldFeed");
     Session.set("maximized", false);
     $("#newThoughtBox").keypress(function(e) {
         var code = (e.keyCode ? e.keyCode : e.which);
@@ -230,21 +231,23 @@ Template.home.events({
         $('#newThoughtBox').animate({height: '150px'},300);
         $('#time-container').animate({height: '200px'},300);
     },
-    'blur #newThoughtBox .submit-new-thought': function(event, ui) {
+    'focusout #newThoughtBox #submit-new-thought': function(event, ui) {
         $('#newThoughtBox').animate({height: '34px'},300);
         $('#time-container').animate({height: '65px'},300);
     },
     'click .toggleFriendFeed': function() {
-        $('.flipper').removeClass('flipped');
+        $('.flipper').addClass('flipped');
         setTimeout(function() {
-            Session.set('showFriendFeed', true);
+            Session.set('currentFeed', 'friendFeed');
+            Session.set('showFriendFeed', false);
         },200);
 
     },
     'click .toggleWorldFeed': function() {
-        $('.flipper').addClass('flipped');
+        $('.flipper').removeClass('flipped');
         setTimeout(function() {
-            Session.set('showFriendFeed', false);
+            Session.set('currentFeed','worldFeed');
+            Session.set('showFriendFeed', true);
         },200);
 
     }

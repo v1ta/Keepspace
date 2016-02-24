@@ -248,7 +248,7 @@ input.button-add {
     /*content: attr(data-pos);*/
 }
 
-.cloned-friendFeed {
+.cloned-worldFeed {
     position: absolute;
     width: 100%;
     margin: 10px 0;
@@ -264,7 +264,7 @@ input.button-add {
     /*content: attr(data-pos);*/
 }
 
-.cloned-worldFeed {
+.cloned-friendFeed {
     position: absolute;
     height: 100%;
     top: 0;
