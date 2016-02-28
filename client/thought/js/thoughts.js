@@ -134,7 +134,7 @@ Template.thought.hooks({
             });
         var feedName = "";
         var index = 0;
-        if (this.data.userId != Meteor.userId() && feed != "myFeed" || feed == undefined) {
+        if (this.data.userId != Meteor.userId() && (feed != "myFeed" || feed == undefined )) {
             feedName = "myFeed";
             myFeedThoughts += 1;
             index = myFeedThoughts;
