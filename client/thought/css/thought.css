@@ -66,21 +66,29 @@
 
 .text-expanded {
     position: relative;
-    display: block;
+    /*display: block;*/
     color: white;
     /*margin-top: 0px;
     /*margin: 0 auto;
     outline: solid;
     outline-color: white;
     */
+    height: inherit;
     width: calc(100% - 33%);
-    text-align: center;
     /*vertical-align: middle;*/
     /*horiz-align: middle;*/
     line-height: normal;
     overflow-x: auto;
     overflow-y: auto;
     word-wrap: break-word;
+    display: -ms-flexbox;
+    display: -webkit-flex;
+    display: flex;
+    -webkit-flex-flow: row wrap;
+    flex-wrap: nowrap;
+    flex-direction: row;
+    align-items: center;
+    text-align: center;
 }
 
 .author {
@@ -127,9 +135,9 @@ input.button-add {
     background-repeat: no-repeat;
     background-position: 100%;
     background-color: transparent;
-    background-size: 40px auto;
+    background-size: 28px auto;
     height: inherit;
-    width: 40px;
+    width: 28px;
     border: none;
 }
 
@@ -138,9 +146,9 @@ input.button-add {
     background-repeat: no-repeat;
     background-position: 100%;
     background-color: transparent;
-    background-size: 40px auto;
+    background-size: 28px auto;
     height: inherit;
-    width: 40px;
+    width: 28px;
     border: none;
 }
 

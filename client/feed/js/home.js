@@ -15,8 +15,7 @@ Template.home.created = function() {
 };
 
 Template.home.onRendered(function(){
-    //Session.setDefault('showFriendFeed', true);
-    Session.setDefault('centerfeed', thoughtsList);
+    Session.setDefault('newThoughtBox', false);
     Session.set('showFriendFeed', true);
     Session.setDefault('currentFeed', "worldFeed");
     Session.set("maximized", false);
@@ -61,9 +60,9 @@ window.onload = function(event){ // Website has loaded
 
 Template.friendFeed.helpers({
     friendPosts: function() {
-        var start = new Date();
+        var start = getLastWeek();
         var friends = getFriends();
-        start.setHours(0,0,0,0);// Only find posts made after 00:00 of today
+        //start.setHours(0,0,0,0);// Only find posts made after 00:00 of today
         return Thoughts.find({
            $and: [
                {$or: [
@@ -81,8 +80,8 @@ Template.friendFeed.helpers({
 Template.myFeed.helpers({
     thoughts: function () {
         // Only find posts made after 00:00 of today
-        var start = new Date();
-        start.setHours(0,0,0,0);
+        var start = getLastWeek();
+        //start.setHours(0,0,0,0);
         return Thoughts.find({
             $or: [
                 {$and: [
@@ -101,13 +100,13 @@ Template.myFeed.helpers({
 
 Template.worldFeed.helpers({
     worldPosts: function () {
-        var start = new Date(); // Only find posts made after 00:00 of today
-        start.setHours(0,0,0,0);
+        var start = getLastWeek(); // Only find posts made after 00:00 of today
+        //start.setHours(0,0,0,0);
         return Thoughts.find({
             $and: [
                 {createdAt: {$gte:start}},
                 {privacy: 'public'},
-                {collectedBy: {$not: Meteor.userId()}},
+                {collectedBy: {$not: Meteor.userId()}}
             ]},
         {sort: {createdAt: -1}});
     }
@@ -143,13 +142,19 @@ Template.home.helpers({
 
 Template.home.events({
     'click' : function(event) {
-        if (Session.get("maximized")) {
-            //minimize selected bubble
+        if ((event.target.id != 'newThoughtBox' && event.target.id != 'submit-new-thought') &&
+        Session.get('newThoughtBox')) {
+            Session.set('newThoughtBox',false);
+            $('#newThoughtBox').animate({height: '34px'},300);
+            $('#time-container').animate({height: '65px'},300);
         }
     },
     "click #submit-new-thought": function(event) {
         console.log(event);
         event.preventDefault();
+        if (Session.get('newThoughtBox') == true) {
+            Session.set('newThoughtBox',false);
+        }
         // This function is called when the new thought form is submitted
         var text = $("#newThoughtBox").val();
 
@@ -228,10 +233,12 @@ Template.home.events({
         $(event.target).toggleClass("fa-caret-down fa-caret-up");
     },
     'focus #newThoughtBox': function(event) {
+        Session.set('newThoughtBox',true);
         $('#newThoughtBox').animate({height: '150px'},300);
         $('#time-container').animate({height: '200px'},300);
     },
     'focusout #newThoughtBox #submit-new-thought': function(event, ui) {
+        Session.set('newThoughtBox',false);
         $('#newThoughtBox').animate({height: '34px'},300);
         $('#time-container').animate({height: '65px'},300);
     },
@@ -249,7 +256,6 @@ Template.home.events({
             Session.set('currentFeed','worldFeed');
             Session.set('showFriendFeed', true);
         },200);
-
     }
 });
 
@@ -308,14 +314,14 @@ resetAllFeeds = function () {
     delete Session.keys['leftqueue'];
     delete Session.keys['centerqueue'];
     delete Session.keys['rightqueue'];
-}
+};
 
 getFriends = function() {
     var arr = Meteor.friends.find({userId:Meteor.userId()},{friendId: 1, _id:0}).fetch();
     var distinctArr = _.uniq(arr, false, function(d) {
         return d.friendId});
     return _.pluck(distinctArr, 'friendId');
-}
+};
 
 var incrementLimit = function(templateInstance) {
     var newLimit = templateInstance.limit.get() +
@@ -335,7 +341,7 @@ getFriendsAsUsers = function() {
     // console.log(friendsAsUsers);
     // console.log(friendsAsUsers);
     return friendsAsUsers;
-}
+};
 
 getFriendIds = function() {
     var friends = getFriendsAsUsers();
@@ -345,5 +351,12 @@ getFriendIds = function() {
         friendIds.push(friends[i]._id);
     }
     return friendIds;
-}
+};
+
+getLastWeek = function (){
+    var today = new Date();
+    var lastWeek = new Date(today.getFullYear(), today.getMonth(), today.getDate() - 7);
+    return lastWeek ;
+};
+
 
