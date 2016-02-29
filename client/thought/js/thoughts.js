@@ -504,9 +504,7 @@ Template.thought.events({
         var container = $(event.currentTarget.parentNode);
         console.log($(text.get(0)).text().length);
         var radius = Math.min( parseInt(container.css('width')), parseInt(container.css('height')) - 75 );
-        if ($(text.get(0)).text().length <= 425) {
-          radius /= 1.65;
-        } else if ($(text.get(0)).text().length <= 1055) {
+        if ($(text.get(0)).text().length <= 1055) {
           radius /= 1.2;
         } else {
           radius /= 1.15;
