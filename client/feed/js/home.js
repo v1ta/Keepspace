@@ -80,8 +80,8 @@ Template.friendFeed.helpers({
 Template.myFeed.helpers({
     thoughts: function () {
         // Only find posts made after 00:00 of today
-        var start = getLastWeek();
-        //start.setHours(0,0,0,0);
+        var start = new Date();
+        start.setHours(0,0,0,0);
         return Thoughts.find({
             $or: [
                 {$and: [
