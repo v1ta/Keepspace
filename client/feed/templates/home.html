@@ -35,11 +35,7 @@
                 {{/with}}
                 {{#unless showFriendFeed}}
                     <ul id="back" class="friendFeed feed back">
-                        <!--
-                        <i class="fa fa-users feed-user-icon"><div class="badge success">{{currentUser.numRequests}}</div></i>
-                        {{>friendSearch}}
-                        -->
-                        <div style="display: block">
+                        <div style="display: block; z-index: 2;">
                             <a class="waves-effect waves-light btn toggleFriendFeed" style="background-color: #32c0d2;">Friends</a>
                             <a class="waves-effect waves-light btn toggleWorldFeed" style="background-color: #d3d3d3;">World</a>
                         </div>
