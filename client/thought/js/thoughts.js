@@ -119,10 +119,10 @@ Template.thought.hooks({
         if (thought.privacy == 'splash') {
             return;
         } else if (this.firstNode.parentNode.classList[0] == 'alertDiv') {
-            console.log('ahh');
             return;
         }
         var bubble = $('#' + thought._id);
+        console.log($(bubble)[0].style.backgroundColor);
         var item_clone = bubble.clone();
         bubble.data("clone", item_clone);
         var position = bubble.position();
@@ -134,37 +134,42 @@ Template.thought.hooks({
             });
         var feedName = "";
         var index = 0;
-        if (this.data.userId != Meteor.userId() && (feed != "myFeed" || feed == undefined )) {
-            feedName = "myFeed";
-            myFeedThoughts += 1;
-            index = myFeedThoughts;
-        } else if (feed == 'myFeed' && this.data.userId != Meteor.userId()){
-            var currFeed = Session.get('currentFeed');
-            if (currFeed == 'worldFeed') {
+        if ($(bubble)[0].style.backgroundColor == 'rgb(243, 130, 134)') {
+            if (this.data.privacy == "public") {
                 feedName = "worldFeed";
                 worldFeedThoughts += 1;
                 index = worldFeedThoughts;
+            } else if (this.data.privacy == "friends") {
+                feedName = "friendFeed";
+                friendFeedThoughts += 1;
+                index = friendFeedThoughts;
+            } else {
+                feedName = "myFeed";
+                myFeedThoughts += 1;
+                index = myFeedThoughts;
+            }
+        } else if ($(bubble)[0].style.backgroundColor == 'rgb(250, 164, 58)') {
+            if (this.data.collectedBy.indexOf(Meteor.userId()) > -1) {
+                feedName = "myFeed";
+                myFeedThoughts += 1;
+                index = myFeedThoughts;
+            } else {
+                feedName = "worldFeed";
+                worldFeedThoughts += 1;
+                index = worldFeedThoughts;
+            }
+        } else {
+            if (this.data.collectedBy.indexOf(Meteor.userId()) > -1) {
+                feedName = "myFeed";
+                myFeedThoughts += 1;
+                index = myFeedThoughts;
             } else {
                 feedName = "friendFeed";
                 friendFeedThoughts += 1;
                 index = friendFeedThoughts;
             }
-        } else if (this.data.privacy == "private") {
-            feedName = "myFeed";
-            myFeedThoughts += 1;
-            index = myFeedThoughts;
-        } else if (this.data.privacy == "friends") {
-            feedName = "friendFeed";
-            friendFeedThoughts += 1;
-            index = friendFeedThoughts;
-        } else if (this.data.privacy == "public") {
-            feedName = "worldFeed";
-            worldFeedThoughts += 1;
-            index = worldFeedThoughts;
         }
         item_clone.attr("data-pos",index);
-        console.log("cloning: ");
-        console.log($("#cloned-"+feedName));
         $("#cloned-"+feedName).append(item_clone);
     }
 });
@@ -501,7 +506,7 @@ Template.thought.events({
         var radius = Math.min( parseInt(container.css('width')), parseInt(container.css('height')) - 75 );
 
         if ($(text.get(0)).text().length <= 175) {
-          radius /= 1.85;
+          radius /= 1.75;
         } else if ($(text.get(0)).text().length <= 425) {
           radius /= 1.7;
         } else if ($(text.get(0)).text().length <= 1055) {

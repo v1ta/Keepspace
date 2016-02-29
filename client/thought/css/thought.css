@@ -135,9 +135,9 @@ input.button-add {
     background-repeat: no-repeat;
     background-position: 100%;
     background-color: transparent;
-    background-size: 28px auto;
+    background-size: 25px auto;
     height: inherit;
-    width: 28px;
+    width: 25px;
     border: none;
 }
 
@@ -146,9 +146,9 @@ input.button-add {
     background-repeat: no-repeat;
     background-position: 100%;
     background-color: transparent;
-    background-size: 28px auto;
+    background-size: 25px auto;
     height: inherit;
-    width: 28px;
+    width: 25px;
     border: none;
 }
 

@@ -92,7 +92,7 @@ Template.myFeed.helpers({
                 {$and :[
                     {collectedBy: Meteor.userId()},
                     {createdAt: {$gte: start}}
-                ]},
+                ]}
             ]},
         {sort: {createdAt: -1}});
     }
