@@ -1,4 +1,4 @@
-![Keepspace](http://i.imgur.com/sYK8xa8.png)
+![Keepspace](http://thekeepspace.com/images/keepspace_home_button.png)
 
 
 ##Meteor Packages
