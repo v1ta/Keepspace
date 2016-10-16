@@ -1,0 +1,74 @@
+
+<head>
+    <title>Keepspace</title>
+    <link rel="icon" sizes="16x16 32x32" href="/favicon.ico?v=2">
+    <link href="https://file.myfontastic.com/x9DXbAggrCrEQkfquYdzZC/icons.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet">
+    <link href="https://file.myfontastic.com/FahEt6jS4UXHxkgmxPkWDB/icons.css" rel="stylesheet">
+
+    <!-- <link href="https://file.myfontastic.com/JWxdhAYmmVVBH68mEos3rC/icons.css" rel="stylesheet"> -->
+</head>
+
+<body>
+</body>
+
+<template name="home">
+    {{> sAlert}}
+    <div id="main-feed" class="container-fluid full-height unselectable">
+        <div class="row feed-wrapper" style="z-index: -1;">
+            <div class="flip-container col-xs-6">
+                <div class="flipper" id="flipper">
+                {{#with showFriendFeed}}
+                    <ul id="front" class="worldFeed feed front">
+                        <div style="display: block; z-index: 2;">
+                            <a class="waves-effect waves-light btn toggleFriendFeed" style="background-color: #d3d3d3;">Friends</a>
+                            <a class="waves-effect waves-light btn toggleWorldFeed" style="background-color: #32c0d2;">World</a>
+                        </div>
+                        <div class="feed-name unselectable">World</div>
+                        {{> worldFeed}}
+                    </ul>
+                    <ul id="cloned-worldFeed" class="cloned-worldFeed">
+                    </ul>
+                    <!-- <ul id="cloned-friendFeed" class="cloned-friendFeed col-xs-6">
+                    </ul> -->
+                {{/with}}
+                {{#unless showFriendFeed}}
+                    <ul id="back" class="friendFeed feed back">
+                        <div style="display: block; z-index: 2;">
+                            <a class="waves-effect waves-light btn toggleFriendFeed" style="background-color: #32c0d2;">Friends</a>
+                            <a class="waves-effect waves-light btn toggleWorldFeed" style="background-color: #d3d3d3;">World</a>
+                        </div>
+                        <!-- <button class="btn toggleWorldFeed">World</button> -->
+                        <div class="feed-name unselectable">Friends</div>
+                        {{> friendFeed}}
+                        <ul id="cloned-friendFeed" class="cloned-friendFeed">
+                        </ul>
+                    </ul>
+            {{/unless}}
+            </div>
+            </div>
+            <!-- <div id="myFeed" class="feed col-xs-6 unselectable"> -->
+                <ul class="myFeed feed col-xs-6">
+                <div id="tempForm">
+                    <form class="new-thought form-horizontal" autocomplete="off">
+                        <div class="form-group">
+                            <div id="time-container" class="col-xs-4">
+                                <p id="time">...</p>
+                            </div>
+                            <div class="col-xs-8">
+                                <textarea id="newThoughtBox" class="form-control" name="text" rows="1" placeholder="How will you remember today?"></textarea>
+                                <a id="submit-new-thought" class="btn-floating waves-light waves-effect">Keep</a>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="feed-name unselectable">{{username}}</div>
+                <div id="expandedThoughtContent"></div>
+                {{> myFeed}}
+            </ul>
+            <ul id="cloned-myFeed" class="cloned-myFeed">
+            </ul>
+            </div>
+    </div>
+</template>

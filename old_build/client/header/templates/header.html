@@ -1,0 +1,96 @@
+<template name="header">
+    <div id="header" class="container-fluid">
+        <div class="row" style="margin-bottom: 5px">
+            <div class="left col-xs-4 unselectable">
+                <div id="logo">
+                    <img class="unselectable" id="homeLogo" src="/images/keepspace_home_button.png">
+                </div>
+            </div>
+
+            <div class="mid col-xs-4 unselectable">
+                <div id="dayLabel">DAY</div>
+                <div id="homeButton" class="header-circle">
+                    <span id="dayNum">0</span>
+                </div>
+                <div id="date">00/00/00</div>
+            </div>
+
+            <div class="right col-xs-4">
+                <div class="icon-moreiconnavbar headerIcon"></div>
+                <div class="icon-bellnavbar headerIcon"></div>
+                {{#with numNotifications}}
+                  {{#if ready}}
+                        {{#if gotOne data}}
+                            <p id="headNumNotifications" class="headNotifications">{{data}}</p>
+                        {{/if}}
+                  {{else}}
+                        <!-- <p id="headNumNotifications">{{data}}</p> -->
+                  {{/if}}
+                {{/with}}
+                
+                <div class="icon-friendsiconnavbar headerIcon"></div>
+                {{#with numRequests}}
+                  {{#if ready}}
+                        {{#if gotOne data}}
+                            <p id="headNumRequests" class="headNotifications">{{data}}</p>
+                        {{/if}}
+                  {{else}}
+                        <!-- <p id="headNumNotifications">{{data}}</p> -->
+                  {{/if}}
+                {{/with}}
+                <img class="unselectable grayLine" src="/images/greyBox.png" />
+                <span class="username vertical-center unselectable">{{username}}</span>
+                <img id="profile-picture" class="header-circle unselectable" alt="{{username}}" src="{{picture}}" />
+            </div>
+
+            <div id="main-menu">
+                    <ul>
+                        <li class="menu-item" id="changePasswordButton">Change Password</li>
+                        <li class="menu-item dropdownAbout">About</li>
+                        <li class="menu-item dropdownTeam">Team</li>
+                        <li class="menu-item">Help</li>
+                        <li class="menu-item logout">Log Out</li>
+                    </ul>
+                </div>
+
+            <!-- <div class="left col-xs-4 unselectable">
+                <div id="logo">
+                    <img class="unselectable" id="homeLogo" src="/images/keepspace_home_button.png">
+                    <div class="unselectable" id="dropdownDiv">
+                        <i class="menu-dropdown fa fa-caret-down fa-lg"></i>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mid col-xs-4 unselectable">
+                <div id="homeButton" class="header-circle">
+                    DAY <span id="dayNum">0</span>
+                </div>
+                <div id="date">00/00/00</div>
+            </div>
+
+            <div class="right col-xs-4">
+                <img id="profile-picture" class="header-circle unselectable" alt="{{username}}" src="{{picture}}" />
+                <p class="tempClick">Temp</p>
+                <span class="username vertical-center unselectable">{{username}}</span>
+            </div> -->
+        </div>
+    </div>
+
+    {{#with showRandomReminder}}
+        <div class="alertDiv" id="mainAlert">
+            {{> thought randomReminder}}
+        </div>
+    {{/with}}
+    {{#with showChangePassword}}
+        {{> changePass}}
+    {{/with}}
+    {{#with showProfile}}
+        {{> profile}}
+    {{/with}}
+    <!-- {{#with showFriendPage}}
+        {{> friendRequestPage}}
+    {{/with}} -->
+
+    {{>yield}}
+</template>

@@ -1,0 +1,265 @@
+@import url(http://weloveiconfonts.com/api/?family=fontawesome);
+#calendarFeed{
+  text-align:center;
+  display:inline-block;
+  position:absolute;
+  right:0%;
+  width:65%;
+  height:100%;
+  background:white;
+}
+#calFeedHead{
+  text-align:center;
+  width:100%;
+  line-height:100%;
+  z-index:0;
+  font-size:100px;
+  top: -webkit-calc(50% - 130px);
+  top: -moz-calc(50% - 130px);
+  top: calc(50% - 130px);
+}
+#calFeed{
+  width:100%;
+  height:100vh;
+  background:white;
+}
+#dayHead{
+  border-bottom:0px;
+}
+#calendarHeader{
+  width:100%;
+  margin:0px;
+}
+
+*[class*="fontawesome-"]:before {
+  font-family: 'FontAwesome', sans-serif;
+}
+
+/* ---------- GENERAL ---------- */
+
+#calendarContainer{
+  position:absolute;
+  width:35%;
+  top:95px;
+}
+
+html, body {
+  background: #f9f9f9;
+  color: #0e171c;
+  /*font: 300 100%/1.5em 'Lato', sans-serif;*/
+  margin: 0;
+  height:100%;
+}
+
+a {
+  text-decoration: none;
+}
+
+h2 {
+  font-size: 2em;
+  line-height: 1.25em;
+  margin: .25em 0;
+}
+
+h3 {
+  font-size: 1.5em;
+  line-height: 1em;
+  margin: .33em 0;
+}
+
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+  width:100%;
+  height:100%;
+}
+
+.calContainerClass {
+  left: 0%;
+  position: absolute;
+  width: 510px;
+  background:#F5F6F7;
+}
+
+/* ---------- CALENDAR ---------- */
+
+.calendar {
+  text-align: center;
+  width:100%;
+  min-width:300px;
+}
+
+.calendar header {
+  position: relative;
+}
+
+.calendar h2 {
+  text-transform: uppercase;
+}
+
+.calendar thead {
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+.calendar tbody {
+  color: #7c8a95;
+}
+
+.calendar td.datepicker-td:hover {
+  border: 2px solid green;
+  /*margin-top:3px;*/
+}
+.calendar td.datepicker-td:hover a{
+  position:relative;
+  top:-2px;
+}
+.datepicker-td{
+  cursor:pointer;
+}
+
+.calendar td {
+  border-radius: 50%;
+  display: inline-block;
+  height: 2em;
+  line-height: 2em;
+  text-align: center;
+  width: 2em;
+  background: #32C0D2;
+  color: #f9f9f9;
+  margin:5px;
+  margin-right:5px;
+}
+.calendar td a{
+  color: #f9f9f9;
+}
+.calendar td.selectedDate{
+  border: 2px solid red;
+}
+.selectedDate a{
+  position:relative;
+  top: -2px;
+}
+.calendar td.dayTitle{
+  background: transparent;
+  color: red;
+  cursor:default;
+}
+.calendar td.empty{
+  background:none;
+}
+.calendar .prev-month,
+.calendar .next-month {
+  color: #cbd1d2;
+}
+
+.calendar .prev-month:hover,
+.calendar .next-month:hover {
+  border: 2px solid #cbd1d2;
+}
+
+.current-day {
+  background: #00addf;
+  color: #f9f9f9;
+}
+
+.event {
+  cursor: pointer;
+  position: relative;
+}
+
+.event:after {
+  background: #00addf;
+  border-radius: 50%;
+  bottom: .5em;
+  display: block;
+  content: '';
+  height: .5em;
+  left: 50%;
+  margin: -.25em 0 0 -.25em;
+  position: absolute;
+  width: .5em;
+}
+
+.event.current-day:after {
+  background: #f9f9f9;
+}
+
+.btn-prev,
+.btn-next {
+  border: 2px solid #cbd1d2;
+  border-radius: 50%;
+  color: #cbd1d2;
+  height: 2em;
+  font-size: .75em;
+  line-height: 2em;
+  width: 2em;
+  margin:0px;
+}
+
+.yearChanger{
+  top: 5%;
+}
+
+.btn-prev:hover,
+.btn-next:hover {
+  background: #cbd1d2;
+  color: #f9f9f9;
+}
+
+.btn-prev {
+  /*left: 6em;*/
+  display:inline-block;
+  margin-right:30px;
+}
+
+.btn-next {
+  /*right: 6em;*/
+  display:inline-block;
+  margin-left:30px;
+}
+
+.btn-prev.yearChanger{
+  margin-right:15px;
+}
+.btn-next.yearChanger{
+  margin-left:15px;
+}
+
+#monthTitle{
+  /*top:0%;*/
+  width:100px;
+  display:inline-block;
+  font-size:20px;
+  cursor:default;
+}
+#yearTitle{
+  display:inline-block;
+  font-size:14px;
+  cursor:default;
+}
+
+#monthDetails{
+  margin-top:20px;
+}
+#yearDetails{
+  margin-top:10px;
+  margin-bottom:20px;
+}
+.calendarHeaderSelectors{
+  text-align:center;
+  width:100%;
+}
+#noPostText{
+  cursor:default;
+}
+
+a.monthButton:focus {
+  outline: none !important; 
+  outline-offset: 0px !important; 
+  text-decoration:initial !important;
+  color:#cbd1d2 !important;
+}
+.datepicker-td a:focus{
+  text-decoration:initial !important;
+}

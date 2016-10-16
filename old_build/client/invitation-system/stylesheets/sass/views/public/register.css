@@ -1,0 +1,44 @@
+#application-signup{
+	margin-bottom:30px;
+}
+#registerId{
+    margin-top: 30px;
+    font-size: 2em;
+    margin-bottom: -10px;
+}
+#application-signup input:focus ~ label, input:valid ~ label 		{
+  margin-top:0px;
+  top: 3px !important;
+  font-size:14px;
+  color:#5264AE !important;
+}
+
+.registerInput{
+	width: 90% !important;
+    margin-left: 5% !important;
+    background: transparent !important;
+    margin-bottom: 10px !important;
+}
+.registerLabel{
+	position: absolute !important;
+  color: gray !important;
+  left: 20px !important;
+  top: 15px !important;
+}
+.registerBar{
+    width: 90% !important;
+    margin-left: 5% !important;
+    bottom: 9px !important;
+}
+
+#registerButton{
+	margin-top:25px;
+}
+
+.test-user-button {
+
+}
+
+.test-user-container {
+    padding: 10px;
+}

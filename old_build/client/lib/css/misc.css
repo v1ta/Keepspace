@@ -1,0 +1,64 @@
+@font-face {font-family: Roboto; src: url('/fonts/roboto/Roboto-Medium.ttf') format('truetype');}
+@font-face {font-family: Roboto-Italic; src: url('/fonts/roboto/Roboto-MediumItalic.ttf') format('truetype');}
+@font-face {font-family: Gotham; src: url('/fonts/GothamHTF-Medium.otf');}
+@font-face {font-family: Gotham-Book; src: url('/fonts/GothamHTF-Book.ttf');}
+
+
+body, html {
+  height: 100%;
+  /* TODO: band-aid for header */
+  font-family: Roboto;
+  min-width: 1200px;
+}
+
+.hidden{
+    display:none;
+}
+
+.unhidden{
+    display:block;
+}
+ul
+{
+  list-style-type: none;
+  padding:0; 
+  margin:0;
+}
+.selected{
+  width:90%;
+}
+
+.fa-facebook{
+  display:none;
+}
+
+*.unselectable {
+   -moz-user-select: -moz-none;
+   -khtml-user-select: none;
+   -webkit-user-select: none;
+
+   /*
+     Introduced in IE 10.
+     See http://ie.microsoft.com/testdrive/HTML5/msUserSelect/
+   */
+   -ms-user-select: none;
+   user-select: none;
+}
+
+input.button-add {
+    background-image: url(/images/add_user.png);
+    background-color: transparent;
+    background-repeat: no-repeat;
+    background-position: 0px 0px;
+    background-position: right 20px top;
+    border: none;
+    cursor: pointer;
+    height: 22px;
+    color: transparent;
+    padding-left: 22px;
+    vertical-align: middle;
+}
+#fullFeed-canvas {
+    position: absolute;
+    z-index: 1;
+}

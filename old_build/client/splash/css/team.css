@@ -1,0 +1,109 @@
+.parallax-window {
+    background: transparent;
+    text-align:center;
+    /*margin-bottom:200px;*/
+    height:229px;
+}
+.parallax-mirror{
+	visibility:visible !important;
+}
+.aboutSlide{
+	width:100%;
+	padding-top:50px;
+	/*height:150px;*/
+	/*height:100%;*/
+	/*min-height:250px;*/
+	text-align:center;
+	/*background:#F0F7FF;*/
+	background-image: url("images/keepspace_seamlessbg.png");
+	background-repeat: repeat-x-y;
+	/*background:none;*/
+	/*background:none;*/
+	padding-bottom:50px;
+}
+.aboutTitle{
+	font-size:40px;
+	font-weight:bold;
+	margin-bottom:50px;
+}
+.aboutSlideText{
+	padding-left:15%;
+	padding-right:15%;
+	margin:0px;
+	vertical-align: middle;
+	font-size:20px;
+	line-height:32px;
+	margin-bottom:20px;
+}
+#aboutBackground{
+	z-index:-1;
+	position:absolute;
+	background-image: url("images/keepspace_seamlessbg.png");
+	background-repeat: repeat-x-y;
+	height:824px;
+	width:100%;
+	margin-top:-50px;
+	padding-bottom:50px;
+}
+
+.teamPageSlide{
+	background:white;
+	height:400px;
+}
+.headShot{
+	display:inline-block;
+	width: 275px;
+	vertical-align: initial;
+	position:relative;
+	top: 62px;
+}
+.bioDiv{
+	display:inline-block;
+	text-align:left;
+	margin-left:60px;
+	position:relative;
+	top:25px;
+}
+.nameP{
+	margin:0px;
+	font-weight: bold;
+	font-size: 18px;
+}
+.schoolP{
+	color: #bababa;
+	font-weight: bold;
+}
+.bioP{
+	width: 425px;
+	margin: 0px;
+	color:black;
+	/* roboto regular */
+}
+.left.carouselButton{
+	position:absolute;
+	left:0px;
+	top:50%;
+	margin-top:-59px;
+}
+.right.carouselButton{
+	position:absolute;
+	right:0px;
+	top:50%;
+	margin-top:-59px;
+}
+#teamCarousel{
+	display:inline-block;
+	width:100%;
+	height:400px;
+	margin-top:30px;
+}
+#teamHeader{
+	font-size:40px;
+	color:black;
+}
+.carousel-inner .item{
+	width:100%;
+}
+.carousel-inner .active{
+	width:100%;
+}
