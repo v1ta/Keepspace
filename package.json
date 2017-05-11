@@ -1,0 +1,30 @@
+{
+  "name": "keepspace",
+  "version": "1.0.0",
+  "description": "social media",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/v1ta/Keepspace.git"
+  },
+  "author": "joseph devita",
+  "license": "Apache-2.0",
+  "bugs": {
+    "url": "https://github.com/v1ta/Keepspace/issues"
+  },
+  "homepage": "https://github.com/v1ta/Keepspace#readme",
+  "devDependencies": {
+    "babel-core": "^6.24.1",
+    "babel-loader": "^7.0.0",
+    "babel-preset-es2015": "^6.24.1",
+    "babel-preset-react": "^6.24.1",
+    "react": "^15.5.4",
+    "react-dom": "^15.5.4",
+    "react-redux": "^5.0.4",
+    "redux": "^3.6.0",
+    "webpack": "^2.5.1"
+  }
+}
