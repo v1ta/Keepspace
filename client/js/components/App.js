@@ -1,14 +1,14 @@
 import React, {Component} from 'react';
-import TopBar from './TopBar';
+import Header from './Header';
 import Feed from './Feed';
 
 export default class App extends Component {
     render() {
         return (
             <div>
-                <TopBar/>
-                <Feed/>
-                <Feed/>
+                <Header/>
+                <Feed feedName="World"/>
+                <Feed feedName="User"/>
             </div>
         );
     }
