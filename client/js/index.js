@@ -4,10 +4,15 @@ import {createStore} from 'redux';
 import {Provider} from 'react-redux';
 import allReducers from './reducers/allReducers';
 import App from './components/App';
+import Splash from './components/Splash';
+
+const loggedIn = false;
+
+let page = loggedIn ? (<App/>) : (<Splash/>);
 
 ReactDOM.render(
     <Provider store={createStore(allReducers)}>
-        <App/>
+        {page}
     </Provider>,
     document.getElementById('main')
 );
