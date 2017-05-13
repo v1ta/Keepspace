@@ -1,4 +1,5 @@
-import React, {Component, PropTypes} from 'react';
+import React, {Component} from 'react';
+import PropTypes from 'prop-types';
 import { feed, feedName } from '../styles/feed.scss';
 
 export default class Feed extends Component {
