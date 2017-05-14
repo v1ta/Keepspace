@@ -6,5 +6,12 @@ npm-debug.log
 .sass-cache/
 *.css.map
 
-#build
+# build
 client/build
+
+# Virtualenv
+.Python
+bin
+lib
+include
+*.py[cod]
