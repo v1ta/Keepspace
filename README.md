@@ -1,7 +1,7 @@
-![Keepspace](http://thekeepspace.com/images/keepspace_home_button.png)
+# Keepspace
 
 
-##Meteor Packages
+## Meteor Packages
 | Package                         | Version | Description |
 |---------------------------------|:-------:|:----------------------------------------------------------------------------------------------|
 |accounts-facebook                |1.0.4    |Login service for Facebook accounts|
