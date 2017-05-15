@@ -48,7 +48,7 @@
 |underscore                       |1.0.3    |Collection of small helpers: _.map, _.each, ... |
 
 
-##Configuring facebook for localhost:
+## Configuring facebook for localhost:
 ```
 add {{>loginButtons}} in splash .html 
 hit sign in
@@ -56,15 +56,15 @@ hit configure facebook
 put in the appid and secret 
 ```
 
-##Deploying w/Meteor up a.k.a mup:
+## Deploying w/Meteor up a.k.a mup:
 
-###First time setup: 
+### First time setup: 
 ```
 $ mup setup
 $ mup deploy
 ```
 
-###Update from Repository
+### Update from Repository
 ```
 $ git pull 
 $ mup stop
