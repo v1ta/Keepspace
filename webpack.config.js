@@ -5,8 +5,8 @@ var webpack = require('webpack');
 var HtmlWebpackPlugin = require('html-webpack-plugin');
 
 var PATHS = {
-    app: path.join(__dirname, 'client/js'),
-    build: path.join(__dirname, 'client/build')
+    app: path.join(__dirname, 'keepspace/static/js'),
+    build: path.join(__dirname, 'keepspace/static/build')
 };
 
 module.exports = {
@@ -19,14 +19,14 @@ module.exports = {
     ],
     output: {
         path: PATHS.build,
-        publicPath: '/',
+        publicPath: '/keepspace/templates',
         filename: 'bundle.js'
     },
     plugins: [
         new HtmlWebpackPlugin({
-          template: 'index.html',
+          template: 'keepspace/static/build/index.html',
           inject: 'body',
-          filename: 'index.html'
+          filename: 'keepspace/static/build/index.html'
         }),
         new webpack.optimize.OccurenceOrderPlugin(),
         new webpack.HotModuleReplacementPlugin(),

@@ -7,8 +7,8 @@ var ExtractTextPlugin = require('extract-text-webpack-plugin');
 var StatsPlugin = require('stats-webpack-plugin');
 
 var PATHS = {
-    app: path.join(__dirname, 'client/js'),
-    build: path.join(__dirname, 'client/build')
+    app: path.join(__dirname, 'keepspace/static/js'),
+    build: path.join(__dirname, 'keepspace/static/build')
 };
 
 module.exports = {
@@ -30,7 +30,7 @@ module.exports = {
         // change name because the hash part changes. We want hash name changes to bust cache
         // on client browsers.
         new HtmlWebpackPlugin({
-            template: 'index.html',
+            template: 'keepspace/templates/index.html',
             inject: 'body',
             filename: 'index.html'
         }),

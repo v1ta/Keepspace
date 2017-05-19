@@ -7,7 +7,7 @@ npm-debug.log
 *.css.map
 
 # build
-client/build
+keepspace/static/build
 
 # Virtualenv
 .Python
