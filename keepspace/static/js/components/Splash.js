@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import logo from '!!file!../assets/keepspaceLogoWhiteText.png';
+import logo from '../assets/keepspaceLogoWhiteText.png';
 import {login, header} from '../styles/splash.scss';
 
 export default class Splash extends Component {

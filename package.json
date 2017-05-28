@@ -5,8 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "",
-    "start": "node server --content-base keepspace/static/build/index.html",
-    "build": "rimraf dist && webpack --config ./webpack.production.config.js --progress --profile --colors",
+    "start": "node server --content-base keepspace/static/build/",
     "eslint": "eslint ."
   },
   "repository": {
@@ -59,6 +58,7 @@
     "style-loader": "^0.13.1",
     "url-loader": "^0.5.7",
     "webpack": "^1.13.0",
+    "webpack-bundle-tracker": "^0.2.0",
     "webpack-dev-server": "^1.14.1"
   }
 }
