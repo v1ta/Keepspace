@@ -15,3 +15,6 @@ bin
 lib
 include
 *.py[cod]
+
+# webpack
+webpack-stats.json
